@@ -1,0 +1,583 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  
+  
+  
+  
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>SCORM Extensions to IMS Specs</title>
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  <meta content="Joseph Scheuhammer" name="author">
+</head>
+<body>
+<h1 style="text-align: center;">
+	SCORM Extensions to IMS<br><span style="font-size: medium;">27 Jan 2004</span></h1>
+
+
+<h2><a name="Introduction"></a>Introduction</h2>
+
+
+<p>The following lists SCORM extensions to the content packaging,
+metadata, and simple sequencing IMS specifications.&nbsp; In addition,
+it also provides brief notes on the "adlnav" schema.<br>
+</p>
+
+
+<p>There is a list of extensions for each IMS spec.&nbsp; The structure
+of the list is to first note where in the IMS spec an element or
+attribute has been added by SCORM.&nbsp; The path to the IMS element is
+given using quasi-XPath notation.<br>
+</p>
+
+
+<p>Then, the new element/attribute is using a <code>namspace:name</code>
+notation.&nbsp; Following that is a brief set of notes that describes what the extension is an how it is intended to be used.<br>
+</p>
+
+
+<p>In some cases, I have explicitly noted that there is no extension at
+a certain point in the IMS schema by listing the extension as
+"none".&nbsp; This is avoid the implicit question, "well, aren't there
+any extensions here?".<br>
+</p>
+
+
+<p>Here are links to the major parts of the document:<br>
+</p>
+
+
+<ul>
+
+
+  <li><a href="#Content_Packaging">Content Packaging</a></li>
+  <ul>
+    <li><a href="#Types_of_CP">Types of Content Packages</a><br>
+    </li>
+  </ul>
+  <li><a href="#Metadata">Metadata</a></li>
+  <li><a href="#Simple_Sequencing">Simple Sequencing</a></li>
+  <li><a href="#ADL_Nav_Schema">ADL Nav Schema</a><br>
+  </li>
+</ul>
+
+
+
+
+
+
+
+<h2><a name="Content_Packaging"></a>Content Packaging</h2>
+
+
+
+
+
+
+<p>The following lists the extensions to content packaging. <br>
+</p>
+<ul>
+
+
+
+
+
+
+  <li style="font-style: italic;">manifest</li>
+  <ul>
+    <li>none.</li>
+  </ul>
+  <li style="font-style: italic;">manifest/metadata</li>
+  <ul>
+    <li style="font-style: italic;">adlcp:location</li>
+    <ul>
+      <li>element.</li>
+      <li>optional; at most one.</li>
+      <li>no attributes.<br>
+      </li>
+    </ul>
+
+    <ul>
+      <li>content specifies an external file for the metadata.</li>
+    </ul>
+  </ul>
+  <li style="font-style: italic;">manifest/organizations</li>
+  <ul>
+    <li>none.</li>
+  </ul>
+  <li style="font-style: italic;">manifest/organizations/organization</li>
+  <ul>
+    <li style="font-style: italic;">adlcp:objectivesGlobalToSystem</li>
+    <ul>
+      <li>attribute of <span style="font-style: italic;">organization</span> element.<br>
+      </li>
+      <li>optional; at most one.<br>
+      </li>
+    </ul>
+
+    <ul>
+      <li>defaults to "true".</li>
+      <li>indicates that any SS global shared objective is either
+global to the learner and content package (false), or global for the
+lifetime of the learner within the LMS across all content packages
+(true).</li>
+    </ul>
+  </ul>
+  <li style="font-style: italic;">manifest/organizations/organization/item</li>
+  <ul>
+    <li style="font-style: italic;">adlcp:timeLimitAction</li>
+    <ul>
+      <li>element</li>
+      <li>optional; at most 1.</li>
+      <li>no attributes.<br>
+      </li>
+    </ul>
+
+    <ul>
+      <li>action to take when the max time allowed on the current attempt is exceeded.</li>
+      <li>can only be a child of a leaf <span style="font-style: italic;">item</span>.</li>
+      <li>the <span style="font-style: italic;">item</span> must ultimately reference a SCO (not a SCA).</li>
+      <li>the SCO has the time limit information.</li><li>this defines what to do if the SCO's time limit is exceeded, and is limited to "nothing", if the <span style="font-style: italic;">timeLimitAction</span> element is absent, "exit", or "continue".&nbsp; Exit and continue can optionally provide user feedback.<br>
+      </li>
+
+      <li>possible content: <br>
+</li>
+      <ul>
+        <li style="font-style: italic;">exit,message</li>
+        <li style="font-style: italic;">exit,no-message</li>
+        <li style="font-style: italic;">continue,message</li>
+        <li><span style="font-style: italic;">continue,no-message</span>.<br>
+      </li>
+      </ul>
+
+    </ul>
+    <li><span style="font-style: italic;">adlcp:dataFromLMS</span><br>
+</li>
+    <ul>
+      <li>element</li>
+      <li>optional, at most 1.</li>
+      <li>no attributes.<br>
+      </li>
+    </ul>
+
+    <ul>
+      <li>allows sending <span style="font-style: italic;">item</span> initialization data to referenced <span style="font-style: italic;">resource</span> (ultimately, the SCO) via the LMS.</li><li>content is a string -- this is the initialization data to send.<br>
+      </li>
+
+    </ul>
+    <li><span style="font-style: italic;">adlcp:persistState</span></li>
+    <ul>
+      <li>element of <span style="font-style: italic;">item</span><br>
+      </li>
+      <li>optional; at most one.</li>
+    </ul>
+
+    <ul>
+      <li>content is "true" or "false".</li>
+      <li>a directive to find and use any stored state information about this <span style="font-style: italic;">item</span> from the RTE.<br>
+      </li>
+    </ul>
+    <li><span style="font-style: italic;">adlnav:presentation</span></li>
+    <ul>
+      <li>element</li>
+      <li>optional; at most one.</li>
+      <li>no attributes.<br>
+      </li>
+    </ul>
+
+    <ul>
+      <li>container for presentation info.<br>
+</li><li>content limited to <span style="font-style: italic;">adlnav:navigationInterface</span><br>
+</li>
+      <ul>
+        <li>element</li>
+        <li>optional; at most one.</li>
+        <li>no attributes.<br>
+        </li>
+      </ul>
+
+      <ul>
+        <li>container for navigation interface modifications.</li>
+        <li>content limited to <span style="font-style: italic;">adlnav:hideLMSUI</span></li>
+        <ul>
+          <li>element</li>
+          <li>optional; any number can be added.</li>
+        </ul>
+
+        <ul>
+          <li>purpose to hide various UI widgets and thereby restrict navigation.</li><li>content is one of (use multiple <span style="font-style: italic;">adlnav:hideLMSUI</span> elements to specify more than one of these.<br>
+          </li>
+
+          
+          <ul>
+            <li><span style="font-style: italic;">previous</span> - hide "previous button".<br>
+          </li>
+          </ul>
+
+          
+          <ul>
+            <li><span style="font-style: italic;">continue</span> - hide "next button".</li>
+          </ul>
+
+          
+          <ul>
+            <li><span style="font-style: italic;">exit</span> - hide "exit button".</li>
+          </ul>
+
+          
+          <ul>
+            <li><span style="font-style: italic;">abandon</span> - hide "abandon button" ("quit button"?).</li>
+          </ul>
+          <li>These hide directives are valid only when a child activity is the current activity.</li>
+
+        </ul>
+      </ul>
+
+    </ul>
+  </ul>
+  <li style="font-style: italic;">manifest/organizations/organization/item/metadata</li>
+  <ul><li style="font-style: italic;">adlcp:location</li>
+    <ul>
+<li>element.</li><li>optional; at most one.</li><li>no attributes.<br>
+    </li>
+    </ul>
+    <ul>
+<li>content specifies an external file for the metadata.</li>
+    </ul>
+</ul>
+  <li style="font-style: italic;">manifest/resources</li>
+  <ul>
+    <li>none</li>
+  </ul>
+  <li style="font-style: italic;">manifest/resources/resource</li>
+  <ul>
+    <li><span style="font-style: italic;">adlcp:scormType</span> <br>
+</li>
+    <ul>
+      <li>attribute.</li>
+      <li>mandatory.<br>
+    </li>
+    </ul>
+
+    <ul>
+      <li>whether the resource references a SCO or a SCA.</li><li>values: <span style="font-style: italic;">sco</span> or <span style="font-style: italic;">asset</span>.<br>
+      </li>
+
+    </ul>
+  </ul>
+  <li style="font-style: italic;">manifest/resources/resource/metadata</li>
+  <ul><li style="font-style: italic;">adlcp:location</li>
+    <ul>
+<li>element.</li><li>optional; at most one.</li><li>no attributes.<br>
+    </li>
+    </ul>
+    <ul>
+<li>content specifies an external file for the metadata.</li>
+    </ul>
+</ul>
+  <li style="font-style: italic;">manifest/resources/resource/file</li>
+  <ul>
+    <li>none</li>
+  </ul>
+  <li style="font-style: italic;">manifest/resources/resource/file/metadata</li>
+  <ul><li style="font-style: italic;">adlcp:location</li>
+    <ul>
+<li>element.</li><li>optional; at most one.</li><li>no attributes.<br>
+    </li>
+    </ul>
+    <ul>
+<li>content specifies an external file for the metadata.</li>
+    </ul>
+</ul>
+  <li style="font-style: italic;">manifest/resources/resource/dependency</li>
+  <ul>
+    <li>none</li>
+  </ul>
+</ul>
+
+
+
+
+
+
+<h3><a name="Types_of_CP"></a>Types of CP</h3>
+
+
+
+
+
+
+<p>In addition to the new elements/attributes, ADL defines two kinds of
+CP, namely, a "resource" package, and a "content aggregation" package.<br>
+</p>
+
+
+
+
+
+
+<ul>
+
+
+
+
+
+
+  <li>Resource package</li>
+  <ul>
+    <li>must have an <span style="font-style: italic;">organizations</span> element, but nothing within it.</li>
+  </ul>
+  <ul>
+    <li>has a "normal" <span style="font-style: italic;">resources</span> section.</li>
+    <li>must <em>not</em> contain an <span style="font-style: italic;">imsss:sequencingCollection</span> element.</li>
+    <li>purpose is to unify a set of learning objects (SCO's and/or
+SCA's) by putting them into a single object.&nbsp; That is, a way of
+defining an aggregate learning object, without defining an ordering of
+its pieces.<br>
+    </li>
+  </ul>
+  <li>Content Aggregation package.</li>
+  <ul>
+    <li>"normal" CP.</li>
+    <li>has an optional <span style="font-style: italic;">imsss:sequencingCollection</span> element.</li>
+  </ul>
+</ul>
+
+
+<p><a href="#Introduction">back to top</a>
+</p>
+
+
+
+
+
+
+
+<h2><a name="Metadata"></a>Metadata</h2>
+
+
+
+
+
+
+<p>There are no extensions in terms of elements or attributes.<br>
+</p>
+
+
+
+
+
+
+<p>Like CanCore, there are recommendations for the vocabulary to use for different metadata elements.<br>
+</p>
+
+
+
+
+
+
+<p>More interesting is the idea that different types of SCORM object
+require different kinds of metadata.&nbsp; Thus, there is a different
+metadata profiile for:<br>
+</p>
+
+
+
+
+
+
+<ul>
+
+
+
+
+
+
+  <li>Resource packages (recall that these are CP's with only a <span style="font-style: italic;">resources</span> section -- <a href="#Types_of_CP">see above</a>).</li>
+  <li>Content aggregation packages.</li>
+  <li>Activity (<span style="font-style: italic;">item</span>).</li>
+  <li>SCO (<em>dynamic</em> learning objects that interact with an LMS)</li>
+  <li>SCA (<em>static</em> learning objects that are merely presented by an LMS)</li>
+</ul>
+
+
+
+
+
+
+<p>The profiles differ in terms of which metadata elements are
+mandatory, the vocabulary for specific metadata elements, and the best
+practices recommendations.&nbsp; There are too many details to list
+here.&nbsp; Read <a href="http://www.adlnet.org/screens/shares/dsp_displayfile.cfm?fileid=914">SCORM_v1p3_WD1_CAM.pdf</a>
+ starting at Section 4.5 (it's page 182 using Acrobat).<br>
+</p>
+<p>Note that this is different from the current implementation in
+TILE.&nbsp; We use a "minimal requirements" schema for meta-data, and
+that minimal requirement applies to anything that has metadata.&nbsp;
+Beyond the minimal requirement, we have specific metadata fields for
+different types of resources where it "makes sense".&nbsp; For example,
+a video has metadata about its duration, but an image doesn't.&nbsp;
+Also, we use the profiile defined by the CanCore recommendations, and
+their vocabulary.<br>
+</p>
+<p>Finally, we require metadata for <span style="font-style: italic;">resources</span>, <span style="font-style: italic;">files</span>, and content packages (<span style="font-style: italic;">manifests</span>), but not for <span style="font-style: italic;">items</span>.&nbsp; SCORM does have a profile for <span style="font-style: italic;">items</span> (they call <span style="font-style: italic;">items</span> "activities").<br>
+</p>
+
+
+<p><a href="#Introduction">back to top</a>
+</p>
+
+
+
+
+
+<h2><a name="Simple_Sequencing"></a>Simple Sequencing</h2>
+
+
+
+
+<ul>
+
+
+
+
+  <li style="font-style: italic;">sequencing</li>
+  <ul>
+    <li><span style="font-style: italic;">adlseq:constrainedChoiceConsideration</span><br>
+</li>
+    <ul>
+      <li>element</li>
+      <li>optional; at most one.</li>
+      <li>no content.<br>
+      </li>
+    </ul>
+
+    <ul>
+      <li>used to restrict <span style="font-style: italic;">choice</span> SS elements.</li>
+      <li>note: <span style="font-style: italic;">choice</span>, by itself, means the user has full control over their navigation.</li><li><span style="font-style: italic;">adlseq:</span><span style="font-style: italic;">preventActivation</span></li>
+      <ul>
+        <li>attribute</li>
+        <li>optional; at most one.</li>
+        <li>values: <span style="font-style: italic;">true</span> or <span style="font-style: italic;">false</span></li>
+        <li>if true, don't allow navigation to child activities unless their parent activity is the current activity.</li>
+      </ul>
+      <li><span style="font-style: italic;">adlseq:</span><span style="font-style: italic;">constrainChoice</span></li>
+      <ul>
+        <li>attribute</li>
+        <li>optional; at most one.</li>
+        <li>values: <span style="font-style: italic;">true</span> or <span style="font-style: italic;">false</span></li>
+        <li>if true, only activities that are logically "next" can be chosen.</li>
+      </ul>
+</ul>
+    <li><span style="font-style: italic;">adlseq:rollupConsideration</span></li>
+    <ul>
+      <li>element</li>
+      <li>optional; at most one</li>
+      <li>no content.<br>
+      </li>
+    </ul>
+
+    <ul>
+      <li>used to describe when an activity should be part of a rollup.</li>
+      <li>has these optional attributes:</li>
+      <ul>
+        <li style="font-style: italic;">requiredForSatisfied</li>
+        <li style="font-style: italic;">requiredForNotSatisfied</li>
+        <li style="font-style: italic;">requiredForCompleted</li>
+        <li style="font-style: italic;">requiredForIncomplete</li>
+        <li style="font-style: italic;">measureSatsifactionIfActive</li>
+      </ul>
+      <li>each attribute has one of these values that define if the activity is included in a rollup rule:</li>
+      <ul>
+        <li style="font-style: italic;">always</li>
+        <li style="font-style: italic;">ifAttempted</li>
+        <li style="font-style: italic;">ifNotSkipped</li>
+        <li style="font-style: italic;">ifNotSuspended</li>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+
+
+<p><a href="#Introduction">back to top</a><br>
+</p>
+
+
+<h2><a name="ADL_Nav_Schema"></a>ADL Nav Schema</h2>
+
+
+<p>This is simply a repeat of elements/attributes that were noted above, but all in one place.<br>
+</p>
+
+<ul>
+
+  <li style="font-style: italic;">presentation</li>
+  <ul>
+    <li>element.</li>
+    <li>no attributes.</li>
+    <li>content is zero or 1 <span style="font-style: italic;">navigation</span> elements.
+  </li></ul>
+  <li><span style="font-style: italic;">navigation</span></li>
+  <ul>
+    <li>element.</li>
+    <li>no attributes.</li><li>contents is zero of more <span style="font-style: italic;">hideLMSUI</span> elements.</li>
+
+  </ul><li style="font-style: italic;">hideLMSUI</li>
+  <ul>
+    <li>element.</li>
+    <li>no attributes.<br>
+    </li>
+    <li>content is one of (use multiple <span style="font-style: italic;">hideLMSUI</span> elements to specify more than one of these.<br>
+    </li>
+    <ul>
+<li><span style="font-style: italic;">previous</span> - hide "previous button".<br>
+          </li>
+    </ul>
+    <ul>
+<li><span style="font-style: italic;">continue</span> - hide "next button".</li>
+    </ul>
+    <ul>
+<li><span style="font-style: italic;">exit</span> - hide "exit button".</li>
+    </ul>
+    <ul>
+<li><span style="font-style: italic;">abandon</span> - hide "abandon button" ("quit button"?).</li>
+    </ul>
+    <li>These hide directives are valid only when a child activity is the current activity.</li>
+    <li>Puzzle:&nbsp; how can a child activity be the current
+activity?&nbsp; Or, do they mean, if the current activity is a child
+activity?&nbsp; But...almost every activity (item) is a child of some
+parent item.&nbsp; In fact, their example shows these directives
+associated with a top-level item that does not have a parent
+item.&nbsp; Or do they mean, when the child activity is a leaf (has no
+children)?</li>
+  </ul>
+
+</ul>
+<a href="#Introduction">back to top</a><br>
+
+
+<br>
+
+
+
+
+<hr>
+<p style="font-size: small; font-style: italic;">Last modified January 30, 2004 by Joseph Scheuhammer</p>
+
+
+
+</body></html>
