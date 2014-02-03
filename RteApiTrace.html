@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>Trace of RTE API</title>
+  <meta content="Joseph Scheuhammer" name="author">
+</head>
+<body>
+<h1>Trace of RTE API</h1>
+
+<p>Well, sort of.&nbsp; My notes on the subject are meaningful mostly
+to me, so I'm going to summarize things here first in an attempt at
+simplifying the notes. It's a trace of what happens when loading a
+SCO.&nbsp; Afterwards, you can continue on to the full notes.<br>
+</p>
+
+<p>In a nutshell, the sequence is:<br>
+</p>
+
+<ol>
+
+  <li>The SCO's JavaScript makes use of a common set of JavaScript functions defined in "APIWrapper.js".</li>
+  <li>During initialization, APIWrapper.js finds the applet that implements the RTE API.</li>
+  <li>The SCO's JavaScript makes calls to APIWrapper.js functions.</li>
+  <li>APIWrapper.js functions call into the applet, passing various kinds of data.</li>
+  <li>The applet sends this data to the LMS on the server.</li>
+  <li>The server in turn sends information back to the applet.</li>
+  <li>The applet either returns information to the JavaScript caller, or calls back into APIWrapper.js functions.</li>
+  <li>The results are returned to the SCO's JavaScript that initiated the whole sequence.</li>
+  <li>Repeat as necessary.<br>
+  </li>
+</ol>
+
+<p>Note that it is the applet that actually implements the RTE API.<br>
+</p>
+
+<p>Since you mentioned that you wanted to do something with the frames,
+I've highlighted the part that I know has some dependency on that, in <span style="color: rgb(255, 0, 0);">red text</span>.<br>
+</p>
+
+
+<h2>Example SCO: "Question1.htm"</h2>
+
+Some background:<br>
+
+<ul>
+
+  <li>"Question1.htm" is a web page associated with the photoshop course.</li>
+  <li>Specifically, I looked at the one in the "Photoshop_None Folder".</li>
+  <li>In the same folder, there is a "util" sub-directory that contains the "APIWrapper.js" JavaScript utilities.</li>
+</ul>
+
+And, awwayyyy we go....<br>
+
+<ol>
+
+  <li>
+    &lt;body onLoad="loadPage()" ...</li>
+  <li>loadPage() is a script defined within "Question1.htm".&nbsp; It's a "SCO script".</li>
+  <ol>
+    <li>call APIWrapper.js.doInitialize()&nbsp;&nbsp;&nbsp;&nbsp; // one of the utilities in APIWrapper.js<br>
+    </li>
+    <ol>
+      <li>call APIWrapper.js.getAPIHandle()</li>
+      <ol>
+        <li>call APIWrapper.js.getAPI()</li>
+        <ol>
+          <li>call APIWrapper.js.findAPI(window)</li>
+          <ul>
+            <li>At this point the &lt;window&gt; is "Question1.htm".</li>
+          </ul>
+          <ol>
+            <li>look for the API_1484_11 property of the &lt;window&gt;</li>
+            <ul>
+              <li>API_1484_11 is a SCORM defined constant that designates the object that implement the RTE API.</li>
+            </ul>
+            <li style="color: rgb(255, 0, 0);">if not found, search the parent window recursively until found.</li>
+            <ul style="color: rgb(255, 0, 0);">
+              <li>Since the LMS uses frames, eventually the parent frame that has this property is found.</li>
+              <li>That frame is represented by "LMSFrame.jsp"; one of the client-side java server pages.</li>
+              <li>LMSFrame.jsp contains the invisible applet that implements the RTE API.</li>
+              <li>The applet code itself is found in".../org/adl/samplerte/client/ClientRTS.java".</li>
+            </ul>
+            <li>return the applet as a JavaScript object ... leaving APIWrapper.js.findAPI().<br>
+            </li>
+          </ol>
+          <li>assign the returned object to the global variable &lt;apiHandle&gt;, and return it ... leaving APIWrapper.js.getAPI().</li>
+        </ol>
+        <li>return the returned object ... leaving APIWrapper.js.getAPIHandle().</li>
+      </ol>
+      <li>call
+api.Initialize()&nbsp;&nbsp;&nbsp; // this is a call into the applet's
+Initialize() method from JavaScript, and requires LiveConnect.</li>
+      <ol>
+        <li>create a new LMSCMIServletRequest object, and initalize it.</li>
+        <ul>
+          <li>see ".../org/adl/samplerte/server/LMSCMIServletRequest.java".</li>
+        </ul>
+        <li>call getCookie("JSessionID")&nbsp; // another applet method.<br>
+        </li>
+        <ol>
+          <li>get the window that this applet is embedded in.&nbsp;
+This is the JavaScript&nbsp; window object (a JSObject, to be precise
+-- more LiveConnect here).</li>
+          <li>get the document associated with that window.&nbsp; This is a JavaScript document object.<br>
+          </li>
+          <li>get the cookie associated with that document, a JavaScript cookie object.<br>
+</li>
+          <li>using a StringTokenizer, find the cookie whose name is "JSessionID".</li>
+          <li>get the value of that cookie, and return it ... leaving getCookie().<br>
+</li>
+        </ol>
+        <li>create a ServletProxy passing the servlet URL and the session ID to its constructor.</li>
+        <ul>
+          <li>see ".../org/adl/samplerte/client/ServletProxy.java".</li><li>the servlet URL is the url to the servlet.</li>
+          <ul>
+            <li>this url is acquired in the applet's init() method
+based on the applet's codebase property, which is an url to applet's
+code on the server it came from.</li>
+          </ul>
+          <ul>
+            <li>basically, it's "http://<span style="font-style: italic;">host</span>:<span style="font-style: italic;">port</span>/adl/lmscmi", where <span style="font-style: italic;">host</span> and <span style="font-style: italic;">port</span> are dependent on where the LMS is running.</li>
+          </ul>
+
+        </ul>
+        <li>LMSCMIServletResponse response = proxy.postLMSRequest(request);</li>
+        <ul>
+          <li>see ".../org/adl/samplerte/server/LMSCMIServletResponse.java"</li>
+          <li>&lt;proxy&gt; is the ServletProxy created at step 3.</li>
+          <li>&lt;request&gt; is the LMSCMIServletRequest created at step 1.<br>
+          </li>
+        </ul>
+        <ol>
+          <li>create a new empty LMSCMIServletResponse.&nbsp;&nbsp; // we are now in ServletProxy.postLMSRequest().</li>
+          <li>call ServletWriter.postObjects(url, Serializable[], sessionID)</li>
+          <ul>
+            <li>see ".../org/adl/samplerte/client/ServletWriter.java"</li>
+            <li>this object has but one static method, postObjects().</li>
+            <li>the &lt;url&gt; is the url to the servlet.</li>
+            
+            <li>the
+Serializable array contains one object, namely, the
+LMSCMIServletRequest object created at step 1 of api.Initialize()
+(that's the applet's Initialize() method).<br>
+            </li>
+          </ul>
+          <ol>
+            <li>acquire a java.net.URLConnection from the servlet url.</li>
+            <li>configure the connection in various ways (e.g., mime type).</li>
+            <li>acquire the java.io.OutputStream of the URLConnection.</li>
+            <li>create a java.io.ObjectOutputStream using that OutputStream.</li>
+            <li>call ObjectOutputStream.write (LMSCMIServletRequest object)<br>
+            </li>
+            <ul>
+              <li>This is the "RMI over HTTP".&nbsp; See <a href="#RMI_over_HTTP">description below</a>.</li>
+              <li>this serializes that LMSCMIServletRequest and sends it to the LMS servlet.</li>
+            </ul>
+            <li>acquire the URLConnection's InputStream.</li>
+            <li>create a java.io.ObjectInputStream using that InputStream.</li>
+            <li>return that ObjectInputStream ... leaving ServletWriter.postObjects().<br>
+            </li>
+          </ol>
+          <li>de-serialize data from the returned ObjectInputStream and place it into the data members of LMSCMIServletResponse.</li>
+          <li>return that LMSCMIServletResponse ... leaving ServletProxy.postLMSRequest().<br>
+          </li>
+        </ol>
+        <li>read data from the returned LMSCMIServletResponse, and store into various data members of the applet.</li>
+        <li>return "true"... leaving applet.<br>
+        </li>
+      </ol>
+      <li>back
+in APIWrapper.js.doInitialize(), return the return value of the
+applet's Initialize() method, namely "true" ... leaving
+APIWrapper.js.doInitialize().</li>
+    </ol>
+    <li>back in "Question1.htm"'s loadPage() script.&nbsp; Does a bunch
+of other things that have nothing to do with the RTE API, and returns.</li>
+  </ol>
+  <li>Fini.</li>
+</ol>
+
+<p>And that's just with respect to initialization.&nbsp; There are
+other occasions where other SCO JavaScript &lt;-&gt; ApiWrapper.js
+&lt;-&gt; applet &lt;-&gt; servlet (LMS) interactions occur.&nbsp;
+Specifically for navigation requests.&nbsp; But, I haven't traced
+those; sometime I will since I want to get around the
+SCOStart/SCOStopped issue if we want to reload a SCO for a change in
+appearance.&nbsp; To aniticipate things, I think triggering these SCO
+events from the "onLoad" and "onUnload" JavaScript events <em>is</em> the problem, and they should not necessarily trigger SCO start and stop events.<br>
+</p>
+
+
+<h2><a name="RMI_over_HTTP"></a>"RMI over HTTP"</h2>
+
+<p>Actually, it isn't really RMI since no remote methods are
+called.&nbsp; A better description is that a Java object is serialized
+using <code>java.io.ObjectOutputStream</code> and <code>java.io.ObjectInputStream</code>, and passed to and from a servlet using http.<br>
+</p>
+
+<p>The Java object in question is simply a class with nothing but
+public data members.&nbsp; On the client-side, the applet opens a
+connection to a servlet, and passes the object to the servlet using
+serialization/ObjectOutputStream.&nbsp; On the server-side, the
+servlet's doPost() method de-serializes the object.&nbsp; That is,
+rather than doing it the "normal way" by accessing parameters of the
+HttpServletRequest, the <code>HttpServletRequest</code>'s <code>InputStream</code> is acquired, and the serialized object read from it.&nbsp; Later, instead of sending back an <code>HttpServletResponse</code> the normal way, the servlet acquires the <code>HttpServletResponse</code>'s <code>OutputStream</code>, and serializes a Java object through it.&nbsp; The applet reads this data at the other end of the stream.<br>
+</p>
+
+<p>It's a reading/writing of Java objects using object serialization over http, and specifically using the <code>HttpServlet</code> API.<br>
+</p>
+
+<p>Leaving out a lot of details, here is the main aspects of a trace of what is going on in the servlet at "http://<span style="font-style: italic;">host</span>:<span style="font-style: italic;">port</span>/adl/lmscmi",
+specifically its doPost() method.&nbsp; The servlet's code can be found
+at ".../org/adl/samplerte/server/LMSCMIServlet.java".<br>
+</p>
+
+<ol>
+
+  <li>call HttpServletRequest.getSession() to get the session ID.<br>
+  </li>
+  <li>acquire an ObjectInputStream from the HttpServletRequest.</li>
+  <li>acquire an ObjectOutputStream from the HttpServletResponse.</li>
+  <li>read
+the serialized LMSCMIServletRequest from the ObjectInputStream.&nbsp;
+This was sent via the applet/ServletProxy/ServletWriter.<br>
+</li>
+  <li>use the information therein to store state information about the user and the current SCO.</li>
+  <ul>
+    <li>the sequencing is based on this state information.<br>
+    </li>
+  </ul>
+  <li>determine what to send back to the applet.</li>
+  <li>place that information into a LMSCMIServletResponse.</li>
+  <li>send it back by serializing the LMSCMIServletResponse over the ObjectOutputStream created at 3.</li>
+</ol>
+
+<h2>The Full Notes<br>
+</h2>
+
+<p>The full notes are in "<a title="SCO ECMAScript Trace" href="JSTrace.html">SCO ECMAScript Trace</a>".&nbsp;
+These notes are more than a trace.&nbsp; They also try to document some
+of the APIWrapper.js functions more fully, and relate the applet's
+methods to the RTE API as documented in "SCORM_RunTimeEnv.pdf". <br>
+</p>
+
+<br>
+
+<p><br>
+</p>
+
+<br>
+
+<br>
+</body></html>

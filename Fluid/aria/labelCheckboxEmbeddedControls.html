@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Checkbox Label with Embedded Controls</title>
+<style type="text/css">
+    h1 { font-size: 1.5em; }
+    fieldset { width: 50em; }
+    legend { font-weight: bold; }
+    p { margin: 0.5em ; }
+</style>
+</head>
+<body>
+    <h1>Checkbox Label with Embedded Controls</h1>
+<fieldset>
+  <legend>Meeting alarms</legend>
+  
+  <!-- Standard labels for checkboxes (no embedded control) -->
+  <p>
+    <input type="checkbox" id="beep"/> <label for="beep">Beep</label>
+  </p>
+  <p>
+    <input type="checkbox" id="mtgTitle"/> <label for="mtgTitle">Display the meeting title</label>
+  </p>
+
+  <!-- Label with embedded text field: Full label of checkbox includes value ("3") of embedded text input, "Flash the screen 3 times" -->
+  <p>
+      <input type="checkbox" id="flash"/>
+      <label for="flash">
+        Flash the screen
+        <input type="text" value="3" size="2" id="numTimes"/>
+        times
+      </label>
+  </p>
+  <p>
+      <!-- Label with embedded menu like test case 734: Full label of checkbox includes embedded menu ("frog"), "Play frog sound effect."  -->
+      <input type="checkbox" id="play"/>
+      <label for="play">
+        Play 
+        <select name="Sounds" id="soundEffects" role="menu">
+            <option value="frog" selected="selected" role="menuitem">frog</option>
+            <option value="foghorn" role="menuitem">fog horn</option>
+            <option value="sonar" role="menuitem">sonar</option>
+            <option value="claxon" role="menuitem">claxon</option>
+        </select>
+        sound effect.
+      </label> <span>(<em>using roles "menu" and "menuitem"</em>)</span>
+  </p>
+  <p>
+      <!-- Label with embedded menu button: Full label of checkbox includes embedded button ("frog"), "Play frog sound effect."  -->
+      <input type="checkbox" id="play2"/>
+      <label for="play2">
+        Play 
+        <select name="Sounds" id="soundEffects2" role="button" aria-haspopup="true">
+            <option value="frog" selected="selected" role="menuitem">frog</option>
+            <option value="foghorn" role="menuitem">fog horn</option>
+            <option value="sonar" role="menuitem">sonar</option>
+            <option value="claxon" role="menuitem">claxon</option>
+        </select>
+        sound effect.
+      </label> <span>(<em>using role "button"+ aria-haspopup="true", and role "menuitem"</em>)</span>. 
+  </p>
+  <p>
+      <input type="checkbox" id="play3"/>
+      <label for="play3">
+        Play 
+        <select name="Sounds" id="soundEffects3">
+            <option value="frog" selected="selected">frog</option>
+            <option value="foghorn">fog horn</option>
+            <option value="sonar">sonar</option>
+            <option value="claxon">claxon</option>
+        </select>
+        sound effect.
+      </label> <span>(<em>using select element and no aria</em>)</span>. 
+  </p>
+</fieldset>
+</body>
+</html>

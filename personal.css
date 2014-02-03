@@ -1,0 +1,60 @@
+# Personal style sheet test.
+
+p {
+    color: black;
+    font-size: 18pt;
+    background-color: white;
+
+}
+
+h1 {
+    color: orange;
+    font-size: 30pt;
+    background-color: blue;
+}
+
+h2 {
+    color: orange;
+    font-size: 28pt;
+    background-color: blue;
+}
+
+h3 {
+    color: red;
+    font-size: 26pt;
+    background-color: blue;
+}
+
+h4 {
+    color: green;
+    font-size: 24pt;
+    background-color: blue;
+}
+
+h5 {
+    color: yellow;
+    font-size: 22pt;
+    background-color: blue;
+}
+
+h6 {
+    color: pink;
+    font-size: 20pt;
+    background-color: blue;
+}
+
+a:link {
+    font-family: monospace;
+    font-variant: small-caps;
+    color: blue;
+    font-size: 12pt;
+    background-color: yellow;
+}
+
+a:visited {
+    font-family: monospace;
+    font-variant: small-caps;
+    color: purple;
+    font-size: 12pt;
+    background-color: yellow;
+}

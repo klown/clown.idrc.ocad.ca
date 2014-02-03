@@ -1,0 +1,27 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>&lt;div&gt; with role textbox; supported state or property "aria-multiline" value of "true"</title>
+   </head>
+   <body>
+      <p>
+        <input type="text" value="This is an input type text">
+      </p>
+      <p>
+        <textarea>This is a <code>&lt;textarea&gt;</code></textarea>
+      </p>
+      <p>
+        <span role="textbox" aria-multiline="false">This is a textbox role with aria-multiline='false'.  Should be same as input type text</span>
+      </p>
+      <p>
+        <div role="textbox" aria-multiline="true">This is a textbox role with aria-multiline='true'.  Should be same as textarea</div>
+      </p>
+<!--      
+      <div id="test" role="textbox" aria-multiline="true">Placeholder content</div>
+      <div id="obj1">obj1</div>
+      <div id="obj2">obj2</div>
+-->
+   </body>
+</html>

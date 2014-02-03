@@ -1,0 +1,98 @@
+<html>
+<head>
+    <title>Popup Function Test</title>
+    <script type="text/javascript"><!--
+    
+function popUpOpen(width,height,url,wname,smallWindow) {
+  var windowWidth = 0, windowHeight = 0;
+  if (smallWindow) {
+    windowWidth = width;
+    windowHeight = height;
+  }
+  else {
+      if (screen && screen.width && screen.height) {
+        // Desktop
+        windowWidth = screen.width;
+        windowHeight = screen.height * 0.85;
+      }
+      else if (window.innerWidth && window.innerHeight) {
+        //Non-IE
+        windowWidth = window.innerWidth;
+        windowHeight = window.innerHeight;
+      }
+      else if (document.documentElement &&
+           (document.documentElement.offsetWidth &&
+            document.documentElement.offsetHeight)) {
+        //IE 6+ in 'standards compliant mode'
+        windowWidth = document.documentElement.offsetWidth;
+        windowHeight = document.documentElement.offsetHeight;
+      }
+      else if (document.body &&
+           (document.body.offsetWidth && document.body.offsetHeight)) {
+        //IE 4 compatible
+        windowWidth = document.body.offsetWidth;
+        windowHeight = document.body.offsetHeight;
+      }
+      else {
+        windowWidth = width;
+        windowHeight = height;
+      }
+  }
+  windowWidth *= 0.95;
+  var winopts = "resizable=yes,scrollbars=yes,toolbar=yes,location=no,height=" + windowHeight + ",width=" + windowWidth;
+  window.open(url,wname,winopts).moveTo(0, 0);
+}
+
+function popUpFocus(width,height,url,wname,smallWindow) {
+  var windowWidth = 0, windowHeight = 0;
+  if (smallWindow) {
+    windowWidth = width;
+    windowHeight = height;
+  }
+  else {
+      if (screen && screen.width && screen.height) {
+        // Desktop
+        windowWidth = screen.width;
+        windowHeight = screen.height * 0.85;
+      }
+      else if (window.innerWidth && window.innerHeight) {
+        //Non-IE
+        windowWidth = window.innerWidth;
+        windowHeight = window.innerHeight;
+      }
+      else if (document.documentElement &&
+           (document.documentElement.offsetWidth &&
+            document.documentElement.offsetHeight)) {
+        //IE 6+ in 'standards compliant mode'
+        windowWidth = document.documentElement.offsetWidth;
+        windowHeight = document.documentElement.offsetHeight;
+      }
+      else if (document.body &&
+           (document.body.offsetWidth && document.body.offsetHeight)) {
+        //IE 4 compatible
+        windowWidth = document.body.offsetWidth;
+        windowHeight = document.body.offsetHeight;
+      }
+      else {
+        windowWidth = width;
+        windowHeight = height;
+      }
+  }
+  windowWidth *= 0.95;
+  var winopts = "resizable=yes,scrollbars=yes,toolbar=yes,location=no,height=" + windowHeight + ",width=" + windowWidth;
+  var helpWindowzzz = window.open(url,wname,winopts)
+  helpWindowzzz.focus();
+  helpWindowzzz.moveTo(0, 0);
+}
+    --></script>
+</head>
+<body>
+<h1>Popup Function Test</h1>
+<h2>Using "window.open()"</h2>
+<p>Popup main help window using "open()":
+    [<a href="javascript:popUpOpen(800,600,'http://tile-stasia.atrc.utoronto.ca/tile/servlet/prefs?help=main','Help',true);">Help</a>]</p>
+<h2>Using "window.focus()"</h2>
+<p>Popup main help window using "focus()":
+    [<a href="javascript:popUpFocus(800,600,'http://tile-stasia.atrc.utoronto.ca/tile/servlet/prefs?help=main','Help',true);">Help</a>]</p>
+</body>
+</html>

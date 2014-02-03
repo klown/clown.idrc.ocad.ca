@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+		"http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>BlueShoes JavaScript Button: Example 2</title>
+<style>
+body {
+	font-family: arial, helvetica;
+	font-size:   12px;
+}
+</style>
+<script>
+function bs_isGecko() {
+  //rather poor implementation.
+  if (navigator.appName == "Microsoft Internet Explorer") return false;
+  return (navigator.userAgent.match(/gecko/i));
+}
+if (bs_isGecko()) {
+  document.writeln("<link rel='stylesheet' href='/_bsJavascript/components/toolbar/win2k_mz.css'>");
+} else {
+  document.writeln("<link rel='stylesheet' href='/_bsJavascript/components/toolbar/win2k_ie.css'>");
+}
+</script><link rel="stylesheet" href="example2_files/win2k_mz.css">
+
+<script type="text/javascript" src="example2_files/Bs_ButtonBar.js"></script>
+<script type="text/javascript" src="example2_files/Bs_Button.js"></script>
+<script>
+function btnClicked(btnObj) {
+	alert('Clicked the button: ' + btnObj.title);
+}
+
+function go() {
+  bar = new Bs_ButtonBar();
+  bar.useHelpBar = true;
+  
+  b1 = new Bs_Button();
+  b1.title = 'New';
+  b1.imgName = 'bs_new';
+  b1.attachEvent(btnClicked);
+  bar.addButton(b1, 'Create a new document.');
+  
+  b2 = new Bs_Button();
+  b2.title = 'Open';
+  b2.imgName = 'bs_open';
+  b2.attachEvent(btnClicked);
+  bar.addButton(b2, 'Open an existing document.');
+  
+  b3 = new Bs_Button();
+  b3.title = 'Save';
+  b3.imgName = 'bs_save';
+  b3.attachEvent(btnClicked);
+  bar.addButton(b3, 'Save the active document.');
+  
+  bar.newGroup();
+  
+  b4 = new Bs_Button();
+  b4.title = 'Cut';
+  b4.imgName = 'bs_cut';
+  b4.attachEvent(btnClicked);
+  bar.addButton(b4, 'Cut out the selection and put it into the clipboard.');
+  
+  b5 = new Bs_Button();
+  b5.title = 'Copy';
+  b5.imgName = 'bs_copy';
+  b5.attachEvent(btnClicked);
+  bar.addButton(b5, 'Copy the selection and put it into the clipboard.');
+  
+  b6 = new Bs_Button();
+  b6.title = 'Paste';
+  b6.imgName = 'bs_paste';
+  b6.attachEvent(btnClicked);
+  bar.addButton(b6, 'Paste data in clipboard at current position.');
+  
+  bar.drawInto('buttonBar');
+}
+</script>
+	<!-- required:  jQuery core -->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="RoleMonitor.js"></script>
+	<script type="text/javascript" src="MagnifyImage.js"></script>
+	<script type="text/javascript" src="CloneAndMagnify.js"></script>
+	<script type="text/javascript">
+		jQuery (document).ready (function() {
+			aegis.atrc.prefs.init();
+			aegis.atrc.showRolesWindow();
+		});
+	</script>
+
+<style type="text/css" charset="utf-8">/* See license.txt for terms of usage */
+
+.firebugHighlight {
+    z-index: 2147483647;
+    position: absolute;
+    background-color: #3875d7;
+}
+
+.firebugLayoutBoxParent {
+    z-index: 2147483647;
+    position: absolute;
+    background-color: transparent;
+    border-right: 1px dashed #BBBBBB;
+    border-bottom: 1px dashed #BBBBBB;
+}
+
+.firebugRulerH {
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 14px;
+    background: url(chrome://firebug/skin/rulerH.png) repeat-x;
+    border-top: 1px solid #BBBBBB;
+    border-right: 1px dashed #BBBBBB;
+    border-bottom: 1px solid #000000;
+}
+
+.firebugRulerV {
+    position: absolute;
+    top: 0;
+    left: -15px;
+    width: 14px;
+    height: 100%;
+    background: url(chrome://firebug/skin/rulerV.png) repeat-y;
+    border-left: 1px solid #BBBBBB;
+    border-right: 1px solid #000000;
+    border-bottom: 1px dashed #BBBBBB;
+}
+
+.overflowRulerX > .firebugRulerV {
+    left: 0;
+}
+
+.overflowRulerY > .firebugRulerH {
+    top: 0;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+.firebugLayoutBoxOffset {
+    z-index: 2147483647;
+    position: absolute;
+    opacity: 0.8;
+}
+
+.firebugLayoutBoxMargin {
+    background-color: #EDFF64;
+}
+
+.firebugLayoutBoxBorder {
+    background-color: #666666;
+}
+
+.firebugLayoutBoxPadding {
+    background-color: SlateBlue;
+}
+
+.firebugLayoutBoxContent {
+    background-color: SkyBlue;
+}
+
+/*.firebugHighlightGroup .firebugLayoutBox {
+    background-color: transparent;
+}
+
+.firebugHighlightBox {
+    background-color: Blue !important;
+}*/
+
+.firebugLayoutLine {
+    z-index: 2147483647;
+    background-color: #000000;
+    opacity: 0.4;
+}
+
+.firebugLayoutLineLeft,
+.firebugLayoutLineRight {
+    position: fixed;
+    width: 1px;
+    height: 100%;
+}
+
+.firebugLayoutLineTop,
+.firebugLayoutLineBottom {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+}
+
+.firebugLayoutLineTop {
+    margin-top: -1px;
+    border-top: 1px solid #999999;
+}
+
+.firebugLayoutLineRight {
+    border-right: 1px solid #999999;
+}
+
+.firebugLayoutLineBottom {
+    border-bottom: 1px solid #999999;
+}
+
+.firebugLayoutLineLeft {
+    margin-left: -1px;
+    border-left: 1px solid #999999;
+}
+</style></head><div FirebugVersion="1.3.3" style="display: none;" id="_firebugConsole"></div><body onload="go();" bgcolor="white">
+
+<h1>JavaScript Toolbar Example 2</h1>
+
+Simple usage of the button and buttonbar classes. Features used:
+<ul>
+  <li>Used premade icons (16x16 pixel).</li>
+  <li>Attached a onClick events to the buttons.</li>
+  <li>Attached titles to the buttons.</li>
+  <li>Used the built-in "help bar" for button mouseovers to describe in more detail what a button click does.</li>
+</ul>
+
+Move your mouse over the buttons, and click them.
+<hr>
+<br>
+
+<div id="buttonBar" role="toolbar">
+	<div style="padding: 2px; background-color: menu;">
+		<div>
+			<div style="display: inline; white-space: nowrap;">
+				<div id="Bs_Button_1_container" role="button" title="New" unselectable="on" class="bsBtnDefault" style="" onmouseover="Bs_Objects[1].mouseOver(this);" onmouseout="Bs_Objects[1].mouseOut(this);" onmousedown="Bs_Objects[1].mouseDown(this);" onmouseup="Bs_Objects[1].mouseUp(this);">
+					<img id="Bs_Button_1_container_icon" src="example2_files/bs_new.gif" style="vertical-align: top;"></div></div><div style="display: inline; white-space: nowrap;"><div id="Bs_Button_2_container" title="Open" unselectable="on" class="bsBtnDefault" style="" onmouseover="Bs_Objects[2].mouseOver(this);" onmouseout="Bs_Objects[2].mouseOut(this);" onmousedown="Bs_Objects[2].mouseDown(this);" onmouseup="Bs_Objects[2].mouseUp(this);"><img id="Bs_Button_2_container_icon" src="example2_files/bs_open.gif" style="vertical-align: top;"></div></div><div style="display: inline; white-space: nowrap;"><div id="Bs_Button_3_container" title="Save" unselectable="on" class="bsBtnDefault" style="" onmouseover="Bs_Objects[3].mouseOver(this);" onmouseout="Bs_Objects[3].mouseOut(this);" onmousedown="Bs_Objects[3].mouseDown(this);" onmouseup="Bs_Objects[3].mouseUp(this);"><img id="Bs_Button_3_container_icon" src="example2_files/bs_save.gif" style="vertical-align: top;"></div></div><span class="separatorForHorizontal"></span><div style="display: inline; white-space: nowrap;"><div id="Bs_Button_4_container" title="Cut" unselectable="on" class="bsBtnDefault" style="" onmouseover="Bs_Objects[4].mouseOver(this);" onmouseout="Bs_Objects[4].mouseOut(this);" onmousedown="Bs_Objects[4].mouseDown(this);" onmouseup="Bs_Objects[4].mouseUp(this);"><img id="Bs_Button_4_container_icon" src="example2_files/bs_cut.gif" style="vertical-align: top;"></div></div><div style="display: inline; white-space: nowrap;"><div id="Bs_Button_5_container" title="Copy" unselectable="on" class="bsBtnDefault" style="" onmouseover="Bs_Objects[5].mouseOver(this);" onmouseout="Bs_Objects[5].mouseOut(this);" onmousedown="Bs_Objects[5].mouseDown(this);" onmouseup="Bs_Objects[5].mouseUp(this);"><img id="Bs_Button_5_container_icon" src="example2_files/bs_copy.gif" style="vertical-align: top;"></div></div><div style="display: inline; white-space: nowrap;"><div id="Bs_Button_6_container" title="Paste" unselectable="on" class="bsBtnDefault" style="" onmouseover="Bs_Objects[6].mouseOver(this);" onmouseout="Bs_Objects[6].mouseOut(this);" onmousedown="Bs_Objects[6].mouseDown(this);" onmouseup="Bs_Objects[6].mouseUp(this);"><img id="Bs_Button_6_container_icon" src="example2_files/bs_paste.gif" style="vertical-align: top;"></div></div></div><div id="Bs_ButtonBar_0_helpBarDiv" style="font-family: arial; font-size: 11px; height: 16px;"></div></div></div>
+
+</body></html>

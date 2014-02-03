@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en-ca">
+<head>
+
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>XForm Notes</title>
+
+
+  <meta content="Joseph Scheuhammer" name="author">
+
+</head>
+
+<body>
+
+<h1 style="text-align: center;">XForm Notes<br>
+
+<span style="font-style: italic; font-weight: normal; font-size: 12pt;">Joseph
+Scheuhammer<br>
+
+April 19 2004
+</span></h1>
+
+<p>Consider the following HTML form, made up of radio button <code>&lt;input&gt;</code>'s,
+two text field <code>&lt;input&gt;</code>'s and a
+submit <code>&lt;input&gt;</code> (button):</p>
+
+<div style="width: 25%;">
+<fieldset><legend style="font-weight: bold;">Select
+Payment Method:</legend>
+<p>Cash
+<input name="as" value="cash" type="radio">Credit
+Card
+<input name="as" value="credit" checked="checked" type="radio"></p>
+
+<p>Card Number:<br>
+
+<input id="cc" type="text"></p>
+
+<p>Expiration Date:<br>
+
+<input name="exp" type="text"></p>
+
+<p><input type="submit"></p>
+
+</fieldset>
+
+</div>
+
+<h2>XForm Parts
+</h2>
+
+<p>Divides the form into <a href="#Model:">model</a>
+and <a href="#Control:">control</a>:</p>
+
+<h3><a name="Model:"></a>Model:</h3>
+
+<pre>&lt;xforms:model&gt;<br> &lt;xforms:instance&gt;<br> &lt;ecommerce xmlns="ecom"&gt;<br> &lt;ecom:method/&gt;<br> &lt;ecom:number/&gt;<br> &lt;ecom:expiry/&gt;<br> &lt;/ecommerce&gt;<br> &lt;/xforms:instance&gt;<br> &lt;xforms:submission action="http://example.com/submit" method="post" id="submit" includenamespaceprefixes=""/&gt;<br>&lt;/xforms:model&gt;</pre>
+
+<p>This says:<br>
+
+</p>
+
+<ul>
+
+  <li>There are three parameters to the form, namely "method",
+"number", and "expiry".</li>
+
+  <ul>
+
+    <li>Compare with HTML form example.</li>
+
+    <li>Note that the model says nothing regarding the UI for,
+these parameters.&nbsp; The HTML form uses radio buttons, but the
+XForm model is neutral on this point.<br>
+
+    </li>
+
+  </ul>
+
+  <li>The
+parameter names/elements are not part of the XForm namespace, but
+belong to a user-defined namespace (here the 'ecom' namespace).</li>
+
+  <li>The parameters are within an "xforms:instance".&nbsp;
+More on
+that below, but, briefly, it allows for referencing these items in
+other parts of the document.</li>
+
+  <li>The last element, "xforms:submission", defines how the form
+contents are sent to the server.</li>
+
+  <li>The "xforms:instance" allows that the parameters could have
+intial or default values.</li>
+
+  <ul>
+
+    <li>not done in the above example.</li>
+
+    <li>could be, for example, <code>&lt;ecom:method&gt;cc&lt;/ecom:method&gt;</code>
+(meaning, use credit card for payment as the default value).</li>
+
+    <li>side
+effect:&nbsp; no need for hidden elements as html forms sometimes
+require.&nbsp; Simply put the "hidden" data into the xform model
+instance, and don't provide a <a href="#Control:">control</a>
+for it.<br>
+
+    </li>
+
+  </ul>
+
+</ul>
+
+<h3><a name="Control:"></a>Control:</h3>
+
+<h4>Method of Payment Control:<br>
+
+</h4>
+
+<pre>&lt;xforms:select1 ref="method"&gt;<br> &lt;xforms:label&gt;Select Payment Method:&lt;/xforms:label&gt;<br> &lt;xforms:item&gt;<br> &lt;xforms:label&gt;Cash&lt;/xforms:label&gt;<br> &lt;xforms:value&gt;cash&lt;/xforms:value&gt;<br> &lt;/xforms:item&gt;<br> &lt;xforms:item&gt;<br> &lt;xforms:label&gt;Credit&lt;/xforms:label&gt;<br> &lt;xforms:value&gt;cc&lt;/xforms:value&gt;<br> &lt;/xforms:item&gt;<br>&lt;/xforms:select1&gt;<br></pre>
+
+<ul>
+
+  <li>"xforms:select1" is a control that says:</li>
+
+  <ul>
+
+    <li>there are multiple possibilities.</li>
+
+    <li>only one possibility can be selected.</li>
+
+    <li>note, no committment to UI -- could be radio buttons, or
+menu, for example.</li>
+
+  </ul>
+
+  <li>The possibilities are declared using "xform:item" elements.</li>
+
+  <li>xforms:label provide explicit label for the controls,
+however they are realized in the UI.<br>
+
+  </li>
+
+  <li>"xform:value" is the same as the value attribute typically
+found in html form elements.<br>
+
+  </li>
+
+  <ul>
+
+    <li>e.g., <code>&lt;input type="radio" name="Cash"
+id="CashInput" <span style="font-weight: bold;">value="cash"</span>/&gt;</code></li>
+
+  </ul>
+
+</ul>
+
+Note the "ref" attribute to the select1 element.&nbsp; This
+references
+back into the model above, and explicitly declares that this select1
+control is for the method parameter of the model.<br>
+
+<br>
+
+Controls for the other components of the model, namely, "number",
+"expiry", and "submission" are shown below.<br>
+
+<h4>Credit Card Number Control:<br>
+
+</h4>
+
+<pre>&lt;xforms:input ref="number"&gt;<br> &lt;xforms:label&gt;Credit Card Number:&lt;/xforms:label&gt;<br>&lt;/xforms:input&gt;<br></pre>
+
+<h4>Expiry Date Control:</h4>
+
+<pre>&lt;xforms:input ref="expiry"&gt;<br> &lt;xforms:label&gt;Expiration Date:&lt;/xforms:label&gt;<br>&lt;/xforms:input&gt;<br></pre>
+
+<h4>Submit Control:<span style="font-family: monospace;"></span></h4>
+
+<pre>&lt;xforms:submit submission="submit"&gt;<br> &lt;xforms:label&gt;Submit&lt;/xforms:label&gt;<br>&lt;/xforms:submit&gt;<br></pre>
+
+<p>Note that the "ref" attribute here is replaced with a
+"submission" attribute.&nbsp; Why?<br>
+
+</p>
+
+<h2>Referencing<br>
+
+</h2>
+
+<p>The example above connected, or bound, the controls to a model
+parameter via a "ref" attribute.&nbsp; The examples used a simple
+ID
+technique for making the connection.&nbsp; That is the ID "number"
+was
+used to bind the credit card number control with the model element
+named "number".<br>
+
+</p>
+
+<p>XForms allows other means of binding controls; in particular,
+it
+supports XPath as a way of finding the model component.&nbsp; For
+example:<br>
+
+</p>
+
+<pre>&lt;xforms:input ref="/xforms:model/xforms:instance/ecommerce/number"&gt;...<br></pre>
+
+<p>If there were a way to identify the model component via an
+attribute, then one can use the XPath attribute syntax:&nbsp; "<code>@number</code>".</p>
+
+<p></p>
+
+<hr style="width: 100%; height: 2px;">
+<p><br>
+
+</p>
+
+</body>
+</html>

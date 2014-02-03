@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Help Text</title>
+  
+</head>
+<body>
+
+<h1>Original Markup:</h1>
+<span tabindex=0>Nothing is read</span>
+<div tabindex=0>When moving</div>
+<span tabindex=0>From element to element</span>
+
+<hr/>
+
+<h1>Paragraphs instead:</h1>
+<p tabindex=0>Nothing is read</p>
+<p tabindex=0>When moving</p>
+<p tabindex=0>From element to element</p>
+
+<hr/>
+<h1>Application Role and Document Role Within:</h1>
+<div role="application" style="border: 1px solid black;">
+    <p>Inside application role</p>
+    <div role="document" style="border: 1px solid blue;">
+        <p>Inside document role</p>
+        <span tabindex=0>Nothing is read</span>
+        <div tabindex=0>When moving</div>
+        <span tabindex=0>From element to element</span>
+        
+        <p>Paragraphs:</p>
+        <p tabindex=0>Nothing is read</p>
+        <p tabindex=0>When moving</p>
+        <p tabindex=0>From element to element</p>
+    </div>
+    <p>Outside document role, but within application role</p>
+    <p>Paragraphs:</p>
+    <p tabindex=0>Nothing is read</p>
+    <p tabindex=0>When moving</p>
+    <p tabindex=0>From element to element</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<html>
+    <head>
+    <title>Java2JavaScriptTest</title>
+    </head>
+    <body>
+        <h1>Java2JavaScriptTest</h1>
+        <p>This version uses &lt;APPLET&gt; element, not  &lt;OBJECT&gt;.</p>
+        <p>Testing Java calling JavaScript objects by acquiring document title and printing it in
+        applet area:</p>
+        <hr>
+        <applet
+            code="Java2JavaScript.class"
+            codebase="./"
+            height="100"
+            width="400"
+            id="Pusher"
+            name="Pusher"
+            mayscript="true">
+        </applet>
+        <hr>
+        <p>Test JavaScript to Java communication by clicking the checkbox:<br>
+            <input type="checkbox" value="Click Me" onclick="document.Pusher.clickCheckBox()">
+        </p>
+       <hr>
+        <p>The End</p>
+    </body>
+</html>
+    

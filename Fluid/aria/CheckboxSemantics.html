@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+<html>
+<head>
+    <title>Checkboxes: What is Published to A11y API?</title>
+</head>
+<body>
+<h1>Checkboxes: What is Published to A11y API?</h1>
+
+<hr/>
+<p>
+<blockquote>
+<pre>&lt;input type="checkbox" role="radio" aria-checked="false" checked&gt;:</pre>
+<input type="checkbox" role="radio" aria-checked="false" checked id="mismatchedRoles"><label for="mismatchedRoles">Mismatched role and checked state</label>
+</blockquote>
+</p>
+<p>MSAA: radio button, checked.  Default action 'uncheck'</p>
+<hr/>
+
+<p>
+<blockquote>
+<pre>&lt;input type="checkbox" aria-checked="mixed"&gt;:</pre>
+<input type="checkbox" aria-checked="mixed" id="mixed"><label for="mixed">Aria mixed checked state and no native <code>checked</checked> attribute</label>
+</blockquote>
+</p>
+<p>MSAA: checkbox, no checked state reported.  Default action is 'check'</p>
+<hr/>
+
+<p>
+<blockquote>
+<pre>&lt;input type="checkbox" aria-checked="true"&gt;:</pre>
+<input type="checkbox" aria-checked="true" id="mismatchedStates"><label for="mismatchedStates">Aria true checked state and no native <code>checked</checked> attribute</label>
+</blockquote>
+</p>
+<p>MSAA: checkbox, no checked state reported.  Default action is 'check'</p>
+
+<hr/>
+<blockquote>
+<pre>&lt;div role="checkbox" aria-checked="mixed"&gt;:</pre>
+<div role="checkbox" aria-checked="mixed" id="ariaCheckboxMixed" aria-labelledby="checkboxLabel">[ ] <span id="checkboxLabel">Aria checkbox with mixed checked state<span></div>
+</blockquote>
+</p>
+<p>MSAA: checkbox, no checked state reported.  Default action is 'check'</p>
+<hr/>
+
+
+</body>
+</html>

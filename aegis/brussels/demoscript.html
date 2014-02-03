@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>GNOME Shell Demo Script</TITLE>
+	<META NAME="GENERATOR" CONTENT="NeoOffice 3.1.2  (Unix)">
+	<META NAME="AUTHOR" CONTENT="Joseph Scheuhammer">
+	<META NAME="CREATED" CONTENT="20101118;10545100">
+	<META NAME="CHANGEDBY" CONTENT="Joseph Scheuhammer">
+	<META NAME="CHANGED" CONTENT="20101118;16071500">
+	<STYLE TYPE="text/css">
+	<!--
+		H1 { font-size: 16pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-CA" DIR="LTR">
+<h1>GNOME Shell Demo Script</h1>
+<h2>Login</h2>
+<P>Remind me to tell you the password.</P>
+<h2>Starting GNOME Shell</h2>
+<OL>
+	<LI>Start a “Terminal”:
+</OL>
+<UL>
+	<UL>
+		<LI>Locate the “Screen” icon on
+		the horizontal bar going across the top of the screen (the
+		so-called gnome panel). 
+		<LI>Click it once. 
+		<LI>At the prompt, type: “gShell
+		&lt;ret&gt;” 
+		<LI>Move the mouse to the desktop and
+		wait until it changes from the “busy cursor” state back to an
+		arrow. This may take a while; don't panic. 
+		<LI>If you want to, you can minimize this window, but do <EM>not</EM>
+		close it. 
+	</UL>
+</UL>
+<P>Note: to exit GNOME Shell, put focus on this terminal window and
+press &lt;cntl+c&gt;. This should take you back to the standard
+desktop environment. 
+</P>
+<h2>Launch Magnifier Preferences Dialog</h2>
+<P>Note:  You should not launch this dialog before launching GNOME
+Shell because the “Docked” screen position is handled using D-Bus
+(service), not Gsettings (preferences).  The magnifier D-Bus service
+is initialized during the launch of the GNOME Shell.  It must be
+running so that the preference dialog can discover the service.</P>
+<OL>
+	<LI>Locate the “Magnifier
+	Preferences” short cut on the right of the desktop. 
+	<LI>Double-click it. It should come up
+	as a Window titled “Magnifier Preferences”. 
+	<LI>Demonstrate turning Magnfier on and off with “Zoom” radio
+	buttons. 
+        <UL>
+            <LI>Should come up full screen, proportional mouse tracking,
+            lens mode off, and no crosshairs. 
+        </UL>
+	<LI>Demonstrate the various Mouse Tracking modes. 
+	<UL>
+		<LI>End with “Proportional”. 
+	</UL>
+	<LI>Demonstrate the various Screen positions. 
+	<UL>
+		<LI>Avoid “Docked” for now, end with “Full Screen”. 
+
+	</UL>
+	<LI>Demonstrate magnification factor. 
+	<LI>Switch to “Docked”. 
+	<LI>Turn on lens mode.
+	<UL>
+		<LI>Show interaction with different
+		mouse tracking modes. 
+		<LI>Centred and Proportional immediately move the lens. Push
+		only moves the lens when at edge of magnified view.
+	</UL>
+	<LI>Switch to one of the half-screen positions. 
+	<UL>
+		<LI>This is a way to show how larger lenses. 
+	</UL>
+	<LI>Turn lens mode off.
+	<LI>Switch to full screen.
+	<LI>Demonstrate various crosshairs settings.
+	<UL>
+		<LI>The reason for crosshairs is to
+		make it easier to locate the mouse cursor.
+		<LI>The reason for crosshairs clip is to make it easier to (1)
+		see the mouse cursor, and (2) see text that is immediately below
+		the mouse.
+	</UL>
+	<LI>Turn magnifier off using Zoom Off
+	radio button.
+	<LI>Prep for running Orca -- end with these preferences:
+	<UL>
+		<LI>Proportional mouse tracking, 
+		<LI>Full Screen, 
+		<LI>Magnification factor of 2.0, 
+		<LI>Moveable lens disabled, 
+		<LI>Scrolling at screen edges
+		disabled, 
+		<LI>Crosshairs enabled. 
+		<LI>Crosshairs clip enabled. 
+		<LI>Blue crosshairs (#0000FF) 
+		<LI>Any opacity (but 0.5 is nice). 
+		<LI>Any length.
+		<LI>Thickness 16 pixels.
+	</UL>
+</UL>
+<h2>Launch Orca</h2>
+<OL>
+	<LI>Go to “Activities” button in top left of screen.
+	<LI>Type “Orca” return.
+	    <UL>
+	        <LI>Orca should start up.
+	        <LI>Be patient, as it takes a while.
+	        <LI>Orca has a very simple main window with three buttons:  “Preferences”, “Quit”, “About”, and “Help”.
+	 Focus should be on the “Preferences” button.
+	    </UL>
+	<LI>Launch Orca Preferences.
+	    <UL>
+	        <LI>Click the “Preferences” button, or press space (assuming Preferences has focus).
+	        <LI>Orca's (rather large) preferences dialog should appear, but, again, it takes a while.
+	     </UL>
+	<LI>Focus should be on the  “General” Tab.
+	    <UL>
+	        <LI>Either arrow right or click the “Magnifier” Tab.
+	    </UL>
+	<LI>Demonstrate these settings:
+</OL>
+<UL>
+	<UL>
+		<LI>Left side of panel:
+		<UL>
+			<LI>Enable magnifier checkbox.
+			<LI>Scale factor spinner.
+			<LI>Position popup
+		</UL>
+		<LI>Right side of panel, vertically towards the centre:
+		<UL>
+			<LI>Enable cross-hair checkbox.
+			<LI>Enable cross-hair clip checkbox.
+			<LI>Cross-hair size spinner (size means thickness here, not
+			length).
+			<LI>Cross-hair colour.
+		</UL>
+		<LI>Note that all of these are modified using D-Bus.  They
+		change the magnifier behaviour, but do not affect the preferences. 
+		You will not see changes reflected in “my” Magnifier
+		Preferences dialog.  In particular, if you disable the crosshairs
+		using Orca and either close its preferences dialog or quit Orca
+		entirely, then you have to change crosshairs thickness in the
+		Magnifier Preferences dialog to make them visible again.
+	</UL>
+</UL>
+<OL START=6>
+	<LI>Exit Orca's preferences dialog.
+</OL>
+<UL>
+	<UL>
+		<LI>Click “OK” in the bottom right area.
+		<LI>This button may not be on screen since the window is very
+		wide, and the Touchpad has a small screen.  Move the window to the
+		left.
+		<LI>Orca (very) briefly turns off the magnifier.  And, It takes
+		a verrry long time for the dialog to close.
+	</UL>
+</UL>
+<h2>Open Office + Orca + Magnifier</h2>
+<P>This is a really good demonstration of focus tracking.  You should
+do this using just the keyboard.</P>
+<OL>
+	<LI>Make sure the crosshairs are enabled with crosshairs clipped
+	also enabled.
+	<LI>Find the icon named “Text Test File.odt” on the bottom
+	left of the desktop.
+	<LI>Double click it; OpenOffice should launch.
+	<LI>Focus should come up in the (empty) document at the text
+	input cursor, and it should be automatically placed within view.
+	<LI>Start typing.  If you type enough, then the magnified view
+	should shift leftwards to keep the text caret at or near the centre
+	of the view.
+</OL>
+<OL START=7>
+	<LI>Hit &lt;alt&gt; to go to the menu bar.  The view should shift
+	to the “File” menu.
+	<LI>Navigate the menu bar using left/right arrow keys.  The view
+	shifts such that the highlighted menu is at or near the centre of
+	the magnified view.
+	<LI>Open the “File” menu by navigating to it and then using
+	the down arrow key.
+	<LI>Navigate the “File” menu.  The view shifts such that the
+	highlighted menu item is at or near the centre of view.
+	<LI>(Optional)  Press &lt;esc&gt; twice to first close the menu,
+	and then to leave the menu bar.  The focus returns to the input
+	caret.
+	<LI>Use the keyboard to navigate to the “File – Exit” menu
+	item.  Press return to quit OpenOffice.
+	<LI>A “Do you want to save your changes” dialog appears, with
+	keyboard focus on the “Save” button.
+	<LI>Tab to the “Discard” button and press space.  This should
+	quit without saving.
+</OL>
+<P>One final note:  I almost never demonstrate the "Scroll at screen edges" checkbox in the Magnifier Preferences dialog.  It only works with centred mouse tracking.  I just discovered a new user for it, however:  Due to the small size of the Touchpad screen, it is sort of useful to see when you are at or beyond the edge of the screen.</P>
+<h2>FIN</h2>
+</BODY>
+</HTML>

@@ -1,0 +1,38 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>List box with no @aria-select</title>
+<script type="text/javascript">
+
+  function debugOnChange (event) {
+    var select = document.getElementById ('theSelect');
+    for (var i = 0; i < select.options.length; i++) {
+      var anOption = select.item(i);
+      if (anOption.selected)
+        console.log (anOption.innerHTML + ' is selected');
+    }
+  }
+
+</script>
+</head>
+<body>
+
+<form action="#" method="post">
+   <p>
+   <select multiple size="4" name="component-select" onchange="debugOnChange (event)" id="theSelect">
+      <option selected value="Component_1_a">Component_1</OPTION>
+      <option selected value="Component_1_b">Component_2</option>
+      <option>Component_3</option>
+      <option>Component_4</option>
+      <option>Component_5</option>
+      <option>Component_6</option>
+      <option>Component_7</option>
+   </select>
+   </p>
+   <p>
+   <input type="submit" value="Send"><input type="reset">
+   </p>
+</form>
+</body>
+</html>

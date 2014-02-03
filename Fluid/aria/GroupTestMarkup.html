@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>HTML 4 "Groups"</title>
+</head>
+<body>
+<h1>HTML 4 "Groups"</h1>
+<h2>ARIA <code>Menu</code>, <code>Group</code>, and <code>MenuItem</code> Roles</h2>
+<p>
+ <div role="menu" id="ComOS" tabindex="0">
+     <span role="menuitem" aria-selected="true" tabindex="0">None</span>
+     <div role="group" aria-label="PortMaster 3" tabindex="0">
+       <span role="menuitem" tabindex="0">PortMaster 3 with ComOS 3.7.1</span>
+       <span role="menuitem" tabindex="0">PortMaster 3 with ComOS 3.7</span>
+       <span role="menuitem" tabindex="0">PortMaster 3 with ComOS 3.5</span>
+     </div>
+     <div role="group" aria-label="PortMaster 2" tabindex="0">
+       <span role="menuitem" tabindex="0">PortMaster 2 with ComOS 3.7</span>
+       <span role="menuitem" tabindex="0">PortMaster 2 with ComOS 3.5</span>
+     </div>
+     <div role="group" aria-label="IRX" tabindex="0">
+       <span role="menuitem" tabindex="0">IRX with ComOS 3.7R</span>
+       <span role="menuitem" tabindex="0">IRX with ComOS 3.5R</span>
+     </div>
+ </div>
+</p>
+<h2><code>SELECT</code> and <code>OPTGROUP</code></h2>
+<p>
+ <select name="ComOS">
+     <option selected label="none" value="none">None</option>
+     <optgroup label="PortMaster 3">
+       <option label="3.7.1" value="pm3_3.7.1">PortMaster 3 with ComOS 3.7.1</option>
+       <option label="3.7" value="pm3_3.7">PortMaster 3 with ComOS 3.7</option>
+       <option label="3.5" value="pm3_3.5">PortMaster 3 with ComOS 3.5</option>
+     </optgroup>
+     <optgroup label="PortMaster 2">
+       <option label="3.7" value="pm2_3.7">PortMaster 2 with ComOS 3.7</option>
+       <option label="3.5" value="pm2_3.5">PortMaster 2 with ComOS 3.5</option>
+     </optgroup>
+     <optgroup label="IRX">
+       <option label="3.7R" value="IRX_3.7R">IRX with ComOS 3.7R</option>
+       <option label="3.5R" value="IRX_3.5R">IRX with ComOS 3.5R</option>
+     </optgroup>
+ </select>
+</p>
+<h2>ARIA <code>Combobox</code>, <code>Listbox</code>, <code>Group</code>, and <code>Option</code> Roles</h2>
+<p>
+<div role="combobox" id="combo" tabindex="0">
+  <div role="listbox" id="listbox">
+    <span role="option" aria-selected="true" tabindex="0">None</span>
+       <div role="group" aria-label="PortMaster 3" tabindex="0">
+         <span role="option" tabindex="0">PortMaster 3 with ComOS 3.7.1</span>
+         <span role="option" tabindex="0">PortMaster 3 with ComOS 3.7</span>
+         <span role="option" tabindex="0">PortMaster 3 with ComOS 3.5</span>
+       </div>
+       <div role="group" aria-label="PortMaster 2" tabindex="0">
+         <span role="option" tabindex="0">PortMaster 2 with ComOS 3.7</span>
+         <span role="option" tabindex="0">PortMaster 2 with ComOS 3.5</span>
+       </div>
+       <div role="group" aria-label="IRX" tabindex="0">
+         <span role="option" tabindex="0">IRX with ComOS 3.7R</span>
+         <span role="option" tabindex="0">IRX with ComOS 3.5R</span>
+       </div>
+   </div>
+</div>
+</p>
+
+</body>
+</html>

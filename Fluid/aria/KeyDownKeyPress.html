@@ -1,0 +1,45 @@
+<html>
+<head>
+  <script type="text/javascript">
+  
+      function keeDownCancel (event) {
+          stopDefault (event);
+          cancelBubble (event);
+      }
+      
+      function keeDown (event) {
+          var msgEl = document.createElement ('span');
+          msgEl.innerHTML = " keydown ";
+          event.target.appendChild (msgEl);
+      }
+      
+      function keePress (event) {
+          var msgEl = document.createElement ('span');
+          msgEl.innerHTML = " keypress ";
+          event.target.appendChild (msgEl);
+      }
+      
+      function stopDefault (event) {
+        if (event && event.preventDefault)
+          event.preventDefault(); // W3C
+        else
+          window.event.returnValue = false; // IE < 9
+      }
+      
+      function cancelBubble (event) {
+        if (event && event.stopPropagation)
+          event.stopPropagation(); // W3C
+        else
+          window.event.cancelBubble = true; // IE < 9
+      }
+      
+  </script>
+</head>
+<body>
+<div onkeydown="keeDown (event);" onkeypress="keePress (event);">
+  <p tabindex="0" onkeydown="keeDownCancel (event);" onkeypress="keePress (event);">keydown cancelled</p>
+  <p tabindex="0" onkeydown="keeDown (event);" onkeypress="keePress (event);">keydown not cancelled</p>
+</div>
+<p>From the UAIG:  "7.  When a keydown event is cancelled, also cancel the keypress event."</p>
+</body>
+</html>

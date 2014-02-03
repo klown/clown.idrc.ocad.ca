@@ -1,0 +1,1 @@
+BODY {  background: #FFFFFF;}/* For main title */DIV.mainTitle { text-align:  center }/* This is for bolding the phrase "The Sun in Shining". */SPAN.boldSun { font-weight: bold }/* This is for colouring the phrase "The Sun in Shining". */SPAN.redSun { color: red }/* For TM superscript */SPAN.trademark {	font-size: 10pt;	position:  relative;	top:  -5px;}

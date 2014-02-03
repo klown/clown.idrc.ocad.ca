@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>ARIA Checkbox</title>
+
+<style type="text/css">
+  span.checkbox {
+    /*font-size: 100%;*/
+    font-weight: normal;
+    font-family: sans-serif;
+  } 
+</style>
+
+<script type="text/javascript" src="jquery-1.3.2.js"></script>
+<script type="text/javascript">
+
+  function toggleCheckbox (jCheckbox) {
+    var jCheckImg = jQuery ("img", jCheckbox);
+    var srcImage = jCheckImg.attr ("src");
+    if (srcImage == "unchecked.gif")
+      jCheckImg.attr ("src", "checked.gif");
+    else
+      jCheckImg.attr ("src", "unchecked.gif");
+      
+    var ariaChecked = jCheckbox.attr ("aria-checked");
+    if (ariaChecked) {
+      if (ariaChecked == "true") {
+        jCheckbox.attr ("aria-checked", "false");
+      }
+      else {
+        jCheckbox.attr ("aria-checked", "true");
+      }
+    }
+  }
+  
+  function showHideCode (jShowHideButton, codeBlockId) {
+    var codeBlock = jQuery (codeBlockId);
+    var ariaPressed = jShowHideButton.attr ("aria-pressed");
+    if (ariaPressed == "true") {
+        jShowHideButton.attr ("aria-pressed", "false");
+        jShowHideButton.text ("Show:");
+        codeBlock.css ("visibility", "hidden");
+        codeBlock.attr ("aria-hidden", "true");
+    }
+    else {
+        jShowHideButton.attr ("aria-pressed", "true");
+        jShowHideButton.text ("Hide:");
+        codeBlock.css ("visibility", "visible");
+        codeBlock.attr ("aria-hidden", "false");
+    }
+  }
+  
+  jQuery (document).ready (function() {
+    var jH1Checkbox = jQuery ("span.checkbox");
+    var jShow1 = jQuery ("#showCode1");
+    var jShow2 = jQuery ("#showCode2")
+    
+    // handle mouse clicks on checkbox
+    //
+    jH1Checkbox.each (function (index) {
+      var item = jQuery (jH1Checkbox[index]);
+      item.click (function() {
+        toggleCheckbox (item);
+      });
+    });
+    
+    // handle space bar key presses on checkbox
+    //
+    jH1Checkbox.each (function (index) {
+      var item = jQuery (jH1Checkbox[index]);
+      item.keypress (function (evt) {
+        if (evt.which == 32) {
+          toggleCheckbox (item);
+        }
+      });
+    });
+    
+    // Handle show/hide
+    //
+    jShow1.click (function() {
+        showHideCode (jShow1, "#code1");
+    });
+    jShow2.click (function() {
+        showHideCode (jShow2, "#code2");
+    });
+});
+  
+</script>
+  
+</head>
+<body>
+
+  <p>
+  DHTML checkbox, no aria markup:
+  </p>
+  <p>
+  <span tabindex="0" class="checkbox"><img src="unchecked.gif"/>&nbsp;Save as stationary</span>
+  </p>
+  <hr/>
+  <p>
+  DHTML checkbox, with aria markup:
+  </p>
+  <p>
+  <span tabindex="0" class="checkbox" role="checkbox" aria-checked="false"><img src="unchecked.gif" role="presentation"/>&nbsp;Save as stationary</span>
+  </p>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+<html>
+<head>
+    <title>Mixed Checkbox using INPUT: What is Published to A11y API?</title>
+    <style type="text/css">
+        .allSelected {
+        
+        }
+        
+        [aria-checked=mixed] {
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+        }
+        
+    </style>
+</head>
+<body>
+<h1>Mixed Checkbox using INPUT: What is Published to A11y API?</h1>
+<p>Mixed checkbox with <code>aria-checked="mixed"</code>:</p>
+<input
+    type="checkbox"
+    role="checkbox"
+    aria-checked="mixed"
+    id="check1"
+    class="someSelected"/>
+      <label for="check1">Import some or all of the following settings:</label>
+</body>
+</html>

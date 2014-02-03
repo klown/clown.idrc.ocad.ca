@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Aria Label Examples</title>
+
+<script type="text/javascript" src="jquery-1.3.2.js"></script>
+<style type="text/css">
+  ul.menuBox,
+  .menuBox ul {
+    margin: 0;
+    padding: 0;
+    cursor: default;
+    list-style-type: none;
+    display: inline;
+  }
+  ul.menuBox {
+    display: table;
+  }
+
+  ul.menuBox>li{
+    display: table-cell;
+    position: relative;
+    padding: 2px 6px;
+  }
+  
+  .menuLabel {
+    font-weight: bold;
+  }
+  
+  ul.menuBox li>ul{
+/*Make the sub list items invisible*/
+    display: none;
+    position: absolute;
+    max-width: 40ex;
+    margin-left: -6px;
+    margin-top: 2px;
+}
+
+  ul.menuBox li:hover>ul{
+/*When hovered, make them appear*/
+    display : block;
+  }
+
+  ul.menuBox li:hover>ul{
+  /*When hovered, make them appear*/
+    display : block;
+  }
+
+  .menuBox ul li {
+  /*Make the hyperlinks as a block element, sort of a hover effect*/
+    display: block;
+    padding: 2px 10px;
+  }
+  
+  /*** Menu colors (customizable) ***/
+
+  ul.menuBox,
+  .menuBox ul,
+  .menuBox ul li {
+    background-color: #369;
+    color: black; /*#369;*/
+  }
+  
+  ul.menuBox li:hover,
+  .menuBox ul li {
+    background-color: #369;
+    color: #fff;
+  }
+
+  ul.menuBox li:active,
+  .menuBox ul li {
+    background-color: #036;
+    color: #fff;
+  }
+
+  ul.menuBox,
+  .menuBox ul {
+    border: 1px solid #369;
+  }
+  
+  .menuBox li {
+    text-decoration: none;
+  }
+
+
+</style>
+</head>
+<body>
+
+
+<h1>Example 1:</h1>
+<p>
+<ul role="menubar" class="menuBox">
+    <!-- Rule 2A: "File" label via aria-labelledby -->
+    <li role="menuitem" aria-haspopup="true" aria-labelledby="fileLabel" tabindex="0"><span id="fileLabel" class="menuLabel">File</span>
+        <ul role="menu" class=menuBox>
+            <!-- Rule 2C "New" label via Namefrom:contents -->
+            <li role="menuitem" aria-haspopup="false" tabindex="0">New</li>
+            <li role="menuitem" aria-haspopup="false" tabindex="0">Open...</li>
+        </ul>
+    </li>
+    <li role="menuitem" aria-haspopup="true" aria-labelledby="editLabel" tabindex="0"><span id="editLabel" class="menuLabel">Edit</span>
+    <li role="menuitem" aria-haspopup="true" aria-labelledby="editLabel" tabindex="0"><span id="viewLabel" class="menuLabel">View</span>
+</ul>
+</p>
+<p>Note: this menu bar, its menus, and menu items are, unfortunately, not keyboard accessible.</p>
+
+<h1>Example 2:</h1>
+<p>
+<fieldset>
+<legend>Meeting alarms:</legend>
+    <input type="checkbox" id="beep"><label for="beep">Beep</label><br/>
+    <input type="checkbox" id="mtgTitle"><label for="mtgTitle">Display the meeting title</label><br/>
+    <!-- Rule 2B:  Full label of checkbox includes value of embedded text input -->
+    <input type="checkbox" id="flash"><label for="flash">Flash the screen 
+      <!-- Rule 2A:  label of embedded text input given by aria-label -->
+      <input type="text" value="1" size="2" id="numTimes" aria-valuemin="0" aria-valuemax="5" aria-label="Number of times to flash screen">
+      times (max five)</label>
+</fieldset>
+
+<!--
+<fieldset>
+<legend>Meeting alarms:</legend>
+    <input type="checkbox" id="beep"><label for="beep">Beep</label><br/>
+    <input type="checkbox" id="mtgTitle"><label for="mtgTitle">Display the meeting title</label><br/>
+    <input type="checkbox" id="flash"><label for="flash">Flash the screen <input type="text" value=
+    "1" size="2" id="numTimes"> times (max five)</label>
+</fieldset>
+-->
+</p>
+
+</body>
+</html>

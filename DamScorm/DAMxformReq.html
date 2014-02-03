@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>DAM Transformation Requirements</title>
+
+  
+  
+  <meta name="author" content="Joseph Scheuhammer">
+</head>
+<body>
+<div style="text-align: center;">
+<h1>DAM Transformation Requirements</h1>
+<p style="font-style: italic;">Joseph Scheuhammer and David Weinkauf<br>
+March 12, 2004</p>
+
+</div>
+
+<h2>Acronyms</h2>
+
+<p>ACCLIP - Accessibility for Learner
+Information Package (<a title="IMS Global Learning Consortium, Inc. - Accessibility Specification" href="http://www.imsglobal.org/accessibility/index.cfm">http://www.imsglobal.org/accessibility/index.cfm</a>)<br>
+DAM - Dynamic Appearance Model<br>
+SCO
+- Sharable Content Object<br>
+SOW - Statement of Work<br>
+TILE
+- The Inclusive Learning Exchange (<a title="The Inclusive Learning Exchange" href="http://barrierfree.ca/tile/">http://barrierfree.ca/tile/</a>)<br>
+WCAG - Web Content Accessibility
+Guidelines (<a title="Web Content Accessibility Guidelines 1.0" href="http://www.w3.org/TR/WAI-WEBCONTENT/">http://www.w3.org/TR/WAI-WEBCONTENT/</a>)<br>
+W3C -World Wide Web Consortium (<a title="World Wide Web Consortium" href="http://www.w3c.org">http://www.w3c.org</a>)
+</p>
+
+
+
+<h2>Introduction</h2>
+
+<p>This document outlines the requirements for a SCO to allow the
+transformations outlined in the DAM/SCORM/SOW.&nbsp; The SOW has a
+table of transformations with a key indicating whether that
+transformation is applicable to branding.&nbsp; This document lists
+those transformations that were declared as relevant to branding (i.e.,
+the "maybe's" have been dropped).&nbsp; For each transformation, there
+is a brief description of how TILE handles the transformation, and,
+based on that, what requirements there would be for the SCO in order
+that we can co-opt the TILE technique.<br>
+</p>
+
+<h2>Text Rendering</h2>
+
+<p>This category is meant to group together transformations involving:<br>
+</p>
+
+<ul>
+
+  <li>font family</li>
+  <li>text size,</li>
+  <li>text colour,</li>
+  <li>background colour,</li>
+  <li>and highlight colour.</li>
+</ul>
+
+<p>TILE handles this transformation using CSS, implying that the SCO
+must be transformable via CSS.&nbsp; CSS works with only XML and HTML
+documents; hence, the SCO must be XML or HTML.&nbsp; Since it is much
+easier to style HTML with CSS, and since the point of this project is
+to demonstrate transformations, we recommend that the SCO be HTML.<br>
+</p>
+
+<p>Also, it's likely that DAM will use XSL for other
+transformations.&nbsp; XSL cannot be used with straight HTML (<a title="Web Style Sheets" href="http://www.w3.org/Style#why">W3C</a>).&nbsp;
+We
+therefore recommend that the SCO be XHTML.<br>
+</p>
+
+<p>At the February face-to-face meeting, Peter proposed that all SCOs
+be in a neutral
+data format, from which
+various specific
+formats could be generated.&nbsp; Examples of specific formats include
+PDF and HTML.&nbsp; The suggested neutral data format was DocBook.&nbsp;
+With
+respect to a text rendering transformation, DocBook is fine with the
+proviso that the transformation will be applied to the XHTML version of
+the SCO generated from DocBook.<br>
+</p>
+
+<h2>Layout</h2>
+
+<p>
+TILE currently does not handle this; neither is there anything in the
+acclip to define layout. It is tempting to use CSS
+for this as well, but even for simple layouts, a CSS can be daunting.&nbsp; The use of xhtml &lt;table&gt; elements is easier
+for more complex layouts.&nbsp; Also, the support for CSS layout
+techniques varies between many mainstream browsers and is
+sometimes not supported at all; whereas table support is fairly
+universal.</p>
+
+<p>In terms of branding, one possibility is
+that each brand pre-defines its
+own layout, in CSS.&nbsp; In
+that case, the CSS is "canned", and the
+transformation amounts to choosing the correct institutional branding
+layout to use with the SCO at runtime. A branded layout CSS
+implementation has the prerequisite that the SCO be in a common data
+format with standard CSS 'class' and 'id' attributes defined.  
+This
+is typically handled using &lt;div&gt; and
+&lt;table&gt; elements.&nbsp; That is, the major areas of the document
+are declared using &lt;div&gt; and then are positioned by putting those
+&lt;div&gt; elements into the correct cells of a table.</p>
+
+<p>
+In short, the SCO is either
+transformed via CSS or
+by transforming a
+&lt;table&gt;, or both.   This again requires that the SCO be
+XHTML. It also needs its major sections identified clearly using
+class and id attributes, and possibly &lt;div&gt; elements.</p>
+
+<p>
+If a neutral data format for a
+DAM-SCO is decided upon, this format could support (explicitly or
+implicitly) a set of various layout constructs in which a layout-XSLT
+transformation (and optionally afterwards, a CSS) could be applied. For
+example, the data format could support such layout constructs as: header, footer,  menubar,
+navigation bar,
+logo, sections,
+subsections, etc. in which a
+'branding' layout-XSLT transformation could be generated and applied to
+each DAM-SCO for the given institution at runtime. Some potential data
+formats to investigate further would be: XDoc
+(<a title="Maven - Maven" href="http://maven.apache.org">http://maven.apache.org</a>),
+StyleBook, and DocBook.</p>
+
+<h2>Document (DOM) order</h2>
+
+<p>
+TILE does not handle this transformation.&nbsp; There are two ways to
+reorder
+the DOM, either using code (DOM api manipulations, cf. Xalan), or via
+XSLT.&nbsp; The
+requirement again is that the SCO be XHTML.&nbsp; Also, the sections to
+be reorderd must be clearly identified in the markup.</p>
+
+<p>This transformation is
+similar to layout above and, as a result, has the same common data
+format prerequisites. It is a technically different transformation from
+layout -- layout does <em>not</em> modify
+the order of the elements in the document. Layout affects where on
+the page the elements are positioned visually.&nbsp; A document order
+transformation does change the order of the in the DOM tree, but without
+regard to where those elements are positioned visually.  The visual result of
+both transformations may, however, be very similar.<br>
+</p>
+<p>In any case, this transformation entails the restrictions that a SCO
+have a DOM representation, and that the parts to reorganize are clearly
+marked.<br>
+
+</p>
+
+<h2>Exclusion (Navigation)</h2>
+
+<p>In TILE, this refers to a table of contents that lists topics and allows a user to choose among.&nbsp; Exclusion is the
+availability (and visibility)
+of those topics.&nbsp; It is important to note that it is at the user's
+request whether topics are excluded.<br>
+</p>
+
+<p>The table of
+contents
+is generated from an item hierarchy in the content package
+manifest.&nbsp; The excluded topics are based on user preferences
+handled by settings outside of the acclip.&nbsp; This
+results ultimately in the availability
+of some resource or content; in SCORM-speak, the availability of a
+SCO.&nbsp; Thus, an excluded topic is an excluded SCO.<br>
+</p>
+
+<p>With respect to branding, this amounts to one brand excluding a set
+of SCOs referenced from a content package, while another brand excludes
+another set of SCOs.&nbsp; The transformation starts with an item
+hierarchy and marks items as excluded or included.&nbsp; In short,
+there are no requirements vis-&agrave;-vis the SCO, rather the
+requirements pertain to the SCO's metadata.&nbsp; The SCO must be
+identifiable as one to exclude, and that information resides outside of
+the SCO.</p>
+
+<h2>Alternate Content</h2>
+
+
+
+
+
+
+
+
+With respect to the acclip and TILE, there are a number of alternate content
+transformations.&nbsp; Each of these is dealt with in a
+sub-section.&nbsp; The transformations are:<br>
+
+
+
+
+
+
+
+
+<ul>
+
+
+
+
+
+
+
+
+  <li><a href="#Content_Density">content density</a></li>
+  <li><a href="#Content_Views">content views</a></li>
+  <li><a href="#Alternatives_to_X">alternatives to visual</a></li>
+  <li><a href="#Alternatives_to_X">alternatives to audio</a></li>
+  <li><a href="#Alternatives_to_X">alternatives to text</a></li>
+</ul>
+
+
+
+
+
+
+
+
+<h3><a name="Content_Density"></a>Content Density</h3>
+
+
+
+
+
+
+
+
+<p>Content density is how much each of section of a SCO is visible, where
+users can toggle between "expanded" or "collapsed".&nbsp; This is
+implemented in TILE using a JavaScript function.&nbsp; The requirement
+for the SCO is that potentially 'dense' sections
+of its content be
+identifiable, and that those sections can be
+collapsed/expanded via a JavaScript function. That is, the 'dense'
+section must be a
+child (or leaf) block-level section.
+</p>
+
+
+
+<p>In terms of branding, this
+transformation would give an institution a particular 'feel' in
+displaying large portions of content that have the potential of being
+less-densely represented. For example, if an institution implemented
+search functionality across all the SCO's they support, the display of
+the description of SCO's which matched the given search constraint
+could be toggled as follows based on the branding content density
+property:</p>
+
+<blockquote>
+<p>Collapsed:<br>
+<span style="font-size: smaller;"><span class="TILEDescription" id="_span4">The Reading &amp;
+Note-Taking: Textbooks course is comprised of three parts: Reading,
+Taking Notes, and Writing Summaries. These three components will
+together enable you to understand the process of reading and taking
+notes. They will help you learn about the relation to good study
+habits, reading practices and writing assignments. It is recommend ... [<span style="text-decoration: underline;">Read More (350 of 553 Characters)</span>]<br>
+</span></span></p>
+<br>
+<p>Expanded:<br>
+<span style="font-size: smaller;"><span class="TILEDescription" id="_span4">The Reading &amp;
+Note-Taking: Textbooks course is comprised of three parts: Reading,
+Taking Notes, and Writing Summaries. These three components will
+together enable you to understand the process of reading and taking
+notes. They will help you learn about the relation to good study
+habits, reading practices and writing assignments. It is recommended
+that you have completed the Introduction to Online Collaborative
+Learning and Time Management courses prior to undertaking this one. If
+you have not taken these, permission from the instructor should be
+secured prior to beginning this lesson. You might also want to see the
+Memory &amp; Concentration course. [<span style="text-decoration: underline;">Read Less</span>]</span></span></p>
+</blockquote>
+
+<h3><a name="Content_Views"></a>Content Views<br>
+</h3>
+
+<p>The acclip allows two values here, namely image intensive, or text
+intensive.&nbsp; An image intensive learning object is one that
+communicates its message using lots of graphs, pie charts, images, and
+so on.&nbsp; A text intensive one uses text, for the most part, to communicate the
+same message.&nbsp; The transformation amounts to substituting one for
+the other.<br>
+</p>
+
+<p>TILE supports a general one-way
+image intensive to text intensive transformation by utilizing HTML's
+&lt;img&gt; attributes, "alt" and "longdesc." If requested by the user,
+TILE substitutes an &lt;img&gt; with a &lt;p&gt; containing the image's
+alternative and long description text. This transformation requires
+that the &lt;img&gt; provides proper alternative text descriptions as
+defined in the <a title="Web Content Accessibility Guidelines 1.0" href="http://www.w3.org/TR/WAI-WEBCONTENT/">WCAG 1.0</a>
+guidelines of the <a href="http://www.w3.org/">W3C</a>. Further
+investigation will be done on how far this transformation relates to
+branding and whether or not  <a title="Web Content Accessibility Guidelines 1.0" href="http://www.w3.org/TR/WAI-WEBCONTENT/">WCAG 1.0</a> conformance
+is a requirement of a DAM-SCO.
+</p>
+
+<p>
+The parts of the SCO that are image intensive, for which text is going
+to substitute, must be cleary marked, and must have "alt" and "longdesc" attributes.<br>
+</p>
+<h3><a name="Alternatives_to_X"></a>Alternatives to X</h3>
+
+<hr style="width: 100%; height: 2px;">
+<p>Side bar: acclip alternative content preferences, and what they
+mean:</p>
+
+<ul>
+
+  <li>alternative to visual</li>
+  <ul>
+    <li>audio alternatives to visual material, e.g, audio (spoken) descriptions of the material.</li>
+    <li>textual alternatives to graphics, e.g., alt text for images.</li>
+    <li>colour avoidance, e.g. for colour blind users.</li>
+  </ul>
+  <li>alternatives to audio</li>
+  <ul>
+    <li>text captions for audio sound track.</li>
+    <li>sign language for audio.</li>
+  </ul>
+  <li>alternatives to text</li>
+  <ul>
+    <li>graphic alternative for text, e.g, stop sign icon instead of
+the text "Stop".</li>
+    <li>sign language alternative for text.</li>
+  </ul>
+</ul>
+
+
+
+
+
+
+
+
+<p>In short, the alternative content in the acclip involves substituting one
+mode of communication for another.&nbsp; The acclip <em>does not</em>
+handle substitution of content <em>within</em> a
+modality.&nbsp; With respect to branding, a standard example of an
+alternate content transformation is substituting one logo
+for another.&nbsp; That is a within modality transformation, and the
+acclip does not deal with this (hence, neither does TILE).&nbsp; This
+might indicate a deficiency in the acclip, or that the trigger for
+intra-modality transformations lies outside the acclip.<br>
+</p>
+
+
+
+
+
+
+
+
+<hr style="width: 100%; height: 2px;">
+<p>The requirement for the SCO is that the content to be substituted be
+clearly identified, via id attributes, and/or &lt;div&gt; elements, so that
+the "alternative content" of those
+sections can be swapped in and out.<br>
+</p>
+
+
+
+<h3>Role of Metadata in Alternate Content Transformation<br>
+</h3>
+
+<p>Finally, a word about metadata and its relationship to alternate
+content transformations.&nbsp; First, the content package resource
+section allows for defining variant
+resources.&nbsp; This is a TILE extension to the IMS content package
+schema.&nbsp; Each variant resource is associated with a single
+resource and
+references another learning object.&nbsp; The intended semantics are that one
+learning object is a variation of another.&nbsp; The kind of variation
+is defined by the variant's meta-data, specifically its /lom/relation
+information.&nbsp; As with content package resource variants, TILE uses
+an extended vocabulary for the
+/lom/relation/kind meta-data.&nbsp; (In fact, the xml machinery used in
+TILE to make this work is more complex,
+but this description is enough to communicate the jist).&nbsp; Thus,
+given that a
+resource (SCO) is to be launched, and the user has requested, say, an
+audio alternative, then TILE looks for a variant of that resource whose
+meta-data states that it is an audio alternative to the main resource.<br>
+</p>
+
+<p>I see no reason why a similar sort of technique could not be used
+for alternate content substitutions for branding.&nbsp; The
+manifest/resource specifies brand variants.&nbsp; The kind of brand is
+given in that variant's meta-data (although we might have to modifiy
+the vocabulary to /lom/relation/kind for this).&nbsp; <em>Something</em>
+tells the system to use brand X; hence, the transformer looks for brand
+X variants when grabbing resources from the manifest.&nbsp; The issue
+is: what is the <em>something</em>?&nbsp; Acclip? - if so, it's an
+extended acclip.<br>
+</p>
+
+<p>The requirement for SCOs is that there be variant SCOs, that their
+meta-data properly describes the relationship among the variants, and
+that the content packages be constructed to list the variants.</p>
+
+<h2>Content Supplements</h2>
+
+<p>
+Content supplements are similar to
+alternative content but here, the supplementary material cannot
+completely replace the original content.&nbsp; An example is text
+captions -- by themselves they are only a textual transcript of the
+speech on the audio track.&nbsp; They cannot, by themselves, replace
+the entire video.</p>
+
+
+
+
+<p>TILE handles supplements in a similar fashion to alternative
+content,
+but does require some extra machinery to do something with the
+supplements.&nbsp; Keeping with the text caption example, given that
+captions are available for a video, TILE uses SMIL to dynamically
+combine the original video with the caption text, and then then sends
+the SMIL markup to the
+client instead of the original video.&nbsp; A caveat, however:&nbsp;
+this work is still under development with respect to TILE.</p>
+<h2>Structure Presentation (Navigation)</h2>
+
+<p>The acclip has a user preference for showing or hiding a table of
+contents.&nbsp; TILE views one purpose of the table of contents as allowing
+navigation throught the material.&nbsp; The table of contents
+both shows where the user is in terms of which SCO they are currently
+viewing, as well as allowing them to "jump" among SCO's rather than be
+limited by "next" and "previous" links.&nbsp; The table of contents is
+built from the item hierarchy in the content package
+organization.<br>
+</p>
+
+<p>
+With respect to branding, one brand may rely heavily on a
+"navigation bar" as part of their look and feel, while another brand
+finds this less important.</p>
+
+
+<p>
+There are no requirements on the SCO for this kind of
+transformation.&nbsp; The table of contents is derived from the content
+package, and its visibility from the acclip.</p>
+
+
+<h2>Structure Navigation</h2>
+
+<p>
+This transformation is based on a depth-first vs. breadth-first
+traversal preference in the acclip.&nbsp; This determines the
+destination of "next" and "previous" links.&nbsp; Given an item&nbsp;
+from the content package, and a bread-first traversal, "next" means
+going from sibling to sibling in the item tree before descending to the
+children of an item.&nbsp; Depth-first uses the same item tree, but
+traverses all of an item's descendents first before moving to that
+item's sibling.</p>
+
+
+<p>
+Since this is again determined solely by the acclip and a table of contents, there is no requirement on the SCO themselves.</p>
+
+
+<hr style="width: 100%; height: 2px;">
+<p style="font-size: small; font-style: italic;">Last modified March
+15, 2003 by Joseph Scheuhammer</p>
+
+</body></html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  
+  
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>DAM: Flow of Information</title>
+  
+
+  
+
+  
+
+  
+  
+  
+  
+  <meta content="Joseph Scheuhammer" name="author"></head>
+<body>
+<h1 style="text-align: center;">DAM: Flow of Information</h1>
+
+
+
+
+<h2>Basic View</h2>
+
+
+
+
+<p>The basic flow of information is captured in Figure 1, below:&nbsp;
+given a SCO and the details of how it should be transformed (the "Xform
+info" in the figure), the transformation engine engine modifies the SCO
+to produce a transformed version of it. <br>
+</p>
+
+
+
+<p style="text-align: center;"><img style="border: 1px solid ; text-align: center; margin-bottom: 0.5em; height: 122px; width: 374px; margin-top: 0.5em;" alt="Basic flow of information" src="BasicFlow.png"></p>
+
+
+<p style="text-align: center;">Figure 1.  Basic Flow of Information in a DAM Transformation.<br>
+</p>
+
+<p>This is an intentionally oversimplified view of the transformation
+process, and is meant to provide a starting point.&nbsp; In terms of
+content density, figure 1 represents the most collapsed view of the
+process.&nbsp; What is needed is to expand each of the boxes to state
+explicitly what information is inside that box, and to expand the
+circles to specify what process(es) it represents.&nbsp; Another issue is the sequence of the transformations.<br>
+</p>
+<p>In what follows each transformation discussed in "<a title="DAM Transformation Requirements" href="http://dam.atrc.utoronto.ca/techdocs/DAMxformReq.html">DAM Transformation Requirements</a>"
+is represented as an information flow diagram.&nbsp; There is some
+attempt to divest the transformation of its TILE influence, and
+describe the situation in a more general way.&nbsp; The approach is
+inspired by Jutta's comment (personal communication) that
+transformations should be thought of horizontally, and that they are
+not specifically for branding, or for different devices, or for
+accessibility, or for anything in particular, but are transformations
+that prove useful in multiple contexts.&nbsp; The attempt at generality
+is not completely successful, since trying to state what the
+transformation is without reference to at least one concrete
+implementation is difficult.<br>
+</p>
+
+
+<h2>Text Rendering<br>
+</h2>
+
+<p>All else being equal, it is fairly certain that the last
+transformation is the one that deals with font, sizes, colours, and so
+on.&nbsp; This is illustrated in Figure 2.<br>
+</p>
+
+<br>
+
+<p style="text-align: center;"><img style="border: 1px solid ; width: 464px; height: 194px;" alt="Text Rendering Transformation Flow" src="TxtRendering.png"><br></p>
+
+<p style="text-align: center;">Figure 2. The Last Stage: Text Rendering Transformation.<br>
+</p>
+
+<p>Note that the actual rendering of the text takes place in the SCO
+viewer (the browser).&nbsp; All that the CSS Xform does is to inject
+the CSS information into the SCO before it is sent to the
+browser.&nbsp; The injection consists of the addition of &lt;link&gt;
+or a &lt;style&gt; element(s).<br>
+
+ </p>
+
+<h3>Questions</h3>
+
+<ol>
+
+  <li>Is this the locus of the layout transformation?&nbsp; The
+    <a title="DAM Transformation Requirements" href="http://dam.atrc.utoronto.ca/techdocs/DAMxformReq.html">requirements document</a> suggested that &lt;div&gt; and
+&lt;table&gt;&nbsp; elements will be used here.</li>
+  <ul>
+    <li>This raises another issue.&nbsp; Are the&nbsp; SCO's going to
+be marked up in terms of major sections that partake in visual
+layout?&nbsp; That is, the major sections that can be moved about are
+encoded without regard to where they actually end up.&nbsp; Subsequent
+to that, the CSS is applied at the text rendering stage to render the
+layout according to the user's preferences and according to the brand.<br>
+    </li>
+    <li>Or, is there another transformation that applies some XSL
+transformation to insert the &lt;div&gt; and &lt;table&gt; elements
+for layout?&nbsp; If so, then that is another transformation that
+happens previous to this one.</li>
+  </ul>
+  <li>The diagram follows the TILE assumption that the user's CSS is
+defined by their ACCLIP.&nbsp; It has been suggested that the ACCLIP
+could also be used for defining branding CSS.&nbsp; Some doubts have
+been raised against the latter in the <a title="Dynamic Appearance Model - DAM Proposed Model" href="http://dam.atrc.utoronto.ca/techdocs/DAMModel.html#The_ACCLIP">model document</a>.&nbsp; If not the ACCLIP (for branding), then what provides this information?&nbsp; Possibilities include:</li>
+  <ul>
+    <li>An expanded ACCLIP.</li>
+    <li>Meta-data.</li>
+    <li>The adlnav namespace.</li>
+    <li>A new schema entirely.<br>
+    </li>
+  </ul>
+
+
+</ol>
+<h2>Layout</h2>
+<p>For completion sake, here is a diagram of the Layout transformation
+from the point of view that it is an XSL transformation that places
+sections of the document into visual locations.<br>
+</p>
+<p>Viewed this way, the layout transformation happens prior to the Text Rendering transformation.<br>
+</p>
+<p style="text-align: center;"><img style="border: 1px solid ; width: 455px; height: 194px;" alt="Visual Layout Transformation" src="Layout.png"><br>
+</p>
+<p style="text-align: center;">Figure 3. Layout Transformation.<br>
+</p>
+<h2>DOM Order</h2>
+<p>Figure 4 shows two possible interpretations of the document ordering
+transformation.&nbsp; Another possibility is that some
+combination of meta-data and XSL rules is used to
+create the re-ordered SCO. <br>
+</p>
+<p style="text-align: center;"><img style="border: 1px solid ; width: 455px; height: 446px;" alt="DOM Order Transformation" src="DocOrder.png"><br>
+</p>
+<p style="text-align: center;">Figure 4.&nbsp; Two Views of the DOM Order Transformation<br>
+</p>
+<p style="text-align: left;">The top diagram in figure 4 is meant to
+show the idea that the document is reordered according to some XSL
+rules and an XSLT on the document.&nbsp; The bottom diagram
+shows the idea that meta-data could be used to choose among a set of
+"alternative" documents that differ from one another in terms of their
+ordering.<br>
+</p>
+<h3>Question<br>
+</h3>
+<p style="text-align: left;">If it is the case that all of these
+alternative documents can be generated by some set of XSL rules, then
+these diagrams are logically equivalent, and the top method is
+preferrable.&nbsp; Are there any reasons to suspect that's not the case?<br>
+</p>
+<h2>Exclusion (Navigation)</h2>
+<p>This is actually a where the transformation is <em>not</em> a
+transformation on a SCO.&nbsp; Rather it is a navigation device that
+chooses which SCOs are visible.&nbsp; In TILE, the choice is based solely the
+user's preference; nothing else in the system affects that
+choice.&nbsp; This is the reason for the parenthetical "user pref" in
+the exclusion information box.&nbsp; For the DAM, it need not be this
+way; in fact, the exclusion information will also involve whatever
+branding requires for exclusion.<br>
+</p>
+<p style="text-align: center;"><img style="border: 1px solid ; width: 459px; height: 249px;" alt="Topic Exclusion" src="Exclusion.png"><br>
+</p>
+<p style="text-align: center;">Figure 5. Topic Exclusion<br>
+</p>
+<h3>Questions<br>
+</h3>
+<p>Is this a case where the branding might override the user?&nbsp;
+That is, if branding requires that a SCO be invisible, and the user
+desires to see it, who wins?<br>
+</p>
+<p>Since this is the user's choice in TILE, this transformation occurs
+live at the browser.&nbsp; The user can mark things in a table of
+contents view as excluded, and as this is done, the back end servlet
+makes a note as to which topics should not be automatically delivered
+by "next/previous" requests.&nbsp; As such, the transformation always
+takes place at the end of the process.&nbsp; Note that this is partly because no SCO is
+transformed at all at this point.&nbsp; Will this technique work in
+the case of the DAM?<br>
+</p>
+<h2>Alternate Content</h2>
+<h3>Content Density</h3>
+<p style="text-align: center;"><img style="border: 1px solid ; width: 389px; height: 194px;" alt="Density Transformation" src="Density.png"><br>
+</p>
+<p style="text-align: center;">Figure 6. Density Transformation<br>
+</p>
+<p style="text-align: left;">Again, like topic exclusion, the
+transformation takes place on the client and is live.&nbsp; It is a
+toggle that the user can switch to collapse and expand content..<br>
+</p>
+<br>
+<h3>Content Views (Image vs. Text Intensive)</h3>
+<p>Figure 7 shows the content views transformation, and is based on the details given in the <a title="Dynamic Appearance Model - DAM Transformation Requirements" href="http://dam.atrc.utoronto.ca/techdocs/DAMxformReq.html#Content_Views">transformations requirements</a> document.<br>
+</p>
+<br>
+
+<p style="text-align: center;"><img style="border: 1px solid ; width: 455px; height: 203px;" alt="Content Views Transformation" src="Views.png"><br>
+</p>
+<p style="text-align: center;">Figure 7.&nbsp; Image to Text Intensive Transformation.<br>
+</p>
+<p style="text-align: left;">This is the least general specification so
+far.&nbsp;&nbsp; The SCO is an (x)html document with image tags
+properly marked up with <code>alt</code> and <code>longdesc</code>
+attributes.&nbsp; The user preference for text intensive views of
+images drives the transformer to acquire the alt and longdesc text, and
+insert them as a paragraph in the (x)html.<br>
+</p>
+
+
+<h3>Alternatives to X</h3>
+<p>Figure 8 shows an abstraction of the flow of information for all of
+the alternatives to X transformations.&nbsp; These include textual,
+graphic and, audio alternatives.</p>
+<br>
+
+<p style="text-align: center;"><img style="border: 1px solid ; width: 455px; height: 302px;" alt="Alternate Content Transformation" src="AltContent.png"><br>
+</p>
+<p style="text-align: center;">Figure 8. Alternative Content Transformation<br>
+</p>
+<p style="text-align: left;">The transformation's two triggering inputs
+are a list of alternative SCOs and meta-data on each of them defining
+the way that they are a variant of the input SCO.&nbsp; The
+transformer's job is to choose the variant SCO that matches the
+meta-data requirements, and the preference(s) that states which
+alternative is needed.<br>
+</p>
+
+
+
+<h2>Content Supplements</h2>
+<p>Not sure how to diagram this one...pending.<br>
+</p>
+
+<h2>Structure Presentation (Show/Hide TOC)</h2>
+<p style="text-align: center;"><img style="border: 1px solid ; width: 459px; height: 249px;" alt="Show/Hide Table of Contents" src="TocVisibility.png"><br>
+</p>
+<p style="text-align: center;">Figure 10. Show/Hide Table of Contents<br>
+</p>
+<p style="text-align: left;">Like the topic exclusion and content
+density transformations, the visibility of the table of contents is
+handled as a toggle.&nbsp; Its initial value depends on the user's
+ACCLIP preference, but thereafter the user can quickly switch the sense
+of the toggle.&nbsp; [**Is this handled by a servlet, or JavaScript on
+the client?]<br>
+</p>
+<p style="text-align: left;">Technically, the table of contents is
+actually a view on the item tree in the content package manifest.&nbsp;
+It is not a list of SCOs as in the figure. However, this is a short cut
+for the figure.<br>
+</p>
+
+<h2>Structure Navigation (Depth vs. Breadth)</h2><br>
+<p>Figure 11 diagrams the depth-first vs. breadth-first navigation
+transform.&nbsp; Note, again, that this is not a transformation on an
+individual SCO, but occurs at a higher navigational level.<br>
+</p>
+
+<p style="text-align: center;"><img style="border: 1px solid ; width: 459px; height: 258px;" alt="Structural Navigation Transformation" src="TocTraversal.png"><br>
+</p>
+<p style="text-align: center;">Figure 11.&nbsp; Table of Contents Traversal<br>
+</p>
+<p style="text-align: left;">Somewhere, there is a table of contents
+data structure that represents the topics/activities/objectives of the
+presentation as a whole.&nbsp; That table of contents is organized in a
+hierarchical fashion.&nbsp; In TILE, this is the item organization in
+the content package manifest.<br>
+</p>
+<p style="text-align: left;">The transformation consists of defining
+how the table of contents heirarchy is to be traversed.&nbsp; The
+diagram illustrates a breadth-first traversal of the hierarchy -- first
+the top level items are shown in sequence, followed by the items in the
+next level of the hierarchy.&nbsp; In comparison, a depth-first
+traversal of the same hierarchy would proceed:<br>
+</p>
+<blockquote>Item1 -&gt; Item1a -&gt; Item1b -&gt; Item2 ...</blockquote>
+<p style="text-align: left;">
+</p>
+
+
+
+<h2>General Issues</h2>
+<ol>
+  <li>All of the above assumes that the transformations occur in
+isolation and in a linear fashion.&nbsp; That would be nice...&nbsp;
+But, the reality may be quite different; for example, the user
+preferences may preclude some transformation.&nbsp; There is a chance
+that some evaluation process needs to take into account and judge which
+way the transformation will go, if at all.&nbsp; Also, there is the
+possibility of feedback loops in that a transformation might influence
+a previous one. Note that TILE avoided this by performing each
+transformation in isolation and in a certain order.</li>
+  <li>There needs to be a break down of what is in each of the "info"
+boxes that influence a given transformation.&nbsp; These include:</li>
+  <ul>
+    <li>User ACCLIP</li>
+    <li>Branding settings.</li>
+    <li>Meta-data.</li>
+    <li>EARL assertions about the feasibility of a transformation (?)</li>
+    <li>Content package (manifest/item tree).</li>
+  </ul>
+  <li>Are TILE transformations too specific to TILE to be used here
+without modification?&nbsp; How much of TILE should be
+used/pirated?</li><li>???<br>
+  </li>
+
+  
+</ol>
+
+<br>
+
+
+
+<br>
+</body></html>

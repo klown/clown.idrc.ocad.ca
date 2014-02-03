@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>Many Elements with @id="foobar"</title>
+<script type="text/javascript">
+	function fooBarDoClick (el) {
+		var note = document.getElementById ("notification");
+		note.innerHTML = "<code>...</code>";
+		setTimeout (function() { note.innerHTML = "<code>@id=" + el.id + "</code>"; }, 500);
+	}
+	
+	var booFarCurrentStyle = {
+		backgroundColor: "yellow"
+	}
+	
+	function fooBarToggleStyle() {
+		var booFarEl = document.getElementById ("foobar");
+		var tmpColor = booFarEl.style.backgroundColor;
+		booFarEl.style.backgroundColor = booFarCurrentStyle.backgroundColor;
+		booFarCurrentStyle.backgroundColor = tmpColor;		
+	}
+	
+	function fooBarListAll() {
+		document.getElementById ("listAllFooBars").innerHTML = "<code>...</code>";
+		listString = "";		
+		function findAllFooBars (rootEl) {
+			if (rootEl != null) {
+				if (rootEl.id == "foobar") {
+					listString += "&lt;" + rootEl.tagName + " id=\"" + rootEl.id + "\" ... &gt;<br>";
+				}
+				for (var i = 0; i < rootEl.childNodes.length; i++) {
+					var aChild = rootEl.childNodes[i];
+					findAllFooBars (aChild);
+				}
+			}
+		}
+		findAllFooBars (document.documentElement);
+		if (listString.length == 0) { listString = "*" };
+		setTimeout (function() { document.getElementById ("listAllFooBars").innerHTML = "<code>" + listString + "</code>"; }, 500);
+	}
+</script>
+</head>
+<body>
+<h1>Many Elements with <code>@id="foobar"</code></h1>
+<p id="foobar" onclick="fooBarDoClick(this);" onkeydown="fooBarDoClick(this);" style="background-color: green;">This is a paragraph element whose <code>@id='foobar'</code></p>
+<p id="foobar" onclick="fooBarDoClick(this);" onkeydown="fooBarDoClick(this);">This paragraph also has <code>@id='foobar'</code><br>
+<p>
+<button
+	id="foobar"
+	name="snafu"
+	value="Push me for my id"
+	type="button"
+	onclick="fooBarDoClick(this);" onkeydown="fooBarDoClick(this);">Push me for my id</button>
+</p>
+<p id="notification" style="border: 1px solid blue; width: 33%;"><code>@id info here...</code></p>
+<hr>
+<p>
+The following button essentially does a:
+<blockquote>
+	<code>document.getElementById ("foobar");</code>
+</blockquote>
+and then changes the background colour of the element found.  How many elements
+are affected?  If the identfiers remain as authored, then only the first element
+with <code>@id="foobar"</code> is affected (the first paragraph in the
+document).
+</p>
+<p>
+<button
+	id="foobar"
+	name="snafu"
+	type="button"
+	onclick="fooBarToggleStyle();" onkeydown="fooBarToggleStyle();">Toggle background for element with <code>@id="foobar"</code></button>
+</p>
+<hr>
+<p>
+The next button (which also has <code>@id="foobar"</code>) runs a script that
+traverses the DOM for this document and prints out all of the elements whose 
+<code>@id="foobar"</code>.  As such, the script runs on the DOM as constructed
+by the browser into which you loaded this page.  That is, if the browser made
+the identifiers unique, then this should <em>not</em> print out five items.
+</p>
+<p>
+<button
+	id="foobar"
+	name="snafu"
+	type="button"
+	onclick="fooBarListAll();">List all elements with <code>@id="foobar"</code></button>
+</p>
+<p id="listAllFooBars" style="border: 1px solid black; width: 33%;"><code>...</code></p>
+
+</body>
+</html>

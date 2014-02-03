@@ -1,0 +1,7 @@
+- Can have a <div> set up "just" for styling (role="presentaion").
+
+- Can have a <div> for (part of) a widget (role="slider")
+
+- Can have a <div> that is just content.
+  -- need example of this.
+  -- does "presentation" apply to the (immediate) text within the element marked as such>

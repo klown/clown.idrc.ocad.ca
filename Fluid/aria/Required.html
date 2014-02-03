@@ -1,0 +1,120 @@
+<label for="name">Your name <img src="asterisk.png" alt="required" /></label>
+<input id="name" type="text" aria-required="true" />
+
+<label for="name1">Your name</label> <img src="asterisk.png" alt="required" />
+<input id="name1" type="text" aria-required="true" />
+
+<div>Table?
+  <th>Table header cell</th>
+</div>
+
+
+
+Hi Graeme,
+
+(Sorry if you get this twice, but a dialog popped up when I last sent it, and then disappeared before I could read it.  But it was along the lines of something failing.  Here is a second attempt.)
+
+Good questions.  And I'll sneak up on the answer.
+
+ARIA is declarative.  In a sense, all it's doing is providing meaning where there is none, and clarification where there is little.  With respect to aria-required, it's declaring, irrespective of presentation, that "this form control needs to be filled in".  It's up to ATs how they want to present that.
+
+Given your contruct:
+<label for="name">Your name <img src="asterisk.png" alt="required" /></label>
+<input id="name" type="text" aria-required="true" />
+
+You're probably correct that a screen reader will say something twice.  It might be useful to walk through this to see why.
+
+First, the browser will construct the label for 'name' control, and expose that for ATs.  That label is going to be "Your name required".  Secondly, it will expose a required state for the control as well.  The accessible object built out of all this will look something like this:
+
+Control:
+- role:  text entry
+- name:  "Your name required"
+- description:  none.
+- states:  focusable, editable, single line, enabled, required.
+- value: none.
+
+Screen readers likely won't bother saying that the control is focusable, editable, single line, or enabled (disabled and/or read-only, yes, but not enabled and editable).  But, because it's important, then it will say something about the required state.  And, when the user navigates to the control, it will speak the label.  So, it may well say "Editable text:  Your name required, required, empty".  Or it might say "Required input:  Your name required, currently empty".
+
+IMO, "required" is not really part of the name.  So, I'd make this change, at least, moving the <img> element outside of the <label>:
+<label for="name">Your name</label> <img src="asterisk.png" alt="required" />
+<input id="name" type="text" aria-required="true" />
+
+Then the accessible looks like:
+Control:
+- role:  text entry
+- name:  "Your name"
+- description:  none.
+- states:  focusable, editable, single line, enabled, required.
+- value: none.
+
+Also, the asterisk image is almost presentational, given that it's redundant with the aria-required explicit state information.  I'd be tempted to make the alt text empty.  It would still be seen by sighted users, but there would be no alternative text at the a11y level:
+<img src="asterisk.png" alt="" />
+
+
+One other feature that has nothing directly to do with duplication, but is useful.  With CSS2, one can trigger styles based on attribute values.  In particular, one can write a style rule for required information:
+
+input[aria-required ="true"] {  /* style rules here */ }
+
+
+On 2013-03-27 11:25 AM, Graeme Coleman wrote:
+> Hi Joseph,
+>
+> To follow up on our conference call...thanks for chiming in about always using aria-required on required form attributes!
+>
+> However (and this shows up where I guess I need to do a little more reading of the spec!!!), this attribute confuses me slightly. I'll use an example to explain.
+>
+> Let's say I have a form element, let's just say "name" for simplicity, marked up as follows:
+>
+> <label for="name">Your name</label>
+> <input id="name" type="text" />
+>
+> Now, let's say we want to use a visual indicator to state that this field is required:
+>
+> <label for="name">Your name <img src="asterisk.png" alt="required" /></label>
+> <input id="name" type="text" />
+>
+> Everything looks fine so far - it will be clear on the page that the asterisk represents a required field, and a screen reader user will hear "Your name, required".
+>
+> To me, the "problem" (not the correct word, but hopefully you'll see what I mean) is when you add the aria-required attribute to the input field:
+>
+> <label for="name">Your name <img src="asterisk.png" alt="required" /></label>
+> <input id="name" type="text" aria-required="true" />
+>
+> If I do this, doesn't a screen reader user hear that the field is required twice (although I might test this to be sure) - i.e. something like "Your name, required, required field"?
+>
+> Not a major issue, but it's information duplication...so it could be frustrating if navigating through a long form with lots of required options.
+>
+> So, I suppose we could use the aria-required attribute alone, so screen reader users get this information, but (unless newer browsers support it...again, I should check!) this information will not be available visibly...
+>
+> <label for="name">Your name</label>
+> <input id="name" type="text" aria-required="true" />
+>
+> So, I guess my question is...is the duplication of information problematic, or just "one of those things" (or have I completely misunderstood)?
+>
+> Sorry for the "Let me Google that for you"-type question, but it's good to get a response from an expert!
+>
+> Graeme
+> -- 
+> Dr Graeme Coleman,
+> Research Assistant,
+> School of Computing
+> University of Dundee,
+> DUNDEE,
+> Scotland DD1 4HN
+>
+> Tel: +44 (0)1382 385820
+> Fax: +44 (0)1382 385509 (FAO: Graeme Coleman)
+>
+> Homepage: http://thisisgrae.me
+> School of Computing: http://www.computing.dundee.ac.uk
+> Digital Media Access Group: http://www.dmag.org.uk
+> The University of Dundee is a Scottish Registered Charity, No. SC015096.
+
+-- 
+;;;;joseph.
+
+
+'A: After all, it isn't rocket science.'
+'K: Right. It's merely computer science.'
+             - J. D. Klaun -
+

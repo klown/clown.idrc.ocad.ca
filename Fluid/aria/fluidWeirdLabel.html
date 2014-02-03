@@ -1,0 +1,44 @@
+<html>
+<head>
+<style>
+.fl-hidden-accessible { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+</style>
+</head>
+<body>
+<h3>Original</h3>
+<p>
+<label id="themeRow::themeLabel" class="flc-uiOptions-themeLabel fl-theme-uio-bw uio-demo-theme" for="themeRow::themeInput">
+  <span class="fl-preview-A" role="presentation">A</span>
+  <span class="fl-hidden-accessible">Default</span>
+</label> 
+<input type="radio" id="themeRow::themeInput">
+</p>
+<h3>aria-hidden</h3>
+<p>
+<label id="themeRow::themeLabel1" class="flc-uiOptions-themeLabel fl-theme-uio-bw uio-demo-theme" for="themeRow::themeInput2">
+  <span class="fl-preview-A" aria-hidden="true">A</span>
+  <span style="display:none;">Default</span>
+</label> 
+<input type="radio" id="themeRow::themeInput2">
+</p>
+<h3>aria-hidden + aria-label</h3>
+<p>
+<label id="themeRow::themeLabel2" class="flc-uiOptions-themeLabel fl-theme-uio-bw uio-demo-theme" for="themeRow::themeInput3">
+  <span class="fl-preview-A" aria-hidden="true">A</span>
+  <span class="fl-hidden-accessible">Default</span>
+</label> 
+<input type="radio" id="themeRow::themeInput3" aria-label="Default">
+</p>
+<h3>Simply move "A" outside label</h3>
+<span class="fl-preview-A">A</span>
+<label id="themeRow::themeLabel2" class="flc-uiOptions-themeLabel fl-theme-uio-bw uio-demo-theme" for="themeRow::themeInput4">
+  <span class="fl-hidden-accessible">Default</span>
+</label>
+<input type="radio" id="themeRow::themeInput4">
+
+<h3>Graeme's issue</h3>
+<label for="name">Your name</label> <img src="asterisk.png" alt="required" />
+<input id="name" type="text" aria-required="true" /> 
+</body>
+</html>
+

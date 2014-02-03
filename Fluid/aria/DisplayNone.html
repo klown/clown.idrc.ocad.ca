@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>display:none vs. visibility:hidden</title>
+
+<script type="text/javascript" src="jquery-1.3.2.js"></script>
+<script type="text/javascript">
+    function hideByDisplay() {
+        var para = jQuery ("#p2");
+        if (para) {
+            var display = para.css ("display");
+            if (display && display == "none") {
+                para.css ("display", "");
+            }
+            else {
+                para.css ("display", "none");
+            }
+        }
+    }
+
+    function hideByVisibility() {
+        var para = jQuery ("#p2");
+        if (para) {
+            var visibility = para.css ("visibility");
+            if (visibility && visibility == "hidden") {
+                para.css ("visibility", "");
+            }
+            else {
+                para.css ("visibility", "hidden");
+            }
+        }
+    }
+
+</script>
+</head>
+<body>
+    <p>This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  This is paragraph 1.  
+    </p>
+    <p id="p2" style="font-weight: bold">This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  This is paragraph 2.  
+    </p>
+    <p>This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  This is paragraph 3.  
+    </p>
+    <input type="button" value="visibility:hidden" onclick="hideByVisibility();">
+    <input type="button" value="display:none" onclick="hideByDisplay();"/>
+    <p>The above buttons toggle the <code>visibility</code> and <code>display</code> css properties of the 2nd paragraph.  Setting its
+    <code>visibilty</code> to <code>hidden</code> leaves a blank space on the page equal to the rendered size of the paragraph.  But, setting its <code>display</code> to <code>none</code> leaves it completely unrendered; that is, there is no blank space.
+    </p>
+</body>
+</html>

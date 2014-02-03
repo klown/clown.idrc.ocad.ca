@@ -1,0 +1,33 @@
+<div role="menubar">
+  <!--
+    File menu: File menuitem has an aria-haspopup attribute set to 'true'.
+    That popup div follows immediately below.
+  -->
+  <div role="menuitem" aria-haspopup="true" id="fileMenu">File</div>
+  <div role="menu" aria-labelledby="fileMenu">
+    <div role="menuitem">Open</div>
+    <div role="menuitem">Save</div>
+    <div role="menuitem">Save as …</div>
+    …
+  </div>
+  <!--
+    View menu:
+  -->  
+  <div role="menuitem" aria-haspopup="true" id="viewMenu">View</div>
+  <div role="menu" aria-labelledby="viewMenu">
+    <div role="menuitem">Normal</div>
+    <div role="menuitem">Outline</div>
+    <!--
+      The View's Zoom menuitem has aria-haspopup='true' as it leads to a
+      submenu.
+    -->
+    <div role="menuitem" aria-haspopup="true" id="zoomSubMenu">Zoom</div>
+    <div role="menu" aria-labelledby="zoomSubMenu">
+      <div role="menuitem">50%</div>
+      <div role="menuitem">75%</div>
+      <div role="menuitem">100%</div>
+      <div role="menuitem">150%</div>
+      <div role="menuitem">200%</div>
+    </div>
+  </div>
+</div>

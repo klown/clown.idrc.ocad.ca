@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+    Copyright 2007 University of Toronto
+    
+    Licensed under the Educational Community License (ECL), Version 2.0 or the New
+    BSD license. You may not use this file except in compliance with one these
+    Licenses.
+    
+    You may obtain a copy of the ECL 2.0 License and BSD License at
+    https://source.fluidproject.org/svn/LICENSE.txt
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-ca"><head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Tabindex Tests</title>
+<meta content="Joseph Scheuhammer" name="author">
+
+<script type="text/javascript">
+    /**
+     * Grab the Text node that is the first immediate child of the current
+     * Element, and return it as a string.  Return the empty string if 'null'
+     * is passed or there is no Text node child.
+     */
+    function getImmediateText (element) {
+        var content2Return = "";
+        if ((element != null) && (element.nodeType == 1 /* ELEMENT_NODE */)) {
+            for (var child = element.firstChild; child != null; child = child.nextSibling) {
+                if (child.nodeType == 3 /* TEXT_NODE */) {
+                    content2Return = child.data;
+                    break;
+                }
+            }
+        }
+        return content2Return;    
+    
+    }   // end getImmediateText().
+    
+    function doOnFocus (what) {
+    
+        // Visually mark the focussed object (= what).
+        //
+        what.style.borderColor = "red";
+        what.style.borderStyle = "solid";
+        what.style.borderWidth = "4px;"
+        what.style.fontSize = "150%";
+        
+        // Update focus status area contents.
+        //
+        var el = document.getElementById ("focusStatus");
+        el.innerHTML = "Focus:  " + getImmediateText (what);
+        
+        // Move focus status area to be near focussed item.
+        //
+        var focusStatusHeight = el.parentNode.offsetHeight;
+        var newTop =  (what.offsetTop - (focusStatusHeight / 2));
+        if (newTop < 0)
+            newTop = what.offsetTop;
+        if ((newTop + focusStatusHeight) > window.screen.availHeight)
+            newTop = what.offsetTop - focusStatusHeight;
+        
+        el.parentNode.style.top = newTop + "px";
+    }
+            
+    function doOnBlur (what) {
+        what.style.borderColor = "";
+        what.style.borderStyle = "";
+        what.style.fontSize = "100%";
+        var el = document.getElementById ("blurStatus");
+        el.innerHTML = "Blur:  " + getImmediateText (what);
+    }
+    
+    function clearFocusStatus() {
+        var el = document.getElementById ("focusStatus");
+        el.innerHTML = "Focus:  ";
+        
+        el = document.getElementById ("blurStatus");
+        el.innerHTML = "Blur:  ";
+    }   
+    
+</script>
+</head>
+<body>
+<h1>Experiments with &quot;tabindex&quot;</h1>
+<p>
+	Both the W3C
+	<a  href="http://www.w3.org/WAI/PF/roadmap/DHTMLRoadmap040506.html#focus"
+	    title="Dynamic Accessible Web Content Roadmap"
+	    onfocus="doOnFocus (this);"
+	    onblur="doOnBlur (this);">
+	    ARIA
+	</a>
+	and the 
+	<a  href="http://dev.w3.org/cvsweb/~checkout~/html5/spec/Overview.html?content-type=text/html;%20charset=utf-8#tabindex"
+	    title="HTML 5"
+	    onfocus="doOnFocus (this);"
+	    onblur="doOnBlur (this);">
+	    HTML 5
+	</a>
+	draft specifications define an improvement to navigating an HTML
+	document using the TAB key.  This is accomplished by, first,
+	allowing all elements to have a <code>tabindex</code> attribute,
+	and, secondly, two new intrepretations of the tabindex values of '0'
+	and '-1'.
+</p>
+	A <code>tabindex</code> with a value of '-1' means that one cannot
+	transfer keyboard focus to the element via a TAB key press (it can
+	acquire keyboard focus, but only programmatically via a call to
+	<code>focus()</code>).  A value of '0' means that the element
+	acquires focus after all other elements whose <code>tabindex</code>
+	is greater than zero have been navigated to.
+</p>
+<p>
+	This page allows one to "test" various browsers according to the new
+	<code>tabindex</code> rules.  It contains a variety of elements with
+	various <code>tabindex</code> values.  Press the TAB key to see how
+	your browser is navigating among them.
+</p>
+<div style="border: 1px solid blue; width: 33%; margin-left: 60%; position: absolute; background-color: darkgray;">
+    <h3>Focus/Blur Status:</h3>
+	<p id="focusStatus" style="margin-left: 1em;">Focus:</p>
+	<p id="blurStatus" style="margin-left: 1em;">Blur:</p>
+	<p style="text-align: right; margin-right: 1em;">
+	    <button
+	        onclick="clearFocusStatus();"
+	        onfocus="this.style.borderColor='red'; this.style.borderStyle='solid'; clearFocusStatus();"
+	        onblur="this.style.borderColor=''; this.style.borderStyle='';"
+	        accesskey="C">
+	            Clear
+	    </button>
+	</p>
+</div>
+<fieldset style="width: 50%">
+<legend>Moving Focus Programmatically</legend>
+<p>
+    <button
+        name="moveFocusNone"
+        onclick="document.getElementById ('divNoTabIndex').focus();"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+        Focus on div with no tabindex*
+    </button>
+</p>
+<p>
+    *Note that programmatically calling focus on a <code>&lt;div&gt;</code>
+    element that has no <code>tabindex</code> attribute does not move focus to
+    that element.
+</p>
+<p>
+    <button
+        name="moveFocus0"
+        onclick="document.getElementById ('containerDivWithAnchor').focus();"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+        Focus on div with &quot;tabindex='0'&quot;
+    </button>
+</p>
+<p>
+    <button
+        name="moveFocusNeg"
+        onclick="document.getElementById ('divWithNegTabindex').focus();"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+        Focus on div with negative tabindex
+    </button>
+</p>
+<p>
+    <button
+        name="moveFocusPos"
+        onclick="document.getElementById ('divWithPosTabindex').focus();"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+        Focus on div with positive tabindex
+    </button>
+</p>
+</fieldset>
+<p>This is a paragraph with no tabindex.</p>
+<p><a   href="#"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+            This is a link, no tabindex.
+   </a>
+</p>
+<p><a   tabindex="2"
+        href="#"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+            This is a link, tabindex = 2.
+    </a>
+</p>
+<p><a   href="#"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+            This is another link, no tabindex.
+    </a>
+</p>
+<div    id="divWithNegTabindex"
+        tabindex="-1"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+            This is a div with &quot;tabindex='-1'&quot;
+</div>
+<div    tabindex="0"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+            This is a div with &quot;tabindex='0'&quot;
+</div>
+<div    id="divWithPosTabindex"
+        tabindex="10"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+            This is a div with &quot;tabindex='10'&quot;
+</div>
+<div    id="divNoTabIndex"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+            This is a div with no tabindex.
+</div>
+<div    id="containerDivWithAnchor"
+        tabindex="0"
+        style="border: 1px dashed blue;"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+            This is another (container) div with &quot;tabindex='0'&quot;
+            
+            <div style="text-indent: 1em;">
+                This is a (contained) div with no tabindex.
+                <p style="text-indent: 1.5em;">This is a (doubly-contained) paragraph with no tabindex.</p>
+                <p style="text-indent: 1.5em;">
+                    <a  href="#"
+                        onfocus="doOnFocus (this);"
+                        onblur="doOnBlur (this);">
+                            This is a (triply-contained) link (&lt;a&gt;): no tabindex.
+                    </a>
+                </p>
+            </div>
+</div>
+<form>
+    <p>
+	<input	id="checkNoTabindex"
+            type="checkbox"
+            value="checkNoTabindex"
+            onfocus="doOnFocus (document.getElementById ('checkNoTabindexLabel'));"
+            onblur="doOnBlur (document.getElementById ('checkNoTabindexLabel'));"/>
+    <label id="checkNoTabindexLabel" for="checkNoTabindex">Check box (no tabindex)</label>
+    </p>
+    <p>
+    <input	id="checkTabindex1"
+            type="checkbox"
+            value="checkTabindex1"
+            tabindex="1"
+            onfocus="doOnFocus (document.getElementById ('checkTabindex1Label'));"
+            onblur="doOnBlur (document.getElementById ('checkTabindex1Label'));"/>
+	<label id="checkTabindex1Label" for="checkTabindex1">Check box (tabindex='1')</label>
+    </p>
+    <p>
+	<input	id="checkTabindex0"
+			type="checkbox"
+			value="checkTabindex0"
+			tabindex="0"
+			onfocus="doOnFocus (document.getElementById ('checkTabindex0Label'));"
+            onblur="doOnBlur (document.getElementById ('checkTabindex0Label'));"/>
+    <label id="checkTabindex0Label" for="checkTabindex0">Check box (tabindex='0')</label>
+    </p>
+</form>
+<div    tabindex="2"
+        onfocus="doOnFocus (this);"
+        onblur="doOnBlur (this);">
+            This is a div with &quot;tabindex='2'&quot;
+</div>
+
+<p>
+
+<p>Finis.</p>
+</body></html>

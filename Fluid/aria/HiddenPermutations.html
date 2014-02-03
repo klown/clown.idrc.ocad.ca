@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Permutations of @aria-hidden, visibility:hidden, display:none, @hidden</title>
+    <style type="text/css">
+        .displayBox {
+            border: 1px solid blue;
+            width: 50%;
+        }
+        .indent {
+            margin-left: 2em;
+        }
+        ul.toolbar {
+            width: 33%;
+            padding: 8px 40px 8px 8px;
+            border: 2px solid black;
+        }
+        ul.toolbar > li {
+            display: inline;
+            padding: 4px 4px 4px 4px;
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+<h1>Permutations of @aria-hidden, visibility:hidden, display:none, @hidden</h1>
+<p>The <a href="http://www.w3.org/WAI/ARIA/1.0/CR/implementation-report">ARIA 1.0 CR testable statements table</a> requires to:</p>
+<blockquote>"Test permutations of aria-hidden, display:none, visibility:hidden, and html @hidden to see what UAs are doing"</blockquote>
+<p>This document provides markup for these permutations.  In each case, both a container and non-container element are provided with the various permuations.  The rationale behind using a container is to test the 'hidden' state of the container's children when the container is 'hidden'.</p> 
+<h2>No @aria-hidden, visibility:hidden, display:none, nor @hidden</h2>
+<p>This is the base line case where none of the ways of hiding an element are used.</p>
+<div class="indent">
+    <p>Vanilla <code>button</code> element within a blue box: <span class="displayBox"><button>Button</button></span></p>
+    <p>Vanilla <code>toolbar</code> within a blue box:</p>
+    <div class="displayBox">
+        <ul role="toolbar" class="toolbar">
+            <li role="button">Cut</li>
+            <li role="button">Copy</li>
+            <li role="button">Paste</li>
+        </ul>
+    </div>
+</div>
+
+<h2>aria-hidden='true'</h2>
+<div class="indent">
+    <p>button-aria-hidden-true: <span class="displayBox"><button aria-hidden="true">Button</button></span></p>
+    <p>toolbar-aria-hidden-true:</p>
+    <div class="displayBox">
+        <ul role="toolbar" class="toolbar" aria-hidden="true">
+          <li role="button">Cut</li>
+          <li role="button">Copy</li>
+          <li role="button">Paste</li>
+        </ul>
+    </div>
+</div>
+
+<h2>visibility:hidden</h2>
+<div class="indent">
+    <p>button-visibility:hidden: <span class="displayBox"><button style="visibility:hidden">Button</button></span></p>
+    <p>toolbar-visibility:hidden:</p>
+    <div class="displayBox">
+        <ul role="toolbar" class="toolbar" style="visibility:hidden">
+          <li role="button">Cut</li>
+          <li role="button">Copy</li>
+          <li role="button">Paste</li>
+        </ul>
+    </div>
+</div>
+
+<h2>display:none</h2>
+<div class="indent">
+    <p>button-display:none: <span class="displayBox"><button style="display:none">Button</button></span></p>
+    <p>toolbar-display:none:</p>
+    <div class="displayBox">
+        <ul role="toolbar" class="toolbar" style="display:none">
+          <li role="button">Cut</li>
+          <li role="button">Copy</li>
+          <li role="button">Paste</li>
+        </ul>
+    </div>
+</div>
+
+<h2>@hidden</h2>
+<div class="indent">
+    <p>button-hidden: <span class="displayBox"><button hidden>Button</button></span></p>
+    <p>toolbar-hidden:</p>
+    <div class="displayBox">
+        <ul role="toolbar" class="toolbar"hidden>
+          <li role="button">Cut</li>
+          <li role="button">Copy</li>
+          <li role="button">Paste</li>
+        </ul>
+    </div>
+</div>
+
+<h2>aria-hidden=true/false and visibility:hidden</h2>
+<div class="indent">
+    <p>button-aria-hidden-true-visibility:hidden: <span class="displayBox"><button aria-hidden="true" style="visibility:hidden">Button</button></span></p>
+    <p>button-aria-hidden-false-visibility:hidden: <span class="displayBox"><button aria-hidden="false" style="visibility:hidden">Button</button></span></p>
+    <p>toolbar-aria-hidden-true-visibility:hidden:</p>
+    <div class="displayBox">
+        <ul role="toolbar" class="toolbar" aria-hidden="true" style="visibility:hidden">
+          <li role="button">Cut</li>
+          <li role="button">Copy</li>
+          <li role="button">Paste</li>
+        </ul>
+    </div>
+    <p>toolbar-aria-hidden-false-visibility:hidden:</p>
+    <div class="displayBox">
+        <ul role="toolbar" class="toolbar" aria-hidden="false" style="visibility:hidden">
+          <li role="button">Cut</li>
+          <li role="button">Copy</li>
+          <li role="button">Paste</li>
+        </ul>
+    </div>
+</div>
+
+<h2>aria-hidden=true/false and display:none</h2>
+<div class="indent">
+    <p>button-aria-hidden-true-display:none: <span class="displayBox"><button aria-hidden="true" style="display:none">Button</button></span></p>
+    <p>button-aria-hidden-false-display:none: <span class="displayBox"><button aria-hidden="false" style="display:none">Button</button></span></p>
+    <p>toolbar-aria-hidden-true-display:none:</p>
+    <div class="displayBox">
+        <ul role="toolbar" class="toolbar"aria-hidden="true" style="display:none">
+          <li role="button">Cut</li>
+          <li role="button">Copy</li>
+          <li role="button">Paste</li>
+        </ul>
+    </div>
+    <p>toolbar-aria-hidden-false-display:none:</p>
+    <div class="displayBox">
+        <ul role="toolbar" class="toolbar" aria-hidden="false" style="display:none">
+          <li role="button">Cut</li>
+          <li role="button">Copy</li>
+          <li role="button">Paste</li>
+        </ul>
+    </div>
+</div>
+
+<h2>aria-hidden=true/false and @hidden</h2>
+<div class="indent">
+    <p>button-aria-hidden-true-hidden: <span class="displayBox"><button aria-hidden="true" hidden>Button</button></span></p>
+    <p>button-aria-hidden-false-hidden: <span class="displayBox"><button aria-hidden="false" hidden>Button</button></span></p>
+    <p>toolbar-aria-hidden-true-hidden:</p>
+    <div class="displayBox">
+        <ul role="toolbar" class="toolbar" aria-hidden="true" hidden>
+          <li role="button">Cut</li>
+          <li role="button">Copy</li>
+          <li role="button">Paste</li>
+        </ul>
+    </div>
+    <p>toolbar-aria-hidden-false-hidden:</p>
+    <div class="displayBox">
+        <ul role="toolbar" class="toolbar" aria-hidden="false" hidden>
+          <li role="button">Cut</li>
+          <li role="button">Copy</li>
+          <li role="button">Paste</li>
+        </ul>
+    </div>
+</div>
+<hr>
+<p style="font-style: italic;">Joseph Scheuhammer, 16-Sep-2011 (<a href=mailto:clown@alum.mit.edu">clown@alum.mit.edu</a>).</p>
+</body>
+</html>

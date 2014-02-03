@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+<html>
+<head>
+    <title>Comment 327 Label Examples</title>
+</head>
+<body>
+<h1>Comment 327 Label Examples</h1>
+<h3>Self referential <code>aria-labelledby</code> and <code>aria-label</code></h3>
+    <div id="fooElement">foo</div>
+    <div id="barElement">bar</div>
+    <div aria-labelledby="fooElement myElement barElement" id="myElement" aria-label="test" tabindex="0">*</div>
+<hr/>
+<h3>Self referential <code>aria-labelledby</code> and Text Content</h3>
+    <div id="fooElement1">foo</div>
+    <div id="barElement1">bar</div>
+    <div aria-labelledby="fooElement1 myElement1 barElement1" id="myElement1" tabindex="0">test</div>
+</body>
+
+
+<h3>Use of <code>aria-label</code> by Element referenced by <code>aria-labelledby</code></h3>
+<div id="fooElement2">foo</div>
+<div id="barElement2" aria-label="blarg">bar</div>
+<div aria-labelledby="fooElement2 myElement2 barElement2" id="myElement2" tabindex="0">test</div>
+
+<hr/>
+
+<h3>Matt King's Example</h3>
+<p>Desired accessible name is: &quot;Actions for Title of my wonderul portlet&quot;</p>
+<p>Rendered label is &quot;Title of my wonderful portlet&quot;</p>
+
+<hr/>
+<H2 id="PortletTitle">Title of my wonderful portlet</H2>
+<div id="ActionsIcon" role="button" aria-label="Actions for " 
+aria-labeledby="ActionsIcon PortletTitle">
+this div contains an down arrow icon that opens a menu of actions that can 
+be taken on the whole portlet.
+</div>
+
+<p>The above would be rendered roughly as:</p>
+<H2 id="PortletTitle">Title of my wonderful portlet</H2>
+<button>Title of my wonderful portlet [downarrow icon]</button>
+
+<hr/>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+<html>
+<head>
+    <title>Banner With aria-label</title>
+    <style type="text/css">
+        .note {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<p class="note">
+The following text, &quot;8 of 9&quot;, is contained inside a div with a role of 'banner' and
+and aria-label property.  The div itself is:
+    <pre>
+        &lt;div <strong>role=&quot;banner;&quot;</strong> <strong>aria-label=&quot;Multiple Choice: 8 of 9;&quot;</strong> ...>
+           ...
+           &lt;span&gt;8 of 9&lt;/span&gt;
+           ...
+        &lt;/div&gt;
+    </pre>
+</p>
+<div class="topbar" role="banner" aria-label="Multiple Choice: 8 of 9" tabindex="0">
+    <span class="topbar_left"></span>
+    <span class="topbar_middle">
+        <span class="topbar_middle_text" >8 of 9</span>
+    </span>
+    <span class="topbar_right"></span>
+</div>
+<p>8. This question contains long question text for a multiple choice question.</p>
+<form>
+  <input type="radio" name="q8" value="A" id="q8A"/><label for="q8A">A.  Some choice with little text...</label>
+  <br/>
+  <input type="radio" name="q8" value="B" id="q8B"/><label for="q8B">B. Some choice with a little bit more text...</label>
+  <br/>
+  <input type="radio" name="q8" value="C" id="q8C"/><label for="q8C">C. This choice has a lot of text so do what you need to do to wrap this shiznits, but it will be hard in IE</label>
+</form>
+</body>
+</html>

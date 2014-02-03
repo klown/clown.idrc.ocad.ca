@@ -1,0 +1,88 @@
+/*
+*
+ * MIT Open Source Code License
+ *
+ * TransformAble
+ *
+ * Copyright (c) 2007 University of Toronto. All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be
+ *  included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * Adaptive Technology Resource Centre, University of Toronto
+ * 130 St. George St., Toronto, Ontario, Canada
+ * Telephone: (416) 978-4360
+ *
+ */
+
+/*
+ * Note: Experimentation revealed that 12pt appears to be the default 
+ * font size when none is specified.
+ */
+
+
+/*
+ * These body and anchor styles are set to immitate a set of possible PNP
+ * settings.
+ */
+body {
+    font-size: 18pt !important;
+    color: blue !important;
+    background-color: yellow !important;
+    font-family: sans-serif !important;
+}
+
+a {color: #00FF00 !important; }
+
+/*
+ * These rules proportionally size headers small caps, super- and sub-script
+ * text based on the PNP size above.  Uses ems as a relative sizing method,
+ * following W3C.
+ */
+
+/* 2em is twice as big as the base: (W3C default: { font-size: 2em; margin: .67em 0 }) */
+h1              { font-size: 2em !important; } 
+
+/* 1.5em is 1.5 as big as the base: (W3C default: { font-size: 1.5em; margin: .75em 0 }) */
+h2              { font-size: 1.5em !important; }
+
+/* 1.5em is 1.17 as big as the base: (W3C default: { font-size: 1.17em; margin: .83em 0 }) */
+h3, big         { font-size: 1.17em !important; }
+
+/* No size for h4 specified in W3C's default CSS -- same as base */
+h4              { font-size: 1em !important; }
+
+/* .83em is .83 as big as the base: (W3C default: { font-size: .83em; margin: 1.5em 0 }) */
+h5,
+small, sub, sup { font-size: .83em !important; }
+
+/* .75em is .75 as big as the base: (W3C default: { font-size: .75em; margin: 1.67em 0 }) */
+h6              { font-size: .75em !important; }
+
+/*
+ * This rule overrides any "local" styles effected by (1) a local style
+ * attribute, (2) class attribute, and/or (3) an id attribute.  Note that
+ * it only overrides size,  colour, background colour and font family.
+ */
+
+* {
+    font-size: inherit !important;
+    color: inherit !important;
+    background-color: inherit !important;
+    font-family: inherit !important;
+}

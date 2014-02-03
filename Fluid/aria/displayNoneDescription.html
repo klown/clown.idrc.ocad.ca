@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Element Styled 'display:none' Referenced by @aria-describedby</title>
+</head>
+<body>
+    <h1>Element Styled <code>display:none</code> Referenced by <code>@aria-describedby</code></h1>
+    <p>
+      <img id="test" src='checked.gif' aria-describedby='testDescription'>
+      <span id="testDescription" style="display:none">Picture of a checked check-box.</span>
+    </p>
+    <p>The Source for the above:</p>
+    <pre>
+&lt;p&gt;
+  &lt;img id="test" src='checked.gif' aria-describedby='testDescription'&gt;
+  &lt;span id="testDescription" style="display:none"&gt;Picture of a checked check-box.&lt;/span&gt;
+&lt;/p&gt;
+    </pre>
+  
+    <p>The DOM is:</p>
+    <ul>
+      <li>P
+        <ul>
+          <li>text leaf</li>
+          <li>IMG [aria-describedby: testDescription, ...]</li>
+          <li>text leaf</li>
+          <li>SPAN [id: testDescription]
+            <ul>
+              <li>text leaf ["Picture of a checked check-box"]</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    
+    <p>The AT-SPI A11y tree for the above image is:</p>
+    <ul>
+      <li>paragraph
+        <ul>
+          <li>graphic [name:"", description: "Picture of a checked check-box", ...]</li>
+        </ul>
+      </li>
+    </ul>
+    <p><em>Note:</em> No node in a11y tree corresponding to the <code>&lt;span id="testDescription" style="display:none"&gt;</code></p>
+    <hr>
+    <p>For comparison, here the description is not styled <code>display:none</code></p>
+    <p>
+      <img id="test" src='checked.gif' aria-describedby='testDescription'>
+      <span id="testDescription">Picture of a checked check-box.</span>
+    </p>    
+    <hr>
+    <p style="font-size: 80%; font-style: italic;">02 Sep 2012, Joseph Scheuhammer.</p>
+</body>
+</html>
+    

@@ -1,0 +1,62 @@
+﻿<html>
+<head>
+<title>Hidden Text Label</title>
+<style type="text/css">
+    h1 { font-size: 100%; }
+</style>
+</head>
+<body>
+<h1>Hidden &lt;label&gt; element:</h1>
+<pre>
+&lt;label style="display:none" for="input"&gt;label&lt;/label&gt;
+&lt;input id="input"/&gt;
+</pre>
+<p>
+<label style="display:none" for="input">label</label><input id="input"/>
+</p>
+<hr/>
+
+<h1>Hidden  &lt;span&gt; within label  &lt;div&gt;:</h1>
+<pre>
+&lt;div id="label"&gt;label &lt;span style="display:none" id="innerSpan"&gt;this text shouldn't be part of the label&lt;/span&gt;&lt;/div&gt;
+&lt;input id="input1" aria-labelledby='label'/&gt;
+</pre>
+<p>
+<div id="label">label <span style="display:none" id="innerSpan">this text shouldn't be part of the label</span></div><input id="input1" aria-labelledby='label'/>
+</p>
+<hr/>
+
+<h1>Non-hidden  &lt;span&gt; within label  &lt;div&gt;:</h1>
+<pre>
+&lt;div id="label2"&gt;label &lt;span id="innerSpan"&gt;this text shouldn't be part of the label&lt;/span&gt;&lt;/div&gt;
+&lt;input id="input2" aria-labelledby='label2'/&gt;
+</pre>
+<p>
+<div id="label2">label <span id="innerSpan">this text shouldn't be part of the label</span></div><input id="input2" aria-labelledby='label2'/>
+</p>
+<hr/>
+
+<h1>Hidden  &lt;span&gt; referenced by aria-labelledby within a &lt;div&gt;:</h1>
+<pre>
+&lt;div id="label3"&gt;label &lt;span style="display:none" id="innerSpan2"&gt;this text will part of the label even though it is hidden&lt;/span&gt;&lt;/div&gt;
+&lt;input id="input3" aria-labelledby='label3 innerSpan2'/&gt;
+</pre>
+<p>
+<div id="label3">label <span style="display:none" id="innerSpan2">this text will part of the label even though it is hidden</span></div>
+<input id="input3" aria-labelledby='label3 innerSpan2'/>
+</p>
+<hr/>
+
+<h1>Hidden  &lt;label&gt; referenced by aria-labelledby:</h1>
+<pre>
+&lt;label style="display:none" for="input4" id="labelEl"&gt;hidden text&lt;/label&gt;
+&lt;input id="input4" aria-labelledby="labelEl"/&gt;
+</pre>
+<p>
+<label style="display:none" for="input4" id="labelEl">hidden text</label><input id="input4" aria-labelledby="labelEl"/>
+</p>
+<hr/>
+
+</body>
+</html>
+

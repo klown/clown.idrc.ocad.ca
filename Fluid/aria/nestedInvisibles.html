@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Nested Invisibles</title>
+</head>
+<body>
+<hr/>
+<h1>display:none Parent, display:block Descendant:</h1>
+<p>Source:</p>
+<pre>
+&lt;div style="display:none"&gt;
+    &lt;p&gt;Non-displayed paragraph&lt;/p&gt;
+    &lt;span style="display:block"&gt;Is this span displayed?&lt;/span&gt;
+&lt;/div&gt;
+</pre>
+<p>Result:</p>
+<div style="display:none">
+    <p>Non-displayed paragraph</p>
+    <span style="display:block">Is this span displayed?</span>
+</div>
+<hr/>
+<h1>visibility:hidden Parent, visibility:visible Descendant:</h1>
+<p>Source:</p>
+<pre>
+&lt;div style="visibility:hidden"&gt;
+  &lt;p&gt;Non-displayed paragraph&lt;/p&gt;
+  &lt;p style='visibility:visible'&gt;This paragraph has style &lt;code&gt;visibility:visible&lt;/code&gt;, and is within a DIV with style &lt;code&gt;visibility:hidden&lt;/code&gt;&lt/p&gt;
+&lt;/div&gt;
+</pre>
+<p>Result:</p>
+<div style="visibility:hidden">
+    <p>Non-displayed paragraph</p>
+    <p style="visibility:visible">This paragraph has style <code>visibility:visible</code>, and is within a DIV with style <code>visibility:hidden</code></p>
+</div>
+<hr/>
+<h1>Offscreen parent:</h1>
+<p>Source:</p>
+<pre>
+&lt;div style="position:absolute; left:-300px;"&gt;
+    &lt;p&gt;Non-displayed paragraph&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+<p>Result:</p>
+<div style="position:absolute; left:-300px">
+    <p>Non-displayed paragraph</p>
+</div>
+<hr/>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>Hidden Elements and @aria-describedby</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="accessibleName.js"></script>
+</head>
+<body>
+    <h1>Hidden Elements and <code>@aria-describedby</code></h1>
+    <h2>Hidden Image with visible description:</h2>
+    <p>
+      <img id="hiddenImage" aria-hidden='true' src='someSource.png' aria-describedby='hiddenImgDescription' style="display:none"/>
+      <span id='hiddenImgDescription'>Description of hidden image</span>
+    </p>
+    <h2>Visible Image with hidden description:</h2>
+    <p>
+      <img id="visibleImage" src='someSource.png' aria-describedby='visibleImgDescription'/>
+      <span id="visibleImgDescription" style="display:none">Description of visible image</span>
+    </p>
+</body>
+</html>
+    

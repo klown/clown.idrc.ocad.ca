@@ -1,0 +1,81 @@
+<html>
+<head>
+  <title>Example of @role using 'complementary'</title>
+</head>
+<body>
+  <h1>Example of @role using 'complementary'</h1>
+  <h2>From spec:</h2>
+  <ul role="navigation">
+    <li href="downloads">Downloads</li>
+    <li href="docs">Documentation</li>
+    <li href="news">News</li>
+  </ul>  
+  <p>A11y tree:</p>
+  <ul>
+    <li>...</li>
+    <li>List [xml-role: navigation]
+      <ul>
+        <li>Listitem [name:  '• Downloads']</li>
+        <li>Listitem [name:  '• Documentation']</li>
+        <li>Listitem [name:  '• News']</li>
+      </ul>
+    </li>
+    <li>...</li>
+  </ul>
+        
+  <h2>Suggested change:</h2>
+  <div role="complementary">
+    <h3>Sidebar</h3>
+    <p>This content is a sidebar that explains page content, but is not part of the main content of the page.</p>
+  </div>
+  <p>A11y tree:</p>
+  <ul>
+    <li>...</li>
+    <li>Section [xml-role: complementary]
+      <ul>
+        <li>Heading
+          <ul>
+            <li>text leaf [name: 'Sidebar']</li>
+          </ul>
+        </li>
+        <li>Paragraph
+          <ul>
+            <li>text leaf [name: '﻿This content is a sidebar that explains page content, but is not part of the main content of the page.']</li>
+          </ul>
+        </li>
+      </ul
+    </li>
+    <li>...</li>
+  </ul>
+
+  <h2>HTML5 nav element:</h2>
+   <nav>
+     <ul>
+      <li><a href="articles.html">Index of all articles</a></li>
+      <li><a href="today.html">Things sheeple need to wake up for today</a></li>
+      <li><a href="successes.html">Sheeple we have managed to wake</a></li>
+    </ul>
+  </nav>
+  <p>A11y tree:</p>
+  <ul>
+    <li>...</li>
+    <li>Section [xml-role: navigation]
+      <ul>
+        <li>List
+          <ul>
+            <li>Listitem [name:  '﻿• Index of all articles']</li>
+            <li>Listitem [name:  '﻿• Things sheeple need to wake up for today']</li>
+            <li>Listitem [name:  '﻿• Sheeple we have managed to wake']</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>...</li>
+  </ul>
+  <hr>
+  <div role="main">
+    <h1>This is the main content of the page</h1>
+    <p>Here is some content that is the primary purpose of this web page.</p>
+  </div>
+</body>
+</html>

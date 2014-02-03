@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>aria-disabled State</title>
+</head>
+<body>
+<h1 id="goHere"><code>aria-disabled</code> State</h1>
+<p><span role="checkbox" aria-disabled="true" aria-checked="true" aria-invalid="true">This is an aria-disabled='true' checkbox</span></p>
+<p><span role="checkbox" aria-disabled="false" aria-checked="true" aria-invalid="false">This is an aria-disabled='false' checkbox</span></p>
+<p><span role="status" aria-disabled="true">This is an aria-disabled='true' status</span></p>
+<p><span role="status" aria-disabled="false">This is an aria-disabled='false' status</span></p>
+<p><span role="slider" aria-valuenow="50" aria-valuemin="">50</span></p>
+<hr>
+<p><span>Plain span within a paragraph.</span></p>
+<span>Plain span within the &lt;body&gt;.</span>
+<span aria-describedby="goHere">Plain span within the &lt;body&gt; with an @aria-describedby.</span>
+<span role="presentation" aria-describedby="goHere">Plain span within the &lt;body&gt; with @role='presentation' and with an @aria-describedby.</span>
+
+<p><img src="http://www.w3.org/Icons/w3c_home" alt="W3C logo" longdesc="http://www.w3.org/WAI/PF/aria-practices/Overview.html#link"></p>
+<p><img src="http://www.w3.org/Icons/w3c_home" alt="W3C logo" longdesc="#goHere"></p>
+</html>

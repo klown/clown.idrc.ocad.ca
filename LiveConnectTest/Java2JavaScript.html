@@ -1,0 +1,41 @@
+<html>
+    <head>
+    <title>Java2JavaScriptTest</title>
+    </head>
+    <body>
+        <h1>Java2JavaScriptTest</h1>
+        <p>Testing Java calling JavaScript objects by acquiring document title and printing it in
+        applet area:</p>
+        <hr>
+        <object
+            classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+            width="400" 
+            height="100"
+            id="Pusher"
+            code="Java2JavaScript.class">
+            <param name="code" value="Java2JavaScript.class">
+            <param name="codebase" value="./">
+            <param name="type" value="application/x-java-applet">
+            <param name="mayscript" value="true">
+            <param name="scriptable" value="true">
+            <comment>
+                <applet
+                    code="Java2JavaScript.class"
+                    codebase="./"
+                    height="100"
+                    width="400"
+                    id="Pusher"
+                    name="Pusher"
+                    mayscript="true">
+                </applet>
+            </comment>
+        </object>
+        <hr>
+        <p>Test JavaScript to Java communication by clicking the checkbox:<br>
+            <input type="checkbox" value="Click Me" onclick="document.Pusher.clickCheckBox()">
+        </p>
+       <hr>
+        <p>The End</p>
+    </body>
+</html>
+    

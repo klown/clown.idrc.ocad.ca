@@ -1,0 +1,461 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  
+  
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>SCO ECMAScript Trace</title>
+
+  
+
+  
+
+  
+  
+  
+  
+  <meta content="Joseph Scheuhammer" name="author">
+</head>
+<body>
+<h1>SCO ECMAScript Trace</h1>
+
+
+
+
+<span style="font-weight: bold;"></span>
+<h2>Question1.htm</h2>
+
+
+
+
+<p>One of the photoshop SCOs.<br>
+</p>
+
+
+
+
+<ul>
+
+
+
+
+  <li>
+    &lt;body onLoad="loadPage()" ...
+  </li>
+  <ul>
+    <li>loadPage()</li>
+    <ul>
+      <li>var result = doInitialize(); ...<br>
+      </li>
+      <ul>
+        <li><a href="#APIWrapper.js">APIWrapper.js.doInitialize()</a></li><li>the result of doInitialize() is a string.</li>
+        <li>either "true" or "false".<br>
+        </li>
+
+      </ul>
+    </ul>
+    <ul>
+      
+      <ul>
+        <li>this result is ignored within the rest of loadPage().</li>
+      </ul>
+
+      <li>getParams()</li>
+      <ul>
+        <li>get the parameters from the query string (the URL that caused this page to load).<br>
+        </li>
+        <li>store them in a params array.</li><li>NOTE:
+these parameters originate in an &lt;item&gt; element in the manifest,
+specifically in the "parameters" attribute of that &lt;item&gt;.&nbsp;
+See <a title="IMS Content Packaging Information Model" href="http://www.imsglobal.org/content/packaging/cpv1p1p2/imscp_infov1p1p2.html#1145630">IMS information model document</a>.<br>
+        </li>
+
+      </ul>
+      <li>get mainHeader and subHeader content from the params.</li>
+      <li>var msg = &lt;h1&gt;&lt;b&gt;" + mainHeader + "&lt;/b&gt;&lt;/h1&gt;"<br>
+      </li>
+      <li>document.all.disp.innerHTML = msg + "&lt;h2&gt;&lt;i&gt;" + subHeader + "&lt;/i&gt;&lt;/h2&gt;";</li>
+      <ul>
+        <li>"all" is all the elements in the document.</li>
+        <li>"disp" is an id of a &lt;div&gt; element in the document.</li>
+        <li>"innerHTML" is all the html within the div.</li>
+        <li>thus: this sets the content of that &lt;div&gt; to the two headers passed in the URL.</li>
+      </ul>
+    </ul>
+
+
+  </ul>
+</ul>
+<p>Note re: content:&nbsp; Some of the content of the SCO is actually
+in the query string -- the main and secondary headers.&nbsp; Does this
+have any bearing on xformability and branding?&nbsp; For example, how
+can you transform SCO content if some of that content is outside of the
+SCO (the html document that <em>is</em> the SCO).<br>
+</p>
+
+
+
+<h2><a name="APIWrapper.js"></a>APIWrapper.js</h2>
+
+
+
+<p>General utility functions for all of the SCO's in this CP.<br>
+</p>
+
+
+
+<ul>
+
+
+
+  <li>doInitialize()</li>
+  <ul>
+    <li>var api = getAPIHandle(); ...<br>
+    </li>
+    <ul>
+      <li>... apiHandle = getAPI(); ... (&lt;apiHandle&gt; is global within APIWrapper.js).<br>
+      </li>
+      <ul>
+        <li>var theAPI = findAPI(window); ... (&lt;window&gt; is "Question1.htm" at this point).<br>
+        </li>
+        <ul>
+          <li>if current &lt;window&gt; has a non-null &lt;API_1484_11&gt; property, return that property.</li>
+          <li>if it doesn't, loop to check each parent window until found, or run out of ancestors.</li>
+          <li>return either the found property or null.</li><li>See <a href="#LMSFrame.jsp">RTE.Runtime.LMSFrame.jsp</a></li><li>&lt;apiHandle&gt;, if found, is a reference to the <a href="#ClientRTS.java">ClientRTS</a> applet object.<br>
+          </li>
+
+        </ul>
+      </ul>
+    </ul><li>var result = <a href="#ClientRTS.Initialize">api.Initialize("");</a></li>
+    <ul>
+      <li>the result is returned as a string.</li><li>the string is either "true" or "false".</li>
+      <li>if "false" alerts the user that initialization wasn't successful.</li>
+
+    </ul><li>returns result (either "true" of "false").</li>
+
+</ul><li><a name="doSetValue"></a>doSetValue()</li>
+  <ul>
+    <li>wrapper for <a href="#SetValue_String_iDataModelElement">api.SetValue()</a>.</li>
+    <li>given a string representing a data model category, and that category's new value...</li>
+    <li>...find the api (ClientRTS applet)...</li>
+    <li>...call it's SetValue() method.</li>
+    <li>if applet returns "false", call the ErrorHandler().</li>
+  </ul><li><a name="doGetValuename"></a>doGetValue(name)</li>
+  <ul>
+    <li>wrapper for <a href="#GetValue_String_iDataModelElement">api.GetValue()</a>.</li>
+    <li>given a string representing a data model category...</li>
+    <li>...find the apie (ClientRTS applet)...</li>
+    <li>...call its GetValue() method...</li>
+    <li>...and then call its GetLastError() method...</li>
+    <li>if an error occurred, call api.GetErrorString(), alert user, and return empty string.<br>
+    </li>
+    <li>otherwise, return the value as a string.</li>
+  </ul>
+  <li>Simlarly for doTerminate(), doCommit(), doGetLastError(), doGetErrorString(), and doGetDiagnostic(), <br>
+  </li>
+  <li>LMSIsInitialized()</li>
+  <ul>
+    <li>to determine if the LMS API is initialized.</li>
+    <li>...find the api (ClientRTS applet)...</li>
+    <li>...api.GetValue ("cmi.core.student_name")...</li>
+    <li>...api.GetLastError()...<br>
+    </li>
+    <li>...if error in getting this value, return false (js boolean).</li>
+    <li>...otherwise, return true (js boolean).<br>
+    </li>
+  </ul>
+
+  <li>ErrorHandler()</li>
+  <ul>
+    <li>get the ClientRTS applet.</li>
+    <li><a href="#GetLastError">api.GetLastError()</a> -- returns a string describing the last error.<br>
+    </li>
+    <li>put up an alert with that error string.<br>
+    </li>
+  </ul>
+
+</ul>
+
+
+
+<h2><a name="LMSFrame.jsp"></a>LMSFrame.jsp</h2>
+
+
+
+<p>This Java server page "...contains the API Adapter applet".&nbsp;
+The applet has no visual display area, but is exposed to SCOs via
+RTE.Runtime.LMSMain.htm -- the SCOs communicate with the LMS via this
+adapter applet:<br>
+</p>
+
+
+
+<blockquote>
+<pre>  &lt;applet code="org/adl/samplerte/client/ClientRTS.class" <br>            archive="cmidatamodel.jar,lmsclient.jar,debug.jar,nav.jar" <br>            codebase="/adl"<br>            src="/adl" <br>            height="1" <br>            id="APIAdapter" <br>            name="APIAdapter" <br>            width="1" <br>            mayscript="true"&gt;<br>  &lt;/applet&gt;<br></pre></blockquote>
+
+
+
+<h3>LMSMain.htm<span style="font-family: monospace;"></span></h3>
+
+
+
+<p>This html file works in conjunction with LMSFrame.jsp.&nbsp; It contains a javascript function InitAPI():<br>
+</p>
+
+
+
+<ul>
+
+
+
+  <li>API_1484_11 = window.LMSFrame.document.APIAdapter;</li>
+  <li>API_1484_11 is a global window property of LMSMain.htm.<br>
+  </li>
+</ul>
+
+
+
+<blockquote>
+</blockquote>
+
+
+
+
+
+The code for the applet is in the org.adl.samplerte.client package.&nbsp; The applet itself is in <a href="#ClientRTS.java">ClientRTS.java</a>, and relies on a couple of companion java classes (e.g., ClientDMUtil.java).<br>
+
+
+
+<br>
+
+
+
+<ul>
+
+
+
+  <li><a name="callNullRequest"></a>callNullRequest()</li>
+  <ul>
+    <li>window.parent.frames[3].location.href = "sequencingEngine.jsp?<strong>button=nul</strong>";</li>
+  </ul>
+  <li><a name="setUIState"></a>setUIState()</li>
+  <ul>
+    <li>enables/disables the quit, previous, next, and suspend "buttons".</li>
+    <li>e.g., document.buttonform.quit.disabled = false;</li>
+  </ul>
+  <li><a name="refreshMenu"></a>refreshMenu()</li>
+  <ul>
+    <li>window.parent.frames[2].document.location.href = "code.jsp";<br>
+    </li>
+  </ul>
+</ul>
+
+
+
+
+<h2><a name="ClientRTS.java"></a>ClientRTS.java<br>
+</h2>
+
+
+
+<h3><a name="Identifiers"></a>Identifiers<br>
+</h3>
+
+
+
+<ul>
+
+
+
+  <li>The applet (ClientRTS) stores a number of ids.&nbsp; It has public setX() methods for these, but no getX() (?). <br>
+
+  </li>
+  <ul>
+    <li>activity ID</li>
+  </ul>
+  <ul>
+    <li>course ID</li>
+  </ul>
+  <ul>
+    <li>state ID (data state of currently launched content)<br>
+  </li>
+  </ul>
+  <ul>
+    <li>user ID</li>
+  </ul>
+  <ul>
+    <li>numAttempts</li>
+  </ul>
+  <li><a href="#APIWrapper.js">APIWrapper.js</a> has a function doSetValue() that calls the applet's <a href="#SetValue_String_iDataModelElement">SetValue()</a>
+method, which sets the various data model values as needed.&nbsp; Note
+that these data model parameters do not necessarily bear any
+relationship to the ID's noted above.<br>
+  </li>
+</ul>
+
+
+
+<h3>Methods</h3>
+<p>The following methods are divided into categories as documented in
+the Run Time Environment specifications of the RTS API.&nbsp; That
+specification lists three types of methods, namely Session, Data
+Transfer, and Support.&nbsp; However, the client RTS applet has more
+methods than that, and those other methods are listed under the heading
+"Undocumented" below.<br>
+</p>
+<p>All session, data transfer, and support methods are public.<br>
+</p>
+<p>A call to any of the session or data transfer methods always results in setting the error state.<br>
+</p>
+
+
+<h4>Session Methods</h4>
+
+
+<ul>
+
+
+  <li><a name="ClientRTS.Initialize"></a>Initialize()</li>
+<ul>
+<li>argument to Initialize() must be the emtpy string. (!)
+</li>
+<li>calls <a href="#private_getCookie_String_iCookieName">getCookie() -- see below</a>.</li>
+<li>creates a ServletProxy using the sessionID stored in the cookie.</li><li>an LMSCMIServletRequest object is initialized with the identifiers <a href="#Identifiers">noted above</a>.</li>
+<li>this request and the sessionID are posted to the ServeltProxy object.</li>
+<li>the result is an LMSCMIServletResponse</li>
+<li>that response contains a SCODataManager object.</li>
+<li>returns either the String "true" or "false".</li>
+
+</ul><li>Terminate()</li>
+  <ul>
+<li>uses LiveConnect to get the JS window object -- &lt;jsroot&gt;.</li><li>invokes<a href="file:///Users/clown/Development/Java/atrcuoft/adlrte/JSTrace.html#callNullRequest"> jsroot.eval ("callNullRequest()");</a> -- LMSMain.htm</li>
+  </ul>
+
+  
+</ul>
+<h4>Data Transfer Methods</h4>
+<ul>
+  <li><a name="SetValue_String_iDataModelElement"></a>SetValue (String iDataModelElement, String iValue)</li>
+  <ul>
+<li>sets the named data model element to the given value.</li><li>Note: the location of the data model element can be server-side or
+client-side; hence, the persistence of the value may be transient.&nbsp; To make the "set" permanent, see <a href="#Commit_String_iParam">Commit()</a>, immediately below.<br>
+    </li>
+<li>called by javascript <a href="file:///Users/clown/Development/Java/atrcuoft/adlrte/JSTrace.html#doSetValue">APIWrapper.js.doSetValue()</a> (at least).</li><li>returns the String "true" or "false".</li>
+  </ul>
+  <li><a name="Commit_String_iParam"></a>Commit (String iParam)</li>
+  <ul>
+<li>the input argument must be the empty string. (!)</li><li>commits to permanent storage any data model elements that may have been merely cached by a <a href="file:///Users/clown/Development/Java/atrcuoft/adlrte/JSTrace.html#SetValue_String_iDataModelElement">SetValue()</a> (immediately above).<br>
+    </li>
+  </ul>
+  <ul>
+<li>uses LiveConnect to get the JS window object -- &lt;jsroot&gt;.</li><li>forces a setUIState(false);</li><li>later invokes, <a href="file:///Users/clown/Development/Java/atrcuoft/adlrte/JSTrace.html#refreshMenu">jsroot.eval ("refreshMenu()")</a> -- LMSMain.htm</li><li>returns "true or false".<br>
+    </li>
+  </ul>
+
+
+
+
+
+
+  <li><a name="GetValue_String_iDataModelElement"></a>GetValue (String iDataModelElement)</li>
+  <ul>
+    <li>gets the named data model element's value.</li>
+    <li>called by javascript <a href="#doGetValuename">APIWrapper.js.doGetValue()</a> (at least).<br>
+    </li>
+    <li>returns value as a String, or the empty String if there was a problem.</li>
+  </ul>
+</ul>
+<p>The data model elements are all desginated by a dot notation, and
+must begin "cmi.".&nbsp; The relevant standard is IEEE&nbsp; P1484.11.1
+data model for content object communication.&nbsp; Note that one of the
+ADL defined elements is "Learner preferences".&nbsp; These can be as
+specific as individual SCO's.&nbsp; This is more fully described in the
+section "<a href="#Learner_Preferences">Learner Preferences</a>" below.<br>
+</p>
+<h4>Support Methods</h4>
+<p>The support methods are used to determine if errors occurred when
+invoking the session or data transfer methods.&nbsp; For example, if
+Commit() returns "false", use the support methods to determine why
+(what failed).<br>
+</p>
+<ul>
+  <li><a name="GetLastError"></a>GetLastError()</li>
+  <ul>
+    <li>returns the most recent error code as a String.</li>
+    <li>the error codes are numbers in the range [0,65536], e.g., "131".<br>
+    </li>
+    <li>does not alter the value of the "most recent error".</li>
+  </ul>
+  <li>GetErrorString (String iErrorCode)</li>
+  <ul>
+    <li>given a numeric error code, return that error's description.</li>
+    <li>the description is returned as a String.</li>
+    <li>returns the empty string if the error code is unknown.<br>
+    </li>
+    <li>does not alter the value of the "most recent error".</li>
+  </ul>
+  <li>GetDiagnotstic (String iErrorCode)</li>
+  <ul>
+    <li>given a numberic error code, return diagnostic information.</li>
+    <li>returns the empty string if the error code is unknown.</li>
+    <li>does not alter the value of the "most recent error".</li>
+  </ul>
+</ul>
+<h4>Undocumented </h4>
+<ul>
+<li><a name="private_getCookie_String_iCookieName"></a>private getCookie (String iCookieName)</li>
+  <ul>
+    <li>uses LiveConnect to get the JS window object, document object, and cookie from that document.</li>
+    <li>looks for the JSESSIONID in that cookie.</li>
+    <li>"Decode the cookie:&nbsp; We have set the date into the cookie value and used a simplified URLencode to decode it"</li>
+    <li>return the session ID as a String; return to <a href="#ClientRTS.Initialize">Initialize()</a>.</li>
+  </ul>
+  <li>private setUIState (boolean iState) (convert java method to javascript function and execute latter).</li>
+  <ul>
+<li>pass in "true" or "false" to enable/disable the UI controls -- &lt;iState&gt;.</li>
+  </ul>
+  <ul>
+<li>creates the command string "setUIState(" + iState + ")"</li><li>uses LiveConnect to get the JS window object -- &lt;jsroot&gt;.</li><li>invokes <a href="file:///Users/clown/Development/Java/atrcuoft/adlrte/JSTrace.html#setUIState">jsroot.eval ("setUIState(iState)");</a></li><li>ultimately, this is call to the javascript <a href="file:///Users/clown/Development/Java/atrcuoft/adlrte/JSTrace.html#setUIState">setUIState()</a> -- LMSMain.htm</li>
+  </ul><li>public clearState()</li>
+  <ul>
+    <li>clears the following RTS flags:</li>
+    <ul>
+      <li>is initialized.</li>
+      <li>terminated.</li>
+      <li>navigation event is set to null.</li>
+      <li>current error code is cleared. <br>
+      </li>
+    </ul>
+  </ul>
+</ul>
+<h2><a name="Learner_Preferences"></a>Learner Preferences</h2>
+<p>The data model allows for storage of user preferences on a per-SCO
+basis.&nbsp; The name of the date model element is
+"cmi.learner_preference._chlidren".&nbsp; It's a comma separated list
+of strings that specify:<br>
+</p>
+<ul>
+  <li>audio level</li>
+  <li>language</li>
+  <li>delivery speed</li>
+  <li>audio captioning</li>
+</ul>
+Each of these can be acquired individually via a property string, e.g., "cmi.learner_preference.audio_level".<br>
+<br>
+The LMS requirements are:<br>
+<ul>
+  <li>these preferences can be treated as a blob.&nbsp; In that case, the LMS is required to return the blob of preferences as a comma-separated list.</li>
+  <li>the LMS can also retrieve individual properties within the blob.<br>
+  </li>
+  <li>it can also store the preferences as a comma-separate list, or store individual preferences.<br>
+  </li>
+</ul>
+Okay, but what uses the information?&nbsp; The documentation implies
+that the SCO does -- it can ask the LMS for this information, or
+alternatively, ask the LMS to store it -- see <a href="#GetValue_String_iDataModelElement">api.GetValue()</a> and <a href="#SetValue_String_iDataModelElement">api.SetValue()</a>.&nbsp; But, that is the sum of the LMS's responsibility.<br>
+<br>
+Is this a good place to put the ACCLIP?&nbsp; But then, the <em>SCO</em> would have to set/retrieve the preferences via the LMS (RTS API), and then pass them to TILE.<br>
+<br>
+
+
+</body></html>

@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>Embedded Controls</title>
+<style type="text/css">
+    #hiContrastTestEl {
+        border: 8px solid;
+        border-color:red green;
+//        position: absolute;
+//        height: 5px;
+//        top: -999px;
+        background-image: url('checked.gif');
+    }
+    .hiContrast {
+        border: 8px solid;
+        border-color:  white;
+    }
+</style>
+</head>
+<body>
+<p>
+<input type='submit' id='ID1' hidden aria-hidden="true">
+<label for='ID1'>foo <input type='text' value='bar'> baz</label>
+</p>
+<p>
+<input type='checkbox' id='ID2'>
+<label for='ID2'>Flash the screeen <input type='text' value='2'> times</label>
+</p>
+<p>
+    <a href="http://idrc.ocad.ca/" id="straight">Straight link</a>
+</p>
+<p>
+    <a href="#" onclick="window.open('http://idrc.ocad.ca', '_self');" id="onclick">Link with onclick</a>
+</p>
+<p>
+    <a href="javascript:window.open('http://idrc.ocad.ca', '_self');" id="hrefJS">Link with href/JavaScript</a>
+</p>
+<p>
+    <span tabindex="0" onclick="window.open('http://idrc.ocad.ca', '_self');" id="span">&lt;span&gt; with onclick</a>
+</p>
+<p>
+    <label><input type="button" onclick="window.open('http://idrc.ocad.ca', '_self');" value="Click?" id="input"> Not a link; an &lt;input&gt;</label>
+</p>
+<hr>
+<p>This is a <span id="hiContrastTestEl">high contrast</span> test element, with vertical borders set to 'red' and horizontal borders to green.</p>
+<p>This is a <span class="hiContrast">high contrast</span> styled element, with a white border.</p>
+</body>

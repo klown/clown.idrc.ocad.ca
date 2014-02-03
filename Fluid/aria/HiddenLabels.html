@@ -1,0 +1,29 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Hidden labels</title>
+</head>
+<body>
+  <p>
+    <pre>
+&lt;label for="test" hidden>label&lt;/label>
+&lt;input type="text" id="test">
+    </pre>:
+  </p>
+  <p>  
+    <label for="test" hidden>label</label>
+    <input type="text" id="test" value="test">
+  </p>
+  <p>
+    <pre>
+&lt;span id="theLabel" hidden>the label&lt;/span>
+&lt;input type=text" id="test2" aria=labelledby="theLabel">
+    </pre>:
+  </p>
+  <p>
+    <span id="theLabel" hidden>the label</span>
+    <input type=text" id="test2" value="test2">
+  </p>
+</body>
+</html>

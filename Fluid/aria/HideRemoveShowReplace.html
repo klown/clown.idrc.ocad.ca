@@ -1,0 +1,41 @@
+<html>
+<head>
+<script type="text/javascript" src", "http://code.jquery.com/jquery-latest.min.js></script>
+<script type="text/javascript">
+    function doHide (element) {
+        element.style.display = 'none';
+    }
+    
+    function doRemove (element) {
+        element.parentNode.removeChild (element);
+    }
+    
+    function doShow (element) {
+         element.style.display = 'block';
+    }
+</script>
+</head>
+
+<body>
+<p>
+    <button onclick="doHide (document.getElementById ('list1'));">Hide</button>
+    <button onclick="doShow (document.getElementById ('list1'));">Show</button>
+</p>
+<div role="region">
+    <ul id="list1">
+      <li>List item 1.</li>
+      <li>List item 2.</li>
+    </ul>
+</div>
+
+<p>
+    <button onclick="doRemove (document.getElementById ('list2'));">Remove</button>
+</p>
+<div role="region">
+    <ul id="list2">
+      <li>List item 1.</li>
+      <li>List item 2.</li>
+    </ul>
+</div>
+
+</body>

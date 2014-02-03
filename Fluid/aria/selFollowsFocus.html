@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>div element with role="listbox" and aria-multiselectable="true", and child div elements with role="option" and tabindex="0" and focus is moved among the options via TAB and SHIFT-TAB keystrokes.</title>
+        <script type="text/javascript">
+
+            function select (element) {
+              element.setAttribute ('aria-selected', 'true');
+            }
+
+            function deselect (element) {
+              element.setAttribute ('aria-selected', 'false');
+            }
+
+        </script>
+    </head>
+    <body>
+        <div role="listbox" aria-multiselectable="true">
+            <div role="option" id="testItem1" tabindex="0" aria-selected="false" onfocus="select(this)" onblur="deselect(this);">Item 1</div>
+            <div role="option" id="testItem2" tabindex="0" aria-selected="false" onfocus="select(this)" onblur="deselect(this);">Item 2</div>
+        </div>
+    </body>
+</html>

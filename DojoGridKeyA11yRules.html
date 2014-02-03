@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Dojo Grid Keyboard A11y Rules</title>
+
+</head><body>
+<h1>Dojo Grid Keyboard A11y Rules</h1>
+<ul>
+<li>Test file:&nbsp; .../dojox/grid/tests/test_edit.html</li>
+<li>TAB to the grid.</li>
+<ul>
+<li>First cell highlights.</li>
+<li>ARROW keys to navigate around the cells.</li>
+<li>TAB/SHIFT-TAB also provide navigation among cells.</li><li>Problem: &nbsp;how to quickly TAB away from the grid?</li>
+</ul>
+</ul>
+<h2>ARROW Navigation Detail</h2>
+<ul>
+<li>If cell contains&nbsp;e.g., checkbox, that checkbox
+appear to have focus.</li>
+<ul><li>SPACE to change sense of checkbox -- automatically change
+to edit-mode, and switch checked state.</li></ul><li>If cell contains editable text, the cell itself retains focus.</li><ul><li>RETURN to switch to edit-mode.</li><ul><li>sometimes editable text becomes a combobox.</li></ul><ul><ul><li>keystrokes apropos a combobox.</li></ul></ul><ul><li>sometimes editable text becomes a text field.</li></ul><ul><ul><li>keystrokes&nbsp;apropos a text field.</li></ul></ul></ul>
+<li>If in edit-mode, <em>cannot</em> ARROW away
+from cell:</li>
+<ul>
+<li>RETURN indicates acceptance of change to widget, exits edit-mode, and can then ARROW around.</li>
+<li>ESC also exits edit-mode, leaves { checkbox in latest
+state | combobox reverts to original value }, and can then ARROW around.</li><ul><li>Note: &nbsp;not sure if ESC is meant to revert widget to original state or not -- inconsistent behaviour.</li></ul>
+</ul>
+</ul>
+<h2>TAB/SHIFT-TAB Detail</h2>
+<ul>
+<li>Only left/right navigation (ARROWing allows moving up and down rows as well).</li>
+<li>At end of row and moving forward, moves to first cell in
+next row.</li>
+<li>At end of row and moving backward, moves to last cell in
+previous row.</li>
+<li>If not in edit-mode, navigating to the next cell simply
+highlights the next cell.</li>
+<li>If in edit-mode, navigate to the next cell, highlights
+that cell and puts it into edit-mode.</li>
+<ul>
+<li>RETURN indicates acceptance of change to widget, exits edit-mode, and can then ARROW around.</li><li>ESC also exits edit-mode, leaves { checkbox in latest
+state | combobox reverts to original value }, and can then ARROW around.</li></ul>
+</ul><h2>Edit Mode Detail<br></h2><ul><li>If in edit-mode, keystrokes are apropos for the widget that has focus within the cell:</li><ul><li>e.g., if a checkbox, SPACE toggles.</li><li>e.g., if a combobox, ARROWS select different values.</li><li>e.g.,
+if a text field, ARROW among the characters of the text, or select all
+of the text and DELETE it, or add/remove new characters to that text by
+typing.</li></ul></ul><h2></h2>
+</body></html>

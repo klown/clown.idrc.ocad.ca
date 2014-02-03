@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>This is not a Checkbox</title>
+
+<style type="text/css">
+  h1.checkbox {
+    font-size: 100%;
+    font-weight: normal;
+  } 
+</style>
+
+<script type="text/javascript" src="jquery-1.3.2.js"></script>
+<script type="text/javascript">
+
+  function toggleCheckbox (jCheckbox) {
+    var jCheckImg = jQuery ("img", jCheckbox);
+    var srcImage = jCheckImg.attr ("src");
+    if (srcImage == "unchecked.gif")
+      jCheckImg.attr ("src", "checked.gif");
+    else
+      jCheckImg.attr ("src", "unchecked.gif");
+      
+    var ariaChecked = jCheckbox.attr ("aria-checked");
+    if (ariaChecked) {
+      if (ariaChecked == "true") {
+        jCheckbox.attr ("aria-checked", "false");
+      }
+      else {
+        jCheckbox.attr ("aria-checked", "true");
+      }
+    }
+  }
+  
+  function showHideCode (jShowHideButton, codeBlockId) {
+    var codeBlock = jQuery (codeBlockId);
+    var ariaPressed = jShowHideButton.attr ("aria-pressed");
+    if (ariaPressed == "true") {
+        jShowHideButton.attr ("aria-pressed", "false");
+        jShowHideButton.text ("Show:");
+        codeBlock.css ("visibility", "hidden");
+        codeBlock.attr ("aria-hidden", "true");
+    }
+    else {
+        jShowHideButton.attr ("aria-pressed", "true");
+        jShowHideButton.text ("Hide:");
+        codeBlock.css ("visibility", "visible");
+        codeBlock.attr ("aria-hidden", "false");
+    }
+  }
+  
+  jQuery (document).ready (function() {
+    var jH1Checkbox = jQuery ("h1.checkbox");
+    var jShow1 = jQuery ("#showCode1");
+    var jShow2 = jQuery ("#showCode2")
+    
+    // handle mouse clicks on checkbox
+    //
+    jH1Checkbox.each (function (index) {
+      var item = jQuery (jH1Checkbox[index]);
+      item.click (function() {
+        toggleCheckbox (item);
+      });
+    });
+    
+    // handle space bar key presses on checkbox
+    //
+    jH1Checkbox.each (function (index) {
+      var item = jQuery (jH1Checkbox[index]);
+      item.keypress (function (evt) {
+        if (evt.which == 32) {
+          toggleCheckbox (item);
+        }
+      });
+    });
+    
+    // Handle show/hide
+    //
+    jShow1.click (function() {
+        showHideCode (jShow1, "#code1");
+    });
+    jShow2.click (function() {
+        showHideCode (jShow2, "#code2");
+    });
+});
+  
+</script>
+  
+
+</head>
+<body>
+  <h1 tabindex="0" class="checkbox"><img src="unchecked.gif"/>&nbsp;This is not a checkbox.</h1>
+  <p>The markup for the above checkbox is:</p>
+    <button id="showCode1" aria-pressed="false">Show:</button>
+    <code id="code1" style="visibility:hidden" aria-hidden="true">
+      &lt;h1 tabindex="0" class="checkbox"&gt;&lt;img src="unchecked.gif"/&gt;&nbsp;This is not a checkbox.&lt;/h1&gt;
+    </code>
+  <p>The problem:  it's not just the markup.  Using CSS and JavaScript, an h1 element can look and behave like a checkbox.</p>
+  <p>One can argue that authors SHOULD NOT do this, warn them against doing so, and recommend that they use native roles instead.  But, <em>if</em> they go ahead and do it anyway, user agents should respect the aria role.</p>
+  <p>If it looks like a duck, and quacks like a duck, and waddles like a duck, well, then, what is it?</p>
+  
+  <p>For completeness, the following is an h1/checkbox marked up with aria.  It is spoken as a checkbox using JAWS10/FF3. The one above is not; it is spoken as a "heading level 1".</p>
+  <h1 tabindex="0" class="checkbox" role="checkbox" aria-checked="false"><img src="unchecked.gif" role="presentation"/>&nbsp;This is an aria checkbox.</h1>
+    <button id="showCode2" aria-pressed="false">Show:</button>
+    <code id="code2" style="visibility:hidden">
+      &lt;h1 tabindex="0" class="checkbox" role="checkbox" aria-checked="false"&gt;&lt;img src="unchecked.gif" role="presentation"/&gt;&nbsp;This is an aria checkbox.&lt;/h1&gt;
+    </code>
+ 
+ <hr/>
+ <p>
+ <a href="http://en.wikipedia.org/wiki/The_Treachery_of_Images">
+    <img style="width: 15%; height: 15%" src="http://upload.wikimedia.org/wikipedia/en/b/b9/MagrittePipe.jpg" alt="The Treachery of Images"><br/><br/>
+    The Treachery of Images (Magritte)
+ </a>
+ </p>
+
+</body>
+</html>

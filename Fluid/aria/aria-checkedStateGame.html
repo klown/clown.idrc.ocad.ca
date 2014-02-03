@@ -1,0 +1,15 @@
+<html>
+<head>
+<title> The checkbox test game</title>
+</head>
+<body>
+<input id="test1" type="checkbox" aria-checked="mixed"><label for="test1">Test 1: aria-checked='mixed', no @checked</label><br>
+<input id="test2" type="checkbox" aria-checked="true"><label for="test2">Test 2: aria-checked='true', no @checked</label><br>
+<input id="test3" type="checkbox" aria-checked="true" checked="false"><label for="test3">Test 3, aria-checked='true', checked='false'</label><br>
+<input id="test4" type="checkbox" aria-checked="false" checked="true"><label for="test4">Test 4, aria-checked='false', checked='true'</label><br>
+<input id="test5" type="checkbox" aria-checked="false" checked><label for="test5">Test 5, @checked present</label><br>
+<input id="test6" type="checkbox" role="checkbox" aria-checked="mixed"><label for="test6">Test 6 role='checkbox', aria-checked='mixed', no @checked </label><br>
+<span id="test7" role="checkbox" aria-checked="mixed">Test 7 &lt;span&gt; with role='checkbox', aria-checked='mixed'</span><br>
+
+</body>
+</html>

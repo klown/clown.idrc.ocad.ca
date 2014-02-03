@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-ca">
+<head>
+
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Stylable Test Page</title>
+
+
+  <meta content="Joseph Scheuhammer" name="author" />
+
+  <link rel="stylesheet" href="PNP.css" type="text/css" />
+  
+  <script type="text/javascript">
+<!--
+function showTextSizeById (inElementId) {
+var element = document.getElementById (inElementId);
+document.write ('(the text size is: ' + element.style.fontSize + ')');
+}
+function showTextSizeByEl (inElement) {
+var currentText = inElement.innerHTML;
+inElement.innerHTML = currentText + ' (' + inElement.style + ')';
+}
+
+function injectLocalStyleForID (inID) {
+
+    var el = document.getElementById (inID);
+    if (el != null) {
+        var styleString = "font-size:18pt !important;"; 
+        styleString += "font-family:sans-serif !important;"; 
+        styleString += "background-color:yellow !important;";
+        styleString += "color:blue !important;";
+        el.style.cssText = styleString;
+    }    
+}
+
+function injectLocalStyle (inID) {
+
+    var el = document.getElementById (inID);
+    if (el != null) {
+        var styleString = "font-size:18pt !important;"; 
+        styleString += "font-family:sans-serif !important;"; 
+        styleString += "background-color:yellow !important;";
+        styleString += "color:blue !important;";
+        el.style.cssText = styleString;
+    }    
+}
+
+function showStyles (inChild) {
+    alert ("Passed in element is: '" + inChild + "'");
+    
+    var styleString = inChild.style.cssText;
+    alert ("Style atribute is (should be absent):'" + styleString + "'");
+    
+    var parent = inChild.parentNode;
+    alert ("Element is: '" + parent + "'");
+    
+    styleString = parent.style.cssText;
+    alert ("Element's style is '" + styleString + "'");
+}
+
+// -->
+  </script>
+  <script type="text/javascript" src="replaceLocalStyles.js" />
+  <style type="text/css">
+.possiblyOverridePNP {
+color: pink;
+background-color: gray;
+font-family: fantasy;
+font-size: 32pt;
+}
+.outsideOfPNP {
+font-style: italic;
+font-weight: lighter;
+text-transform: capitalize;
+}
+#conflictWithPNP {
+color: orange;
+background-color: black;
+font-family: cursive;
+font-size: 28pt;
+}
+#noConflictWithPNP {
+font-style: oblique;
+font-weight: bolder;
+text-transform: uppercase;
+}
+  </style>
+</head>
+<!--
+	<body onload="javascript:replaceLocalStylesInDom(document.body, 'font-size: 18pt !important; color: blue !important; background-color: yellow !important; font-family: sans-serif !important;');">
+-->
+<body>
+<h1 id="h1">StyleAble Test Page (Header 1)</h1>
+
+<h2>Header 2</h2>
+
+<h3>Header 3</h3>
+
+<h4>Header 4</h4>
+
+<p style="font-weight: bold;"> This is a paragraph of bold
+text, it should be the same size as the "Header 4" above.
+</p>
+
+<h5>Header 5</h5>
+
+<h6>Header 6</h6>
+
+<address>This is some address text:<br />
+
+123 Four Street<br />
+
+Somewhere, ON<br />
+
+Canada &nbsp;A3C 9E7.
+</address>
+
+<pre>Preformatted text.</pre>
+
+<blockquote>This is a block quote.</blockquote>
+
+<p id="paragraph">This is a paragraph with a subscript<sub>X</sub>,
+a
+superscript<sup>TM</sup>, and <code>code</code>.</p>
+
+This is body text (not within a &lt;p&gt; or other element.
+<h2>Text with "style" Attribute in Conflict with User Preferences:</h2>
+
+<p style="border: 2px solid black; padding: 0.25em;" id="foo"> This
+rectangle contains locally styled text: <br />
+
+<span style="color: red; font-size: 32pt; background-color: gray;">
+{ color: red; font-size: 32pt; background-color: light-gray; } 
+    <br />
+    <br />
+    <input name="submit" type="submit" value="Alert Paragraph Styles" onclick="javascript:showStyles (this);"/>
+</span>
+</p>
+
+<h2>Text with "class" Attribute in Conflict with User Preferences:</h2>
+
+<p style="border: 2px solid black; padding: 0.25em;"> This
+rectangle contains "class" styled text: <br />
+
+<span class="possiblyOverridePNP"> { color: pink;
+background-color: gray; font-family: fantasy; font-size: 32pt; }
+    <br />
+    <br />
+    <input name="submit" type="submit" value="Alert Paragraph Styles" onclick="javascript:showStyles (this);"/>
+</span>
+</p>
+
+<h2>Text with "id" Attribute in Conflict with User Preferences:</h2>
+
+<p style="border: 2px solid black; padding: 0.25em;"> This
+rectangle contains "id" styled text: <br />
+
+<span id="conflictWithPNP">
+    { color: orange; background-color: black; font-family: cursive; font-size: 28pt; }
+</span>
+</p>
+
+<h2>Text with "style" Attributes not Addressed by User
+Preferences:</h2>
+
+<p style="border: 2px solid black; padding: 0.25em;"> This
+rectangle contains locally styled text, but <em>not</em>
+with respect to PNP preferences: <br />
+
+<span style="font-weight: bold; font-variant: small-caps; text-decoration: underline;">
+{ font-weight: bold; font-variant: small-caps; text-decoration:
+underline; } </span>
+</p>
+
+<h2>Text with "class" Attribute not Addressed by User Preferences:</h2>
+
+<p style="border: 2px solid black; padding: 0.25em;"> This
+rectangle contains "class" styled text, but <em>not</em>
+with respect to PNP preferences: <br />
+
+<span class="outsideOfPNP"> { font-style: italic;
+font-weight: lighter; text-transform: capitalize; } </span>
+</p>
+
+<h2>Text with "id" Attribute not Addressed by User Preferences:</h2>
+
+<p style="border: 2px solid black; padding: 0.25em;"> This
+rectangle contains "id" styled text, but <em>not</em> with
+respect to PNP preferences: <br />
+
+<span id="noConflictWithPNP"> { font-style: oblique;
+font-weight: bolder; text-transform: uppercase; } </span>
+</p>
+
+<hr style="width: 100%; height: 2px;" />
+<div style="font-size: 10pt; color: red; background-color: pink; font-family: cursive; font-style: italic;">
+    <p>
+        &lt;div style="font-size: 10pt; color: red;background-color: pink; font-family: cursive; <strong>font-style: italic;</strong>"&gt;</p>
+            &lt;p&gt;&lt;strong&gt;
+                <strong>
+                    A paragraph of strongly emphasized text within a locally styled div. Only the italic and the strong emphasis should appear.
+                </strong>
+                &lt;/strong&gt; This shows that the size, color, and famliy local styles are overriden by the PNP styles.
+             &lt;/p&gt;
+        &lt;/div&gt;
+    </p>
+</div>
+
+<hr style="width: 100%; height: 2px;" />
+<p>This is <a href="#">a link</a> with no local style attribute</p>
+<p>This is <a href="# style="color: pink;">a link</a> with a 'style=&quot;color; pink;&quot;' attribute</p>
+
+</body>
+</html>

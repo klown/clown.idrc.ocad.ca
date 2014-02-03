@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Testing element.focus()</title>
+
+<script type="text/javascript">
+
+    function putFocus (givenId) {
+        element = document.getElementById (givenId);
+        if (element)
+            element.focus();
+    }
+    
+    function putFocusWithTimeout (givenId) {
+        element = document.getElementById (givenId);
+        if (element)
+            window.setTimeout (function() { element.focus(); }, 0);
+    }
+    
+    function styleFocus (givenId) {
+        element = document.getElementById (givenId);
+        if (element)
+            element.style.background = "yellow";
+    }
+    
+    function styleBlur (givenId) {
+        element = document.getElementById (givenId);
+        if (element)
+        element.style.background = "";
+    }
+
+</script>
+
+</head>
+<body>
+    <h1>Testing <code>element.focus()</code></h1>
+    
+    <p tabindex='0' id="p1" onfocus="styleFocus ('p1');" onblur="styleBlur ('p1');">Paragraph 1.  This paragraph has a <code>tabindex='0'</code> attribute</p>
+    <p tabindex='-1' id="p2" onfocus="styleFocus ('p2');" onblur="styleBlur ('p2');">Paragraph 2.  This paragraph has a <code>tabindex='-1'</code> attribute</p>
+    <p id="p3" onfocus="styleFocus ('p3');" onblur="styleBlur ('p3');">Paragraph 3.  This has no <code>tabindex</code> attribute; hence, can't acquire keyboard focus.</p>
+    
+    <p><form>
+        <input type="button" onclick="putFocus ('p1');" value="Focus on paragraph 1"/>&nbsp;
+        <input type="button"  onclick="putFocus ('p2');" value="Focus on paragraph 2"/>&nbsp;
+        <input type="button"  onclick="putFocus ('p3');" value="Focus on paragraph 3"/><br/><br/>
+        <input type="button"  onclick= "putFocusWithTimeout ('p1');" value="Focus on paragraph 1 (with setTimeout())"/>&nbsp;
+        <input type="button"  onclick= "putFocusWithTimeout ('p2');" value="Focus on paragraph 2 (with setTimeout())"/>&nbsp;
+        <input type="button"  onclick= "putFocusWithTimeout ('p3');" value="Focus on paragraph 2 (with setTimeout())"/><br/><br/>
+        
+    </form></p>    
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Frame SCO Events</title>
+  
+  <meta content="Joseph Scheuhammer" name="author"></head>
+<body>
+<p>Suzanne,</p>
+</p>
+Regarding your thoughts on handling SCO events using frames, I decided
+to put together a mock-up to make it more concrete.&nbsp; The following
+is the result.&nbsp; If your email program doesn't display it, you can
+find a copy at:<br>
+<a href="http://clown.rcat.utoronto.ca/FrameSCOEvents.html">http://clown.rcat.utoronto.ca/FrameSCOEvents.html</a>
+</p> 
+<hr style="width: 100%; height: 2px;">
+<h2>Top Banner Frame<br>
+</h2>
+
+    <p>This frame provides next/previous-section UI, or, within-SCO navigation:
+    </p>
+    <blockquote style="font-style: italic;">&lt;Suzanne&gt;Imagine that the transform adds a topbanner frame that contains
+        the next and previous intra-sco navigation buttons.&lt;/Suzanne&gt;
+    </blockquote>
+    <form>
+        <input value="&lt;&lt; Previous Section" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input value="Next Section &gt;&gt;" type="submit">
+    </form>
+    <p>The SCO content is displayed in the frame <a href="#SCO_Content_Frame">below, "SCO Content Frame"</a>.<br>
+</p>
+<p>This "top banner" frame also contains JavaScript that is invoked by "onload" and
+    "onunload" events relative to this frame.&nbsp; When the contents of this frame are loaded,
+    the JavaScript does an RTE "initialize" for the SCO shown below.&nbsp;
+    When unloaded, the JavaScript does an RTE "finish" for the SCO below:<br>
+</p>
+<blockquote style="font-style: italic;">&lt;Suzanne&gt;The topbanner contains the body load and unload to call the initialize and finish respectively&lt;/Suzanne&gt;<br>
+</blockquote>
+<p>
+    </p>
+
+    <p>The within-SCO navigation buttons above do not cause any change
+to this frame's content.&nbsp; Hence, "load" and "unload" do not result
+from pushing these buttons; hence, initialize and finish do not
+occur.&nbsp; Specifically, initialize and finish do not occur when
+navigating back to the first section.<br>
+</p>
+<p>"Load" and "unload" do result from activating any UI elsewhere that causes inter-SCO navigation.&nbsp; Examples include:
+    </p>
+
+    <ul><li>"Previous SCO"  and "Next SCO" buttons.</li>
+  <li>Table of content entries that select other SCOs.<br>
+  </li>
+</ul>
+    <hr style="width: 100%; height: 2px;">
+    <h2><a name="SCO_Content_Frame"></a>SCO Content Frame</h2>
+    <p>This frame contains the SCO content.&nbsp; It is loaded by code in the top banner frame above.
+    </p>
+    <p>This frame has <em>no</em> JavaScript for sending SCO initialize and finish events via "onload" and
+    "onunload" events.<br>
+</p>
+<hr style="width: 100%; height: 2px;">
+<h2>Commentary</h2>
+<p>My first thought is to try and abstract away of the details of this
+solution and see if there is some underlying principle that is making
+it work. First pass: it solves the problem by separating the initialize/finish 
+machinery from the SCO itself.&nbsp; That is, no longer does the SCO
+contain code that says "onload, send initialize" and "onunload, send
+finish".&nbsp; That code is outside the SCO; in your solution, it's in
+another frame.<br>
+</p>
+<p>Since, as you noted, frames are usually frowned upon, and since they are <em>really</em> frowned upon within accessibility circles, there is some impetus to implement this principle without using frames.<br>
+</p>
+<p>As David noted, the DAM generates the chunks and adds the UI on the
+fly.&nbsp; We can configure the JavaScript to do the appropriate thing
+with different UI elements.&nbsp; Thus, "next/previous section" buttons
+do not result in any JavaScript that sends initialize or finish, but,
+"next/previous SCO" buttons do.&nbsp; Again, the code that handles
+initialize and finish is no longer associated with the SCO content
+itself, but is located elsewhere; in this implementation, partly in the
+UI, and partly on the server.&nbsp; Furthermore, it's added dynamically
+-- Dynamic Control Model (DCM) anyone?<br>
+</p>
+<p>Still, since there are no frames in this latter implementation, unload and
+load events will occur regardless of whether the user activated an
+intra-SCO or an inter-SCO button.&nbsp; (I'm assuming the UI is added
+to the SCO content, as it is in our DAM demonstration).&nbsp; That
+either means abandoning "onload" and "onunload" as the triggers; or
+adding to the code to constrain the response.&nbsp; That is, if the
+loading is because it's a new section (not a new SCO), configure the
+script to not send 'initialize'.&nbsp; If it is a new SCO, set up the
+script to send intialize:<br>
+</p>
+<blockquote>
+  <pre>...<br>&lt;body onload='javascript:initialize (justAnotherSection);'&gt;<br>...<br></pre>
+vs.
+  <pre>...<br>&lt;body onload='javascript:initialize (newSco);'&gt;<br>...</pre>
+</blockquote>
+
+<p>To be complete, for within-SCO navigation: </p>
+
+<ol>
+<li>User activates "previous section" UI to navigate to first section of SCO.<br>
+</li><li>Request for first section of SCO sent to server, noting that it's intra-SCO navigation.</li><li>Service creates new chunk representing first section, adding a no-op javascript to the &lt;body&gt; element.</li>
+  <li>Service sends chunk back to client.</li>
+  <li>Onload does <em>not</em> precipitate an initialize event.</li>
+</ol>
+And, for between-SCO navigation:<br>
+<ol>
+  <li>User activates "previous activity" UI to navigate to the previous SCO.</li>
+  <li>Request for first previsou SCO sent to server, noting that it's inter-SCO navigation.</li>
+  <li>Service creates new chunk representing first section of SCO, adding a initialize javascript to the &lt;body&gt; element.</li>
+  <li>Service sends chunk back to client.</li>
+  <li>Onload <em>does</em> precipitate an initialize event.</li>
+</ol>
+Similar acrobatics would be involved for "onunload", although
+I'm not certain it will work in all cases.&nbsp; I think it's
+simpler to stop using "onload" and "onunload" triggers, and use
+something else.<br>
+<form>
+    </form>
+</body></html>

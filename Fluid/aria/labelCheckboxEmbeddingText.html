@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Checkbox Label with Embedded Values</title>
+<style type="text/css">
+    h1 { font-size: 1.5em; }
+    fieldset { width: 20em; }
+    legend { font-weight: bold; }
+    p { margin: 0.5em ; }
+</style>
+</head>
+<body>
+    <h1>Checkbox Label with Embedded Values</h1>
+<fieldset>
+  <legend>Meeting alarms</legend>
+  
+  <!-- Rule 2A: "Beep" label given by native HTML label element -->
+  <p>
+    <input type="checkbox" id="beep"/> <label for="beep">Beep</label>
+  </p>
+  <p>
+    <input type="checkbox" id="mtgTitle"/> <label for="mtgTitle">Display the meeting title</label>
+  </p>
+
+  <!-- Rule 2B: Full label of checkbox includes value ("3") of embedded text input, "Flash the screen 3 times" -->
+  <p>
+      <input type="checkbox" id="flash"/>
+      <label for="flash">
+        Flash the screen
+    
+        <!-- Rule 2A: label of text input given by aria-label, "Number of times to flash screen" -->
+        <input type="text" value="3" size="2" id="numTimes" aria-label="Number of times to flash screen"/>
+        times
+      </label>
+  </p>
+  <p>
+      <input type="checkbox" id="play"/>
+      <label for="play">
+        Play 
+    
+        <!-- Rule 2A: label of text input given by aria-label, "Sounds to play" -->
+        <select name="Sounds" id="soundEffects" aria-label="Sound effects to play">
+            <option value="frog" selected="selected">frog</option>
+            <option value="foghorn">fog horn</option>
+            <option value="sonar">sonar</option>
+            <option value="claxon">claxon</option>
+        </select>
+        sound effect.
+      </label>
+   </p>
+</fieldset>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML5 @hidden and @aria-describedby</title>
+    <style type="text/css">
+        .displayBox {
+            border: 1px solid blue;
+            width: 50%;
+        }
+        .indent {
+            margin-left: 2em;
+        }
+        ul.toolbar {
+            width: 33%;
+            padding: 8px 40px 8px 8px;
+            border: 2px solid black;
+        }
+        ul.toolbar > li {
+            display: inline;
+            padding: 4px 4px 4px 4px;
+            border: 1px solid gray;
+        }
+    </style>
+    <script type="text/javascript">
+      function doMouseOver (button) {
+        button.mouseOver = true;
+        showHide (true);
+      }
+      
+      function doMouseOut (button) {
+        button.mouseOver = false;
+        showHide (false);
+      }
+      
+      function showHide (shown) {
+        var divEl = document.getElementById ('hiddenDiv');
+        var theButton = document.getElementById ('thebutton');
+        var isFocussed = theButton === document.activeElement;
+        
+        if (shown)
+          divEl.setAttribute ('style', 'display:block;');
+        else {
+          if ((theButton.mouseOver == false) && !isFocussed)
+            divEl.removeAttribute ('style');
+       } 
+      }
+    </script>
+</head>
+<body>
+<h1>HTML5 @hidden and @aria-describedby</h1>
+<p>Below is an html &lt;button&gt; element with an @aria-describedby that
+   references a @hidden description.  The description itself is relatively
+   complex involving an ordered list and a link.  FF 14.0.1 produces a flat
+   string description in the AAPI -- IAccessible2 on Windows, and AT-SPI on Linux
+   (Fedora 17).  That string is:
+   <blockquote style="font-family: monospace">
+   Hidden DIV with embedded list and link to W3C home page
+   </blockquote>
+</p>
+<p>The @hidden DIV is contained in another DIV with a blue border to provide
+   some visual indication that there is something on the page here.  That
+   blue-bordered DIV is rendered as a blue line below.  If the mouse
+   hovers over the button, or if focus is on the button, the hidden DIV is
+   shown.
+</p>
+<p>The source for the @hidden description is as follows:
+   <blockquote>
+<pre>
+&lt;div hidden id='hiddenDiv'&gt;Hidden DIV with 
+  &lt;ol&gt;
+    &lt;li&gt;embedded&lt;/li&gt;
+    &lt;li&gt;list&lt;/li&gt;
+    &lt;li&gt;&lt;a href="www.w3.org" title="W3C Home Page"&gt;and link to W3C home page&lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</pre>
+   </blockquote>
+</p>
+<p>The actual BUTTON and its @hidden description are below:</p> 
+<p><button id='thebutton' aria-describedby='hiddenDiv'
+      onmouseover='doMouseOver(this);' 
+      onmouseout='doMouseOut(this);'
+      onfocus='showHide(true);'
+      onblur='showHide(false);'>
+        Button that has a hidden description
+    </button>
+</p>
+<div class="indent">
+    <div class="displayBox">
+      <div hidden id='hiddenDiv'>Hidden DIV with 
+        <ol>
+          <li>embedded</li>
+          <li>list</li>
+          <li><a href="http://www.w3.org" title="W3C Home Page">and link to W3C home page</a></li>
+        </ol>
+      </div>
+    </div>
+</div>
+<hr>
+<p style="font-style: italic; font-size: 75%;">Joseph Scheuhammer, 20-Aug-2012 (<a href=mailto:clown@alum.mit.edu">clown@alum.mit.edu</a>).</p>
+</body>
+</html>

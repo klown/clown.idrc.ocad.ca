@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HTML5 DnD</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript">
+		function startDrag (evt) {
+			console.debug ("drag start! " + evt);
+		}
+		function eventReceived (evt) {
+			console.debug ("eventReceived(): dnd event: " + evt);
+		}
+		function startDrag (evt) {
+			console.debug ("startDrag(): drag start! " + evt);
+		}
+		
+		jQuery (document).ready (function() {
+			var thing = jQuery("#draggableP")[0];
+			thing.addEventListener("dragstart", startDrag, false);
+			thing.addEventListener("drag", eventReceived, false);
+			thing.addEventListener("dragend", eventReceived, false);
+
+			thing = jQuery("#notDraggableP")[0];
+			thing.addEventListener("dragstart", startDrag, false);
+			thing.addEventListener("drag", eventReceived, false);
+			thing.addEventListener("dragend", eventReceived, false);
+		});
+	</script>
+</head>
+<body>
+	<h1>HTML5 DnD</h1>
+	<p id="draggableP" draggable="true">I am <em draggable="true">draggable</em>.</p>
+	<p id="notDraggableP" draggable="false">I ain't <strong draggtable="false">draggable</strong>.</p>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>CSS-hidden aria-desribedby Element</title>
+</head>
+<body>
+<p>The following link references another element that is styled with 'disply:none':
+  <a href='http://www.w3.org/' title='World Wide Web Consortium (W3C)' aria-describedby="hiddenElement">W3C web site</a>.
+<p>
+  The hidden element follows, surrounded by vertical bars: 
+  | <span id="hiddenElement" style="display:none;">Word Wide Web consortium main web site</span> |.
+</p>
+<p>For contrast, the same link that references another element that is not styled as hidden:
+  <a href='http://www.w3.org/' title='World Wide Web Consortium (W3C)' aria-describedby="notHiddenElement">W3C web site</a>.
+</p>
+<p>
+  The description (not hidden) follows, again surrounded by vertical bars: 
+  | <span id="notHiddenElement">Word Wide Web consortium main web site</span> |.
+</p>
+</body>
+</html>
+

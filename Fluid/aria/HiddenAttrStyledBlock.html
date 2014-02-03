@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>Using HTML5 @hidden Styled Block with CSS</title>
+<style type="text/css">
+    div[hidden] { display:block; }
+    p[hidden] { visibility: visible; }
+    
+    input[type=hidden] {
+        display: block;
+        border: 1px solid blue;
+    }
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+    <h1>Using HTML5 @hidden Styled Block with CSS</h1>
+    <p>Normal paragraph</p>
+    <div hidden>&lt;div&gt; with @hidden attribute selector for CSS <code>display:block</code> rule.</div>
+    <div hidden aria-hidden="true">&lt;div&gt; with @hidden attribute selector <em>and</em> @aria-hidden='true', but <code>display:block</code></div>
+    
+    <p hidden>&lt;p&gt; with @hidden attribute selector for CSS <code>visibility:visible</code> rule.</p>
+    <p hidden aria-hidden="true">&lt;p&gt; with @hidden attribute <em>and</em> @aria-hidden='true', but <code>visibility:visible</code></p>
+    
+    <input type="hidden" value="hidden input">
+    <input type="hidden" value="hidden" style="display: block; border: 1px solid blue;">
+    <input type="text" value="text" style="display: block; border: 1px solid blue;">
+    <map name="planetmap" style="display:block">
+      <p>Paragraph within a &lt;map&gt; with display:block</p>
+      <area shape="rect" coords="0,0,82,126" href="sun.htm" alt="Sun" style="display:block"/>
+      <area shape="circle" coords="90,58,3" href="mercur.htm" alt="Mercury" style="display:block"/>
+      <area shape="circle" coords="124,58,8" href="venus.htm" alt="Venus" style="display:block"/>
+    </map>
+    <map name="planetmap">
+      <p>Paragraph within a &lt;map&gt; with no local CSS</p>
+      <area shape="rect" coords="0,0,82,126" href="sun.htm" alt="Sun"/>
+      <area shape="circle" coords="90,58,3" href="mercur.htm" alt="Mercury"/>
+      <area shape="circle" coords="124,58,8" href="venus.htm" alt="Venus"/>
+    </map>
+    <div hidden>
+      <p>Paragraph within a &lt;div&gt; with @hidden</p>
+    </div>
+</map> 
+</body>
+</html>

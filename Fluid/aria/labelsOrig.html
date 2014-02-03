@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Aria Label Examples</title>
+
+<script type="text/javascript" src="jquery-1.3.2.js"></script>
+</head>
+<body>
+<fieldset>
+<legend>Meeting alarms:</legend>
+    <input type="checkbox" id="beep"><label for="beep">Beep</label><br/>
+    <input type="checkbox" id="mtgTitle"><label for="mtgTitle">Display the meeting title</label><br/>
+    <!-- Rule 2B:  Full label of checkbox includes value of embedded text input -->
+    <input type="checkbox" id="flash"><label for="flash">Flash the screen 
+      <!-- Rule 2A:  label of embedded text input given by aria-label -->
+      <input type="text" value="1" size="2" id="numTimes" aria-valuemin="0" aria-valuemax="5" aria-label="Number of times to flash screen">
+      times (max five)</label>
+</fieldset>
+
+<!--
+<fieldset>
+<legend>Meeting alarms:</legend>
+    <input type="checkbox" id="beep"><label for="beep">Beep</label><br/>
+    <input type="checkbox" id="mtgTitle"><label for="mtgTitle">Display the meeting title</label><br/>
+    <input type="checkbox" id="flash"><label for="flash">Flash the screen <input type="text" value=
+    "1" size="2" id="numTimes"> times (max five)</label>
+</fieldset>
+-->
+
+<ul role="menubar">
+    <!-- Rule 2A: "File" label via aria-labelledby -->
+    <li role="menuitem" aria-haspopup="true" aria-labelledby="fileLabel" tabindex="0"><span id="fileLabel">File</span>
+        <ul role="menu" aria-labelledby="fileLabel">
+            <!-- Rule 2C "New" label via Namefrom:contents -->
+            <li role="menuitem" aria-haspopup="false" tabindex="0">New</li>
+            <li role="menuitem" aria-haspopup="false" tabindex="0">Open...</li>
+        </ul>
+    </li>
+</ul>
+
+</body>
+</html>

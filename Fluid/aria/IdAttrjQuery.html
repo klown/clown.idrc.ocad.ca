@@ -1,0 +1,86 @@
+<html>
+<head>
+<title>Many Elements with @id="foobar"</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	function fooBarDoClick (el) {
+		var note = jQuery ("#notification");
+		note.html ("<code>...</code>");
+		setTimeout (function() { note.html ("<code>@id=" + el.id + "</code>"); }, 500);
+	}
+	
+	var booFarCurrentStyle = {
+		backgroundColor: "yellow"
+	}
+	
+	function fooBarToggleStyle() {
+		var booFarEl = jQuery ("#foobar");
+		var tmpColor = booFarEl.css ("background-color");
+		booFarEl.css (booFarCurrentStyle);
+		booFarCurrentStyle.backgroundColor = tmpColor;		
+	}
+	
+	function fooBarListAll() {
+		jQuery ("#listAllFooBars").html ("<code>...<code>");
+		var listString = "";
+		var allFoobars = jQuery ("[id='foobar']");
+		allFoobars.each (
+			function (index, el) {
+				listString += "&lt;" + el.tagName + " id=\"" + el.id + "\" ... &gt;<br>";
+			}
+		);
+		if (listString.length == 0) { listString = "*" };
+		setTimeout (function() { jQuery ("#listAllFooBars").html ("<code>" + listString + "</code>"); }, 500);
+	}
+</script>
+</head>
+<body>
+<h1>Many Elements with <code>@id="foobar"</code></h1>
+<p id="foobar" onclick="fooBarDoClick(this);" onkeydown="fooBarDoClick(this);" style="background-color: green;">This is a paragraph element whose <code>@id='foobar'</code></p>
+<p id="foobar" onclick="fooBarDoClick(this);" onkeydown="fooBarDoClick(this);">This paragraph also has <code>@id='foobar'</code><br>
+<p>
+<button
+	id="foobar"
+	name="snafu"
+	value="Push me for my id"
+	type="button"
+	onclick="fooBarDoClick(this);" onkeydown="fooBarDoClick(this);">Push me for my id</button>
+</p>
+<p id="notification" style="border: 1px solid blue; width: 33%;"><code>@id info here...</code></p>
+<hr>
+<p>
+The following button essentially does a:
+<blockquote>
+	<code>document.getElementById ("foobar");</code>
+</blockquote>
+and then changes the background colour of the element found.  How many elements
+are affected?  If the identfiers remain as authored, then only the first element
+with <code>@id="foobar"</code> is affected (the first paragraph in the
+document).
+</p>
+<p>
+<button
+	id="foobar"
+	name="snafu"
+	type="button"
+	onclick="fooBarToggleStyle();" onkeydown="fooBarToggleStyle();">Toggle background for element with <code>@id="foobar"</code></button>
+</p>
+<hr>
+<p>
+The next button (which also has <code>@id="foobar"</code>) runs a script that
+traverses the DOM for this document and prints out all of the elements whose 
+<code>@id="foobar"</code>.  As such, the script runs on the DOM as constructed
+by the browser into which you loaded this page.  That is, if the browser made
+the identifiers unique, then this should <em>not</em> print out five items.
+</p>
+<p>
+<button
+	id="foobar"
+	name="snafu"
+	type="button"
+	onclick="fooBarListAll();">List all elements with <code>@id="foobar"</code></button>
+</p>
+<p id="listAllFooBars" style="border: 1px solid black; width: 33%;"><code>...</code></p>
+
+</body>
+</html>

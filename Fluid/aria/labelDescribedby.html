@@ -1,0 +1,15 @@
+<p>example using &lt;label&gt;</p>
+<label> Part number:
+ <input pattern="[0-9][A-Z]{3}" name="part">
+A part number is a digit followed by three uppercase letters. </label>
+
+<hr>
+
+<p>example using aria-describedby</p>
+
+<label> Part number:
+ <input pattern="[0-9][A-Z]{3}" name="part" aria-describedby="instructions">
+ </label>
+
+<p id="instructions"> A part number is a digit followed by three uppercase
+letters.</p>

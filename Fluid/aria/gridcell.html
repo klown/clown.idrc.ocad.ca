@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+	<title>Grid cell with aria-checked</title>
+	<style type="text/css">
+	    .grid { border: 1px solid gray; }
+	    .gridcell {border: 1px solid blue; margin: .25em;}
+	</style>
+</head>
+<body>
+<div role="grid" class="grid">
+  <div role="row" aria-selected="false">
+    <span role="gridcell" aria-selected="true" aria-checked="true" class="gridcell">|selected checked|</span>
+    <span role="gridcell" aria-selected="true" aria-checked="false" class="gridcell">|selected not-checked|</span>
+    <span role="gridcell" aria-selected="true" class="gridcell">|selected|</span>
+  </div>
+  <div role="row" aria-selected="false">
+    <span role="gridcell" aria-selected="false" aria-checked="true" class="gridcell">|not-selected checked|</span>
+    <span role="gridcell" aria-selected="true" aria-checked="false" class="gridcell">|selected not-checked|</span>
+    <span role="gridcell" class="gridcell">|neither|</span>
+  </div>
+  <div role="row">
+    <span role="gridcell" class="gridcell"></span>
+    <span role="gridcell" class="gridcell"></span>
+    <span role="gridcell" class="gridcell"></span>
+  </div>
+</div>
+</body>
