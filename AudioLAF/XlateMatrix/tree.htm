@@ -1,0 +1,175 @@
+<html>
+
+<head>
+<title>Swing Set Component: Tree</title>
+<script SRC="playSound.js" LANGUAGE="javascript">
+</script>
+</head>
+
+<body>
+<h2>Component Name: Tree Component Form<br>
+State: Collapsed and Expanded</h2>
+
+<p>&nbsp;</p>
+
+<p><strong>Description</strong></p>
+
+<p>A control that displays hierarchical data as an outline. Each item in the tree is
+referred to as a &quot;node&quot;. A given node can be identified either by a tree path,
+or by its display row. A tree path is a list of the ancestors of the node plus the node
+itself. It is similar to how we implemented the &quot;where am I&quot; function for menus
+in the demo. A node's display row is the row on the display that contains only the node in
+question.</p>
+
+<p>Nodes can be expanded or collapsed. An expanded node displays its children in rows
+below it. A collapsed node is one which hides them. At any given time, various parts of
+the tree can be expanded and collapsed. A typical example of tree use is in a file system
+browser.</p>
+
+<p>Trees can have one of three selection modes. For &quot;single tree selection&quot;,
+only a single tree path can be selected at any given time. &quot;Contiguous&quot; means
+that only items that are adjacent can be added to the selection. Note that this type of
+selection precludes single tree selection; however, the contiguous selections are made up
+of tree paths. Finally, there is &quot;discontiguous&quot; selection which means that
+paths that are not even adjacent.</p>
+
+<p>&nbsp;</p>
+
+<p align="center"><img src="tree.jpg" width="618" height="330"
+alt="tree view in the swing set"></p>
+
+<p align="left">&nbsp;</p>
+
+<p align="left">In the illustration above, thr focus is on a c:\ dirve with folders or
+directories &quot;branching&quot; off of it. The Jfw32 folder/directory has been expanded
+to show one level of elements, then some of those folders/directoris have been expanded to
+show even more elements. Files and documents are the lowest part of a tree and may be
+referred to as &quot;leaves&quot;. In this case each folder/directoy has a + or - beside
+it indicating whther it can be expanded (+) or collapsed (-).</p>
+
+<p align="left"><strong>Sound Rationale</strong></p>
+
+<p align="left">The sound assigned to &quot;Tree&quot; can be interpreted as either a
+short version of something collapsing, or as the single draw of a saw toward you. Taking
+either interpretation, gives one the idea of a Tree, directories, elements, files,
+anything which can be branched out or contracted to it's root.<br>
+</p>
+
+<h3>Component Name: Tree - Collapsed</h3>
+
+<p><strong>Navigation</strong> 
+
+<ol>
+  <li>Required navigation sound effect. <a
+    HREF="javascript:playSound('navigate.wav', 'Navigate')">navigate.wav</a></li>
+  <li>Optional disabled sound effect. <a
+    HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</a></li>
+  <li>Optional combined component ID and state information sound effect. <a
+    HREF="javascript:playSound('tree.wav' , 'Tree')">tree.wav</a> + <a
+    HREF="javascript:playSound('collapse_tree.wav' , 'Collapsed Tree')">collape_tree.wav</a></li>
+  <li>Required name/title of component as speech. &lt;name of tree or name of node&gt;
+    [Alternate].&lt;unknown tree or unknown branch&gt;</li>
+  <li>Optional role as speech. Tree or Branch [Alternate]. Unknown object</li>
+  <li>Optional state as speech. &lt;Collapsed&gt; [Alternate].N/A</li>
+</ol>
+
+<p><strong>Activation</strong> 
+
+<ol>
+  <li>Required activation sound effect. <a
+    HREF="javascript:playSound('activate.wav' ,    'Activate')">activate.wav</a> + <a
+    HREF="javascript:playSound('expand_tree.wav' , 'Expand    Tree')">expand_tree.wav</a></li>
+  <li>Required name or label of component, as speech. &lt;title of tree or branch&gt;
+    [Alternate.] &lt;unknown tree or branch&gt;</li>
+  <li>Optional Role: Treeor Branch</li>
+  <li>Required new state of component, as speech. &lt;Expanded&gt; [Alternate.] N/A</li>
+</ol>
+
+<p><strong>&quot;Where Am I?&quot;</strong> 
+
+<ol>
+  <li>Required speech: immediate parent, or entire hierarchy as appropriate. &lt;title and
+    component type of relevant parent + <a HREF="javascript:playSound('tree.wav' , 'Tree')">tree.wav</a>
+    + title of tree + <a HREF="javascript:playSound('collapse_tree.wav' , 'Collapsed Tree')">collapse_tree.wav</a>
+    + title of branch + Collapsed&gt; [Alternate]. &lt;unknown path + <a
+    HREF="javascript:playSound('tree.wav' , 'Tree')">tree.wav</a> + unknown tree or branch + <a
+    HREF="javascript:playSound('collapse_tree.wav' , 'Collaped Tre')">collapse_tree.wav</a> +
+    unknown branch + Collapsed&gt;<br>
+    Optional disabled sound effect. <a
+    HREF="javascript:playSound('disabled.wav', 'Not Available')">disabled.wav</a></li>
+  <li>Optional combined component ID and state information sound effect. N/A</li>
+  <li>Required name/title of component as speech. N/A [Alternate]. N/A</li>
+  <li>Optional role as speech. N/A [Alternate]. N/A</li>
+  <li>Optional state as speech. N/A [Alternate]. N/A</li>
+</ol>
+
+<p><strong>Additional Information (Control + shift + E)</strong> 
+
+<ol>
+  <li>Hot Key &#150; [if available] [Alternate] &lt;no Hot key available&gt;</li>
+  <li>Shortcut Keys &#150; [if available] [Alternate] &lt;no Shortcut key available&gt;</li>
+</ol>
+
+<hr>
+
+<h3>Component Name: Tree - Expanded</h3>
+
+<p><strong>Navigation</strong> 
+
+<ol>
+  <li>Required navigation sound effect. <a
+    HREF="javascript:playSound('navigate.wav', 'Navigate')">navigate..wav</a></li>
+  <li>Optional disabled sound effect. <a
+    HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</a></li>
+  <li>Optional combined component ID and state information sound effect. <a
+    HREF="javascript:playSound('tree.wav' , 'Tree')">tree.wav</a> + <a
+    HREF="javascript:playSound('expand_tree.wav' , 'Expanded Tree')">expand_tree.wav</a></li>
+  <li>Required name/title of component as speech. &lt;name of tree or name of node&gt;
+    [Alternate].&lt;unknown tree or unknown branch&gt;</li>
+  <li>Optional role as speech. Tree or Branch [Alternate]. Unknown object</li>
+  <li>Optional state as speech. &lt;Expanded&gt; [Alternate].N/A</li>
+</ol>
+
+<p><strong>Activation</strong> 
+
+<ol>
+  <li>Required activation sound effect. <a
+    HREF="javascript:playSound('activate.wav' ,    'Activate')">activate.wav</a> + <a
+    HREF="javascript:playSound('collapse_tree.wav' ,    'Collapsed Tree')">collapse_tree.wav</a></li>
+  <li>Required name or label of component, as speech. &lt;title of tree or branch&gt;
+    [Alternate.] &lt;unknown tree or branch&gt;</li>
+  <li>Optional Role: Tree or Branch</li>
+  <li>Required new state of component, as speech. &lt;Collapsed&gt; [Alternate.] N/A</li>
+</ol>
+
+<p><strong>&quot;Where Am I?&quot;</strong> 
+
+<ol>
+  <li>Required speech: immediate parent, or entire hierarchy as appropriate. &lt;title and
+    component type of relevant parent + <a HREF="javascript:playSound('tree.wav' , 'Tree')">tree.wav</a>
+    + title of tree + <a HREF="javascript:playSound('expand_tree.wav' , 'Expanded Tree')">expand_tree.wav</a>
+    + title of branch + Expanded&gt; [Alternate]. &lt;unknown path + <a
+    HREF="javascript:playSound('tree.wav' , 'Tree')">tree.wav</a> + unknown tree or branch + <a
+    HREF="javascript:playSound('expand_tree.wav' , 'Expanded Tree')">expand_tree.wav</a> +
+    unknown branch + expanded&gt;<br>
+    Optional disabled sound effect. <a
+    HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</a></li>
+  <li>Optional combined component ID and state information sound effect. N/A</li>
+  <li>Required name/title of component as speech. N/A [Alternate]. N/A</li>
+  <li>Optional role as speech. N/A [Alternate]. N/A</li>
+  <li>Optional state as speech. N/A [Alternate]. N/A</li>
+</ol>
+
+<p><strong>Additional Information (Control + shift + E) </strong>
+
+<ol>
+  <li>Hot Key &#150; [if available] [Alternate] &lt;no Hot key available&gt;</li>
+  <li>Shortcut Keys &#150; [if available] [Alternate] &lt;no Shortcut key available&gt;</li>
+</ol>
+
+<p><a href="ss_contents.htm">Table of Contents</a><br>
+End of file<br>
+Last updated 11/14/98 by Karen McCall<br>
+</p>
+</body>
+</html>

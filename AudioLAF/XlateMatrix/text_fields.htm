@@ -1,0 +1,174 @@
+<html>
+
+<head>
+<title>Swing Set Component: Text Fields</title>
+<script SRC="playSound.js" LANGUAGE="javascript">
+</script>
+</head>
+
+<body>
+<h2>Component Name: Input Fields<br>
+Types: Input, Password<br>
+</h2>
+
+<p><strong>Component Name: Text Input Field</strong></p>
+
+<p>Description</p>
+
+<p>The text field is a component that allows the editing of a single line of text. A
+typical example occurs in a file save dialogue where the user can enter the name of the
+file. It is the text field that accepts their typing. Editing is allowed.</p>
+
+<p>Below is a &quot;Username and Password&quot; Dialog Box which shows both an Input Field
+and a Password Field. The function is the same, but the visual display differes because a
+Password field contains confidentail information and therefore the characters are
+represented by an &quot;*&quot; (adterisk).</p>
+
+<p>&nbsp;</p>
+
+<p align="center"><img src="input_dialog.jpg" width="278" height="173"
+alt="samples of input and password fields within a dialog box"></p>
+
+<p>&nbsp;</p>
+
+<p>Sound Rationale</p>
+
+<p>The sound of a pencil scribbling across thick soft paper bridges the philosophy between
+traditional writing and computer based output! It is a metaphoric sound linking a
+real-world activity to the technology based counterpart.</p>
+
+<p><strong>Navigation</strong> 
+
+<ol>
+  <li>Required navigation sound effect. <a
+    HREF="javascript:playSound('navigate.wav' ,    'Navigate')">navigate.wav</a></li>
+  <li>Optional disabled sound effect. <a
+    HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</a></li>
+  <li>Optional combined component ID and state information sound effect. <a
+    HREF="javascript:playSound('input_field.wav' , 'Input Field')">input_field.wav</a>
+    (scribble sound)</li>
+  <li>Required name/title of component as speech. &lt;label on the field&gt; [Alternate].
+    &lt;unknown text field&gt;</li>
+  <li>Optional role as speech. &lt;Field&gt; [Alternate]. &lt;unknown object&gt;</li>
+  <li>Optional state as speech. &lt;Edit&gt; [Alternate]. N/A </li>
+</ol>
+
+<p><strong>Activation</strong>&nbsp; 
+
+<ol>
+  <li>Required activation sound effect. <a
+    HREF="javascript:playSound('input_field.wav' ,    'Input Field')">input_field.wav</a></li>
+  <li>Required name or label of component, as speech. &lt;label of text input field&gt;
+    [Alternate.] &lt;unknown text field&gt;</li>
+  <li>Optional Role: &lt;Field&gt;</li>
+  <li>Required new state of component, as speech. &lt;Edit&gt; [Alternate.] N/A</li>
+  <li>Press Enter key after entering text and hear key turning in lock </li>
+</ol>
+
+<p><strong>&quot;Where Am I?&quot;</strong> 
+
+<ol>
+  <li>Required speech: immediate parent, or entire hierarchy as appropriate. &lt;title or
+    component type of relevant parent + <a
+    HREF="javascript:playSound('input_field.wav' ,    'Input Field')">input_field.wav</a>+
+    label of the text input field + Edit&gt;</li>
+  <li>[Alternate]. &lt;unknown path + <a
+    HREF="javascript:playSound('input_field.wav' , 'Input    Field')">input_field.wav</a> +
+    unknow text field + Edit&gt; or any combination of &quot;nons&quot;</li>
+  <li>Optional disabled sound effect. <a
+    HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</a></li>
+  <li>Optional combined component ID and state information sound effect. N/A</li>
+  <li>Required name/title of component as speech. N/A [Alternate]. N/A</li>
+  <li>Optional role as speech. [Alternate].</li>
+  <li>Optional state as speech. N/A [Alternate]. N/A </li>
+</ol>
+
+<p><strong>Additional Information (Control + Shift + E)</strong> 
+
+<ol>
+  <li>Hot Key &#150; [if available] [Alternate] &lt;no Hot Key available&gt;</li>
+  <li>Shortcut Keys &#150; [if available] [Alternate] &lt;no Shortcut Key available&gt;</li>
+</ol>
+
+<hr>
+<b>
+
+<p>Component Name: Password Field<br>
+</p>
+</b>
+
+<p><strong>Description</strong></p>
+
+<p>This is simply a Text Field with character echo options available. This view indicates
+that something was typed, but does not display the actual text. </p>
+
+<p>See the illustration above in the Input Field description for a sample Password Field.</p>
+
+<p><strong>Sound Rationale</strong></p>
+
+<p>As mentioned in the Input Field sound rationale, no one wants anyone to know their
+passord as they are entering it. The sound of a keyboard being pressed is heard as one
+enters a character. this sound was chosen for two reasons. First, it compliments the
+scribble sound for the Input Field, again &quot;bridging&quot; the traditioanl with the
+technological. The second reason for choosing this sound is that of privacy. Because it is
+not one &quot;tone&quot; for one character, if a person is typing in a password at a
+moderate speed, no one would be able to tell how many characters are in the password by
+listening to the sound.</p>
+
+<p><strong>Navigation</strong> 
+
+<ol>
+  <li>Required navigation sound effect. <a
+    HREF="javascript:playSound('navigate.wav' ,    'Navigate')">navigate.wav</a></li>
+  <li>Optional disabled sound effect. <a
+    HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</a></li>
+  <li><p ALIGN="JUSTIFY">Optional combined component ID and state information sound effect. <a
+    HREF="javascript:playSound('password.wav' , 'Password Field')">password.wav</a> (typing
+    sound)</p>
+  </li>
+  <li>Required name/title of component as speech. &lt;Password&gt; [Alternate].&lt;unknown
+    text field&gt;</li>
+  <li>Optional role as speech. &lt;Field&gt; [Alternate]. unknown object</li>
+  <li>Optional state as speech. &lt;Edit&gt; [Alternate]. N/A</li>
+</ol>
+
+<p><strong>Activation</strong> 
+
+<ol>
+  <li>Required activation sound effect. <a
+    HREF="javascript:playSound('password.wav' ,    'Password Field')">password.wav</a></li>
+  <li>Required name or label of component, as speech. &lt;star&gt; [Alternate.] N/A</li>
+  <li>Optional Role: N/A</li>
+  <li>Required new state of component, as speech. N/A [Alternate.] N/A</li>
+  <li>Press Enter key after entering text and hear key turning in lock</li>
+</ol>
+
+<p><strong>&quot;Where Am I?&quot;</strong> 
+
+<ol>
+  <li>Required speech: immediate parent, or entire hierarchy as appropriate. &lt;title or
+    component type of relevant parent + <a
+    HREF="javascript:playSound('password.wav' ,    'Password Field')">password.wav</a> + label
+    of password input field + Edit&gt; [Alternate]. &lt;unknown path + <a
+    HREF="javascript:playSound('password.wav', 'Password Field')">password.wav</a>+ unknow
+    text field + Edit&gt; or any combination of &quot;nons&quot;</li>
+  <li>Optional disabled sound effect. N/A</li>
+  <li>Optional combined component ID and state information sound effect. N/A</li>
+  <li>Required name/title of component as speech. N/A [Alternate]. N/A</li>
+  <li>Optional role as speech. N/A [Alternate]. N/A</li>
+  <li>Optional state as speech. N/A [Alternate]. N/A </li>
+</ol>
+
+<p><strong>Additional Information (Control + Shift + E)</strong> 
+
+<ol>
+  <li>Hot Key &#150; [if available] [Alternate] &lt;no Hot Key available&gt;</li>
+  <li>Shortcut Keys &#150; [if available] [Alternate] &lt;no Shortcut Key available&gt; </li>
+</ol>
+
+<p>&nbsp;</p>
+
+<p><a href="ss_contents.htm">Table of Contents</a><br>
+Last updated 10/31/98</p>
+</body>
+</html>

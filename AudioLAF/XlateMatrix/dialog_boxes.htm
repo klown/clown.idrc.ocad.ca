@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad//DTD draft HTML 3.2 + extensions for HoTMetaL PRO 3.0 19960802//EN"
+ "hmpro3.dtd">
+<HTML>
+<HEAD>
+<TITLE>Swing Set components: Dialog Boxes</TITLE>
+<SCRIPT SRC="playSound.js" LANGUAGE="javascript">
+</SCRIPT></HEAD>
+<BODY>
+<H2>Component Name: Dialog Boxes<BR> Types: Message, Warning, Confirmation,
+Input, Component</H2>
+<P>This document describes the current set of dialog boxes available via the
+option pane Swing component.  The last kind, &quot;Component&quot; is the most
+general, and is applied in cases where the type of dialogue is otherwise
+indeterminate.  As such, the &quot;Component&quot; category is the default, and
+will handle new kinds of dialogues developed in the future.</P>
+<H3>Navigation</H3>
+<P>There are two things to consider with respect to navigation.  First, when
+the dialogue is presented initially, the audio look and feel uses the &quot;navigation
+to&quot; system to auditorily present the dialogue to the user.  This is
+documented herein.  Once the dialogue is &quot;on screen&quot;, as users
+navigate within the dialog, they hear the sounds/speech specific to the
+component they have navigated to. For example, in a confirmation dialogue, 
+there is a choice of Yes, No or Cancel.  Users hear the push button audio
+feedback as they bring keyboard focus to that button.</P>
+<H3><A NAME="#Activation">Activation</A></H3>
+<P>There is no separate activation feedback sequence for dialogue boxes, as
+there is for other Swing components.  Dialog boxes have two major sub-parts,
+those being the message, icons, and other components that make up the body of
+the dialog, and the set of buttons used to confirm or cancel the dialogue. 
+These latter dismiss the dialogue, and are the closest thing to &quot;activating&quot;
+it, and the feedback sequence is:</P>
+<P>When in a dialog box ONLY</P>
+<OL>
+<LI>Navigation: Press Tab to move from item to item:
+<A HREF="javascript:playSound('tab_key_indialog.wav' , 'Tab Key in Dialog')">tab_key_indialog.wav</A></LI>
+<LI>Activation: Press &quot;dismisser&quot; button:
+<A HREF="javascript:playSound('enter_indialog.wav' ,    'Enter Key in Dialog')">enter_indialog.wav</A></LI></OL>
+<P>(Note:  this is not implemented at the time of this writing).</P>
+<H3>Where Am I</H3>
+<P>The &quot;where-am-I&quot; feedback sequence for dialogue boxes consists of
+a description of the dialogue box (its type, the message, and so on), followed
+by the &quot;where-am-I&quot; seqence appropriate to the component that
+currently has keyboard focus within the dialgoue.</P>
+<H3>Additional Information (Control + Shift + E)</H3>
+<P>There is no additional information for dialogue boxes per se.  If the
+component that has focus defines a response for this key stroke, then it will be
+presented.</P>
+<HR>
+<H3>Component Name: Message Dialog</H3>
+<P><STRONG>Description</STRONG></P>
+<P>This type of dialog box is made of three components: an icon, a text string,
+and an &quot;OK&quot; button. The icon is typcially a lower case &quot;i&quot;
+within a circle, meaning &quot;information&quot;. The string is the message. All
+the user can do with this dialog box is read the message and acknowledge it by
+clicking the &quot;OK&quot; button. In Windows, this is known as a &quot;information
+dialog box&quot;.  The closest thing on the Macintosh is its &quot;message alert&quot;,
+containing the icon of a face (profile) speaking something.</P>
+<P>Illustrated below is the Swing Set Dialog using the Java look and feel. The
+title reads &quot;Message&quot; and the message is &quot;You chose file:  &lt;filename&gt;&quot;.
+</P>
+<P>&nbsp;</P>
+<P ALIGN="center"><IMG
+SRC="message_dialog.jpg" WIDTH="383" HEIGHT="109" ALT="swing set message dialog box"></P>
+<P>&nbsp;</P>
+<P><STRONG>Sound Rationale</STRONG></P>
+<P>The sound for a Message Dialog Box is an electronic one, similar to that of
+a &quot;beeper&quot; or clock alarm. It is meant to &quot;notify&quot; the
+computer user that there is some information that needs to be read.  The
+information is not to be taken as an error or warning, just some additional
+information, usually related to the status of a task.</P>
+<P><STRONG>Navigation</STRONG> &nbsp;  
+</P>
+<OL>
+<LI>Navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not  Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('message_dialog.wav' , 'Message Dialog')">message_dialog.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;Title of window&gt; 
+[Alternate:  &quot;untitled window&quot; ].</LI>
+<LI>Optional role as speech. &quot;Message Dialog&quot;  [Alternate:  &quot;Option
+pane&quot;].</LI>
+<LI>Optional state as speech. &lt;message text&gt; + &quot;ready&quot;
+[Alternate:  &quot;ready&quot;].</LI></OL>
+<P><STRONG>Activation: <A HREF="dialog_boxes.htm#Activation">(see above)</A></STRONG></P>
+<OL>
+<LI>Required activation sound effect. N/A.</LI>
+<LI>Required name or label of component, as speech. N/A.</LI>
+<LI>Optional Role: N/A</LI>
+<LI>Required new state of component, as speech. N/A.</LI></OL>
+<P><STRONG>&quot;Where Am I?&quot;</STRONG></P>
+<OL>
+<LI>Navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not  Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('message_dialog.wav' , 'Message Dialog')">message_dialog.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;Title of window&gt; 
+[Alternate:  ].&quot;untitled window&quot;</LI>
+<LI>Optional role as speech. &quot;Message Dialog&quot;  [Alternate:  &quot;Option
+pane&quot;].</LI>
+<LI>Optional state:  &lt;message text&gt; +
+<OL>
+<LI>&quot;where am I&quot; sequence of the focused component.</LI>
+<LI>&quot;ready&quot;.</LI></OL></LI></OL>
+<HR>
+<H3>Component Name: Warning Dialog </H3>
+<P><STRONG>Description</STRONG></P>
+<P>A warning dialogue is used to notify the user when something more serious
+has occurred as compared to the message dialogue.  Although it is more serious,
+it still is not fatal.  The icon is typically a yellow triangle with an
+exclamation point inside.  In the example below the Swing Set Warning Dialog
+gives the title &quot;Message&quot; and the text &quot;Example Warning&quot;
+with an OK button to acknowledge the warning.</P>
+<P ALIGN="center"><IMG
+SRC="warning_01.jpg" WIDTH="388" HEIGHT="109" ALT="swing set warning dialog box"></P>
+<P><STRONG>Sound Rationale</STRONG></P>
+<P>As this is something that requires attention, the sound chosen is that of an
+air horn; short, to the point and definitely an attention getter!</P>
+<P><STRONG>Navigation</STRONG> &nbsp;  
+</P>
+<OL>
+<LI>Required navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('warning_dialog.wav' , 'Warning Dialog')">warning_dialog.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;Title of window&gt; 
+[Alternate:  &quot;untitled window&quot; ].</LI>
+<LI>Optional role as speech. &quot;Warning Dialog&quot; [Alternate:  &quot;Option
+pane&quot;].</LI>
+<LI>Optional state as speech. &lt;message text&gt; + &quot;ready&quot;
+[Alternate:  &quot;ready&quot;].</LI></OL>
+<P><STRONG>Activation <A HREF="dialog_boxes.htm#Activation">(see above)</A></STRONG>  
+</P>
+<OL>
+<LI>Required activation sound effect. N/A.</LI>
+<LI>Required name or label of component, as speech. N/A.</LI>
+<LI>Optional Role: N/A</LI>
+<LI>Required new state of component, as speech. N/A.</LI></OL>
+<P><STRONG>&quot;Where Am I?&quot;</STRONG> &nbsp;  
+</P>
+<OL>
+<LI>Required navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('warning_dialog.wav' , 'Warning Dialog')">warning_dialog.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;Title of window&gt; 
+[Alternate:  &quot;untitled window&quot; ].</LI>
+<LI>Optional role as speech. &quot;Warning Dialog&quot; [Alternate].</LI>
+<LI>Optional state:  &lt;message text&gt; +
+<OL>
+<LI>&quot;where am I&quot; sequence of the focused component.</LI>
+<LI>&quot;ready&quot;.</LI></OL></LI></OL>
+<HR>
+<P><B></B></P>
+<H3>Component Name: Confirmation Dialog</H3>
+<P><STRONG>Description</STRONG></P>
+<P>A dialog box which will let the computer user know that a task is complete
+or ask for confirmation before doing an action. The example below is from the
+Swing Set, with the &quot;Message&quot; title, and asks the question &quot;Is
+Swing cool?&quot; to which the computer user can choose, Yes, No or Cancel.</P>
+<P ALIGN="center"><IMG
+SRC="confirm_01.jpg" WIDTH="382" HEIGHT="110" ALT="swing set confirmation dialog box"></P>
+<P><STRONG>Sound Rationale</STRONG></P>
+<P>A light sparkle sound, just confirming that something has been done or is
+about to be. The sound is not intense or loud, it is meant as a reminder, not a
+warning.</P>
+<P><STRONG>Navigation</STRONG>&nbsp;  
+</P>
+<OL>
+<LI>Required navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A
+HREF="javascript:playSound('confirmation_dialog.wav' , 'Confirmation Dialog')">confirmation_dialog.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;Title of window&gt; 
+[Alternate:  &quot;untitled window&quot; ].</LI>
+<LI>Optional role as speech. &quot;Confirmation dialog&quot; [Alternate:  &quot;Option
+pane&quot;].</LI>
+<LI>Optional state as speech. &lt;message text&gt; + &quot;ready&quot;
+[Alternate:  &quot;ready&quot;].</LI></OL>
+<P><STRONG>Activation <A HREF="dialog_boxes.htm#Activation">(see above)</A></STRONG></P>
+<OL>
+<LI>Required activation sound effect. N/A.</LI>
+<LI>Required name or label of component, as speech. N/A.</LI>
+<LI>Optional Role: N/A</LI>
+<LI>Required new state of component, as speech. N/A.</LI></OL>
+<P><STRONG>&quot;Where Am I?&quot;</STRONG> &nbsp;  
+</P>
+<OL>
+<LI>Required navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A
+HREF="javascript:playSound('confirmation_dialog.wav' , 'Confirmation Dialog')">confirmation_dialog.wav</A></LI>
+<LI>Required name/title of component as speech. &quot;title of confirmation
+dialog&quot;     [Alternate]. &quot;unknown confirmation dialog&quot;</LI>
+<LI>Optional role as speech. &quot;Confirmation dialog&quot; [Alternate:  &quot;Option
+pane&quot;].</LI>
+<LI>Optional state:  &lt;message text&gt; +
+<OL>
+<LI>&quot;where am I&quot; sequence of the focused component.</LI>
+<LI>&quot;ready&quot;.</LI></OL></LI></OL>
+<HR>
+<H3>Component Name: Input Dialog</H3>
+<P><STRONG>Description</STRONG></P>
+<P>This type of dialogue is asking the user enter for some text before
+proceeding.  The contents of the dialogue are a question mark, a message, a text
+entry field, and two buttons, namely, &quot;ok&quot; and &quot;cancel&quot;. The
+message is a prompt; for example, &quot;enter your password:&quot;. The user
+provides the answer to the question by typing it in the text entry field.</P>
+<P>Shown Below is an Input Dialog used by Netscape to access a &quot;restricted&quot;
+web page. The title is &quot;username and Password Required&quot; so the
+computer user knows from verbal feed back what is required. Instructions are
+given to the computer user and then there are two fields, one for &quot;username&quot;
+and one for the &quot;password&quot; of the user. The computer user also has the
+choice of OK or Cancel buttons.</P>
+<P ALIGN="center"><IMG
+SRC="input_dialog.jpg" WIDTH="274" HEIGHT="171" ALT="an input dialog box from netscape"></P>
+<P><STRONG>Sound Rationale</STRONG></P>
+<P>The sound used in this case might in fact be overkill. It is the same sound
+used for Text Area, Text Pane, Edit Pane and the Input Field - the sound of a
+pencil scratching over paper. Although the sound is appropriate for the
+function, user testing might show that a sound differentiating the dialog
+function from the editing functions might be better suited for this component.</P>
+<P>The Text Field has the same sound, that of a pencil scratching over a piece
+of paper. The Password Field has a dual function. It must represent the
+characters using asterisks so that privacy is protected and in collaboration
+with this, the sound of computer keyboard&nbsp; keys clicking accompanies each
+keystroke. Perhaps this sound would be useful for the Input Dialog itself, it
+would keep the function associated with the sound, and cue the computer user
+that this is a dialog into which you have input/password fields.</P>
+<P><STRONG>Navigation</STRONG>  
+</P>
+<OL>
+<LI>Required navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('input.wav' , 'Input Dialog')">input.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;Title of window&gt; 
+[Alternate:  &quot;untitled window&quot; ].</LI>
+<LI>Optional role as speech. &quot;Input dialog&quot; [Alternate:  &quot;Option
+pane&quot;].</LI>
+<LI>Optional state as speech. &lt;message text&gt; + &quot;ready&quot;
+[Alternate:  &quot;ready&quot;].</LI></OL>
+<P><STRONG>Activation <A HREF="dialog_boxes.htm#Activation">(see above)</A></STRONG></P>
+<OL>
+<LI>Required activation sound effect. N/A.</LI>
+<LI>Required name or label of component, as speech. N/A.</LI>
+<LI>Optional Role: N/A</LI>
+<LI>Required new state of component, as speech. N/A.</LI></OL>
+<P><STRONG>&quot;Where Am I?&quot;</STRONG>  
+</P>
+<OL>
+<LI>Required navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('input.wav' , 'Input Dialog')">input.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;Title of window&gt; 
+[Alternate:  &quot;untitled window&quot; ].</LI>
+<LI>Optional role as speech. &quot;Input dialog&quot; [Alternate:  &quot;Option
+pane&quot;].</LI>
+<LI>Optional state:  &lt;message text&gt; +
+<OL>
+<LI>&quot;where am I&quot; sequence of the focused component.</LI>
+<LI>&quot;ready&quot;.</LI></OL></LI></OL>
+<HR>
+<H3>&nbsp;Component Name: Component Dialog</H3>
+<P><STRONG>Description</STRONG></P>
+<P>This dialog box is the most general of all the option panes.  It can contain
+an icon, plus any number of other components, plus any number of dismisser
+buttons.   Typically such buttons are &quot;ok&quot; and &quot;cancel&quot;, but
+there may be more. The other components can be check boxes, menus, radio button
+groups, text entry fields, or even other push buttons. However, these latter
+push buttons do not close the dialog box; only the dismissers do. The purpose of
+this dialog box is to allow developers to build more complicated dialog boxes
+when the others, described above, simply will not suffice. Below is the Swing
+Set example of a Component Dialog. It contains lists and buttons which provide
+options for the computer user.</P>
+<P>&nbsp;</P>
+<P ALIGN="center"><IMG
+SRC="component.jpg" WIDTH="468" HEIGHT="155" ALT="swing set component dialog box"></P>
+<P>&nbsp;</P>
+<P><STRONG>Sound Rationale</STRONG></P>
+<P>The sound chosen for this is a difficult one. How does one convey a number
+of different things all tumbling into the &quot;present combination&quot; of
+selections? The sound representing a &quot;combo&quot; box is a series of
+different individual sounds, all tumbling together much the way game pieces and
+dice tumble out of that hollow container provided dice shaking! It can also be
+interpreted as a number of elements all tumbling together and your imagination
+can predict what will happen when they meet!</P>
+<P><STRONG>Navigation</STRONG>  
+</P>
+<OL>
+<LI>Required navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav', 'Not Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('component_dialog.wav', 'Component Dialog')">component_dialog.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;Title of window&gt; 
+[Alternate:  &quot;untitled window&quot; ].</LI>
+<LI>Optional role as speech. &quot;Component dialog&quot; [Alternate:  &quot;Option
+pane&quot;].</LI>
+<LI>Optional state as speech. &lt;message text&gt; + &quot;ready&quot;
+[Alternate:  &quot;ready&quot;].</LI></OL>
+<P><STRONG>Activation <A HREF="dialog_boxes.htm#Activation">(see above)</A></STRONG></P>
+<OL>
+<LI>Required activation sound effect. N/A.</LI>
+<LI>Required name or label of component, as speech. N/A.</LI>
+<LI>Optional Role: N/A</LI>
+<LI>Required new state of component, as speech. N/A.</LI></OL>
+<P><STRONG>&quot;Where Am I?&quot;</STRONG>&nbsp;  
+</P>
+<OL>
+<LI>Required navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav', 'Not Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('component_dialog.wav', 'Component Dialog')">component_dialog.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;Title of window&gt; 
+[Alternate:  &quot;untitled window&quot; ].</LI>
+<LI>Optional role as speech. &quot;Component dialog&quot; [Alternate:  &quot;Option
+pane&quot;].</LI>
+<LI>Optional state:  &lt;message text&gt; +
+<OL>
+<LI>&quot;where am I&quot; sequence of the focused component.</LI>
+<LI>&quot;ready&quot;.</LI></OL></LI></OL>
+<HR>
+<P><A HREF="ss_contents.htm">Table of Contents</A><BR> End of file<BR> Last
+updated 11/25/98<BR>
+</P></BODY></HTML>

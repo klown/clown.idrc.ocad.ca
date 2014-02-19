@@ -1,0 +1,239 @@
+<html>
+
+<head>
+<title>Swing Set Component: Odd's and End's</title>
+<script SRC="playSound.js" LANGUAGE="javascript">
+</script>
+</head>
+
+<body>
+
+<h2>Component Wrap-Up</h2>
+
+<p><b>Component Name: Desktop Icon</b></p>
+
+<p><strong>Description</strong></p>
+
+<p>A visual/picture representation of an application, document, dialog or any other
+component of the Swing Set. It is, in effect, a shortcut to reaching the deired
+component/application/document.</p>
+
+<p><strong>Navigation</strong> 
+
+<ol>
+  <li>Required navigation sound effect. <a
+    HREF="javascript:playSound('navigate.wav' ,    'Navigate')">navigate.wav</a></li>
+  <li>Optional disabled sound effect. <a
+    HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</a></li>
+  <li>Optional combined component ID and state information sound effect. N/A</li>
+  <li>Required name/title of component as speech. &lt;label of Desktop Icon&gt; [Alternate].
+    &lt;unknown desktop icon&gt;</li>
+  <li>Optional role as speech. &lt;desktop icon&gt;[Alternate]. &lt;unknown object&gt;</li>
+  <li>Optional state as speech. &lt;Selected&gt; [Alternate]. N/A </li>
+</ol>
+
+<p><strong>Activation</strong> 
+
+<ol>
+  <li>Required activation sound effect. <a
+    HREF="javascript:playSound('activate.wav' ,    'Activate')">activate.wav</a></li>
+  <li>Required name or label of component, as speech. &lt;label of desktop icon&gt;
+    [Alternate.] &lt;unknown desktop icon&gt;</li>
+  <li>Required new state of component, as speech. &lt;Launching&gt; [Alternate.] &lt;N/A&gt;</li>
+</ol>
+
+<p><strong>&quot;Where Am I?&quot;</strong> 
+
+<ol>
+  <li>Required speech: immediate parent, or entire hierarchy as appropriate.
+    &lt;&quot;Desktop&quot; + name of desktop icon + number out of total icons on desktop +
+    &quot;Selected&quot;&gt; [Alternate]. N/A</li>
+  <li>Optional disabled sound effect. <a
+    HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</a></li>
+  <li>Optional combined component ID and state information sound effect. N/A</li>
+  <li>Required name/title of component as speech. N/A [Alternate]. N/A</li>
+  <li>Optional role as speech. N/A [Alternate]. N/A</li>
+  <li>Optional state as speech. N/A [Alternate]. N/A </li>
+</ol>
+
+<p><strong>Additional Information (Control + Shift + E)</strong> 
+
+<ol>
+  <li>Hot Key &#150; [if available] [Alternate] &lt;no Hot Key available&gt;</li>
+  <li>Shortcut Keys &#150; [if available] [Alternate] &lt;no Shortcut Key available&gt;</li>
+</ol>
+
+<hr>
+
+<p><strong>Additional Sounds Incorporated into Swing Set Demo</strong></p>
+
+<p>&quot;<strong><a HREF="javascript:playSound('disabled.wav' , 'Not Available')">General
+Disabled Sound</a></strong>&quot; - This is a sound which is played when an option is not
+available. The User Interface Design Team volleyed back and forth between the game show
+buzzer used in the NotePad demo and the sumbarine ping which was fianlly decided on.</p>
+
+<p>It was felt that the short sharp buzzer sound was too &quot;abrasive&quot; a way of
+letting a computer uer know that something was simply not available, not that they had
+done something wrong. The submarine ping is used to reinforce location, let you know there
+is something there and if it is not available, you can go back and check it against your
+original &quot;where am I and what can I do&quot; position. To the Team it seemed readily
+identifiable as a &quot;real woeld sound&quot; that people could relate to.</p>
+
+<p>One note of concern by one of the Team members is that whereever possible the term
+&quot;not available&quot; should be used instead of &quot;disabled&quot;. This concern is
+semantic and attitudinal in nature. Although the term &quot;disabled&quot; is easy to use
+and readily identifiable as something that &quot;doesn't work&quot;, the broader
+implications extend toward the way people with disabilitis are viewed by society. The best
+example is that tractor trailer that was disabled and blocking traffic, or the highway
+ramp that was not available due to a disabled vehicle. &quot;Disabled&quot; means blocking
+progress, keeping the masses back, from doing their daily work, and at the very least
+getting in the way. We would not think of aying that a francophone, Christian, female (or
+any other descriptor) tractor trailer caused traffic problems. How can a society bombarded
+with all this prevention of progress, then think of hiring, educating or otherwise
+including someone with a disability if that person with a disability is perceived as
+blocking progress, preventing work from being done or getting in the way? The concession
+to calling the file &quot;disabled.wav&quot; was made for the same reason the term is
+widely used, it is shorter and easy to use. Whereever possible, however, the term
+&quot;Not Available&quot; or some other descriptor should be used instead.</p>
+
+<p><strong><a HREF="javascript:playSound('backspace.wav' , 'Backspace')">Backspace</a></strong>
+- When one gets &quot;fluent&quot; at using a keyboard, or even when one is learning the
+keystrokes, it is important to distinguish beween the Backspace and the Enter keys, and
+the Backspace and the Delete keys. A simple sound which lets the computer user know that
+they have indeed done the Backspace action is an important element of text editing.&nbsp;
+In our Demo, a single light, cow-bell sort of sound is used. It is also important for
+audio output of exactly what has been Backspaced over!</p>
+
+<p><strong><a HREF="javascript:playSound('delete.wav' , 'Delete')">Delete</a></strong> -
+Again, becasue one can easily Delete something while meaning to hit the Enter or Backspace
+key, it is important to know what action has been performed. A single simple tone,
+sounding like a plug or pop releasing has been used for the Delete sound. Also, the text
+that has been deleted should be echoed to the computer user.</p>
+
+<p><strong><a HREF="javascript:playSound('enter_indialog.wav' , 'Enter Key in Dialog')">Enter</a></strong>
+- in dialog box only -&nbsp; The User Interface Design Team decided that it is important
+to know in a dialog box which keystroke you have done. Traditionally the Tab key and the
+enter key perform navigation and activation functions respectively. So, in a dialog box
+ONLY, we have assigned a sound for pressing the <a
+HREF="javascript:playSound('tab_key_indialog.wav' , 'Tab Key in dialog')">Tab key</a>, and
+one for pressing the Enter key. We are not sure if the Swing Set will allow this, but we
+included the sounds anyway.</p>
+
+<p><strong><a HREF="javascript:playSound('no_text.wav' , 'No Text')">No Text</a></strong>
+- It is also important to know whether there is a chracter, word or sentence before or
+after your current position. For example if I am in an Input Field and have Backspaced to
+delete text, once I have reached the point where I can't Backspace any further, a sound
+should be available to let me know that in cse I lost count of how many characters I have
+taken out. I should also know if I have reached the end of my editing, that there are no
+more senetences, words or characters. So if I tell my computer to &quot;Read
+Previous&quot; and there is no previous item, a sound would give me a clue to this.
+Otherwise I am not sure whether the keystroke has worked, my computer has frozern or any
+other number of things that could go wrong in a totally speech output dependent system.</p>
+
+<p><strong>Separator</strong>: Not being done</p>
+
+<p>The horizontal line that appears in menus and visually groups related items within a
+single menu. It's debatable whether this needs to be sonified. I have heard arguments on
+both sides. If we do sonify this, it should be later rather than sooner.</p>
+
+<p><strong><a HREF="javascript:playSound('tooltip.wav' , 'ToolTip')">ToolTip</a></strong>
+- using the NotePad demo sound</p>
+
+<p>The little piece of text that pops up when the mouse lingers over a tool bar button,
+for example. We have partially sonified this by allowing users ask for the tool tip. But,
+nothing has been done in terms of alerting the user when it pops up spontaneously. Should
+we do something in this regard?</p>
+
+<p><strong>ToolBar</strong> - done for NotePad project</p>
+
+<p><strong>Labels</strong> are text based components see text elements</p>
+
+<p>A Label is a short piece of static text, or an icon, or both, that labels some other
+object. A typically example is a piece of text or icon used to denote the purpose of an
+editable text field.</p>
+
+<p>Example of Swing Set Labels</p>
+
+<p>&nbsp;</p>
+
+<p align="center"><img src="labels.jpg" width="400" height="257"
+alt="example of swing set labels"></p>
+
+<p>&nbsp;</p>
+
+<p><strong>Spinners and StringSpinners</strong> see List</p>
+
+<p><strong>ScrolBar and Split Panes</strong> are a totally visual way of perceiving
+information and the same result can be achieved by toggling between docuemtns, or
+applications. For this reason the User Interface Design Team decided that these components
+were not to be done</p>
+
+<p>Used to move about the contents of a window when those contents do not fit entirely
+within the viewing area. We did not sonify this in the Notepad demo because I felt that
+this widget is truly visual in nature. Rather, we tried to implement meaningful keyboard
+navigation of the text without having to actually acquiring and activating a scroll bar</p>
+
+<p><strong>Thumb</strong>: you should be able to ask how far down the document you are;
+should be shortcut to tell you cursor position in relation to total document. Not
+sonified.</p>
+
+<p><strong>File Chooser</strong> &#150; see List</p>
+
+<p>Below is an example of the Swing Set File Chooser.</p>
+
+<p>&nbsp;</p>
+
+<p align="center"><img src="file_chooser.jpg" width="400" height="253"
+alt="file_chooser.jpg (34121 bytes)"></p>
+
+<p>&nbsp;</p>
+
+<p><strong>Colour Chooser</strong> &#150; RGB or Hue? Since there are &quot;official
+Pantone colours&quot; for puclishing, and these colours have been translated into HTML
+coding, Karen is looking into the possibility that they also might have names so that we
+can use the hex-3 percents to generate a &quot;colour name&quot;. It will not allow access
+to EVERY colour of the rainbow, but it will enable some use of colour on non-screen based
+devices. (this is also the only place where Joseph found a spinner used)</p>
+
+<p>The User Interface Design Team found a chart of Pantone colours used in Desktop
+Publishing, and a sort of &quot;standard of colour&quot;, which had been converted into
+HTML colour codes. We are still looking for some indication as to whether these colours
+have more &quot;common names&quot; which could then be atached to percentages when
+achieved in a Colour Chooser.</p>
+
+<p>&nbsp;</p>
+
+<p>Example of a Swing Set Colour Chooser in the default position (HSV)</p>
+
+<p>&nbsp;</p>
+
+<p align="center"><img src="colour_choose_01.jpg" width="257" height="238"
+alt="colour chooser in default position"></p>
+
+<p>&nbsp;</p>
+
+<p>Example of a Swing Set Colour Chooser after colour has been changed. (HSV)</p>
+
+<p>&nbsp;</p>
+
+<p align="center"><img src="colour_choose_02.jpg" width="257" height="236"
+alt="swing set colour chooser after colour has been changed"></p>
+
+<p>&nbsp;</p>
+
+<p>Example of a Swing Set Colour Chooser in the RGB mode.</p>
+
+<p>&nbsp;</p>
+
+<p align="center"><img src="colour_choose_03.jpg" width="257" height="236"
+alt="rgb version of the swing set colour chooser"></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="ss_contents.htm">Table of Contents</a><br>
+Last updated 10/30/98<br>
+</p>
+</body>
+</html>

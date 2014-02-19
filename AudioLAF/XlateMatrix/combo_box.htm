@@ -1,0 +1,149 @@
+<html>
+
+<head>
+<title>Swing Set Component: ComboBox</title>
+<SCRIPT SRC="playSound.js" LANGUAGE="javascript">
+</SCRIPT>
+</head>
+
+<body>
+
+
+<h2>Component Name: ComboBox<br>
+Text Edit Field, List </h2>
+
+<p>&nbsp;</p>
+
+<p><strong>Description</strong></p>
+
+<p>As illustrated in the Swing Set model, a combination of a text field and drop-down list
+that lets users either type in a value or select it from a list that is displayed when the
+user asks for it. It is really two components: a menu or list of choices, and a text
+field.</p>
+
+<p>The list can appear either as a menu, or a list. If it appears as a menu, all the items
+are visible at once. If it appears as a list, and the items do not fit, then it will look
+like a scrollable list.</p>
+
+<p>With respect to the text field, the combo box can be one of two types, namely, editable
+or non-editable. Editable means that users can bring focus to the text field and start
+typing, deleting, or otherwise altering its contents. This can mean that the users can add
+new contents to the list. A user for this would be in a find dialogue box where the list
+contains strings previously looked for, but users can always type in a new search string.
+For combo boxes that are not editable, users can only choose what is on the list.</p>
+
+<p>Illustrated below is a Swing Set ComboBox. It shows a &quot;classic bombobox&quot;
+which has lists activated by pressing an arrow on the right hand side of the &quot;list
+button/drop down box&quot;; and a &quot;custom bombobox&quot; which has a larger
+&quot;list button/drop down box&quot; which has a picture, description of th echoice and
+an arrow to show the rest of the list (eight hand side of &quot;list button/deop down
+box&quot;).</p>
+
+<p>&nbsp;</p>
+
+<p align="center"><img src="combo_box.jpg" width="703" height="274"
+alt="swing set combo box"></p>
+
+<p>&nbsp;</p>
+
+<p><strong>Sound Rationale</strong></p>
+
+<p>The sound chosen for this is a difficult one. How does one convey a number of different
+things all tumbling into the &quot;present combination&quot; of slections? The sound
+representing a &quot;combo&quot; box is a series of different individual sounds, all
+tumbling together much the way game piecesand dice tumble out of that hollow container
+provided dice shaking! It can also be interpreted as a number of elements all tumbling
+together and your imagination can predict what will happen when they meet!</p>
+
+<hr>
+
+<h3><b>Component Name: ComboBox<br>
+Text Edit Field</b></h3>
+
+<p><strong>Navigation</strong> 
+
+<ol>
+  <li>Required navigation sound effect. <a HREF="javascript:playSound('navigate.wav', 'Navigate')">navigate.wav</a></li>
+  <li>Optional disabled sound effect. <a HREF="javascript:playSound('disabled.wav', 'Disabled')">disabled.wav</a></li>
+  <li>Combined component ID and state information sound effect.
+  	<ul>
+  		<li>If non-editable, <a HREF="javascript:playSound('list.wav', 'Combo box Role State')">list.wav</a></li>
+  		<li>If editable, <a HREF="javascript:playSound('list.wav', 'Combo box Role State')">list.wav</a> plus <a HREF="javascript:playSound('input.wav', 'Combo box Role State')">input.wav</a></li>
+  	</ul></li>
+  <li>Required name/title of component as speech. &lt;label of the combo box&gt; [Alternate].
+    &lt;unknown combo box&gt;</li>
+  <li>Role as speech. &lt;Combo Box&gt; [Alternate]. &lt;unknown object&gt;</li>
+  <li>State as speech:
+  	<ol>
+  		<li>If editable, then &quot;editable&quot; [Alternate]. N/A</li>
+  		<li>&quot;Current selection is:&quot;</li>
+  		<li>If something is selected, then its name is spoken; otherwise, &quot;nothing currently selected&quot;</li>
+  		<li>If editable, and focus is on the editor, then &quot;editing&quot;</li>
+  	</ol></li>
+</ol>
+
+<p><strong>Activation</strong> &nbsp; 
+<p>There are three ways to manipulate a combo box.  The simplest is the user navigating among the items
+represented by the combo box.  In that case, the activation report provides feed back as to which
+item is currently selected:</p>
+
+<ol>
+  <li>Required activation sound effect. <a HREF="javascript:playSound('navigate.wav', 'Navigate')">navigate.wav</a></li>
+  <li>Required name or label of component, as speech. &lt;item name&gt;[Alternate.] &quot;unknown item&quot;</li>
+  <li>Optional Role: N/A</li>
+  <li>Required new state of component, as speech. N/A [Alternate.] N/A</li>
+</ol>
+
+<p>A second way to manipulate a combo box is available only if it is editable.  In this case, the
+feedback is whatever the editor component is capable of.  For example, if the editor is a text field,
+then its report generator system will be invoked:</p>
+<ol>
+  <li>Required activation sound effect. N/A</li>
+  <li>Required name or label of component, as speech. &lt;name of characters being
+    typed&gt;[Alternate.] N/A</li>
+  <li>Optional Role: N/A</li>
+  <li>Required new state of component, as speech. N/A [Alternate.] N/A</li>
+</ol>
+
+<p>Finally, there needs to be a way to move between "edit mode" and "selection mode" if the combo box
+is indeed editable.  If it is not, and the user attempts to make such a mode switch, and error is 
+played -- <A HREF="javascript:playSound('blipErr.wav', 'Mode Switch Error')">blipErr.wav</A>.</p>
+<p>If the switch can be made, then the navigation-to report is issued as detailed above.
+(The reason for this that this kind of "activation" results in moving focus among two sub-parts of the
+combo box).</p>
+
+<p><strong>&quot;Where Am I?&quot;</strong> 
+
+<ol>
+  <li>Optional disabled sound effect. <a HREF="javascript:playSound('disabled.wav', 'Disabled')">disabled.wav</a></li>
+  <li>Combined component ID and state information sound effect.
+  	<ul>
+  		<li>If non-editable, <a HREF="javascript:playSound('list.wav', 'Combo box Role State')">list.wav</a></li>
+  		<li>If editable, <a HREF="javascript:playSound('list.wav', 'Combo box Role State')">list.wav</a> plus <a HREF="javascript:playSound('input.wav', 'Combo box Role State')">input.wav</a></li>
+  	</ul></li>
+  <li>Required name/title of component as speech. &lt;label of the combo box&gt; [Alternate].
+    &lt;unknown combo box&gt;</li>
+  <li>Role as speech. &lt;Combo Box&gt; [Alternate]. &lt;unknown object&gt;</li>
+  <li>State as speech:
+  	<ol>
+  		<li>If editable, then &quot;editable&quot; [Alternate]. N/A</li>
+  		<li>&quot;Current selection is:&quot;</li>
+  		<li>If something is selected, then its name is spoken; otherwise, &quot;nothing currently selected&quot;</li>
+  		<li>If editable, and focus is on the editor, then &quot;editing&quot;</li>
+  	</ol></li>
+</ol>
+
+<p><strong>Additional Information </strong>&nbsp; 
+<p>N/A</p>
+
+
+<p>Note: A Combo Box can have ANY number of or type of other components from checkboxes to
+radiobuttons, toggle buttons, internal panes and desktop panes. Shown above is the most typical
+example of a combo box and the audio look and feel for it.</p>
+
+<p><a href="ss_contents.htm">Table of Contents</a>&nbsp; <br>
+End of file<br>
+Last updated 09/17/98</p>
+</body>
+</html>
+

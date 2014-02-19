@@ -1,0 +1,895 @@
+<html>
+
+<head>
+<title>Swing Set Components: Text Elements</title>
+<script SRC="playSound.js" LANGUAGE="javascript">
+</script>
+</head>
+
+<body>
+<b>
+
+<h2>&quot;Non-Sonified&quot; Text Components</b></h2>
+
+<p>&nbsp;</p>
+
+<p><strong>Description</strong></p>
+
+<p>All text-based components share certain common attributes, by virtue of having a common
+ancestor. These attributes will be discussed first, then the specific text-based
+components will be introduced, and the specifics of each component will be explained. 
+
+<ul>
+  <p><strong>Text</strong></p>
+  <p>Obviously, text-based components have some form of text area that allows users to enter
+  and view text. Basic text area functionality included is: <ul>
+    <p>cursor up/down/left/right <br>
+    cursor home/end <br>
+    backspace <br>
+    delete</p>
+  </ul>
+  <p><strong>Caret</strong></p>
+  <p>Indicates the current insertion point. </p>
+  <p><strong>Selected Text</strong></p>
+  <p>Text that has been selected by dragging a mouse over it, or by arrowing over it with
+  the shift key depressed. </p>
+  <p><strong>Disabled Text</strong></p>
+  <p>I'm not sure what this is. It is likely text which cannot be editted (or selected?). </p>
+  <p><strong>Highlight</strong></p>
+  <p>This is something that is applied to the background of the text area to distinguish it
+  from the rest of the area. It is not the same as selecting, in that it does not identify
+  any of the text, but rather a region of the area.</p>
+</ul>
+
+<p><strong>&quot;Lack of Augmented Sound&quot; Rationale</strong></p>
+
+<p>These functions are related to the ability to rapidly edit text. In this process, a
+computer needs to have instant feedback in text. Adding individual sounds (bells, beeps,
+bongs) to functions only delays the editing process and frustrates the computer user. In
+terms of Navigating Within, Speaking Actions, Text Selection and Text Actions, if a
+computer user is proficient additional sound would interfere with the thought process and
+this would be true if the computer user were a novice as well, the sound would detract
+from listening to the functional feedback.</p>
+
+<hr>
+
+<p><strong>Navigation Within: Caret - Forward</strong> 
+
+<ol>
+  <li>Keystroke: Right Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read new current character&gt;</li>
+</ol>
+<b>
+
+<p></b><strong>Navigation Within: Caret - Backward </strong>
+
+<ol>
+  <li>Keystroke: Left Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: </li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; read new current character&gt;</li>
+</ol>
+<b>
+
+<p></b><strong>Navigation Within: Caret &#150; begin - line</strong> 
+
+<ol>
+  <li>Keystroke: Home</li>
+  <li>Navigation sound: N/A </li>
+  <li>Required name of action: &lt;Home&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read current line&gt;</li>
+</ol>
+<b>
+
+<p>Navigation Within: Caret &#150; end - line</b> 
+
+<ol>
+  <li>Keystroke: End</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: End</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read current line&gt;</li>
+</ol>
+<b>
+
+<p>Navigation Within: Caret &#150; previous - word</b> 
+
+<ol>
+  <li>Keystroke: Control + Left Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; read new current word &gt;</li>
+</ol>
+<b>
+
+<p>Navigation Within: Caret &#150; next - word</b> 
+
+<ol>
+  <li>Keystroke: Control + Right Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N A</li>
+  <li>Relevant text from document: &lt; read new current word&gt;</li>
+</ol>
+<b>
+
+<p>Navigation Within: Caret &#150; begin - word</b> 
+
+<ol>
+  <li>Keystroke: Control + Left Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N A</li>
+  <li>Relevant text from document: &lt; read new current word&gt;</li>
+</ol>
+<b>
+
+<p>Navigation Within: Caret &#150; end - word</b> 
+
+<ol>
+  <li>Keystroke: Control + Right Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N A</li>
+  <li>Relevant text from document: &lt; read new current word&gt;</li>
+</ol>
+<b>
+
+<p>Navigation Within: Caret - up</b> 
+
+<ol>
+  <li>Keystroke: Up Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read new current line&gt;</li>
+</ol>
+<b>
+
+<p>Navigation Within: Caret - down</b> 
+
+<ol>
+  <li>Keystroke: Down Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; read new current line&gt;</li>
+</ol>
+<b>
+
+<p>Navigation Within: Begin - paragraph</b> 
+
+<ol>
+  <li>Keystroke: </li>
+  <li>Navigation sound: </li>
+  <li>Required name of action: </li>
+  <li>State: </li>
+  <li>Relevant text from document: &lt; &gt;</li>
+</ol>
+<b>
+
+<p>Navigation Within: End - paragraph</b> 
+
+<ol>
+  <li>Keystroke: </li>
+  <li>Navigation sound: </li>
+  <li>Required name of action: </li>
+  <li>State: </li>
+  <li>Relevant text from document: &lt; &gt;</li>
+</ol>
+<b>
+
+<p>Navigation Within: Page - up</b> 
+
+<ol>
+  <li>Keystroke: Page Up</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Page Up&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: N/A</li>
+</ol>
+<b>
+
+<p>Navigation Within: Page - down</b> 
+
+<ol>
+  <li>Keystroke: Page Down</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Page Down&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: N/A</li>
+</ol>
+<b>
+
+<p>Navigation Within: Begin - file</b> 
+
+<ol>
+  <li>Keystroke: Control + Home</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Top of file&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: N/A</li>
+</ol>
+<b>
+
+<p>Navigation Within: End - file</b> 
+
+<ol>
+  <li>Keystroke: Control + End</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Top of file&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: N/A</li>
+</ol>
+<b>
+
+<p>Navigation Within: Up - window</b> 
+
+<ol>
+  <li>Keystroke: Alt + Control + Page Up</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Top of window&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: N/A</li>
+</ol>
+<b>
+
+<p>Navigation Within: End - window</b> 
+
+<ol>
+  <li>Keystroke: Alt + Control + Page Down</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;End of window&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: N/A</li>
+</ol>
+<b>
+
+<p>Text Selection: Selection &#150;forward - character</b> 
+
+<ol>
+  <li>Keystroke: Shift + Right Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; select + read new current character&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Selection &#150;backward - character</b> 
+
+<ol>
+  <li>Keystroke: Shift + Left Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; select + read new current character&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Selection &#150; begin -line</b> 
+
+<ol>
+  <li>Keystroke: Shift + Home</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; select + read from beginning of line to previous
+    cursor position&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Select &#150; end - line</b> 
+
+<ol>
+  <li>Keystroke: Shift + End</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; select + read from beginning of line to previous
+    cursor position&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Selection &#150; begin - word</b> 
+
+<ol>
+  <li>Keystroke: Shift + Left Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; select + read new current word&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Selection &#150; end - word</b> 
+
+<ol>
+  <li>Keystroke: Shift + Right Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; select + read new current word&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Selection &#150; next - word</b> 
+
+<ol>
+  <li>Keystroke: Control + Shift + Right Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; select + read new current word&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Selection &#150; previous - word</b> 
+
+<ol>
+  <li>Keystroke: Control + Shift + Left Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; select + read new current word&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Select &#150; begin -line</b> 
+
+<ol>
+  <li>Keystroke: Shift + Home</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; select + read from beginning of line to cursor
+    position&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Select &#150; end -line</b> 
+
+<ol>
+  <li>Keystroke: Shift + End</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; select + read from cursor to end of line&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Select - up</b> 
+
+<ol>
+  <li>Keystroke: Shift + Up Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; select + read from new cursor position to original
+    cursor position&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Selection - down</b> 
+
+<ol>
+  <li>Keystroke: Shift + Down Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; select + read from original cursor position to new
+    cursor position&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Select &#150; begin - paragraph</b> 
+
+<ol>
+  <li>Keystroke: Control + Shift + Up Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;selected beginning of paragraph&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; read selected paragraph&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Select &#150; end - paragraph</b> 
+
+<ol>
+  <li>Keystroke: Control + Shift + Down Arrow</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;selected bottom of paragraph&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; read selected paragraph&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Select - all</b> 
+
+<ol>
+  <li>Keystroke: Control + A</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;file selected&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: N/A</li>
+</ol>
+<b>
+
+<p>Text Selection: One screen down</b> 
+
+<ol>
+  <li>Keystroke: Shift + Page Down</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;select screen&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read last line on the screen/text in document&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: One screen up</b> 
+
+<ol>
+  <li>Keystroke: Shift + Page Up</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;select screen&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read first line on the screen/text in document&gt;</li>
+</ol>
+<b>
+
+<p>Text Selection: Vertical block of text</b> 
+
+<ol>
+  <li>Keystroke: Control + Shift + F8, and then use arrow keys</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;set parameters + ready&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; read whatever is selected&gt;</li>
+</ol>
+<b>
+
+<p>Text Action: Font &#150; list </b>
+
+<ol>
+  <li>Keystroke: Control + Shift + F</li>
+  <li>Navigation sound: list.sound</li>
+  <li>Required name of action: &lt;font list&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; current font&gt;</li>
+</ol>
+<b>
+
+<p>Text Action: Font - Size</b> 
+
+<ol>
+  <li>Keystroke: Control + Shift + Z</li>
+  <li>Navigation sound: list.sound</li>
+  <li>Required name of action: &lt;Font size&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; read current size&gt;</li>
+</ol>
+<b>
+
+<p>Text Action: Justify - left</b> 
+
+<ol>
+  <li>Keystroke: Control + L</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Justify left&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read justified text&gt;</li>
+</ol>
+<b>
+
+<p>Text Action: Justify - Center</b> 
+
+<ol>
+  <li>Keystroke: Control + E</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Justify center&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read justified text&gt;</li>
+</ol>
+<b>
+
+<p>Text Action: Justify - Right</b> 
+
+<ol>
+  <li>Keystroke: Control + R</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Justify right&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read justified text&gt;</li>
+</ol>
+<b>
+
+<p>Text Action: Justify - Full</b> 
+
+<ol>
+  <li>Keystroke: Control + R</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Justify full&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read justified text&gt;</li>
+</ol>
+<b>
+
+<p>Text Action: Font &#150; bold - on</b> 
+
+<ol>
+  <li>Keystroke: Control + B</li>
+  <li>Navigation sound: toglebutton_on.sound</li>
+  <li>Required name of action: &lt;Bold&gt;</li>
+  <li>State: &lt;On&gt;</li>
+  <li>Relevant text from document: &lt; read bolded text&gt;</li>
+</ol>
+<b>
+
+<p>Text Action: Font &#150; bold - off</b> 
+
+<ol>
+  <li>Keystroke: Control + B</li>
+  <li>Navigation sound: toglebutton_off.sound</li>
+  <li>Required name of action: &lt;Bold&gt;</li>
+  <li>State: &lt;Off&gt;</li>
+  <li>Relevant text from document: &lt; read non-bolded text&gt;</li>
+</ol>
+<b>
+
+<p>Text Action: Font &#150; italics- on</b> 
+
+<ol>
+  <li>Keystroke: Control + I</li>
+  <li>Navigation sound: togglebutton_on.sound</li>
+  <li>Required name of action: &lt;Italic&gt;</li>
+  <li>State: &lt;On&gt;</li>
+  <li>Relevant text from document: &lt; read italicized text&gt;</li>
+</ol>
+<b>
+
+<p>Text Action: Font &#150; italics- off</b> 
+
+<ol>
+  <li>Keystroke: Control + I</li>
+  <li>Navigation sound: togglebutton_off.sound</li>
+  <li>Required name of action: &lt;Italic&gt;</li>
+  <li>State: &lt;Off&gt;</li>
+  <li>Relevant text from document: &lt; read non- italicized text&gt;</li>
+</ol>
+<b>
+
+<p>Text Action: Font &#150; underline - on</b> 
+
+<ol>
+  <li>Keystroke: Control + U</li>
+  <li>Navigation sound: togglebutton_on.sound</li>
+  <li>Required name of action: &lt;Underline&gt;</li>
+  <li>State: &lt;On&gt;</li>
+  <li>Relevant text from document: &lt; read underlined text&gt;</li>
+</ol>
+
+<p><strong>Text Action: Font &#150; underline - off</strong> 
+
+<ol>
+  <li>Keystroke: Control + U</li>
+  <li>Navigation sound: togglebutton_off.sound</li>
+  <li>Required name of action: &lt;Underline&gt;</li>
+  <li>State: &lt;Off&gt;</li>
+  <li>Relevant text from document: &lt; read non-underlined text&gt;</li>
+</ol>
+<b>
+
+<p>Speak Action: Previous - character</b> 
+
+<ol>
+  <li>Keystroke: F1</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; speak previous character&gt;</li>
+</ol>
+<b>
+
+<p>Speak Actions: Current - character</b> 
+
+<ol>
+  <li>Keystroke: F2</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; speak current character&gt;</li>
+</ol>
+<b>
+
+<p>Speak Actions: Next - character</b> 
+
+<ol>
+  <li>Keystroke: F3</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; speak next character&gt;</li>
+</ol>
+<b>
+
+<p>Speak Actions: Previous - word</b> 
+
+<ol>
+  <li>Keystroke: F5</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; speak previous word&gt;</li>
+</ol>
+<b>
+
+<p>Speak Actions: Current - word</b> 
+
+<ol>
+  <li>Keystroke: F6</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; spaek current word&gt;</li>
+</ol>
+<b>
+
+<p>Speak Actions: Next - word</b> 
+
+<ol>
+  <li>Keystroke: F7</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; spaek next word&gt;</li>
+</ol>
+<b>
+
+<p>Speak Actions: Previous - sentence</b> 
+
+<ol>
+  <li>Keystroke: F9</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; speak previous sentence&gt;</li>
+</ol>
+<b>
+
+<p>Speak Actions: Current - sentence</b> 
+
+<ol>
+  <li>Keystroke: F10</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; speak current sentence&gt;</li>
+</ol>
+<b>
+
+<p>Speak Actions: Next - sentence</b> 
+
+<ol>
+  <li>Keystroke: F11</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; speak next sentence&gt;</li>
+</ol>
+<b>
+
+<p>Speak: Selected text</b> 
+
+<ol>
+  <li>Keystroke: F4</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; speak selected text&gt;</li>
+</ol>
+<b>
+
+<p>Speak Action:: Entire document</b> 
+
+<ol>
+  <li>Keystroke: F12</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; speaks entire document&gt;</li>
+</ol>
+<b>
+
+<p>Speak Action: To end of document</b> 
+
+<ol>
+  <li>Keystroke: Shift + F12</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; speak from cursor point to end of document&gt;</li>
+</ol>
+<b>
+
+<p>Speak Action: Where am I?</b> 
+
+<ol>
+  <li>Keystroke: Control + Shift + H (Control + Shift + E would be preferable if it is
+    available as it is the key combo used in other areas of Swing Set)</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: N/A</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; &gt;</li>
+</ol>
+<b>
+
+<p>HTML Text Action: Font &#150; list </b>
+
+<ol>
+  <li>Keystroke: Control + Shift + F</li>
+  <li>Navigation sound: list.sound</li>
+  <li>Required name of action: &lt;font list&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; current font&gt;</li>
+</ol>
+
+<p><strong>HTML Text Action: Font - Size</strong> 
+
+<ol>
+  <li>Keystroke: Control + Shift + Z</li>
+  <li>Navigation sound: list.sound</li>
+  <li>Required name of action: &lt;Font size&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; read current size&gt;</li>
+</ol>
+<b>
+
+<p>HTML Text Action: Font - colour</b> 
+
+<ol>
+  <li>Keystroke: Control + Shift + C</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Font colour&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt; name/identification of current font colour&gt;</li>
+</ol>
+<b>
+
+<p>HTML Text Action: Justify - left</b> 
+
+<ol>
+  <li>Keystroke: Control + L</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Justify left&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read justified text&gt;</li>
+</ol>
+<b>
+
+<p>HTML Text Action: Justify - Center</b> 
+
+<ol>
+  <li>Keystroke: Control + E</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Justify center&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read justified text&gt;</li>
+</ol>
+<b>
+
+<p>HTML Text Action: Justify - Right</b> 
+
+<ol>
+  <li>Keystroke: Control + R</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Justify right&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read justified text&gt;</li>
+</ol>
+<b>
+
+<p>HTML Text Action: Justify - Full</b> 
+
+<ol>
+  <li>Keystroke: Control + R</li>
+  <li>Navigation sound: N/A</li>
+  <li>Required name of action: &lt;Justify full&gt;</li>
+  <li>State: N/A</li>
+  <li>Relevant text from document: &lt;read justified text&gt;</li>
+</ol>
+<b>
+
+<p>HTML Text Action: Font &#150; bold - on</b> 
+
+<ol>
+  <li>Keystroke: Control + B</li>
+  <li>Navigation sound: toglebutton_on.sound</li>
+  <li>Required name of action: &lt;Bold&gt;</li>
+  <li>State: &lt;On&gt;</li>
+  <li>Relevant text from document: &lt; read bolded text&gt;</li>
+</ol>
+<b>
+
+<p>HTML Text Action: Font &#150; bold - off</b> 
+
+<ol>
+  <li>Keystroke: Control + B</li>
+  <li>Navigation sound: toglebutton_off.sound</li>
+  <li>Required name of action: &lt;Bold&gt;</li>
+  <li>State: &lt;Off&gt;</li>
+  <li>Relevant text from document: &lt; read non-bolded text&gt;</li>
+</ol>
+<b>
+
+<p>HTML Text Action: Font &#150; italics- on</b> 
+
+<ol>
+  <li>Keystroke: Control + I</li>
+  <li>Navigation sound: togglebutton_on.sound</li>
+  <li>Required name of action: &lt;Italic&gt;</li>
+  <li>State: &lt;On&gt;</li>
+  <li>Relevant text from document: &lt; read italicized text&gt;</li>
+</ol>
+<b>
+
+<p>HTML Text Action: Font &#150; italics- off</b> 
+
+<ol>
+  <li>Keystroke: Control + I</li>
+  <li>Navigation sound: togglebutton_off.sound</li>
+  <li>Required name of action: &lt;Italic&gt;</li>
+  <li>State: &lt;Off&gt;</li>
+  <li>Relevant text from document: &lt; read non- italicized text&gt;</li>
+</ol>
+<b>
+
+<p>HTML Text Action: Font &#150; underline - on</b> 
+
+<ol>
+  <li>Keystroke: Control + U</li>
+  <li>Navigation sound: togglebutton_on.sound</li>
+  <li>Required name of action: &lt;Underline&gt;</li>
+  <li>State: &lt;On&gt;</li>
+  <li>Relevant text from document: &lt; read underlined text&gt;</li>
+</ol>
+<b>
+
+<p>HTML Text Action: Font &#150; underline - off</b> 
+
+<ol>
+  <li>Keystroke: Control + U</li>
+  <li>Navigation sound: togglebutton_off.sound</li>
+  <li>Required name of action: &lt;Underline&gt;</li>
+  <li>State: &lt;Off&gt;</li>
+  <li>Relevant text from document: &lt; read non-underlined text&gt;</li>
+</ol>
+
+<hr>
+
+<p><b>Text Related Sonifications</b></p>
+
+<p>When there is no previous character: <a
+HREF="javascript:playSound('no_text.wav', 'No Text')">no_text.wav</a><br>
+When there is no previous word: <a HREF="javascript:playSound('no_text.wav', 'No Text')">no_text.wav</a><br>
+When there is no previous sentence: <a
+HREF="javascript:playSound('no_text.wav', 'No Text')">no_text.wav</a><br>
+When there is no previous paragraph: <a
+HREF="javascript:playSound('no_text.wav', 'No Text')">no_text.wav</a></p>
+
+<p>Cut, Copy and Paste have been done for the Notepad project</p>
+
+<p>HTML: img-border, img-top-justify, img-center-justify, img-bottom-justify,
+logical-style are done through dialog boxes, you can do the general justification of
+images using the &quot;justification&quot; keystrokes, but doing these items at the
+present time would require more thought/time on mapping keystrokes than we have.</p>
+
+<p><a href="ss_contents.htm">Table of Contents</a><br>
+Last updated 10/31/98</p>
+</body>
+</html>

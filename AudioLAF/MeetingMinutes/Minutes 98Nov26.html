@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad//DTD draft HTML 3.2 + extensions for HoTMetaL PRO 3.0 19960802//EN"
+ "hmpro3.dtd">
+<HTML>
+<HEAD>
+<TITLE>Audio Plaf:  Minutes 98 Nov 26</TITLE></HEAD>
+<BODY>
+<H2>Minutes: AudioPlaf Sounds Meeting</H2>
+<P>Date:  November 26, 1998</P>
+<P>Present:  Anastasia Cheetham, Lake Porter, Jutta Treviranus, Joseph
+Scheuhammer<BR>Regrets:  Karen McCall</P>
+<P>We discussed some principles that were used/will be used to choose sound
+effects.  These represent the base rationale when choosing sounds to represent
+different aspects of the UI:</P>
+<UL>
+<LI>Short in duration, under one second if possible.<BR><EM>Rationale</EM>: 
+undesirable to make users wait to receive the information.</LI>
+<LI>Real world sounds:  Being &quot;real world&quot; means the sound occurs
+naturally in the real world.  A sawing log is an example.  A synthesized &quot;blip&quot;
+is not a real-world sound.<BR>  <EM>Rationale</EM>:  desirable to make the
+sounds easy to learn and remember.  Real-world sounds should, at least, be easy
+to identify, learn, and remember.</LI>
+<LI>Metaphorical sounds:  The sound should be &quot;analogous&quot; to that
+which it represents.  In some ways this is more important than the &quot;real
+world&quot; principle since frequently it is  difficult to find real-world
+sounds that represent the UI widget in question.  In that case, the sound should
+still bear a close metaphorical relationship to that which it represents.<BR><EM>Rationale</EM>:
+ again, desirable to make the sounds easy to learn and remember.</LI>
+<LI>The following principle is hard to state precisely.  The sounds should not
+be humorous or toy-like, but sound &quot;professional&quot;, grab the user's
+attention without being overbearing.<BR><EM>Rationale:</EM>   desirable that
+an audio user interface be usable/used, and not thought of as a curiosity.</LI></UL>
+<P>We discussed the list sound.  Joseph noted that Dena's original idea was to
+have three tones ascending (descending?) in pitch.  The three tones indicated
+multiple items.  Their rising in pitch indicated that the items were ordered. 
+The current list sound does not do this -- it is multiple tones rising <EM>and</EM>
+falling.</P>
+<P>We discussed what the tree sound should be.  Jutta suggested that it could
+be an extension of the list sound.  First, a single sound is heard to represent
+the root of the tree.  This is followed by a couple of sounds to indicate the
+branches at the first level.  This is followed by more sounds to indicate the
+branches at the next level.  Overall, this sound indicates a structure that has
+few items at the top, and a growing number as one goes down.  Still to be
+resolved:  how many levels are needed to communicate the &quot;branchiness&quot;?
+ What can be done under one second duration?  What is the actual sound?  Tones,
+as in the original list sound?  If so, the tones should descend in pitch as one
+goes down the levels.</P>
+<P>We discussed the general navigation sound.  It was decided that it was too
+long and should be shortened.</P>
+<P>We discussed the button identifier sounds:</P>
+<UL>
+<LI>For push buttons, the sound is two tones in quick succession.  (The
+activation sound is a short &quot;click&quot;.)</LI>
+<LI>For &quot;on&quot; toggle buttons, it is a xylophone rising in pitch.  &quot;Off&quot;
+toggle buttons are presented using a xylophone descending in pitch.</LI>
+<LI>For &quot;on&quot; radio buttons, it is a whistle(?) rising in pitch.  For &quot;off&quot;
+radio buttons, the whistle descends in pitch.</LI>
+<LI>For check boxes, it is three tones where the relative pitch of the middle
+tone indicates whether the button is on or off (higher=on, lower=off).</LI></UL>
+<P>Jutta suggested that of all these buttons, only push buttons actually have
+three states:  up (normal), down (depressed), and up again.  Hence, it should be
+represented by three tones.  However, it is clear that this same sound cannot be
+used both to identify the button as well as provide feed back when the button is
+&quot;pressed&quot;.  I guess the middle tone could be higher when the button is
+up (identifier), and lower when pressed (activated).  The other types of buttons
+have two states at any given time: on going to off or off going to on, and so
+should be represented by two tones.</P>
+<P>We discussed &quot;warping&quot; to the menu bar.  Joseph explained that the
+&quot;wee-woo&quot; sound was meant to convey that focus has leapt up from its
+current location and landed on the menu bar.  He also noted that this sound was
+the also used when warping to the tool bar.  We decided that there should be a
+sound that identifies the menu bar qua menu bar, and that communicating the
+warping of focus was not as important.  In a similar vein, there should be
+another sound to identify the tool bar.</P>
+<P>There was a brief discussion of the submarine ping sound being used as both
+a general disabled sound and the identifier for the desktop.  It was decided
+that using it for both was confusing, and that there needs to be two different
+sounds.</P>
+<P>The meeting ended with the following take home exercise:  Menu bar, tool
+bar, and desktop are all containers that can be navigated.  One can move about
+and select menus on the menu bar.  One can navigate and select tool buttons on
+the tool bar.  The desktop can be explored in terms of its windows and icons. 
+How do we communicate the &quot;container-ness&quot; of each?  Personal plug:  I
+think the submarine ping is good for the desktop.  It suggests that one is
+underneath and can rise to the surface by selecting a window or icon.  Note that
+the desktop is, in fact, behind/beneath all of its windows and icons.  Is this a
+stretch or what?  If the ping is the identifier for the desktop, then we need
+another sound effect for disabled controls.</P>
+<HR>
+<P>Joseph Scheuhammer.</P></BODY></HTML>

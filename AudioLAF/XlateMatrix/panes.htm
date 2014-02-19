@@ -1,0 +1,319 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad//DTD draft HTML 3.2 + extensions for HoTMetaL PRO 3.0 19960802//EN"
+ "hmpro3.dtd">
+<HTML>
+<HEAD>
+<TITLE>Swing Set Component: Panes</TITLE>
+<SCRIPT SRC="playSound.js" LANGUAGE="javascript">
+</SCRIPT></HEAD>
+<BODY>
+<H2>Component Names: Panes<BR> External, Internal, Desktop and Tabbed</H2>
+<P>&nbsp;</P>
+<H3><A NAME="#ExternalPane">Component Name: External Pane</A></H3>
+<P><STRONG>Description</STRONG></P>
+<P>An External Pane is similar to an &quot;application window&quot;; it
+contains the menu bars, toolbars, scroll bars, status bars, desktop pane and/or
+internal panes currently available in that application.</P>
+<P><STRONG>Sound Rationale</STRONG></P>
+<P>The sound for an external pane is that of a window opening and closing.
+Again, the metaphoric and real world sounds combine to create the association
+with a window.  The External Pane is the &quot;window&quot; to other documents
+and options within an application, like the picture window of a cottage.</P>
+<P><STRONG>Navigation</STRONG>  
+</P>
+<OL>
+<LI>Required navigation sound effect.
+<A HREF="javascript:playSound('navigate.wav', 'Navigate')">navigate.wav</A></LI>
+<LI>Optional disabled sound effect.  N/A.</LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('winOpen.wav' , 'External Pane')">winOpen.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;window title&gt;
+[Alternate:  &quot;untitled window&quot;].</LI>
+<LI>Optional role as speech. N/A.</LI>
+<LI>Optional state as speech. &quot;ready&quot; [Alternate:  N/A].</LI></OL>
+<P><STRONG>Activation</STRONG></P>
+<P>The audio look and feel supports two kinds of external pane manipulation. 
+They are window activation and window closing.</P>
+<H5>Window Activation</H5>
+<OL>
+<LI>Required activation sound effect.
+<A HREF="javascript:playSound('winOpen.wav' , 'External Pane')">winOpen.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;window title&gt;
+[Alternate:  &quot;untitled window&quot;].</LI>
+<LI>Optional state as speech. &quot;ready&quot; [Alternate:  N/A].</LI></OL>
+<H5>Window Closing</H5>
+<OL>
+<LI>Required activation sound effect.
+<A HREF="javascript:playSound('winClose.wav' , 'External Pane')">winClose.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;window title&gt;
+[Alternate:  &quot;untitled window&quot;].</LI>
+<LI>Optional state as speech. &quot;closing&quot; [Alternate:  N/A].</LI></OL>
+<P><STRONG>&quot;Where Am I?&quot;</STRONG></P>
+<P>There is no &quot;where am I&quot; feed back for external panes per se. 
+Typically, focus is on some component within the window, and that component
+intercepts and handles the &quot;where am I&quot; request.</P>
+<P><STRONG>Additional Information (Control + shift + E)</STRONG></P>
+<P>As with the &quot;where am I&quot; request, the request for additional
+information is handled by the component that has focus within the active window.</P>
+<HR>
+<H3>Component Name: Internal Pane</H3>
+<P><STRONG>Description</STRONG></P>
+<P>In essence, this is a window that must appear inside a Swing
+<A HREF="panes.htm#DesktopPane">Desktop Pane</A> (which, in turn, appears inside some
+External Pane). One might also refer to it as a &quot;document window&quot;.</P>
+<P>The Internal Pane is similar to a &quot;child window&quot; whose look can be
+defined entirely within Java -- this is a 100 per cent pure Java window. In
+contrast, for example, an External Pane (<A HREF="panes.htm#ExternalPane">see above</A>)
+is an operating system specific window. Thus, when the Swing Notepad example is
+run on Windows 95, it looks and behaves like any other Windows window. If run on
+the Mac, it looks like a Macintosh window. In contrast, Internal Panes always
+look the same from platform to platform. </P>
+<P>Below is a Swing Set example of the three elements related to accessing
+information: the Tabbed Pane, the Desktop Pane, and the &quot;floating&quot;
+Internal Pane.</P>
+<P>&nbsp;</P>
+<P ALIGN="center"><A NAME="InternalFramePix"><IMG
+SRC="external_internal.jpg" WIDTH="613" HEIGHT="197" ALT="swing set tabbed pane with desktop and an internal pane in view"></A></P>
+<P ALIGN="left">&nbsp;</P>
+<P ALIGN="left"><STRONG>Sound Rationale</STRONG></P>
+<P>From a user's perspective, internal frames and external frames are pretty
+much the same thing:  they are windows.  As such, the audio for internal panes
+is the same as that used for external panes.  However, more was implemented for
+internal panes -- sounds for minimizing and maximizing, as well as activating
+and closing.  The minimizing sound effect is that of something deflating; the
+maximizing audio is the same as the activation sound effect (a window opening).</P>
+<P><STRONG>Navigation</STRONG>  
+</P>
+<OL>
+<LI>Required navigation sound effect.
+<A HREF="javascript:playSound('navigate.wav' ,    'Navigate')">navigate.wav</A></LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect:
+<UL>
+<LI>If maximized,
+<A HREF="javascript:playSound('winOpen.wav' , 'Internal Pane')">winOpen.wav</A></LI>
+<LI>If minimized,
+<A HREF="javascript:playSound('menuBarNavTo.wav' , 'Internal Pane')">menuBarNavTo.wav</A>
+(Note:  this sound effect is temporary).</LI></UL>
+</LI>
+<LI>Required name/title of component as speech. &lt;window title&gt;
+[Alternate:  &quot;untitled window&quot;].</LI>
+<LI>Optional role as speech:
+<UL>
+<LI>If maximized, &lt;Internal Frame&gt; [Alternate: &quot;unknown object&quot;].</LI>
+<LI>If minimized, &lt;Desktop Icon&gt; [Alternate: &quot;unknown object&quot;].</LI></UL>
+</LI>
+<LI>Optional state as speech, &quot;activated&quot;.  [Alternate:  N/A].</LI></OL>
+<P><STRONG>Activation</STRONG>  
+</P>
+<P>The audio look and feel supports two kinds of external pane manipulation. 
+They are window activation, window closing, minimizing, and maximizing. 
+Maximizing has the same feed back sequence as activation.</P>
+<H5>Window Activation/Maximize</H5>
+<OL>
+<LI>Required activation sound effect.
+<A HREF="javascript:playSound('winOpen.wav' , 'Internal Pane')">winOpen.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;window title&gt;
+[Alternate:  &quot;untitled window&quot;].</LI>
+<LI>Optional state as speech. &quot;open&quot; [Alternate:  N/A].</LI></OL>
+<H5>Window Closing</H5>
+<OL>
+<LI>Required activation sound effect.
+<A HREF="javascript:playSound('winClose.wav' , 'Internal Pane')">winClose.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;window title&gt;
+[Alternate:  &quot;untitled window&quot;].</LI>
+<LI>Optional state as speech. &quot;closed&quot; [Alternate:  N/A].</LI></OL>
+<H5>Window Minimized</H5>
+<OL>
+<LI>Required activation sound effect.
+<A HREF="javascript:playSound('collapse_tree.wav' , 'Internal Pane')">collapse_tree.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;window title&gt;
+[Alternate:  &quot;untitled window&quot;].</LI>
+<LI>Optional state as speech. &quot;minimized&quot; [Alternate:  N/A].</LI></OL>
+<P><STRONG>&quot;Where Am I?&quot;</STRONG> &nbsp;  
+</P>
+<P>There is no &quot;where am I&quot; feed back for internal panes per se. 
+Typically, focus is on some component within the window, and that component
+intercepts and handles the &quot;where am I&quot; request.</P>
+<P><STRONG>Additional Information (Control + shift + E)</STRONG></P>
+<P>As with the &quot;where am I&quot; request, the request for additional
+information is handled by the component that has focus within the active window.</P>
+<HR>
+<H3><A NAME="DesktopPane">Component Name: Desktop Pane</A></H3>
+<P><STRONG>Description</STRONG></P>
+<P>Contrary to the term, this is NOT confined the &quot;Desktop View&quot; seen
+in a Windows based environment. Although it is a gray area, it can be the first
+thing a user looks at when the computer starts, it can be in an External Pane,
+Internal Pane, Tabbed Pane; or even a Menu Bar or ToolBar. It is basically a
+visual representation of &quot;an empty box&quot; in which internal frames and
+desktop icons can be placed.</P>
+<P>Computer users, who are using a screen reader, can find themselves in a
+Desktop Pane and type for hours with the echo of text and functions merrily
+going along...until they go to save and nothing happens.  This is because they
+have just spent the last few hours typing into oblivion. A hard lesson! By
+sonifying the Desktop Pane, it will act as a failsafe mechanism for computer
+users in the event that a screen reader function can echo typing without putting
+it into a document. </P>
+<P>For an illustration see <A HREF="panes.htm#InternalFramePix">Internal Pane</A>. The
+Desktop Pane is the blue area in the Tabbed Pane, surrounding the Internal Pane.</P>
+<P><STRONG>Sound Rationale</STRONG></P>
+<P>Caught in the traditional use of the concept of a Desktop Pane, the sound is
+the same as that used for options not available to the computer user. As
+elements are added to a Desktop Pane, their sonification and identification will
+be heard, but since a Desktop Pane is like an empty box just waiting for
+components to be put into it, using the general &quot;unavailable&quot; sound
+seems logical.</P>
+<P><STRONG>Navigation</STRONG> &nbsp;  
+</P>
+<OL>
+<LI>Required navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.  N/A.</LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not Available')">disabled.wav</A></LI>
+<LI>Required name/title of component as speech. N/A.</LI>
+<LI>Optional role as speech. &lt;Desktop Pane&gt;  [Alternate:  &quot;unknown
+object&quot;].</LI>
+<LI>Optional state as speech:
+<UL>
+<LI>If the desktop contains no windows nor desktop icons, &quot;empty desk top&quot;.</LI>
+<LI>If there are icons and/or windows:
+<UL>
+<LI>If none are selected, &quot;nothing selected&quot;.</LI>
+<LI>If an icon or window is selected, &lt;icon/window title&gt; [Alternate:  &quot;no
+label&quot;].</LI></UL></LI></UL> </LI></OL>
+<P><STRONG>Activation</STRONG> &nbsp;</P>
+<P>The manipulation of the desktop involves the minimizing/maximizing/closing
+of windows and icons on the desktop.  As such, the activation feed back is given
+by those objects.</P>
+<P><STRONG>&quot;Where Am I?&quot;</STRONG> &nbsp;</P>
+<P>This sequence has two forms.  The first form handles the situation where
+there is no active window nor selected icon on the desktop.  Here the &quot;where
+am I&quot; report is virtually identical to that for navigation:</P>
+<OL>
+<LI>Required navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.  N/A.</LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not Available')">disabled.wav</A></LI>
+<LI>Required name/title of component as speech. N/A.</LI>
+<LI>Optional role as speech. &lt;Desktop Pane&gt;  [Alternate:  &quot;unknown
+object&quot;].</LI>
+<LI>Optional state as speech:
+<UL>
+<LI>If the desktop contains no windows nor desktop icons, &quot;empty desk top&quot;.</LI>
+<LI>If there are icons and/or windows, &quot;nothing selected&quot;.
+</LI></UL> </LI></OL>
+<P>The second form handles the case where there is an active window or selected
+icon.  Here, the final element in the sequence is the entire &quot;where am I&quot;
+sequence for that window/icon.</P>
+<OL>
+<LI>Required navigation sound effect. N/A</LI>
+<LI>Optional disabled sound effect.  N/A.</LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not Available')">disabled.wav</A></LI>
+<LI>Required name/title of component as speech. N/A.</LI>
+<LI>Optional role as speech. &lt;Desktop Pane&gt;  [Alternate:  &quot;unknown
+object&quot;].</LI>
+<LI>Optional state as speech:
+<UL>
+<LI>If the desktop contains no windows nor desktop icons, &quot;empty desk top&quot;.</LI>
+<LI>If there are icons and/or windows:
+<OL>
+<LI>Optional title of the <EM>external</EM> pane, if any [Alternate:  N/A]. 
+This is the enclosing OS window.</LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect:
+<UL>
+<LI>If maximized,
+<A HREF="javascript:playSound('winOpen.wav' , 'Internal Pane')">winOpen.wav</A></LI>
+<LI>If minimized,
+<A HREF="javascript:playSound('menuBarNavTo.wav' , 'Internal Pane')">menuBarNavTo.wav</A>
+(Note:  this sound effect is temporary).</LI></UL>
+</LI>
+<LI>Required name/title of component as speech. &lt;window title&gt;
+[Alternate:  &quot;untitled window&quot;].</LI>
+<LI>Optional role as speech:
+<UL>
+<LI>If maximized, &lt;Internal Frame&gt; [Alternate: &quot;unknown object&quot;].</LI>
+<LI>If minimized, &lt;Desktop Icon&gt; [Alternate: &quot;unknown object&quot;].</LI></UL>
+</LI>
+<LI>Optional state as speech, &quot;activated&quot;.  [Alternate:  N/A].</LI></OL></LI></UL>
+</LI></OL>
+<P><STRONG>First Letter Navigation</STRONG></P>
+<P>First letter navigation is implemented for the desktop.  In this case, the
+search is confined to the windows and desktop icons therein.  When the desktop
+itself has focus, pressing a key will invoke the search system.  If an window or
+icon is found, the feedback is the same as if the user navigated to the item via
+the navigation keys.  Finally, if no item matches the search (this includes the
+situation where there is nothing on the desktop), a generic error sound is
+played.</P>
+<P><STRONG>Additional Information (Control + shift + E)</STRONG> &nbsp;</P>
+<P>For the desktop, this is a list of all the windows and icons on the desktop.
+ The titles of the windows/icons are given, and, in the case of the active
+window/selected icon, it is listed as &quot;active&quot;:</P>
+<OL>
+<LI>Required preamble speech:  &quot;desktop contents are:&quot;</LI>
+<LI>Required List of window/desktop icons titles [Alternate:  &quot;no label&quot;].
+<UL>
+<LI>If the window or icon is the currently selected one, &quot;activateSpeech&quot;
+follows the title.</LI></UL></LI></OL>
+<HR>
+<H3>Component Name: Tabbed Pane<B></B></H3>
+<P>A component which lets users switch between a group of components by
+clicking on a tab with a given title and/or icon. The tabbed pane corresponds to
+Windows property sheets.</P>
+<P>Tabbed panes use a single selection model. That is, one cannot choose or
+select more than one tab at a time. The contents of the page accessed via the
+tab can be anything from a simple text area to a complicated set of other user
+elements<B> </B></P>
+<P>For an illustration see <A HREF="panes.htm#InternalFramePix">Internal Pane</A>. The
+example given is housed inside a Tabbed Pane.</P>
+<P><STRONG>Sound Rationale</STRONG></P>
+<P>Since a Tabbed Pane functions in a manner similar to a Menu Bar or a Menu,
+that is, providing a series of choices and options that can be &quot;opened&quot;
+and &quot;closed&quot;, it was decided that the best approach was to use the
+same sound.  The resulting consistency should contribute to the perception of
+similar functionality.</P>
+<P><STRONG>Navigation</STRONG> &nbsp;  
+</P>
+<OL>
+<LI>Required navigation sound effect.
+<A HREF="javascript:playSound('navigate.wav' ,    'Navigate')">navigate.wav</A></LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('popup.wav' , 'Tabbed Pane')">popup.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;title of tabbed pane&gt; 
+[Alternate:  &quot;no label&quot;].</LI>
+<LI>Optional role as speech. &lt;Page tab&gt;  [Alternate:  N/A].</LI>
+<LI>Optional state as speech. &quot;open&quot; [Alternate:  N/A].</LI></OL>
+<P><STRONG>Activation</STRONG> &nbsp;  
+</P>
+<P>There is no distinction made between navigation and activation for tabbed
+panes.  In essence, navigating to a tabbed pane is the same as opening
+(activating) it.  As such, there is no distinct activation feed back sequence.</P>
+<P><STRONG>&quot;Where Am I?&quot;</STRONG> &nbsp;  
+</P>
+<OL>
+<LI>Required speech: title of enclosing <EM>external</EM> pane [Alternate: 
+untitled window].  This is the OS native window.</LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('popup.wav' , 'Tabbed Pane')">popup.wav</A></LI>
+<LI>Required name/title of component as speech. &lt;title of tabbed pane&gt; 
+[Alternate:  &quot;no label&quot;].</LI>
+<LI>Optional role as speech. &lt;Page tab&gt;  [Alternate:  N/A].</LI>
+<LI>Optional state as speech. &quot;open&quot; [Alternate:  N/A].</LI></OL>
+<P><STRONG>First Letter Navigation</STRONG></P>
+<P>First letter navigation is implemented for tabbed pane.  In this case, the
+search is confined to the page tabs.  When a page tab has focus, pressing a key
+will invoke the search system.  If a matching tab is found, the feedback is the
+same as if the user navigated to the item via the navigation keys.  Finally, if
+no item matches the search, nothing in the list is altered, and the generic
+error sound is played.</P>
+<P><STRONG>Additional Information (Control + Shift + E)</STRONG> &nbsp;  
+</P>
+<P>No additional information is provided for tabbed panes.</P>
+<P><A HREF="ss_contents.htm">Table of Contents</A><BR>   End of file<BR>  
+Last updated 13/11/1998</P></BODY></HTML>

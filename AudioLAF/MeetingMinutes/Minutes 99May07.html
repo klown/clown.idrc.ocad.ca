@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<HTML>
+<HEAD>
+<TITLE>Audio Plaf:  Minutes 99 May 07</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<H2>Minutes: AudioPlaf Sounds Meeting</H2>
+<P>Date:  May 7, 1999</P>
+<P>Present:  Anastasia Cheetham, Lake Porter, David Bolter, Jutta Treviranus,
+Tamar Weiss, Joseph Scheuhammer.<BR>Regrets:  Karen McCall.</P>
+<P>We discussed the purpose of these meetings.  The first task was to review,
+discuss, and suggest modifications to the non-speech audio used in the audio
+look and feel.  The second task is to review the sound sequences, including both
+speech and non-speech, for each swing component.  Upon review, we have
+successfully reviewed all the non-speech sounds   What remains is:</P>
+<UL>
+<LI>A single document listing all of the all the non-verbal audio.  Note that
+for each component, there are at least two sounds:  one that identifies the
+component, and one that occurs when the component is manipulated.</LI>
+<LI>Making previously agreed upon modifications to the current sounds in terms
+of volume, duration, etc., and recording the new ones.</LI>
+<LI>Deciding what the audio for the table component is.  This includes both the
+speech and non-speech audio.  In this regard, Joseph will spend some time
+attempting to understand what this component &quot;is&quot; in a functional
+sense.</LI></UL>
+<P>Jutta made a point that anything closing should have a &quot;hard&quot; end.
+ This is meant to communicate a sense of finality.  Upon reflection it is not
+completely clear what &quot;anything closing means&quot;.  A window for sure,
+but how about a menu.  Does it close when it is dismissed?  Note that currently
+no sound is made when a menu &quot;closes&quot; per se.  Usually a menu is
+dismissed upon selection of one of its items and that item emits a sound to
+indicate its selection.  There probably should be a close menu sound when a menu
+is simply &quot;escaped&quot; without selecting any of its items.  In any case,
+can you think of other situations that consititute the &quot;closing&quot; of a
+gui widget?</P>
+<P>Lake suggested that a next step is to create sets of non-speech audio
+centred around &quot;themes&quot;.  He compared this to Windows and Macintosh
+sound themes.  It was generally thought that this was a good idea, but that we
+should attempt to have functional themes that made sense, and not do &quot;ear
+candy&quot;.</P>
+<P>Lake also wanted to know if we could simply use midi audio.  Joseph will ask
+Allen if there is any technical problem with doing this vis-a-vis the Java Media
+Framework.</P>
+<P>We listened to Lake's &quot;pachenko&quot; sound for identifying the tree
+gui element.  I have nothing in my notes regarding what we thought of it, nor
+can I remember.  Does anyone else remember?</P>
+<P>Jutta recommended that everyone consult a web site that has any number of
+papers and/or discussions on audio interfaces.  Joseph is to send everyone the
+URL for this site.  This has been done; for posterity here is the URL again:
+<A HREF="/web/20070811212443/http://www.public.iastate.edu/~CYBERSTACKS/Wave.htm">http://www.public.iastate.edu/~CYBERSTACKS/Wave.htm</A>.
+ We should browse this material and compare it against what we have done.  We
+should also, in a similar spirit, look into auditory cascading style sheets
+and/or XSL (I believe one can get to this information from the same URL).</P>
+<P>There was a discussion regarding whether we should provide a specific audio
+look and feel for common dialogues over and above what their individual gui
+elements provide. A &quot;file-open&quot; or &quot;file-save&quot; dialogue are
+examples.  The &quot;debate&quot; was whether such was actually necessary: 
+whether the audio interface for the individual elements was enough.  Since the
+meeting, I recall that we did treat simple &quot;alert&quot; type dialogues as
+special cases.  These include Message, Warning, Confirmation, and Input
+dialogues.  So, if we did it for alert dialogues, why not file choosers (and
+colour choosers) as well?</P>
+<P>This discussion led to one concerning the difficulty in doing a
+dialogue-specific audio interface.  The main difficulty is to override the audio
+feedback that is already there for the individual elements, and give a higher
+level presentation.  This is sometimes referred to as the choreography problem
+by Jutta.  This issue reminded me that the accessibility team at JavaSoft are
+developing a new accessibility interface that addresses this issue; it
+represents an attempt to make explicit functional relationships among the
+buttons, checkboxes, lists, etc. that appear in a dialogue.  JavaSoft has
+emailed the preliminary specs to us (Jutta and Joseph) and asked for commentary.
+ Note that they have also sent the specs to other adaptive technology centres
+for comments.  We have so far ignored their requests.  It was decided at the
+meeting that David (and Joseph?) should now review what they have sent us, and
+report on it by next meeting.  There is also an intent to formulate a response
+to send back to them.</P>
+<P>Jutta and Katharyn (and any other UI design person who is interested) will
+go through the current audio look and feel &quot;demo&quot; that is on the CSUN
+lap-top and evaluate it.  This is planned for approximately May 20.</P>
+<P>The next audio plaf meeting is scheduled, tentatively, for Thu May 27th.  It
+was felt that this meeting should occur after the Jutta/Katharyn evaluation.</P>
+<HR>
+<P>Joseph Scheuhammer 99 May 20.</P></BODY></HTML>

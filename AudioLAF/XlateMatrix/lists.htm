@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//SoftQuad//DTD draft HTML 3.2 + extensions for HoTMetaL PRO 3.0 19960802//EN"
+ "hmpro3.dtd">
+<HTML>
+<HEAD>
+<TITLE>Swing Set Component: Lists</TITLE>
+<SCRIPT SRC="playSound.js" LANGUAGE="javascript">
+</SCRIPT></HEAD>
+<BODY>
+<H2>Component Name: Lists<BR> Lists and ListItem Selection</H2>
+<P>&nbsp;</P>
+<P><STRONG>Description</STRONG></P>
+<P>A component that allows the user to select one or more objects. A typical
+example is a list of files in a file chooser dialogue. The contents of a list
+can be anything. Frequently, it is text, but need not be. It could be a list of
+icons. For that matter, it could be a mixture of text and icons.</P>
+<P>If the list is large, users can navigate it using a scroll bar.</P>
+<P>A feature of lists is their selection model. In some instances, a maximum of
+one item can be selected. This would be true for a file chooser dialogue. Other
+lists have a multiple selection model, wherein a subset of the list can be
+selected at once. An example of this is if the list represented food items
+available for purchase, and the user was selecting a group of items. Note that
+in this scenario, the selection of an item is distinct from, say, activating the
+item. The latter is accomplished by pressing the button labelled &quot;purchase&quot;
+after completing the selections.</P>
+<P>Any list of items which allows the compuer user selection. Examples are font
+styles, document styles, colours (in older applications), filenames and
+options/preferences. Illustrated below is a &quot;cutting edge&quot; example of
+how a list might be represented in an inventory or retail environment. there is
+a list of items from a restaurant menu, pictures of them on the left,
+description to the immediate right of the picture and the remainder of the &quot;list
+area&quot; is blank, that is until you make a selection (second figure) when the
+price pops into view. This is a great challenge for sonification and an
+application which is just around the corner.</P>
+<P>&nbsp;</P>
+<P ALIGN="center"><IMG
+SRC="list01.jpg" WIDTH="571" HEIGHT="647" ALT="list01.jpg (50618 bytes)"></P>
+<P>&nbsp;</P>
+<P>Figure 2: List selection made (Cherry Pie $2.49)</P>
+<P>&nbsp;</P>
+<P ALIGN="center"><IMG
+SRC="list02.jpg" WIDTH="413" HEIGHT="608" ALT="example of a List item selected"></P>
+<P>&nbsp;</P>
+<P><STRONG>Sound Rationale</STRONG></P>
+<P>The sound for a list is that of a harp rapidly going up in scales. This
+sound will most likely change if we have time to develop it in a similar manner
+to that of a slider. The functions of the two components are similar in that a
+list can be navigated/activated either up or down, with the user choosing
+elements along the way.</P>
+<HR>
+<H3>Component Name: List</H3>
+<P><STRONG>Navigation</STRONG>  
+</P>
+<OL>
+<LI>Required navigation sound effect.
+<A HREF="javascript:playSound('navigate.wav' ,    'Navigate')">navigate.wav</A></LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('list.wav' , 'List')">list.wav</A></LI>
+<LI>Required name/title of component as speech.&lt;list label &gt; [Alternate: &quot;no
+label&quot;].</LI>
+<LI>Optional role as speech. &lt;List&gt;  [Alternate: &quot;unknown object&quot;].</LI>
+<LI>Optional state as speech. &lt;total number of items + total number of
+selected items&gt;  [Alternate:  N/A].</LI></OL>
+<P><STRONG>&quot;Where Am I?&quot;</STRONG></P>
+<P>Note:  the audio look and feel maintains its own notion of the current item,
+which the user can alter by using the list navigation keys.</P>
+<OL>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('list.wav' , 'List')">list.wav</A></LI>
+<LI>Required name/title of component as speech.&lt;list label &gt; [Alternate: &quot;no
+label&quot;].</LI>
+<LI>Optional role as speech. &lt;List&gt;  [Alternate: &quot;unknown object&quot;].</LI>
+<LI>Optional state as speech. &lt;total number of items + total number of
+selected items&gt;  [Alternate:  N/A].</LI>
+<LI>Name of the current item as speech. &lt;list item label&gt; [Alternate:  &quot;no
+label&quot;].</LI></OL>
+<P><STRONG>Additional Information (Control + Shift + E)</STRONG>  
+</P>
+<P>The additional information for a list is the selection set.</P>
+<OL>
+<LI>Required preamble speech:
+<UL>
+<LI>If nothing is selected, speech is &quot;nothing selected&quot;.</LI>
+<LI>If at least one thing is selected, &quot;selected items are:&quot;.</LI></UL></LI>
+<LI>Required name/title of each selected item as speech.&lt;list item label&gt;
+[Alternate:  &quot;no label&quot;].</LI></OL>
+<HR>
+<H3>Component Name: Lists - ListItems</H3>
+<P><STRONG><A NAME="itemNav">Navigation</A></STRONG>  
+</P>
+<OL>
+<LI>Required navigation sound effect.
+<A HREF="javascript:playSound('navigate.wav' ,    'Navigate')">navigate.wav</A></LI>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect. N/A</LI>
+<LI>Required name/title of list item as speech.&lt;list item label&gt;
+[Alternate:  &quot;no label&quot;].</LI>
+<LI>Optional role as speech. &quot;List Item&quot; [Alternate:  &quot;unknown
+object&quot;].</LI>
+<LI>Optional state as speech -- only if the item is selected: &quot;Selected&quot;.</LI></OL>
+<P><STRONG>&quot;Where Am I?&quot;</STRONG>  
+</P>
+<P>Note:  this feedback is the same as for the list itself (see above).</P>
+<OL>
+<LI>Optional disabled sound effect.
+<A HREF="javascript:playSound('disabled.wav' , 'Not    Available')">disabled.wav</A></LI>
+<LI>Optional combined component ID and state information sound effect.
+<A HREF="javascript:playSound('list.wav' , 'List')">list.wav</A></LI>
+<LI>Required name/title of component as speech.&lt;list label &gt; [Alternate: &quot;no
+label&quot;].</LI>
+<LI>Optional role as speech. &lt;List&gt;  [Alternate: &quot;unknown object&quot;].</LI>
+<LI>Optional state as speech. &lt;total number of items + total number of
+selected items&gt;  [Alternate:  N/A].</LI>
+<LI>Name of the current item as speech.  &lt;list item label&gt; [Alternate:  &quot;no
+label&quot;].</LI></OL>
+<P><STRONG>First Letter Navigation</STRONG></P>
+<P>First letter navigation is implemented for lists/list items.  In this case,
+the search is confined to the list items.  When the list has focus, pressing a
+key will invoke the search system.  If an item is found, the feedback is the
+same as if the user navigated to the item via the navigation keys -- see
+<A HREF="lists.htm#itemNav">Navigation</A> above.  Furthermore, the audio look and
+feel's notion of &quot;current item&quot; is updated to that item.  Note that
+this can alter the selection set depending on how the primary look and feel
+responds to moving about the list items.  Finally, if no item matches the
+search, nothing in the list is altered, and the generic error sound is played.</P>
+<HR>
+<H3>List Manipulation</H3>
+<P>The audio look and feel allows users to add and remove list items from the
+selection set using only key strokes.  This functionality depends on the audio
+look and feel's internal tracking of the &quot;current list item&quot;.  As
+noted elsewhere in this document, this tracking is done independent of the
+primary look and feel.</P>
+<P>As users make key strokes to move item-by-item among the list items, they
+can at any time add or remove the current item to the selection set, using the
+add/remove key strokes.  The feed back sequence is as follows:</P>
+<P><STRONG>Activation</STRONG></P>
+<OL>
+<LI>Required activation sound effect:
+<UL>
+<LI>If adding,
+<A HREF="javascript:playSound('paste.wav' , 'List -- add to selection')">paste.wav</A></LI>
+<LI>If removing,
+<A HREF="javascript:playSound('cut.wav' , 'List -- remove from selection')">cut.wav</A></LI></UL></LI>
+<LI>Required name or label of list item, as speech. &lt;list item label&gt;
+[Alternate:  &quot;no label&quot;].</LI>
+<LI>Required new state of component, as speech:
+<UL>
+<LI>If adding, &quot;added to selection&quot;.</LI>
+<LI>If removing, &quot;removed from selection&quot;.</LI></UL></LI></OL>
+<HR>
+<H3>How the list has bas been modified if applicable</H3>
+<P>List Change Report</P>
+<OL>
+<LI>list sound as new items are added; no additional speech to identify items
+added.</LI></OL>
+<P>(NOTE:  the above has not been implemented).</P>
+<P><A HREF="ss_contents.htm">Table of Contents</A><BR> End of file<BR> Last
+updated 11/16/98<BR>
+</P></BODY></HTML>

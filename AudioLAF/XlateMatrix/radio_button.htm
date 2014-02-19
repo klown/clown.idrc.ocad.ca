@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//SoftQuad//DTD draft HTML 3.2 + extensions for HoTMetaL PRO 3.0 19960802//EN" "hmpro3.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Swing SetComponent: RadioButton</title>
+<script src="radio_button_files/playSound.js" language="javascript">
+</script></head>
+<body>
+<h2>Component Name: RadioButton<br> States: Checked and Not-Checked</h2>
+<p>&nbsp;</p>
+<p>Description</p>
+<p>Typically, a series of small round "hollow" circles beside a
+series of selections. Only one of the series or set can be pressed or selected
+at any given time. Selecting one, or "checking" one means that the
+others in the series can not be active at the same time. When one is checked, a
+small dark dot appears in the one checked to let the computer user know which
+one is "active". It is one selection or another. RadioButtons can
+appear in dialog boxes or as menu item choices. Traditionally navigating to a
+RadioButton means activation by default.</p>
+<p>As with general buttons, RadioButtons can be Text RadioButtons, Image
+RadioButtons or Image and Text RadioButtons. Below are examples of each. In the
+cse of the Text RadioButtons, the small black dot is in the "One" of
+One, Two or Three. Only one of the Image RadioButtons is waving it's hand, and
+only the "left" RadioButton indicating "left" is a different
+colour than the other two.</p>
+<p>&nbsp;</p>
+<p align="center"><img src="radio_button_files/radio_button.jpg" alt="examples of Swing Set RadioButtons" height="312" width="298"></p>
+<p>&nbsp;</p>
+<p>Below is an example from the Swing Set of RadioButtons as a RadioButton
+MenuItem</p>
+<p>&nbsp;</p>
+<p align="center"><img src="radio_button_files/menu02.jpg" alt="Swing Set MenuItem RadioButton" height="119" width="225"></p>
+<p>&nbsp;</p>
+<p><strong>Sound Rationale</strong></p>
+<p>The temporary sound for RadioButtons is an electronic three tone sound with
+the first tone being raised, the second at a lower pitch and the third raised
+again. This is for the "checked state of a RadioButton. For the "not-checked"
+state, the tones are reversed, the starting tone is the same as the ending tone,
+but the middle tone is raised to give the uauditory illusion of taking a check
+mark/selection off. This is the third try at finding a tonal solution that is "appealing
+and functional" for this component. Depending on the results of user
+testing, this sound might be replaced again.</p>
+<h3>Component Name: RadioButton - Checked</h3>
+<p><strong>Navigation</strong>  
+</p>
+<ol>
+<li>Required navigation sound effect.
+<a href="javascript:playSound('navigate.wav'%20,%20%20%20%20'Navigate')">navigate.wav</a></li>
+<li>Optional disabled sound effect.
+<a href="javascript:playSound('disabled.wav',%20'Disabled')">disabled.wav</a></li>
+<li>Optional combined component ID and state information sound effect.
+<a href="javascript:playSound('rad_but_check.wav'%20,%20'Radio%20Button%20Checked')">rad_but_check.wav</a></li>
+<li>Required name/title of component as speech. &lt;RadioButton label&gt; 
+[Alternate:  "no label"].</li>
+<li>Optional role as speech. &lt;Radio Button&gt; [Alternate:  "unknown
+object"].</li>
+<li>Optional state as speech. "checked"  [Alternate:  "status
+unknown"].</li></ol>
+<p><strong>Activation</strong>  
+</p>
+<ol>
+<li>Required activation sound effect.
+<a href="javascript:playSound('rad_but_check.wav'%20,%20%20%20%20'Radio%20Button%20Checked')">rad_but_check.wav</a></li>
+<li>Required name or label of component, as speech. &lt;RadioButton label&gt; 
+[Alternate:  "no label"]. </li>
+<li>Optional role as speech. &lt;RadioButton&gt;  [Alternate: "unknown
+object"].
+</li>
+<li>Required new state of component, as speech. "already checked". 
+[Alternate:  "status unknown"].</li></ol>
+<p><strong>"Where Am I?"</strong>  
+</p>
+<ol>
+<li>Optional disabled sound effect.
+<a href="javascript:playSound('disabled.wav',%20'Disabled')">disabled.wav</a></li>
+<li>Optional combined component ID and state information sound effect.
+<a href="javascript:playSound('rad_but_check.wav'%20,%20'Radio%20Button%20Checked')">rad_but_check.wav</a></li>
+<li>Required name/title of component as speech. &lt;RadioButton label&gt; 
+[Alternate:  "no label"].</li>
+<li>Optional role as speech. &lt;Radio Button&gt; [Alternate:  "unknown
+object"].</li>
+<li>Optional state as speech. "checked"  [Alternate:  "status
+unknown"].</li></ol>
+<p><strong>Additional Information (Control + shift + E)</strong>  
+</p>
+<ol>
+<li>Hot Key – (if available) [Alternate:  "no Hot Key available"]
+.</li>
+<li>Shortcut Keys – (if available) [Alternate:  "no Shortcut Key
+available"] .</li></ol>
+<hr>
+<h3>Component Name: RadioButton - Not-Checked<b></b></h3>
+<p>Navigation  
+</p>
+<ol>
+<li>Required navigation sound effect.
+<a href="javascript:playSound('navigate.wav'%20,%20%20%20%20'Navigate')">navigate.wav</a></li>
+<li>Optional disabled sound effect.
+<a href="javascript:playSound('disabled.wav',%20'Disabled')">disabled.wav</a></li>
+<li>Optional combined component ID and state information sound effect.
+<a href="javascript:playSound('rad_but_notcheck.wav'%20,%20'Radio%20Button%20Not%20Checked')">rad_but_notcheck.wav</a></li>
+<li>Required name/title of component as speech. &lt;RadioButton label&gt; 
+[Alternate:  "no label"].</li>
+<li>Optional role as speech. &lt;Radio Button&gt; [Alternate:  "unknown
+object"].</li>
+<li>Optional state as speech. "not checked"  [Alternate:  "status
+unknown"].</li></ol>
+<p><strong>Activation</strong><b>  
+</b></p>
+<ol>
+<li>Required activation sound effect.
+<a href="javascript:playSound('rad_but_check.wav'%20%20%20%20,%20'Radio%20Button%20Checked')">rad_but_check.wav</a></li>
+<li>Required name or label of component, as speech. &lt;RadioButton label&gt; 
+[Alternate:  "no label"]. </li>
+<li>Optional role as speech. &lt;RadioButton&gt;  [Alternate: "unknown
+object"].
+</li>
+<li>Required new state of component, as speech. "checked". 
+[Alternate:  "status unknown"].</li></ol>
+<p><b>"Where Am I?" </b> 
+</p>
+<ol>
+<li>Optional disabled sound effect.
+<a href="javascript:playSound('disabled.wav',%20'Disabled')">disabled.wav</a></li>
+<li>Optional combined component ID and state information sound effect.
+<a href="javascript:playSound('rad_but_notcheck.wav'%20,%20'Radio%20Button%20Not%20Checked')">rad_but_notcheck.wav</a></li>
+<li>Required name/title of component as speech. &lt;RadioButton label&gt; 
+[Alternate:  "no label"].</li>
+<li>Optional role as speech. &lt;Radio Button&gt; [Alternate:  "unknown
+object"].</li>
+<li>Optional state as speech. "not checked"  [Alternate:  "status
+unknown"].</li></ol>
+<p><b>Additional Information (Control + shift + E) </b> 
+</p>
+<ol>
+<li>Hot Key – (if available) [Alternate: see below<a href="radio_button.htm#noExtraInfo">*</a>]
+.</li>
+<li>Shortcut Keys – (if available) [Alternate: see below<a href="radio_button.htm#noExtraInfo">*</a>] .</li></ol>
+<p><a name="noExtraInfo">*</a>If there is neither a hot key nor a shortcut
+key, the general error is sounded.</p>
+<hr>
+<h3>Other RadioButton Options to Consider</h3>
+<p>Within the Swing Set Menu examples is a "List of Contributors"
+which is a list of names, beside which are colour coded "RadioButton"
+like components. At this point it is not clear whether they are in fact
+RadioButtons with colour "qualifiers" or how they might be set up. The
+example from the Swing Set is shown below.</p>
+<p>&nbsp;</p>
+<p align="center"><img src="radio_button_files/menu01.jpg" alt="Menu with colour coded list of contributors" height="397" width="176"></p>
+<p>&nbsp;</p>
+<p><a href="ss_contents.htm">Table of Contents</a><br> End of file<br> Last
+updated 11/02/98 by Karen
+McCall</p>
+
+
+
+
+
+
+</body></html>
