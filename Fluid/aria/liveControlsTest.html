@@ -8,12 +8,12 @@
       
       if (spinnersToggled) { // if it's on.
         spinnersDiv.innerHTML = "";
-        toggleButton.setAttribute ('aria-pressed', 'true');
+        toggleButton.setAttribute ('aria-pressed', 'false');
         spinnersToggled = false;
       }
       else {  // it's off.
         document.getElementById ("spinners1").innerHTML = "<p>Spinner</p><p> paragraph two</p>";
-        toggleButton.setAttribute ('aria-pressed', 'false');
+        toggleButton.setAttribute ('aria-pressed', 'true');
         spinnersToggled = true;
       }
     }
