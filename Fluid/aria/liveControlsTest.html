@@ -1,0 +1,24 @@
+<html>
+<head>
+  <script type="text/javascript">
+    var spinnersToggled = false;
+    function toggleSpinners() {
+      if (spinnersToggled) { // if it's on.
+        document.getElementById ("spinners1").innerHTML = "";
+        spinnersToggled = false;
+      }
+      else {  // it's off.
+        document.getElementById ("spinners1").innerHTML = "<p>Spinner</p><p> paragraph two</p>";
+        spinnersToggled = true;
+      }
+    }
+  </script>
+</head>
+<body>
+<p>
+<button aria-controls="spinners1" onclick="toggleSpinners();">On/off</button>
+</p>
+<p>Empty div id="spinners1" below:</p>
+<div id="spinners1" aria-live="polite" tabindex="0" aria-relevant="all"></div>
+</body>
+</html>
