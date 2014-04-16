@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title>Slider Test for JAWS10</title>
+
+		<!-- required: dojo.js -->
+		<script type="text/javascript" src="http://o.aolcdn.com/dojo/1.2/dojo/dojo.xd.js"
+			djConfig="isDebug: true, parseOnLoad: true"></script>
+
+		<style type="text/css">
+			@import "http://o.aolcdn.com/dojo/1.2/dojo/resources/dojo.css";
+			body {
+				padding:2em 2em 2em 2em;
+			}
+			#slider11display {
+				border: 1px solid black;
+			}
+			.area {
+				border:  1px solid green;
+			}
+			form {
+				border:  1px dashed black;
+			}
+		</style>
+		
+		<!-- required: the default dijit theme: -->
+		<link id="themeStyles" rel="stylesheet" href="http://o.aolcdn.com/dojo/1.2/dijit/themes/tundra/tundra.css">
+
+		<!-- only needed for alternate theme testing: -->
+		<script type="text/javascript" src="../_testCommon.js"></script>
+
+		<script type="text/javascript">
+				dojo.require("dijit.dijit"); // optimize: load dijit layer
+				dojo.require("dijit.form.Slider");
+				dojo.require("dijit.form.Button");
+				dojo.require("dojo.parser"); // scan page for widgets
+				
+				function sliderIIDisplayUpdate(newValue){
+					var displayVal = dojo.number.format(newValue/100,{places:1,pattern:'#%'});
+					dojo.byId('slider11input').value=displayVal;
+					dojo.byId('slider11display').innerHTML=displayVal;				
+				}
+
+				function sliderIVDisplayUpdate(newValue){
+					var displayVal = dojo.number.format(newValue/100,{places:1,pattern:'#%'});
+					dojo.byId('slider1Vinput').value=displayVal;
+					dojo.byId('slider1Vdisplay').innerHTML=displayVal;				
+				}
+
+				// Give labels to the hidden input in the sliders.
+				dojo.addOnLoad(function(){
+					function doAddLabel(sliderId, labelId, labelText){
+						var valueNode = dijit.byId(sliderId).valueNode;
+						if(valueNode){
+							dojo.attr(valueNode, "id", labelId);
+							var labelNode = document.createElement("label");
+							dojo.attr(labelNode, "for", labelId);
+							labelNode.innerHTML = "Hidden input";
+							labelNode.style.display = "none";
+							dojo.place(labelNode, valueNode, "before");
+						}
+					}
+					doAddLabel("slider1", "sl1ValEl", "Hidden input");
+					doAddLabel("slider11", "sl11ValEl", "Hidden input");
+					doAddLabel("slider111", "sl111ValEl", "Hidden input");
+					doAddLabel("slider1V", "sl1VValEl", "Hidden input");
+				});
+		</script>
+	</head>
+	<body class="tundra">
+		<h1 class="testTitle">Slider Test for JAWS10</h1>
+		<p>Use arrow keys, buttons, or clicking on the thumb bar to move the slider.</p>
+		<p>The green borders mark the <code>div</code> regions, one of which has
+		   <a href="#divDoc"><code>role=document</code></a>; the other,
+		   <a href="#divApp"><code>role=application</code></a>.
+		</p>
+		<a name="divDoc"></a>
+		<h2>Two Sliders within <code>&lt;div role='document'</code> and using <code>&lt;form&gt;</code> element</h2>
+		<div class="area" role="document" title="Two sliders within div role='document' and using form element">
+			<p>Note: Dashed border shows extent of <code>form</code> element</p>
+			<!--    to test form submission, you'll need to create an action handler similar to
+				http://www.utexas.edu/teamweb/cgi-bin/generic.cgi -->
+			<form id="form1" action="" name="example" method="post">
+			<h2><label for="slider1"><strong>Horizontal Slider Example I</strong></label></h2>
+			<div dojoType="dijit.form.HorizontalSlider" name="horizontal1"
+				value="10"
+				maximum="100"
+				minimum="0"
+				pageIncrement="100"
+				showButtons="true"
+				intermediateChanges="true"
+				slideDuration="500"
+				style="width:50%; height: 20px;"
+				id="slider1">
+					<ol dojoType="dijit.form.HorizontalRuleLabels" container="topDecoration" style="height:1.2em;font-size:75%;" count="6" numericMargin="1"></ol>
+					<div dojoType="dijit.form.HorizontalRule" container="topDecoration" count=6 style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count=5 style="height:5px;"></div>
+					<ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" style="height:1em;font-size:75%;">
+						<li>lowest</li>
+						<li>normal</li>
+						<li>highest</li>
+					</ol>
+			</div>
+			<h2><label for="slider11"><strong>Horizontal Slider Example II</strong></label></h2>
+			<div dojoType="dijit.form.HorizontalSlider" name="horizontal11"
+				value="10"
+				maximum="100"
+				minimum="0"
+				pageIncrement="100"
+				onChange="sliderIIDisplayUpdate"
+				showButtons="true"
+				intermediateChanges="true"
+				slideDuration="500"
+				style="width:50%; height: 20px;"
+				id="slider11">
+					<ol dojoType="dijit.form.HorizontalRuleLabels" container="topDecoration" style="height:1.2em;font-size:75%;" count="6" numericMargin="1"></ol>
+					<div dojoType="dijit.form.HorizontalRule" container="topDecoration" count=6 style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count=5 style="height:5px;"></div>
+					<ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" style="height:1em;font-size:75%;">
+						<li>lowest</li>
+						<li>normal</li>
+						<li>highest</li>
+					</ol>
+			</div>
+			<p><label for="slider11input">SliderII Value: <input readonly id="slider11input" size="4" value="10.0%" name="slider11input"></label> (read-only &lt;input type='text'&gt;)</p>
+			<p><label for="slider11display">Value of SliderII:  <span id="slider11display" name="slider11span">10.0%</span></label> (&lt;span&gt;)</p>
+			</form>
+		</div>
+		<a name="divApp"></a>
+		<h2>Two Sliders within <code>&lt;div role='application'...&gt;</code></h2>
+		<div role="application" title="Two slider within div role='application'" class="area">
+			<h2><label for="slider111"><strong>Horizontal Slider Example IIII</strong></label></h2>
+			<div dojoType="dijit.form.HorizontalSlider" name="horizontal111"
+				value="10"
+				maximum="100"
+				minimum="0"
+				pageIncrement="100"
+				showButtons="true"
+				intermediateChanges="true"
+				slideDuration="500"
+				style="width:50%; height: 20px;"
+				id="slider111">
+					<ol dojoType="dijit.form.HorizontalRuleLabels" container="topDecoration" style="height:1.2em;font-size:75%;" count="6" numericMargin="1"></ol>
+					<div dojoType="dijit.form.HorizontalRule" container="topDecoration" count=6 style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count=5 style="height:5px;"></div>
+					<ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" style="height:1em;font-size:75%;">
+						<li>lowest</li>
+						<li>normal</li>
+						<li>highest</li>
+					</ol>
+			</div>
+			<h2><label for="slider1V"><strong>Horizontal Slider Example IV</strong></label></h2>
+			<div dojoType="dijit.form.HorizontalSlider" name="horizontal1V"
+				value="10"
+				maximum="100"
+				minimum="0"
+				pageIncrement="100"
+				onChange="sliderIVDisplayUpdate"
+				showButtons="true"
+				intermediateChanges="true"
+				slideDuration="500"
+				style="width:50%; height: 20px;"
+				id="slider1V">
+					<ol dojoType="dijit.form.HorizontalRuleLabels" container="topDecoration" style="height:1.2em;font-size:75%;" count="6" numericMargin="1"></ol>
+					<div dojoType="dijit.form.HorizontalRule" container="topDecoration" count=6 style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count=5 style="height:5px;"></div>
+					<ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" style="height:1em;font-size:75%;">
+						<li>lowest</li>
+						<li>normal</li>
+						<li>highest</li>
+					</ol>
+			</div>
+			<p><label for="slider1Vinput">SliderIV Value: <input readonly id="slider1Vinput" size="4" value="10.0%" name="slider1Vinput"></label> (read-only &lt;input type='text'&gt;)</p>
+			<p><label for="slider1Vdisplay">Value of SliderIV:  <span id="slider1Vdisplay" name="slider1Vdisplay">10.0%</span></label> (&lt;span&gt;)</p>
+		</div>
+	</body>
+</html>
