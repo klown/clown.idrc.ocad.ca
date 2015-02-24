@@ -109,9 +109,13 @@
     </code>
   <p><button id="showComments" aria-pressed="false">Show comments:</button></p>
   <div id="comments" style="visibility:hidden;" aria-hidden="true">
-    <p>The problem:  it's not just the markup.  Using CSS and JavaScript, an h1 element can look and behave like a checkbox.</p>
+    <p>The problem:  the markup alone does not describe the author's intent.  Using CSS and JavaScript, an h1 element can look and behave like a checkbox.</p>
     <p>One can argue that authors SHOULD NOT do this, warn them against 
-  doing so, and recommend that they use native roles instead.  But, <em>if</em> they go ahead and do it anyway, user agents must respect the aria role.</p>
+  doing so, and recommend that they use native roles instead.  But, <em>if</em> they go ahead and do it anyway, there needs to be a way to communicate the proper semantics to assistive technologies.  That's what ARIA is for:</p>
+  <ul>
+    <li>ARIA is after-the-fact:  the html/css/javascript has already repurposed the normal semantics.</li>
+    <li>ARIA does not affect how repurposed elements behave (the ultimate in unobtrusive?).</li>
+  </ul>
     <p>If it looks like a duck, and quacks like a duck, and waddles like a duck, well, then, what is it?</p>
   
       <p>The h1/checkbox marked up with is spoken as a checkbox using JAWS10/FF3. The first one is not; it is spoken as a "heading level 1".</p>
