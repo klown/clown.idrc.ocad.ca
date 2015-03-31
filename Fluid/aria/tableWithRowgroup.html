@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>Table With Rowgroup</title>
+<style type="text/css">
+  table, th, td {
+    border: 1px solid gray;
+  }
+
+  #tbody1 {
+    background-color: gray;
+  }
+
+  #tbody2 {
+    background-color: pink;
+  }
+</style>
+
+</head>
+<body>
+<p>Table with a <code>&lt;div role="rowgroup"&gt;</code>:</p>
+<p>(The browser moves <code>rowgroup</code> from within the table to above it -- it's seen as a black line).</p>
+<table>
+    <tr><th>Header 1</th><th>Header 2</th></tr>
+    <tr><td>Cell 1</td><td>Cell 2</td></tr>
+    <tr><td>Cell 3</td><td>Cell 4</td></tr>
+   <div role="rowgroup" style="border: 1px solid black;">
+      <tr><td>Cell 5</td><td>Cell 6</td></tr>
+      <tr><td>Cell 7</td><td>Cell 8</td></tr>
+   </div>
+</table>
+<p>Table with multiple <code>&lt;tbody&gt;</code>s, given by background colour:</p>
+<table>
+    <tr><th>Header 1</th><th>Header 2</th></tr>
+  <tbody id="tbody1">
+    <tr><td>Cell 1</td><td>Cell 2</td></tr>
+    <tr><td>Cell 3</td><td>Cell 4</td></tr>
+  </tbody>
+  <tbody id="tbody2">
+      <tr><td>Cell 5</td><td>Cell 6</td></tr>
+      <tr><td>Cell 7</td><td>Cell 8</td></tr>
+  </tbody>
+</table>
+</body>
+</html>
