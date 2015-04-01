@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>Role grid using aria-owns</title>
+</head>
+<body>
+<h3>Example 1, Parent/Child Relationships Defined by DOM:</h3>
+  <div role="grid">
+    <div id="childrow" role="row">
+      <div role="gridcell">cell 1</div><div role="gridcell">cell 2</div>
+    </div>
+  </div>
+
+<h3>Example 2, Grid Row Child Relationship Defined by <code>aria-owns</code>:</h3>
+  <div role="grid" aria-owns="siblingrow"></div>
+  <div id="siblingrow" role="row">
+    <div role="gridcell">cell 1</div><div role="gridcell">cell 2</div>
+  </div>
+</body>
+</html>
