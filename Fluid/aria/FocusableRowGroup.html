@@ -9,7 +9,7 @@
   [role="grid"] {
     display: table;
   }
-  table, th, td, [role="rowgroup"], [role="grid"], [role="row"], [role="colheader"], [role="gridcell"] {
+  table, th, td, [role="rowgroup"], [role="grid"], [role="row"], [role="columnheader"], [role="gridcell"] {
     border: 1px solid gray;
   }
   .morning {
@@ -35,7 +35,7 @@
   [role="rowgroup"].head {
     display: table-header-group;
   }
-  [role="colheader"], [role="rowheader"] {
+  [role="columnheader"], [role="rowheader"] {
     display: table-cell;
     font-weight: bold;
     height: 2.25em;
@@ -54,7 +54,7 @@
   
 </style>
 <script type="text/javascript">
-  var tbodyCheckboxMap = {
+  var checkBoxMap = {
     tbody1: "showHideMorning",
     tbody2: "showHideMidday",
     tbody3: "showHideEvening",
@@ -80,12 +80,16 @@
 
   function hideTbody (tbodyEl, nextActiveId, event) {
     var tbodyId = tbodyEl.getAttribute ('id');
-    var checkbox = document.getElementById (tbodyCheckboxMap[tbodyId]);
+    var checkbox = document.getElementById (checkBoxMap[tbodyId]);
     
     if ((event.type == "click") || (event.type == "keydown" && event.keyCode == 32)) {
       checkbox.checked = !checkbox.checked;
       showHideTbody (checkbox, tbodyId);
-      setTimeout (moveFocus, 200, nextActiveId);
+      if (event.type == "keydown") {
+        event.preventDefaul();
+        event.stopPropogation();
+      }
+      setTimeout (moveFocus, 300, nextActiveId);
     }
   }
 
@@ -94,12 +98,14 @@
 </head>
 <body>
 
-<p tabindex="0">Grid with multiple focusable <code>&lt;rowgroup&gt;</code>s.  The
-  background colour provides a visual cue for the three 
-  <code>&lt;rowgroup&gt;</code>s.  Each <code>&lt;rowgroup&gt;</code> has an 
-  <code>aria-labelledby</code> for a range of times, namely, morning rush hour,
-  midday, and evening rush hour.  Each <code>&lt;rowgroup&gt;</code> is ineractive
-  allowing users to hide those times.
+<p>Train timetable that uses a <code>grid</code> with multiple
+  focusable <code>rowgroup</code>s.
+</p>
+<p>Each <code>rowgroup</code> represents a range of times, namely, morning rush
+  hour, midday, and evening rush hour.  The background provides a visual
+  cue for each rowgroup, and <code>aria-labelledby</code> provides a name.  Each 
+  <code>rowgroup</code> is interactive allowing users to hide times they are not
+  interested in.
 </p>
 <fieldset>
   <legend>Show/Hide:</legend>
@@ -114,7 +120,7 @@
 <div role="grid" aria-labelledby="caption">
   <div id="caption">Train Departure Times By Station</div>
   <div role="rowgroup" class="head">
-    <div role="row"><span role="presentation" class="empty"></span><span role="colheader">Station 1</span><span role="colheader">Station 2</span><span role="colheader">Station 3</span><span role="colheader">Station 4</span></div>
+    <div role="row"><span role="presentation" class="empty"></span><span role="columnheader">Station 1</span><span role="columnheader">Station 2</span><span role="columnheader">Station 3</span><span role="columnheader">Station 4</span></div>
   </div>
   <div id="rg1" class="morning" role="rowgroup" aria-labelledy="morn" tabindex="0" onclick="hideTbody (this, 'rg2', event);" onkeydown="hideTbody (this, 'rg2', event);">
     <div role="row"><span role="rowheader" id="morn">Morning Rush Hour<br>(click to hide)</span><span role="gridcell">6:30</span><span role="gridcell">6:45</span><span role="gridcell">7:05</span><span role="gridcell">7:10</span></div>
@@ -136,12 +142,14 @@
 
 <hr>
 
-<p tabindex="0">Grid with multiple focusable <code>&lt;tbody&gt;</code>s.  The
-  background colour provides a visual cue for the three 
-  <code>&lt;tbody&gt;</code>s.  Each <code>&lt;tbody&gt;</code> has an 
-  <code>aria-labelledby</code> for a range of times, namely, morning rush hour,
-  midday, and evening rush hour.  Each <code>&lt;tbody&gt;</code> is ineractive
-  allowing users to hide those times.
+<p>Train timetable that uses a <code>&lt;table&gt;</code> with multiple
+  focusable <code>&lt;tbody&gt;</code>s.
+</p>
+<p>Each <code>&lt;tbody&gt;</code> represents a range of times, namely, morning
+  rush hour, midday, and evening rush hour.  The background provides a visual
+  cure for each, and <code>aria-labelledby</code> provides a name.  Each
+  <code>&lt;tbody&gt;</code> is ineractive allowing users to hide times they are
+  not interested in.
 </p>
 <fieldset>
   <legend>Show/Hide:</legend>
