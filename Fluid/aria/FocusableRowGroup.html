@@ -1,0 +1,180 @@
+<html>
+<head>
+<title>Table With Multiple <code>&lt;tbody&gt;</code> Elemenets</title>
+<style type="text/css">
+
+  :focus {
+    outline: 2px solid red;
+  }
+  [role="grid"] {
+    display: table;
+  }
+  table, th, td, [role="rowgroup"], [role="grid"], [role="row"], [role="colheader"], [role="gridcell"] {
+    border: 1px solid gray;
+  }
+  .morning {
+    background-color: darkgray;
+  }
+  .midday {
+    background-color: white;
+  }
+  .evening {
+    background-color: lightgray;
+  }
+  tbody, [role="rowgroup"] {
+    text-align: center;
+  }
+  #caption {
+    display: table-caption;
+    text-align: center;
+    margin: 1px;
+  }
+  [role="rowgroup"] {
+    display: table-row-group;
+  }
+  [role="rowgroup"].head {
+    display: table-header-group;
+  }
+  [role="colheader"], [role="rowheader"] {
+    display: table-cell;
+    font-weight: bold;
+    height: 2.25em;
+  }
+  [role="row"] {
+    display: table-row;
+  }
+  [role="gridcell"] {
+    display: table-cell;
+    height: 2.25em;
+  }
+  .empty {
+    display: table-cell;
+    border: 0;
+  }
+  
+</style>
+<script type="text/javascript">
+  var tbodyCheckboxMap = {
+    tbody1: "showHideMorning",
+    tbody2: "showHideMidday",
+    tbody3: "showHideEvening",
+    rg1: "shMorning",
+    rg2: "shMidday",
+    rg3: "shEvening"
+  };
+  
+  function moveFocus (nextFocusId) {
+    var nextActive = document.getElementById (nextFocusId);
+    if (nextActive) nextActive.focus();
+  }
+  
+  function showHideTbody (checkbox, tbodyId) {
+    var tbody = document.getElementById (tbodyId);
+    if (checkbox.checked) {
+      tbody.style.display = 'table-row-group';
+    }
+    else {
+      tbody.style.display = 'none';
+    }
+  }
+
+  function hideTbody (tbodyEl, nextActiveId, event) {
+    var tbodyId = tbodyEl.getAttribute ('id');
+    var checkbox = document.getElementById (tbodyCheckboxMap[tbodyId]);
+    
+    if ((event.type == "click") || (event.type == "keydown" && event.keyCode == 32)) {
+      checkbox.checked = !checkbox.checked;
+      showHideTbody (checkbox, tbodyId);
+      setTimeout (moveFocus, 200, nextActiveId);
+    }
+  }
+
+</script>
+
+</head>
+<body>
+
+<p tabindex="0">Grid with multiple focusable <code>&lt;rowgroup&gt;</code>s.  The
+  background colour provides a visual cue for the three 
+  <code>&lt;rowgroup&gt;</code>s.  Each <code>&lt;rowgroup&gt;</code> has an 
+  <code>aria-labelledby</code> for a range of times, namely, morning rush hour,
+  midday, and evening rush hour.  Each <code>&lt;rowgroup&gt;</code> is ineractive
+  allowing users to hide those times.
+</p>
+<fieldset>
+  <legend>Show/Hide:</legend>
+  <input type="checkbox" id="shMorning" checked onclick="showHideTbody (this, 'rg1');" aria-controls="rg1">
+  <label for="shMorning">Morning Rush Hour</label> &nbsp;
+  <input type="checkbox" id="shMidday" checked onclick="showHideTbody (this, 'rg2');" aria-controls="rg2">
+  <label for="shMidday">Midday</label> &nbsp;
+  <input type="checkbox" id="shEvening" checked onclick="showHideTbody (this, 'rg3');" aria-controls="rg3">
+  <label for="shEvening">Evening Rush Hour</label> &nbsp;
+</fieldset>
+</p>
+<div role="grid" aria-labelledby="caption">
+  <div id="caption">Train Departure Times By Station</div>
+  <div role="rowgroup" class="head">
+    <div role="row"><span role="presentation" class="empty"></span><span role="colheader">Station 1</span><span role="colheader">Station 2</span><span role="colheader">Station 3</span><span role="colheader">Station 4</span></div>
+  </div>
+  <div id="rg1" class="morning" role="rowgroup" aria-labelledy="morn" tabindex="0" onclick="hideTbody (this, 'rg2', event);" onkeydown="hideTbody (this, 'rg2', event);">
+    <div role="row"><span role="rowheader" id="morn">Morning Rush Hour<br>(click to hide)</span><span role="gridcell">6:30</span><span role="gridcell">6:45</span><span role="gridcell">7:05</span><span role="gridcell">7:10</span></div>
+    <div role="row"><span role="presentation" class="emtpy"></span><span role="gridcell">7:00</span><span role="gridcell">7:10</span><span role="gridcell">7:30</span><span role="gridcell">7:35</span></div>
+  </div>
+  <div id="rg2" class="midday" role="rowgroup" aria-labelledy="mid" tabindex="0" onclick="hideTbody (this, 'rg3', event);" onkeydown="hideTbody (this, 'rg3', event);">
+      <div role="row"><span role="rowheader" id="midday">Midday<br>(click to hide)</span><span role="gridcell">13:00</span><span role="gridcell">13:15</span><span role="gridcell">13:35</span><span role="gridcell">13:40</span></div>
+      <div role="row"><span role="presentation" class="empty"></span><span role="gridcell">13:30</span><span role="gridcell">13:45</span><span role="gridcell">14:05</span><span role="gridcell">14:10</span></div>
+  </div>
+  <div id="rg3" class="evening" role="rowgroup" aria-labelledy="even" tabindex="0" onclick="hideTbody (this, 'shMorning', event);" onkeydown="hideTbody (this,'showMorning', event);">
+    <div role="row"><span role="rowheader" id="even">Evening Rush Hour<br>(click to hide)</span><span role="gridcell">16:25</span><span role="gridcell">16:40</span><span role="gridcell">17:00</span><span role="gridcell">17:05</span></div>
+    <div role="row"><span role="presentation" class="empty"></span><span role="gridcell">16:40</span><span role="gridcell">16:55</span><span role="gridcell">17:15</span><span role="gridcell">17:20</span></div>
+  </div>
+  <div role="rowgroup" id="rg4">
+    <div role="row"><span role="rowheader">Unfocusable <code>rowgroup</code></span><span role="gridcell">00:00</span><span role="gridcell">00:00</span><span role="gridcell">00:00</span><span role="gridcell">00:00</span></div>
+    <div role="row"><span role="presentation" class="empty"></span><span role="gridcell">00:00</span><span role="gridcell">00:00</span><span role="gridcell">00:00</span><span role="gridcell">00:00</span></div>
+  </div>
+</div>
+
+<hr>
+
+<p tabindex="0">Grid with multiple focusable <code>&lt;tbody&gt;</code>s.  The
+  background colour provides a visual cue for the three 
+  <code>&lt;tbody&gt;</code>s.  Each <code>&lt;tbody&gt;</code> has an 
+  <code>aria-labelledby</code> for a range of times, namely, morning rush hour,
+  midday, and evening rush hour.  Each <code>&lt;tbody&gt;</code> is ineractive
+  allowing users to hide those times.
+</p>
+<fieldset>
+  <legend>Show/Hide:</legend>
+  <input type="checkbox" id="showHideMorning" checked onclick="showHideTbody (this, 'tbody1');" aria-controls="tbody1">
+  <label for="showHideMorning">Morning Rush Hour</label>
+  <input type="checkbox" id="showHideMidday" checked onclick="showHideTbody (this, 'tbody2');" aria-controls="tbody2">
+  <label for="showHideMidday">Midday</label>
+  <input type="checkbox" id="showHideEvening" checked onclick="showHideTbody (this, 'tbody3');" aria-controls="tbody3">
+  <label for="showHideEvening">Evening Rush Hour</label>
+</fieldset>
+</p>
+<table>
+  <caption>Train Departure Times By Station</caption>
+  <thead>
+    <tr><th></th><th>Station 1</th><th>Station 2</th><th>Station 3</th><th>Station 4</th></tr>
+  </thead>
+  <tbody id="tbody1" class="morning" aria-labelledy="morning" tabindex="0" onclick="hideTbody (this, 'tbody2', event);" onkeydown="hideTbody (this, 'tbody2', event);">
+    <tr><th id="morning" rowspan="2">Morning Rush Hour<br>(click to hide)</th><td>6:30</td><td>6:45</td><td>7:05</td><td>7:10</td></tr>
+    <tr><td>7:00</td><td>7:10</td><td>7:30</td><td>7:35</td></tr>
+  </tbody>
+  <tbody id="tbody2" class="midday" aria-labelledy="midday" tabindex="0" onclick="hideTbody (this, 'tbody3', event);" onkeydown="hideTbody (this, 'tbody3', event);">
+      <tr><th id="midday" rowspan="2">Midday<br>(click to hide)</th><td>13:00</td><td>13:15</td><td>13:35</td><td>13:40</td></tr>
+      <tr><td>13:30</td><td>13:45</td><td>14:05</td><td>14:10</td></tr>
+  </tbody>
+  <tbody id="tbody3" class="evening" aria-labelledy="evening" tabindex="0" onclick="hideTbody (this, 'showHideMorning', event);" onkeydown="hideTbody (this,'showHideMorning', event);">
+    <tr><th rowspan="2" id="evening">Evening Rush Hour<br>(click to hide)</th><td>16:25</td><td>16:40</td><td>17:00</td><td>17:05</td></tr>
+    <tr><td>16:40</td><td>16:55</td><td>17:15</td><td>17:20</td></tr>
+  </tbody>
+  <tbody id="tbody4">
+    <tr><th rowspan="2">Unfocusable <code>TBODY</code></th><td>00:00</td><td>00:00</td><td>00:00</td><td>00:00</td></tr>
+    <tr><td>00:00</td><td>00:00</td><td>00:00</td><td>00:00</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>
