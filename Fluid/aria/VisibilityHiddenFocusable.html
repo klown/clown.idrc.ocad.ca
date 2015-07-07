@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>Using CSS display:none, visibility:hidden, and role='presentation' with @tabindex</title>
+<style type="text/css">
+    p {
+        border: 1px solid blue;
+    }
+    :focus {
+        border: 1px solid red;
+    }
+</style>
+</head>
+<body>
+    <h1>Using CSS display:none, visibility:hidden, and role='presentation' with @tabindex</h1>
+    <p tabindex="0">Normal paragraph</p>
+    <p>Span with display:none" and tabindex="0" immediately below (no visual rendering):<br>
+        <span style="display:none" tabindex="0" onclick="alert ('Hi!')">The rain in Spain falls mainly on the plain</span>
+    </p>
+    <p>Span with visibility:hidden" and tabindex="0" immediately below (empty space rendered):<br>
+        <span style="visibility:hidden" tabindex="0" onclick="alert ('Hi!')">The rain in Spain falls mainly on the plain</span>
+    </p>
+    <p>Span with role="presentation" and tabindex="0" immediately below:<br>
+        <span role="presentation" tabindex="0" onclick="alert ('Hi!')">The rain in Spain falls mainly on the plain.</span>
+    </p>
+</body>
+</html>
