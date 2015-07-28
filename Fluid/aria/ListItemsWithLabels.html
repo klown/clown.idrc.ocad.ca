@@ -22,12 +22,11 @@
   </div>
   <hr>
   <h2>Resulting Accessibles</h2>
-  <p>With an @aria-label, there is a name property ("winking smile") and content (the smiley itself, ";-)")</p>
-  <dl>
-    <dt>>First item, with @aria-label</dt>
-    <dd>FF/GNOME:  there is a name property ("winking smile") and content (the smiley itself -- ;-)</dd>
-    <dd>FF/Win7:
-    <dd>IE9/Win7:
-    <dd>Safari/OSX:
+  <p>With an @aria-label, the declared name property is different from the actual content of the list item, here, "winking smile" vs. the smiley text ";-)".  Without an @aria-label, there is no declared name, and only content.</p>
+  <ul>
+    <li>FF:  With @aria-label, exposes "winking smile" as the name, and the smiley text as the content.  Without, the name and content are both the smiley text.</li>
+    <li>IE9:  With, the name is "winking smile", and the text child is the smiley text. Without, the name and the text child are both the smiley text.</li>
+    <li>Safari/OSX: With or without, there is no name and only an AXValue containing the smiley text.</li>
+  </ul>
 </body>
 </html>
