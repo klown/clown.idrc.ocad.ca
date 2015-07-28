@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title>List items with @aria-label</title>
+  <style type="text/css">
+    .displayBlock { display: block; }
+  </style>
+</head>
+<body>
+  <h1>List items with @aria-label</h1>
+  <h2>Native list items (&lt;li&gt;)</h2>
+  <p>The first item has an @aria-label attribute.  The second does not.</p>
+  <ol>
+    <li aria-label="winking smile">;-)</li>
+    <li>:-(</li>
+  </ol>
+  <hr>
+  <h2>ARIA list items (role="listitem")</h2>
+  <p>The first item has an @aria-label attribute.  The second does not.</p>
+  <div role="list">
+    <span role="listitem" aria-label="winking smile" class="displayBlock">;-)</span>
+    <span role="listitem" class="displayBlock">:-(</span>
+  </div>
+  <hr>
+  <h2>Resulting Accessibles</h2>
+  <p>With an @aria-label, there is a name property ("winking smile") and content (the smiley itself, ";-)")</p>
+  <dl>
+    <dt>>First item, with @aria-label</dt>
+    <dd>FF/GNOME:  there is a name property ("winking smile") and content (the smiley itself -- ;-)</dd>
+    <dd>FF/Win7:
+    <dd>IE9/Win7:
+    <dd>Safari/OSX:
+</body>
+</html>
