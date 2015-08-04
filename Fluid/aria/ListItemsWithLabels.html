@@ -8,25 +8,27 @@
 <body>
   <h1>List items with @aria-label</h1>
   <h2>Native list items (&lt;li&gt;)</h2>
-  <p>The first item has an @aria-label attribute.  The second does not.</p>
+  <p>The first item has an @aria-label attribute.  The latter two do not.</p>
   <ol>
     <li aria-label="winking smile">;-)</li>
     <li>:-(</li>
+    <li>See <a href="http://www.ibm.com" target="_blank">IBM's home page</a> for more information.</li>
   </ol>
   <hr>
   <h2>ARIA list items (role="listitem")</h2>
-  <p>The first item has an @aria-label attribute.  The second does not.</p>
+  <p>The first item has an @aria-label attribute.  The latter two do not.</p>
   <div role="list">
     <span role="listitem" aria-label="winking smile" class="displayBlock">;-)</span>
     <span role="listitem" class="displayBlock">:-(</span>
+    <span role="listitem" class="displayBlcok">See <a href="http://www.ibm.com" target="_blank">IBM's home page</a> for more information.</span>
   </div>
   <hr>
   <h2>Resulting Accessibles</h2>
-  <p>With an @aria-label, the declared name property is different from the actual content of the list item, here, "winking smile" vs. the smiley text ";-)".  Without an @aria-label, there is no declared name, and only content.</p>
+  <p>Adding an @aria-label declares that the name property is different from the content of the list item, here, "winking smile" vs. the smiley text ";-)".  Without an @aria-label, there is no declared name, and only content.</p>
   <ul>
-    <li>FF:  With @aria-label, exposes "winking smile" as the name, and the smiley text as the content.  Without, the name and content are both the smiley text.</li>
+    <li>FF:  With @aria-label, exposes "winking smile" as the name, and the smiley text as the content.  Without, the name and content are both the smiley text.  In particular, the accessible name is a flat unstructured string version of the content.  For the third list item, it is "See IBM's home page for more information."</li>
     <li>IE9:  With, the name is "winking smile", and the text child is the smiley text. Without, the name and the text child are both the smiley text.</li>
-    <li>Safari/OSX: With or without, there is no name and only an AXValue containing the smiley text.</li>
+    <li>Safari/OSX: With, the name is exposed in the AXDescription property of the accessible (AXGroup) for the list item, and the smiley text as the AXValue of one of its children.  Without, there is no accessible name and only the smiley text as an AXValue.</li>
   </ul>
 </body>
 </html>
