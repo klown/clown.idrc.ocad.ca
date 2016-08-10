@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+#toggleRow {
+    font-weight: bold;
+}
+</style>
+<script>
+    var theRow;
+    var showLabel;
+    var hideLabel;
+    
+    function init() {
+        theRow = document.getElementById("toggleRow");
+        showLabel = "Show February";
+        hideLabel = "Hide February";
+    }
+    
+    function toggleRow(toggleButton) {
+        var state = theRow.getAttribute("aria-pressed");
+        if (state == "true") {
+            theRow.setAttribute("style", "display:row");
+            theRow.setAttribute("aria-pressed", "false");
+            toggleButton.innerHTML = hideLabel;
+        }
+        else {
+            theRow.setAttribute("style", "display:none");
+            theRow.setAttribute("aria-pressed", "true");
+            toggleButton.innerHTML = showLabel;
+        }
+    
+    }
+</script>
+
+</head>
+<body onload="init()">
+<p>
+<button onclick="toggleRow(this)" aria-pressed="false">Hide February</button></br>
+The button toggles the <code>display</code> style between "row" and "none" of the "February" row.</p>
+
+<table>
+  <caption>Monthly savings</caption>
+  <tr>
+    <th>Month</th>
+    <th>Savings</th>
+    <th>Savings for holiday!</th>
+  </tr>
+  <tr>
+    <td>January</td>
+    <td>$100</td>
+    <td rowspan="3">$50</td>
+  </tr>
+  <tr id="toggleRow" style="display:row">
+    <td>February</td>
+    <td>$80</td>
+  </tr>
+  <tr>
+    <td>March</td>
+    <td>$80</td>
+  </tr>
+  <tr>
+    <td>April</td>
+    <td>$0.99</td>
+    <td>$1</td>
+  </tr>
+</table>
+
+</body>
+</html>
