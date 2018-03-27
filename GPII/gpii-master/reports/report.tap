@@ -1,0 +1,24 @@
+ok 1 Chrome 65.0 - Composition #1: /gpii/node_modules/matchMakerFramework/test/html/MatchMakerUtilitiesTest.html
+ok 2 Chrome 65.0 - Composition #1: /gpii/node_modules/matchMakerFramework/test/html/InverseCapabilitiesTest.html
+ok 3 Chrome 65.0 - Composition #1: /gpii/node_modules/transformer/test/html/TransformerTests.html
+ok 4 Chrome 65.0 - Composition #1: /gpii/node_modules/journal/test/html/JournalIdParserTests.html
+ok 5 Chrome 65.0 - Composition #1: /gpii/node_modules/lifecycleManager/test/html/LifecycleManagerTest.html
+ok 6 Chrome 65.0 - Composition #1: /gpii/node_modules/lifecycleManager/test/html/DynamicComponentIndexerTest.html
+ok 7 Chrome 65.0 - Composition #1: /gpii/node_modules/ontologyHandler/test/html/OntologyHandlerUtilitiesTest.html
+ok 8 Chrome 65.0 - Composition #1: /gpii/node_modules/settingsHandlers/test/web/html/SettingsHandlerUtilitiesTest.html
+ok 9 Chrome 65.0 - Composition #1: /gpii/node_modules/contextManager/test/html/ContextManagerUtilitiesTests.html
+ok 10 Chrome 65.0 - Composition #1: /gpii/node_modules/gpii-oauth2/gpii-oauth2-authz-server/test/html/AuthGrantFinderTests.html
+ok 11 Chrome 65.0 - Composition #1: /gpii/node_modules/gpii-oauth2/gpii-oauth2-authz-server/test/html/AuthorizationServiceTests.html
+ok 12 Chrome 65.0 - Composition #1: /gpii/node_modules/gpii-oauth2/gpii-oauth2-datastore/test/html/DataSource-PouchDBTests.html
+ok 13 Chrome 65.0 - Composition #1: /gpii/node_modules/gpii-oauth2/gpii-oauth2-utilities/test/html/OAuth2UtilitiesTests.html
+ok 14 Chrome 65.0 - Composition #1: /gpii/node_modules/processReporter/test/web/html/ProcessesBridgeTest.html
+ok 15 Chrome 65.0 - Composition #1: /gpii/node_modules/processReporter/test/web/html/ProcessReporterTest.html
+ok 16 Chrome 65.0 - Composition #1: /gpii/node_modules/canopyMatchMaker/test/web/html/CanopyMatchMakerUtilitiesTests.html
+
+1..16
+# tests 16
+# pass  16
+# skip  0
+# fail  0
+
+# ok
