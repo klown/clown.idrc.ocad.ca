@@ -1,0 +1,1715 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for framework/preferences/js/PrefsEditor.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">framework/preferences/js</a> PrefsEditor.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.93% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>118/123</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">77.78% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>14/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.55% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>29/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.93% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>118/123</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">76x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">116x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+Copyright 2009 University of Toronto
+Copyright 2010-2017 OCAD University
+Copyright 2011 Lucendo Development Ltd.
+Copyright 2012-2014 Raising the Floor - US
+Copyright 2015 Raising the Floor - International
+&nbsp;
+Licensed under the Educational Community License (ECL), Version 2.0 or the New
+BSD license. You may not use this file except in compliance with one these
+Licenses.
+&nbsp;
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
+*/
+&nbsp;
+var fluid_3_0_0 = fluid_3_0_0 || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+&nbsp;
+(function ($, fluid) {
+    "use strict";
+&nbsp;
+    /*****************************
+     * Preferences Editor Loader *
+     *****************************/
+&nbsp;
+    /**
+     * An Preferences Editor top-level component that reflects the collaboration between prefsEditor, templateLoader and messageLoader.
+     * This component is the only Preferences Editor component that is intended to be called by the outside world.
+     *
+     * @param options {Object}
+     */
+    fluid.defaults("fluid.prefs.prefsEditorLoader", {
+        gradeNames: ["fluid.prefs.settingsGetter", "fluid.prefs.initialModel", "fluid.viewComponent"],
+        defaultLocale: "en",
+        components: {
+            prefsEditor: {
+                priority: "last",
+                type: "fluid.prefs.prefsEditor",
+                createOnEvent: "onCreatePrefsEditorReady",
+                options: {
+                    members: {
+                        initialModel: "{prefsEditorLoader}.initialModel"
+                    },
+                    invokers: {
+                        getSettings: "{prefsEditorLoader}.getSettings"
+                    },
+                    listeners: {
+                        "onReady.boil": {
+                            listener: "{prefsEditorLoader}.events.onReady",
+                            args: ["{prefsEditorLoader}"]
+                        }
+                    }
+                }
+            },
+            templateLoader: {
+                type: "fluid.resourceLoader",
+                options: {
+                    events: {
+                        onResourcesLoaded: "{prefsEditorLoader}.events.onPrefsEditorTemplatesLoaded"
+                    }
+                }
+            },
+            messageLoader: {
+                type: "fluid.resourceLoader",
+                createOnEvent: "afterInitialSettingsFetched",
+                options: {
+                    defaultLocale: "{prefsEditorLoader}.options.defaultLocale",
+                    locale: "{prefsEditorLoader}.settings.preferences.locale",
+                    resourceOptions: {
+                        dataType: "json"
+                    },
+                    events: {
+                        onResourcesLoaded: "{prefsEditorLoader}.events.onPrefsEditorMessagesLoaded"
+                    }
+                }
+            }
+        },
+        listeners: {
+            "onCreate.getInitialSettings": {
+                listener: "fluid.prefs.prefsEditorLoader.getInitialSettings",
+                args: ["{that}"]
+            }
+        },
+        events: {
+            afterInitialSettingsFetched: null,
+            onPrefsEditorTemplatesLoaded: null,
+            onPrefsEditorMessagesLoaded: null,
+            onCreatePrefsEditorReady: {
+                events: {
+                    templateLoaded: "onPrefsEditorTemplatesLoaded",
+                    prefsEditorMessagesLoaded: "onPrefsEditorMessagesLoaded"
+                }
+            },
+            onReady: null
+        },
+        distributeOptions: {
+            "prefsEditorLoader.templateLoader": {
+                source: "{that}.options.templateLoader",
+                removeSource: true,
+                target: "{that &gt; templateLoader}.options"
+            },
+            "prefsEditorLoader.templateLoader.terms": {
+                source: "{that}.options.terms",
+                target: "{that &gt; templateLoader}.options.terms"
+            },
+            "prefsEditorLoader.messageLoader": {
+                source: "{that}.options.messageLoader",
+                removeSource: true,
+                target: "{that &gt; messageLoader}.options"
+            },
+            "prefsEditorLoader.messageLoader.terms": {
+                source: "{that}.options.terms",
+                target: "{that &gt; messageLoader}.options.terms"
+            },
+            "prefsEditorLoader.prefsEditor": {
+                source: "{that}.options.prefsEditor",
+                removeSource: true,
+                target: "{that &gt; prefsEditor}.options"
+            }
+        }
+    });
+&nbsp;
+    fluid.prefs.prefsEditorLoader.getInitialSettings = function (that) {
+        var promise = fluid.promise();
+        var fetchPromise = that.getSettings();
+        fetchPromise.then(function (savedSettings) {
+            that.settings = $.extend(true, {}, that.initialModel, savedSettings);
+            that.events.afterInitialSettingsFetched.fire(that.settings);
+        }, <span class="fstat-no" title="function not covered" >fu</span>nction (error) {
+<span class="cstat-no" title="statement not covered" >            fluid.log(fluid.logLevel.WARN, error);</span>
+<span class="cstat-no" title="statement not covered" >            that.settings = that.initialModel;</span>
+<span class="cstat-no" title="statement not covered" >            that.events.afterInitialSettingsFetched.fire(that.settings);</span>
+        });
+        fluid.promise.follow(fetchPromise, promise);
+        return promise;
+    };
+&nbsp;
+    // TODO: This mixin grade appears to be supplied manually by various test cases but no longer appears in
+    // the main configuration. We should remove the need for users to supply this - also the use of "defaultPanels" in fact
+    // refers to "starter panels"
+    fluid.defaults("fluid.prefs.transformDefaultPanelsOptions", {
+        // Do not supply "fluid.prefs.inline" here, since when this is used as a mixin for separatedPanel, it ends up displacing the
+        // more refined type of the prefsEditorLoader
+        gradeNames: ["fluid.viewComponent"],
+        distributeOptions: {
+            "transformDefaultPanelsOptions.textSize": {
+                source: "{that}.options.textSize",
+                removeSource: true,
+                target: "{that textSize}.options"
+            },
+            "transformDefaultPanelsOptions.lineSpace": {
+                source: "{that}.options.lineSpace",
+                removeSource: true,
+                target: "{that lineSpace}.options"
+            },
+            "transformDefaultPanelsOptions.textFont": {
+                source: "{that}.options.textFont",
+                removeSource: true,
+                target: "{that textFont}.options"
+            },
+            "transformDefaultPanelsOptions.contrast": {
+                source: "{that}.options.contrast",
+                removeSource: true,
+                target: "{that contrast}.options"
+            },
+            "transformDefaultPanelsOptions.layoutControls": {
+                source: "{that}.options.layoutControls",
+                removeSource: true,
+                target: "{that layoutControls}.options"
+            },
+            "transformDefaultPanelsOptions.enhanceInputs": {
+                source: "{that}.options.enhanceInputs",
+                removeSource: true,
+                target: "{that enhanceInputs}.options"
+            }
+        }
+    });
+&nbsp;
+    /**********************
+     * Preferences Editor *
+     **********************/
+&nbsp;
+    fluid.defaults("fluid.prefs.settingsGetter", {
+        gradeNames: ["fluid.component"],
+        members: {
+            getSettings: "{fluid.prefs.store}.get"
+        }
+    });
+&nbsp;
+    fluid.defaults("fluid.prefs.settingsSetter", {
+        gradeNames: ["fluid.component"],
+        invokers: {
+            setSettings: {
+                funcName: "fluid.prefs.settingsSetter.setSettings",
+                args: ["{arguments}.0", "{arguments}.1", "{fluid.prefs.store}.set"]
+            }
+        }
+    });
+&nbsp;
+    fluid.prefs.settingsSetter.setSettings = function (model, directModel, set) {
+        var userSettings = fluid.copy(model);
+        return set(directModel, userSettings);
+    };
+&nbsp;
+    fluid.defaults("fluid.prefs.uiEnhancerRelay", {
+        gradeNames: ["fluid.modelComponent"],
+        listeners: {
+            "onCreate.addListener": "{that}.addListener",
+            "onDestroy.removeListener": "{that}.removeListener"
+        },
+        events: {
+            updateEnhancerModel: "{fluid.prefs.prefsEditor}.events.onUpdateEnhancerModel"
+        },
+        invokers: {
+            addListener: {
+                funcName: "fluid.prefs.uiEnhancerRelay.addListener",
+                args: ["{that}.events.updateEnhancerModel", "{that}.updateEnhancerModel"]
+            },
+            removeListener: {
+                funcName: "fluid.prefs.uiEnhancerRelay.removeListener",
+                args: ["{that}.events.updateEnhancerModel", "{that}.updateEnhancerModel"]
+            },
+            updateEnhancerModel: {
+                funcName: "fluid.prefs.uiEnhancerRelay.updateEnhancerModel",
+                args: ["{uiEnhancer}", "{fluid.prefs.prefsEditor}.model.preferences"]
+            }
+        }
+    });
+&nbsp;
+    fluid.prefs.uiEnhancerRelay.addListener = function (modelChanged, listener) {
+        modelChanged.addListener(listener);
+    };
+&nbsp;
+    fluid.prefs.uiEnhancerRelay.removeListener = function (modelChanged, listener) {
+        modelChanged.removeListener(listener);
+    };
+&nbsp;
+    fluid.prefs.uiEnhancerRelay.updateEnhancerModel = function (uiEnhancer, newModel) {
+        uiEnhancer.updateModel(newModel);
+    };
+&nbsp;
+    /**
+     * A component that works in conjunction with the UI Enhancer component
+     * to allow users to set personal user interface preferences. The Preferences Editor component provides a user
+     * interface for setting and saving personal preferences, and the UI Enhancer component carries out the
+     * work of applying those preferences to the user interface.
+     *
+     * @param container {Object}
+     * @param options {Object}
+     */
+    fluid.defaults("fluid.prefs.prefsEditor", {
+        gradeNames: ["fluid.prefs.settingsGetter", "fluid.prefs.settingsSetter", "fluid.prefs.initialModel", "fluid.remoteModelComponent", "fluid.viewComponent"],
+        invokers: {
+            /**
+             * Updates the change applier and fires modelChanged on subcomponent fluid.prefs.controls
+             *
+             * @param newModel {Object}
+             * @param source {Object}
+             */
+            fetchImpl: {
+                funcName: "fluid.prefs.prefsEditor.fetchImpl",
+                args: ["{that}"]
+            },
+            writeImpl: {
+                funcName: "fluid.prefs.prefsEditor.writeImpl",
+                args: ["{that}", "{arguments}.0"]
+            },
+            applyChanges: {
+                funcName: "fluid.prefs.prefsEditor.applyChanges",
+                args: ["{that}"]
+            },
+            save: {
+                funcName: "fluid.prefs.prefsEditor.save",
+                args: ["{that}"]
+            },
+            saveAndApply: {
+                funcName: "fluid.prefs.prefsEditor.saveAndApply",
+                args: ["{that}"]
+            },
+            reset: {
+                funcName: "fluid.prefs.prefsEditor.reset",
+                args: ["{that}"]
+            },
+            cancel: {
+                funcName: "fluid.prefs.prefsEditor.cancel",
+                args: ["{that}"]
+            }
+        },
+        selectors: {
+            panels: ".flc-prefsEditor-panel",
+            cancel: ".flc-prefsEditor-cancel",
+            reset: ".flc-prefsEditor-reset",
+            save: ".flc-prefsEditor-save",
+            previewFrame : ".flc-prefsEditor-preview-frame"
+        },
+        events: {
+            onSave: null,
+            onCancel: null,
+            beforeReset: null,
+            afterReset: null,
+            onAutoSave: null,
+            modelChanged: null,
+            onPrefsEditorRefresh: null,
+            onUpdateEnhancerModel: null,
+            onPrefsEditorMarkupReady: null,
+            onReady: null
+        },
+        listeners: {
+            "onCreate.init": "fluid.prefs.prefsEditor.init",
+            "onAutoSave.save": "{that}.save",
+            // Using afterWrite to update the remote model is a temporary fix until
+            // FLUID-6257 (https://issues.fluidproject.org/browse/FLUID-6257) is addressed.
+            "afterWrite.postFetch": {
+                func: "{that}.fetch",
+                priority: "after:unblock"
+            }
+        },
+        model: {
+            local: {
+                preferences: "{that}.model.preferences"
+            }
+        },
+        modelListeners: {
+            "preferences": [{
+                listener: "fluid.prefs.prefsEditor.handleAutoSave",
+                args: ["{that}"],
+                namespace: "autoSave"
+            }, {
+                listener: "{that}.events.modelChanged.fire",
+                args: ["{change}.value"],
+                namespace: "modelChange"
+            }]
+        },
+        resources: {
+            template: "{templateLoader}.resources.prefsEditor"
+        },
+        autoSave: false
+    });
+&nbsp;
+    /*
+     * Refresh PrefsEditor
+     */
+    fluid.prefs.prefsEditor.applyChanges = function (that) {
+        that.events.onUpdateEnhancerModel.fire();
+    };
+&nbsp;
+    fluid.prefs.prefsEditor.fetchImpl = function (that) {
+        var promise = fluid.promise(),
+            fetchPromise = that.getSettings();
+&nbsp;
+        fetchPromise.then(function (savedModel) {
+            var completeModel = $.extend(true, {}, that.initialModel, savedModel);
+            promise.resolve(completeModel);
+        }, promise.reject);
+&nbsp;
+        return promise;
+    };
+&nbsp;
+    fluid.prefs.prefsEditor.writeImpl = function (that, modelToSave) {
+        var promise = fluid.promise(),
+            stats = {changes: 0, unchanged: 0, changeMap: {}},
+            changedPrefs = {};
+&nbsp;
+        modelToSave = fluid.copy(modelToSave);
+&nbsp;
+        // To address https://issues.fluidproject.org/browse/FLUID-4686
+        fluid.model.diff(modelToSave.preferences, fluid.get(that.initialModel, ["preferences"]), stats);
+&nbsp;
+        if (stats.changes === 0) {
+            delete modelToSave.preferences;
+        } else {
+            fluid.each(stats.changeMap, function (state, pref) {
+                fluid.set(changedPrefs, pref, modelToSave.preferences[pref]);
+            });
+            modelToSave.preferences = changedPrefs;
+        }
+&nbsp;
+        that.events.onSave.fire(modelToSave);
+        var setPromise = that.setSettings(modelToSave);
+&nbsp;
+        fluid.promise.follow(setPromise, promise);
+        return promise;
+    };
+&nbsp;
+    /**
+     * Sends the prefsEditor.model to the store and fires onSave
+     * @param {Object} that: A fluid.prefs.prefsEditor instance
+     * @return {Promise} A promise that will be resolved with the saved model or rejected on error.
+     */
+    fluid.prefs.prefsEditor.save = function (that) {
+        var promise = fluid.promise();
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!that.model || $.isEmptyObject(that.model)) {  // Don't save a reset model
+<span class="cstat-no" title="statement not covered" >            promise.resolve({});</span>
+        } else {
+            var writePromise = that.write();
+            fluid.promise.follow(writePromise, promise);
+        }
+&nbsp;
+        return promise;
+    };
+&nbsp;
+    fluid.prefs.prefsEditor.saveAndApply = function (that) {
+        var promise = fluid.promise();
+        var prevSettingsPromise = that.getSettings(),
+            savePromise = that.save();
+&nbsp;
+        prevSettingsPromise.then(function (prevSettings) {
+            savePromise.then(function (changedSelections) {
+                // Only when preferences are changed, re-render panels and trigger enactors to apply changes
+                if (!fluid.model.diff(fluid.get(changedSelections, "preferences"), fluid.get(prevSettings, "preferences"))) {
+                    that.events.onPrefsEditorRefresh.fire();
+                    that.applyChanges();
+                }
+            });
+            fluid.promise.follow(savePromise, promise);
+        });
+&nbsp;
+        return promise;
+    };
+&nbsp;
+    /*
+     * Resets the selections to the integrator's defaults and fires afterReset
+     */
+    fluid.prefs.prefsEditor.reset = function (that) {
+        var transaction = that.applier.initiate();
+        that.events.beforeReset.fire(that);
+        transaction.fireChangeRequest({path: "preferences", type: "DELETE"});
+        transaction.change("", fluid.copy(that.initialModel));
+        transaction.commit();
+        that.events.onPrefsEditorRefresh.fire();
+        that.events.afterReset.fire(that);
+    };
+&nbsp;
+    /*
+     * Resets the selections to the last saved selections and fires onCancel
+     */
+    fluid.prefs.prefsEditor.cancel = function (that) {
+        that.events.onCancel.fire();
+        var fetchPromise = that.fetch();
+        fetchPromise.then(function () {
+            var transaction = that.applier.initiate();
+            transaction.fireChangeRequest({path: "preferences", type: "DELETE"});
+            transaction.change("", that.model.remote);
+            transaction.commit();
+            that.events.onPrefsEditorRefresh.fire();
+        });
+    };
+&nbsp;
+    // called once markup is applied to the document containing tab component roots
+    fluid.prefs.prefsEditor.finishInit = function (that) {
+        var bindHandlers = function (that) {
+            var saveButton = that.locate("save");
+            if (saveButton.length &gt; 0) {
+                saveButton.click(that.saveAndApply);
+                var form = fluid.findForm(saveButton);
+                $(form).submit(<span class="fstat-no" title="function not covered" >fu</span>nction () {
+<span class="cstat-no" title="statement not covered" >                    that.saveAndApply();</span>
+                });
+            }
+            that.locate("reset").click(that.reset);
+            that.locate("cancel").click(that.cancel);
+        };
+&nbsp;
+        that.container.append(that.options.resources.template.resourceText);
+        bindHandlers(that);
+&nbsp;
+        var fetchPromise = that.fetch();
+        fetchPromise.then(function () {
+            that.events.onPrefsEditorMarkupReady.fire();
+            that.events.onPrefsEditorRefresh.fire();
+            that.applyChanges();
+            that.events.onReady.fire(that);
+&nbsp;
+        });
+    };
+&nbsp;
+    fluid.prefs.prefsEditor.handleAutoSave = function (that) {
+        if (that.options.autoSave) {
+            that.events.onAutoSave.fire();
+        }
+    };
+&nbsp;
+    fluid.prefs.prefsEditor.init = function (that) {
+        // This setTimeout is to ensure that fetching of resources is asynchronous,
+        // and so that component construction does not run ahead of subcomponents for SeparatedPanel
+        // (FLUID-4453 - this may be a replacement for a branch removed for a FLUID-2248 fix)
+        setTimeout(function () {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (!fluid.isDestroyed(that)) {
+                fluid.prefs.prefsEditor.finishInit(that);
+            }
+        }, 1);
+    };
+&nbsp;
+    /******************************
+     * Preferences Editor Preview *
+     ******************************/
+&nbsp;
+    fluid.defaults("fluid.prefs.preview", {
+        gradeNames: ["fluid.viewComponent"],
+        components: {
+            enhancer: {
+                type: "fluid.uiEnhancer",
+                container: "{preview}.enhancerContainer",
+                createOnEvent: "onReady"
+            },
+            templateLoader: "{templateLoader}"
+        },
+        invokers: {
+            updateModel: {
+                funcName: "fluid.prefs.preview.updateModel",
+                args: [
+                    "{preview}",
+                    "{prefsEditor}.model.preferences"
+                ]
+            }
+        },
+        events: {
+            onReady: null
+        },
+        listeners: {
+            "onCreate.startLoadingContainer": "fluid.prefs.preview.startLoadingContainer",
+            "{prefsEditor}.events.modelChanged": {
+                listener: "{that}.updateModel",
+                namespace: "updateModel"
+            },
+            "onReady.updateModel": "{that}.updateModel"
+        },
+        templateUrl: "%prefix/PrefsEditorPreview.html"
+    });
+&nbsp;
+    fluid.prefs.preview.updateModel = function (that, preferences) {
+        /**
+         * SetTimeout is temp fix for http://issues.fluidproject.org/browse/FLUID-2248
+         */
+        setTimeout(function () {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (that.enhancer) {
+                that.enhancer.updateModel(preferences);
+            }
+        }, 0);
+    };
+&nbsp;
+    fluid.prefs.preview.startLoadingContainer = function (that) {
+        var templateUrl = that.templateLoader.transformURL(that.options.templateUrl);
+        that.container.on("load", function () {
+            that.enhancerContainer = $("body", that.container.contents());
+            that.events.onReady.fire();
+        });
+        that.container.attr("src", templateUrl);
+    };
+&nbsp;
+})(jQuery, fluid_3_0_0);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Apr 19 2018 20:08:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

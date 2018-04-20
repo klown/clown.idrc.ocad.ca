@@ -1,0 +1,2000 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/reorderer/js/GeometricManager.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">components/reorderer/js</a> GeometricManager.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.6% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>293/327</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.93% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>204/232</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.62% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>33/39</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.57% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>292/326</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">456x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">570x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">376x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">1001x</span>
+<span class="cline-any cline-yes">1001x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1001x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">997x</span>
+<span class="cline-any cline-yes">436x</span>
+<span class="cline-any cline-yes">1078x</span>
+<span class="cline-any cline-yes">436x</span>
+<span class="cline-any cline-yes">205x</span>
+<span class="cline-any cline-yes">205x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">436x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">561x</span>
+<span class="cline-any cline-yes">561x</span>
+<span class="cline-any cline-yes">1144x</span>
+<span class="cline-any cline-yes">561x</span>
+<span class="cline-any cline-yes">221x</span>
+<span class="cline-any cline-yes">221x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">561x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">218x</span>
+<span class="cline-any cline-yes">168x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">218x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-yes">122x</span>
+<span class="cline-any cline-yes">382x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">122x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">109x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">243x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-yes">35424x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28856x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-yes">6700x</span>
+<span class="cline-any cline-yes">6700x</span>
+<span class="cline-any cline-yes">6700x</span>
+<span class="cline-any cline-yes">6700x</span>
+<span class="cline-any cline-yes">6700x</span>
+<span class="cline-any cline-yes">6568x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6700x</span>
+<span class="cline-any cline-yes">6700x</span>
+<span class="cline-any cline-yes">6700x</span>
+<span class="cline-any cline-yes">6700x</span>
+<span class="cline-any cline-yes">218x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6700x</span>
+<span class="cline-any cline-yes">549x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6700x</span>
+<span class="cline-any cline-yes">549x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6700x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-yes">941x</span>
+<span class="cline-any cline-yes">941x</span>
+<span class="cline-any cline-yes">941x</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">941x</span>
+<span class="cline-any cline-yes">218x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">142x</span>
+<span class="cline-any cline-yes">142x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">142x</span>
+<span class="cline-any cline-yes">142x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">142x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">142x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">250x</span>
+<span class="cline-any cline-yes">250x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">566x</span>
+<span class="cline-any cline-yes">566x</span>
+<span class="cline-any cline-yes">566x</span>
+<span class="cline-any cline-yes">124x</span>
+<span class="cline-any cline-yes">124x</span>
+<span class="cline-any cline-yes">1126x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">566x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">7436x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">1098x</span>
+<span class="cline-any cline-yes">1098x</span>
+<span class="cline-any cline-yes">1098x</span>
+<span class="cline-any cline-yes">1098x</span>
+<span class="cline-any cline-yes">1098x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1098x</span>
+<span class="cline-any cline-yes">1098x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-yes">14280x</span>
+<span class="cline-any cline-yes">385138x</span>
+<span class="cline-any cline-yes">385138x</span>
+<span class="cline-any cline-yes">385138x</span>
+<span class="cline-any cline-yes">238x</span>
+<span class="cline-any cline-yes">238x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-yes">6482x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13400x</span>
+<span class="cline-any cline-yes">13400x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13256x</span>
+<span class="cline-any cline-yes">983x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12273x</span>
+<span class="cline-any cline-yes">12273x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">262x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">262x</span>
+<span class="cline-any cline-yes">262x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">262x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">252x</span>
+<span class="cline-any cline-yes">252x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">154x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">154x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">154x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">28304x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28304x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28304x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">582x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8136x</span>
+<span class="cline-any cline-yes">8136x</span>
+<span class="cline-any cline-yes">8136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8136x</span>
+<span class="cline-any cline-yes">871x</span>
+<span class="cline-any cline-yes">183x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">688x</span>
+<span class="cline-any cline-yes">688x</span>
+<span class="cline-any cline-yes">688x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-yes">4116x</span>
+<span class="cline-any cline-yes">4116x</span>
+<span class="cline-any cline-yes">4116x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4116x</span>
+<span class="cline-any cline-yes">96x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4020x</span>
+<span class="cline-any cline-yes">4020x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">194x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+Copyright 2008-2010 University of Cambridge
+Copyright 2008-2010 University of Toronto
+Copyright 2010-2016 OCAD University
+Copyright 2010 Lucendo Development Ltd.
+Copyright 2012 Raising the Floor - US
+Copyright 2014 Raising the Floor - International
+&nbsp;
+Licensed under the Educational Community License (ECL), Version 2.0 or the New
+BSD license. You may not use this file except in compliance with one these
+Licenses.
+&nbsp;
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
+*/
+&nbsp;
+var fluid_3_0_0 = fluid_3_0_0 || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+&nbsp;
+(function ($, fluid) {
+    "use strict";
+&nbsp;
+    fluid.orientation = {
+        HORIZONTAL: 4,
+        VERTICAL: 1
+    };
+&nbsp;
+    fluid.rectSides = {
+        // agree with fluid.orientation
+        4: ["left", "right"],
+        1: ["top", "bottom"],
+        // agree with fluid.direction
+        8: "top",
+        12: "bottom",
+        2: "left",
+        3: "right"
+    };
+&nbsp;
+    /**
+     * This is the position, relative to a given drop target, that a dragged item should be dropped.
+     */
+    fluid.position = {
+        BEFORE: -1,
+        AFTER: 1,
+        INSIDE: 2,
+        REPLACE: 3
+    };
+&nbsp;
+    /**
+     * For incrementing/decrementing a count or index, or moving in a rectilinear direction.
+     */
+    fluid.direction = {
+        NEXT: 1,
+        PREVIOUS: -1,
+        UP: 8,
+        DOWN: 12,
+        LEFT: 2,
+        RIGHT: 3
+    };
+&nbsp;
+    fluid.directionSign = function (direction) {
+        return direction === fluid.direction.UP || direction === fluid.direction.LEFT ?
+            fluid.direction.PREVIOUS : fluid.direction.NEXT;
+    };
+&nbsp;
+    fluid.directionAxis = function (direction) {
+        return direction === fluid.direction.LEFT || direction === fluid.direction.RIGHT ?
+            0 : 1;
+    };
+&nbsp;
+    fluid.directionOrientation = function (direction) {
+        return fluid.directionAxis(direction) ? fluid.orientation.VERTICAL : fluid.orientation.HORIZONTAL;
+    };
+&nbsp;
+    fluid.keycodeDirection = {
+        up: fluid.direction.UP,
+        down: fluid.direction.DOWN,
+        left: fluid.direction.LEFT,
+        right: fluid.direction.RIGHT
+    };
+&nbsp;
+    fluid.registerNamespace("fluid.dom");
+&nbsp;
+    // moves a single node in the DOM to a new position relative to another
+    // unsupported, NON-API function
+    fluid.dom.moveDom = function (source, target, position) {
+        source = fluid.unwrap(source);
+        target = fluid.unwrap(target);
+&nbsp;
+        var scan;
+        // fluid.log("moveDom source " + fluid.dumpEl(source) + " target " + fluid.dumpEl(target) + " position " + position);
+        if (position === fluid.position.INSIDE) {
+            target.appendChild(source);
+        } else if (position === fluid.position.BEFORE) {
+            for (scan = target.previousSibling;; scan = scan.previousSibling) {
+                if (!scan || !fluid.dom.isIgnorableNode(scan)) {
+                    if (scan !== source) {
+                        fluid.dom.cleanseScripts(source);
+                        target.parentNode.insertBefore(source, target);
+                    }
+                    break;
+                }
+            }
+        } else <span class="missing-if-branch" title="else path not taken" >E</span>if (position === fluid.position.AFTER) {
+            for (scan = target.nextSibling;; scan = scan.nextSibling) {
+                if (!scan || !fluid.dom.isIgnorableNode(scan)) {
+                    if (scan !== source) {
+                        fluid.dom.cleanseScripts(source);
+                        fluid.dom.insertAfter(source, target);
+                    }
+                    break;
+                }
+            }
+        } else {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("Unrecognised position supplied to fluid.moveDom: " + position);</span>
+        }
+    };
+&nbsp;
+    // unsupported, NON-API function
+    fluid.dom.normalisePosition = function (position, samespan, targeti, sourcei) {
+        // convert a REPLACE into a primitive BEFORE/AFTER
+        if (position === fluid.position.REPLACE) {
+            position = samespan &amp;&amp; targeti &gt;= sourcei ? fluid.position.AFTER : fluid.position.BEFORE;
+        }
+        return position;
+    };
+&nbsp;
+    fluid.dom.permuteDom = function (element, target, position, sourceelements, targetelements) {
+        element = fluid.unwrap(element);
+        target = fluid.unwrap(target);
+        var sourcei = $.inArray(element, sourceelements);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (sourcei === -1) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("Error in permuteDom: source element " + fluid.dumpEl(element) +</span>
+                " not found in source list " + fluid.dumpEl(sourceelements));
+        }
+        var targeti = $.inArray(target, targetelements);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (targeti === -1) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("Error in permuteDom: target element " + fluid.dumpEl(target) +</span>
+                " not found in source list " + fluid.dumpEl(targetelements));
+        }
+        var samespan = sourceelements === targetelements;
+        position = fluid.dom.normalisePosition(position, samespan, targeti, sourcei);
+&nbsp;
+        //fluid.log("permuteDom sourcei " + sourcei + " targeti " + targeti);
+        // cache the old neighbourhood of the element for the final move
+        var oldn = {};
+        oldn[fluid.position.AFTER] = element.nextSibling;
+        oldn[fluid.position.BEFORE] = element.previousSibling;
+        fluid.dom.moveDom(sourceelements[sourcei], targetelements[targeti], position);
+&nbsp;
+        // perform the leftward-moving, AFTER shift
+        var frontlimit = samespan ? targeti - 1 : sourceelements.length - 2;
+        var i;
+        if (position === fluid.position.BEFORE &amp;&amp; samespan) {
+            // we cannot do skip processing if the element was "fused against the grain"
+            frontlimit--;
+        }
+        if (!samespan || targeti &gt; sourcei) {
+            for (i = frontlimit; i &gt; sourcei; --i) {
+                fluid.dom.moveDom(sourceelements[i + 1], sourceelements[i], fluid.position.AFTER);
+            }
+            if (sourcei + 1 &lt; sourceelements.length) {
+                fluid.dom.moveDom(sourceelements[sourcei + 1], oldn[fluid.position.AFTER], fluid.position.BEFORE);
+            }
+        }
+        // perform the rightward-moving, BEFORE shift
+        var backlimit = samespan ? sourcei - 1 : targetelements.length - 1;
+        if (position === fluid.position.AFTER) {
+            // we cannot do skip processing if the element was "fused against the grain"
+            targeti++;
+        }
+        if (!samespan || targeti &lt; sourcei) {
+            for (i = targeti; i &lt; backlimit; ++i) {
+                fluid.dom.moveDom(targetelements[i], targetelements[i + 1], fluid.position.BEFORE);
+            }
+            if (backlimit &gt;= 0 &amp;&amp; backlimit &lt; targetelements.length - 1) {
+                fluid.dom.moveDom(targetelements[backlimit], oldn[fluid.position.BEFORE], fluid.position.AFTER);
+            }
+        }
+&nbsp;
+    };
+&nbsp;
+    var curCss = function (a, name) {
+        return window.getComputedStyle ? window.getComputedStyle(a, null).getPropertyValue(name) :
+<span class="branch-1 cbranch-no" title="branch not covered" >            a.currentStyle[name];</span>
+    };
+&nbsp;
+    fluid.dom.isAttached = function (node) {
+        while (node &amp;&amp; node.nodeName) {
+            if (node.nodeName === "BODY") {
+                return true;
+            }
+            node = node.parentNode;
+        }
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+    };
+&nbsp;
+    fluid.dom.generalHidden = function (a) {
+        return "hidden" === a.type || curCss(a, "display") === "none" || curCss(a, "visibility") === "hidden" || !fluid.dom.isAttached(a);
+    };
+&nbsp;
+    fluid.registerNamespace("fluid.geometricManager");
+&nbsp;
+    fluid.geometricManager.computeGeometry = function (element, orientation, disposition) {
+        var elem = {};
+        elem.element = element;
+        elem.orientation = orientation;
+        if (disposition === fluid.position.INSIDE) {
+            elem.position = disposition;
+        }
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (fluid.dom.generalHidden(element)) {
+<span class="cstat-no" title="statement not covered" >            elem.clazz = "hidden";</span>
+        }
+        var pos = fluid.dom.computeAbsolutePosition(element) || [0, 0];
+        var width = element.offsetWidth;
+        var height = element.offsetHeight;
+        elem.rect = {left: pos[0], top: pos[1]};
+        elem.rect.right = pos[0] + width;
+        elem.rect.bottom = pos[1] + height;
+        return elem;
+    };
+&nbsp;
+    // A "suitable large" value for the sentinel blocks at the ends of spans
+    var SENTINEL_DIMENSION = 10000;
+&nbsp;
+    fluid.geometricManager.dumprect = <span class="fstat-no" title="function not covered" >fu</span>nction (rect) {
+<span class="cstat-no" title="statement not covered" >        return "Rect top: " + rect.top +</span>
+                 " left: " + rect.left +
+               " bottom: " + rect.bottom +
+                " right: " + rect.right;
+    };
+&nbsp;
+    fluid.geometricManager.dumpelem = <span class="fstat-no" title="function not covered" >fu</span>nction (cacheelem) {
+<span class="cstat-no" title="statement not covered" >        if (!cacheelem || !cacheelem.rect) {</span>
+<span class="cstat-no" title="statement not covered" >            return "null";</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            return fluid.geometricManager.dumprect(cacheelem.rect) + " position: " +</span>
+                cacheelem.position +
+                " for " +
+                fluid.dumpEl(cacheelem.element);
+        }
+    };
+&nbsp;
+&nbsp;
+    // unsupported, NON-API function
+    fluid.dropManager = function () {
+        var targets = [];
+        var cache = {};
+        var that = {};
+&nbsp;
+        var lastClosest;
+        var lastGeometry;
+        var displacementX, displacementY;
+&nbsp;
+        that.updateGeometry = function (geometricInfo) {
+            lastGeometry = geometricInfo;
+            targets = [];
+            cache = {};
+            var mapper = geometricInfo.elementMapper;
+            var geometryComputor = geometricInfo.geometryComputor || fluid.geometricManager.computeGeometry;
+&nbsp;
+            var processElement = function (element, extent, sentB, sentF, disposition, index) {
+                var orientation = extent.orientation;
+                var sides = fluid.rectSides[orientation];
+                var cacheelem = geometryComputor(element, orientation, disposition);
+                cacheelem.owner = extent;
+                if (cacheelem.clazz !== "hidden" &amp;&amp; mapper) {
+                    cacheelem.clazz = mapper(element);
+                }
+                cache[fluid.dropManager.cacheKey(element)] = cacheelem;
+                var backClass = fluid.dropManager.getRelativeClass(extent.elements, index, fluid.position.BEFORE, cacheelem.clazz, mapper);
+                var frontClass = fluid.dropManager.getRelativeClass(extent.elements, index, fluid.position.AFTER, cacheelem.clazz, mapper);
+                if (disposition === fluid.position.INSIDE) {
+                    targets[targets.length] = cacheelem;
+                } else {
+                    fluid.dropManager.splitElement(targets, sides, cacheelem, disposition, backClass, frontClass);
+                }
+                // deal with sentinel blocks by creating near-copies of the end elements
+                if (sentB &amp;&amp; geometricInfo.sentinelize) {
+                    fluid.dropManager.sentinelizeElement(targets, sides, cacheelem, 1, disposition, backClass);
+                }
+                if (sentF &amp;&amp; geometricInfo.sentinelize) {
+                    fluid.dropManager.sentinelizeElement(targets, sides, cacheelem, 0, disposition, frontClass);
+                }
+                //fluid.log(dumpelem(cacheelem));
+                return cacheelem;
+            };
+&nbsp;
+            for (var i = 0; i &lt; geometricInfo.extents.length; ++i) {
+                var thisInfo = geometricInfo.extents[i];
+                var allHidden = true;
+                for (var j = 0; j &lt; thisInfo.elements.length; ++j) {
+                    var element = thisInfo.elements[j];
+                    var cacheelem = processElement(element, thisInfo, j === 0, j === thisInfo.elements.length - 1,
+                            fluid.position.INTERLEAVED, j);
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (cacheelem.clazz !== "hidden") {
+                        allHidden = false;
+                    }
+                }
+                if (allHidden &amp;&amp; thisInfo.parentElement) {
+                    processElement(thisInfo.parentElement, thisInfo, true, true, fluid.position.INSIDE);
+                }
+            }
+            fluid.dropManager.normalizeSentinels(targets);
+        };
+&nbsp;
+        that.startDrag = <span class="fstat-no" title="function not covered" >fu</span>nction (event, handlePos, handleWidth, handleHeight) {
+            var handleMidX = <span class="cstat-no" title="statement not covered" >handlePos[0] + handleWidth / 2;</span>
+            var handleMidY = <span class="cstat-no" title="statement not covered" >handlePos[1] + handleHeight / 2;</span>
+            var dX = <span class="cstat-no" title="statement not covered" >handleMidX - event.pageX;</span>
+            var dY = <span class="cstat-no" title="statement not covered" >handleMidY - event.pageY;</span>
+<span class="cstat-no" title="statement not covered" >            that.updateGeometry(lastGeometry);</span>
+<span class="cstat-no" title="statement not covered" >            lastClosest = null;</span>
+<span class="cstat-no" title="statement not covered" >            displacementX = dX;</span>
+<span class="cstat-no" title="statement not covered" >            displacementY = dY;</span>
+<span class="cstat-no" title="statement not covered" >            $("body").on("mousemove.fluid-dropManager", that.mouseMove);</span>
+        };
+&nbsp;
+        that.lastPosition = <span class="fstat-no" title="function not covered" >fu</span>nction () {
+<span class="cstat-no" title="statement not covered" >            return lastClosest;</span>
+        };
+&nbsp;
+        that.endDrag = <span class="fstat-no" title="function not covered" >fu</span>nction () {
+<span class="cstat-no" title="statement not covered" >            $("body").off("mousemove.fluid-dropManager");</span>
+        };
+&nbsp;
+        that.mouseMove = <span class="fstat-no" title="function not covered" >fu</span>nction (evt) {
+            var x = <span class="cstat-no" title="statement not covered" >evt.pageX + displacementX;</span>
+            var y = <span class="cstat-no" title="statement not covered" >evt.pageY + displacementY;</span>
+            //fluid.log("Mouse x " + x + " y " + y );
+&nbsp;
+            var closestTarget = <span class="cstat-no" title="statement not covered" >that.closestTarget(x, y, lastClosest);</span>
+<span class="cstat-no" title="statement not covered" >            if (closestTarget &amp;&amp; closestTarget !== fluid.dropManager.NO_CHANGE) {</span>
+<span class="cstat-no" title="statement not covered" >                lastClosest = closestTarget;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                that.dropChangeFirer.fire(closestTarget);</span>
+            }
+        };
+&nbsp;
+        that.dropChangeFirer = fluid.makeEventFirer();
+&nbsp;
+        var blankHolder = {
+            element: null
+        };
+&nbsp;
+        that.closestTarget = function (x, y, lastClosest) {
+            var mindistance = Number.MAX_VALUE;
+            var minelem = blankHolder;
+            var minlockeddistance = Number.MAX_VALUE;
+            var minlockedelem = blankHolder;
+            for (var i = 0; i &lt; targets.length; ++i) {
+                var cacheelem = targets[i];
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (cacheelem.clazz === "hidden") {
+<span class="cstat-no" title="statement not covered" >                    continue;</span>
+                }
+                var distance = fluid.geom.minPointRectangle(x, y, cacheelem.rect);
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (cacheelem.clazz === "locked") {
+<span class="cstat-no" title="statement not covered" >                    if (distance &lt; minlockeddistance) {</span>
+<span class="cstat-no" title="statement not covered" >                        minlockeddistance = distance;</span>
+<span class="cstat-no" title="statement not covered" >                        minlockedelem = cacheelem;</span>
+                    }
+                } else {
+                    if (distance &lt; mindistance) {
+                        mindistance = distance;
+                        minelem = cacheelem;
+                    }
+                    if (distance === 0) {
+                        break;
+                    }
+                }
+            }
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (!minelem) {
+<span class="cstat-no" title="statement not covered" >                return minelem;</span>
+            }
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (minlockeddistance &gt;= mindistance) {
+                minlockedelem = blankHolder;
+            }
+            //fluid.log("PRE: mindistance " + mindistance + " element " +
+            //   fluid.dumpEl(minelem.element) + " minlockeddistance " + minlockeddistance
+            //    + " locked elem " + dumpelem(minlockedelem));
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (lastClosest &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >lastClosest.position === minelem.position </span>&amp;&amp;
+<span class="branch-2 cbranch-no" title="branch not covered" >                    fluid.unwrap(lastClosest.element) === fluid.unwrap(minelem.element) </span>&amp;&amp;
+<span class="branch-3 cbranch-no" title="branch not covered" >                    fluid.unwrap(lastClosest.lockedelem) === fluid.unwrap(minlockedelem.element)</span>
+                    ) {
+<span class="cstat-no" title="statement not covered" >                return fluid.dropManager.NO_CHANGE;</span>
+            }
+            //fluid.log("mindistance " + mindistance + " minlockeddistance " + minlockeddistance);
+            return {
+                position: minelem.position,
+                element: minelem.element,
+                lockedelem: minlockedelem.element
+            };
+        };
+&nbsp;
+        that.shuffleProjectFrom = function (element, direction, includeLocked, disableWrap) {
+            var togo = that.projectFrom(element, direction, includeLocked, disableWrap);
+            if (togo) {
+                togo.position = fluid.position.REPLACE;
+            }
+            return togo;
+        };
+&nbsp;
+        that.projectFrom = function (element, direction, includeLocked, disableWrap) {
+            that.updateGeometry(lastGeometry);
+            var cacheelem = cache[fluid.dropManager.cacheKey(element)];
+            var projected = fluid.geom.projectFrom(cacheelem.rect, direction, targets, includeLocked, disableWrap);
+            if (!projected.cacheelem) {
+                return null;
+            }
+            var retpos = projected.cacheelem.position;
+            return {element: projected.cacheelem.element,
+                     position: retpos ? retpos : <span class="branch-1 cbranch-no" title="branch not covered" >fluid.position.BEFORE</span>
+                     };
+        };
+&nbsp;
+        that.logicalFrom = function (element, direction, includeLocked, disableWrap) {
+            var orderables = that.getOwningSpan(element, fluid.position.INTERLEAVED, includeLocked);
+            return {element: fluid.dropManager.getRelativeElement(element, direction, orderables, disableWrap),
+                position: fluid.position.REPLACE};
+        };
+&nbsp;
+        that.lockedWrapFrom = function (element, direction, includeLocked, disableWrap) {
+            var base = that.logicalFrom(element, direction, includeLocked, disableWrap);
+            var selectables = that.getOwningSpan(element, fluid.position.INTERLEAVED, includeLocked);
+            var allElements = cache[fluid.dropManager.cacheKey(element)].owner.elements;
+            if (includeLocked || selectables[0] === allElements[0]) {
+                return base;
+            }
+            var directElement = fluid.dropManager.getRelativeElement(element, direction, allElements, disableWrap);
+            if (lastGeometry.elementMapper(directElement) === "locked") {
+                base.element = null;
+                base.clazz = "locked";
+            }
+            return base;
+        };
+&nbsp;
+        that.getOwningSpan = function (element, position, includeLocked) {
+            var owner = cache[fluid.dropManager.cacheKey(element)].owner;
+            var elements = position === fluid.position.INSIDE ? [owner.parentElement] : owner.elements;
+            if (!includeLocked &amp;&amp; lastGeometry.elementMapper) {
+                elements = fluid.makeArray(elements);
+                fluid.remove_if(elements, function (element) {
+                    return lastGeometry.elementMapper(element) === "locked";
+                });
+            }
+            return elements;
+        };
+&nbsp;
+        that.geometricMove = function (element, target, position) {
+            var sourceElements = that.getOwningSpan(element, null, true);
+            var targetElements = that.getOwningSpan(target, position, true);
+            fluid.dom.permuteDom(element, target, position, sourceElements, targetElements);
+        };
+&nbsp;
+        return that;
+    };
+&nbsp;
+&nbsp;
+    fluid.dropManager.NO_CHANGE = "no change";
+&nbsp;
+    fluid.dropManager.cacheKey = function (element) {
+        return fluid.allocateSimpleId(element);
+    };
+&nbsp;
+    fluid.dropManager.sentinelizeElement = function (targets, sides, cacheelem, fc, disposition, clazz) {
+        var elemCopy = $.extend(true, {}, cacheelem);
+        elemCopy.origRect = fluid.copy(elemCopy.rect);
+        elemCopy.rect[sides[fc]] = elemCopy.rect[sides[1 - fc]] + (fc ? 1 : -1);
+        elemCopy.rect[sides[1 - fc]] = (fc ? -1 : 1) * SENTINEL_DIMENSION;
+        elemCopy.position = disposition === fluid.position.INSIDE ?
+            disposition : (fc ? fluid.position.BEFORE : fluid.position.AFTER);
+        elemCopy.clazz = clazz;
+        targets[targets.length] = elemCopy;
+    };
+&nbsp;
+    // This function is necessary to prevent overlapping sentinels for FLUID-4692
+    // Very sadly this simple implementation now makes the setup O(n^2) in the number of elements
+&nbsp;
+    fluid.dropManager.normalizeSentinels = function (targets) {
+        for (var i = 0; i &lt; targets.length; ++i) {
+            for (var j = 0; j &lt; targets.length; ++j) {
+                var ti = targets[i], tj = targets[j];
+                var jrect = tj.origRect || tj.rect;
+                if (ti.element !== tj.element &amp;&amp; ti.origRect &amp;&amp; fluid.geom.minRectRect(ti.rect, jrect) === 0) {
+                    ti.rect = ti.origRect;
+                    delete ti.origRect;
+                }
+            }
+        }
+    };
+&nbsp;
+    fluid.dropManager.splitElement = function (targets, sides, cacheelem, disposition, clazz1, clazz2) {
+        var elem1 = $.extend(true, {}, cacheelem);
+        var elem2 = $.extend(true, {}, cacheelem);
+        var midpoint = (elem1.rect[sides[0]] + elem1.rect[sides[1]]) / 2;
+        elem1.rect[sides[1]] = midpoint;
+        elem1.position = fluid.position.BEFORE;
+&nbsp;
+        elem2.rect[sides[0]] = midpoint;
+        elem2.position = fluid.position.AFTER;
+&nbsp;
+        elem1.clazz = clazz1;
+        elem2.clazz = clazz2;
+        targets[targets.length] = elem1;
+        targets[targets.length] = elem2;
+    };
+&nbsp;
+    // Expand this configuration point if we ever go back to a full "permissions" model
+    fluid.dropManager.getRelativeClass = function (thisElements, index, relative, thisclazz, mapper) {
+        index += relative;
+        if (index &lt; 0 &amp;&amp; thisclazz === "locked") {
+            return "locked";
+        }
+        if (index &gt;= thisElements.length || mapper === null) {
+            return null;
+        } else {
+            relative = thisElements[index];
+            return mapper(relative) === "locked" &amp;&amp; thisclazz === "locked" ? "locked" : null;
+        }
+    };
+&nbsp;
+    fluid.dropManager.getRelativeElement = function (element, direction, elements, disableWrap) {
+        var folded = fluid.directionSign(direction);
+&nbsp;
+        var index = $(elements).index(element) + folded;
+        if (index &lt; 0) {
+            index += elements.length;
+        }
+&nbsp;
+        // disable wrap
+        if (disableWrap) {
+            if (index === elements.length || index === (elements.length + folded)) {
+                return element;
+            }
+        }
+&nbsp;
+        index %= elements.length;
+        return elements[index];
+    };
+&nbsp;
+    fluid.geom = fluid.geom || {};
+&nbsp;
+    // These distance algorithms have been taken from
+    // http://www.cs.mcgill.ca/~cs644/Godfried/2005/Fall/fzamal/concepts.htm
+&nbsp;
+    /* Returns the minimum squared distance between a point and a rectangle */
+    fluid.geom.minPointRectangle = function (x, y, rectangle) {
+        var dx = x &lt; rectangle.left ? (rectangle.left - x) :
+                  (x &gt; rectangle.right ? (x - rectangle.right) : 0);
+        var dy = y &lt; rectangle.top ? (rectangle.top - y) :
+                  (y &gt; rectangle.bottom ? (y - rectangle.bottom) : 0);
+        return dx * dx + dy * dy;
+    };
+&nbsp;
+    /* Returns the minimum squared distance between two rectangles */
+    fluid.geom.minRectRect = function (rect1, rect2) {
+        var dx = rect1.right &lt; rect2.left ? rect2.left - rect1.right :
+                 rect2.right &lt; rect1.left ? rect1.left - rect2.right : 0;
+        var dy = rect1.bottom &lt; rect2.top ? rect2.top - rect1.bottom :
+                 rect2.bottom &lt; rect1.top ? rect1.top - rect2.bottom : 0;
+        return dx * dx + dy * dy;
+    };
+&nbsp;
+    var makePenCollect = function () {
+        return {
+            mindist: Number.MAX_VALUE,
+            minrdist: Number.MAX_VALUE
+        };
+    };
+&nbsp;
+    /** Determine the one amongst a set of rectangle targets which is the "best fit"
+     * for an axial motion from a "base rectangle" (commonly arising from the case
+     * of cursor key navigation).
+     * @param {Rectangle} baserect - The base rectangle from which the motion is to be referred.
+     * @param {Object} direction  - The direction of motion, which should be an instance of fluid.direction.
+     * @param {Array} targets - An array of objects "cache elements" for which the member &lt;code&gt;rect&lt;/code&gt; is the
+     * holder of the rectangle to be tested.
+     * @param {Boolean} forSelection - Set to `true` to indicate that we are dealing with a selection.
+     * @param {Boolean} disableWrap - Set to `true` to disable wrapping of elements.
+     * @return {Object} - The cache element which is the most appropriate for the requested motion.
+     */
+    fluid.geom.projectFrom = function (baserect, direction, targets, forSelection, disableWrap) {
+        var axis = fluid.directionAxis(direction);
+        var frontSide = fluid.rectSides[direction];
+        var backSide = fluid.rectSides[axis * 15 + 5 - direction];
+        var dirSign = fluid.directionSign(direction);
+&nbsp;
+        var penrect = {left: (7 * baserect.left + 1 * baserect.right) / 8,
+                       right: (5 * baserect.left + 3 * baserect.right) / 8,
+                       top: (7 * baserect.top + 1 * baserect.bottom) / 8,
+                       bottom: (5 * baserect.top + 3 * baserect.bottom) / 8};
+&nbsp;
+        penrect[frontSide] = dirSign * SENTINEL_DIMENSION;
+        penrect[backSide] = -penrect[frontSide];
+&nbsp;
+        function accPen(collect, cacheelem, backSign) {
+            var thisrect = cacheelem.rect;
+            var pdist = fluid.geom.minRectRect(penrect, thisrect);
+            var rdist = -dirSign * backSign * (baserect[backSign === 1 ? frontSide : backSide] -
+                                                thisrect[backSign === 1 ? backSide : frontSide]);
+            // fluid.log("pdist: " + pdist + " rdist: " + rdist);
+            // the oddity in the rdist comparison is intended to express "half-open"-ness of rectangles
+            // (backSign === 1 ? 0 : 1) - this is now gone - must be possible to move to perpendicularly abutting regions
+            if (pdist &lt;= collect.mindist &amp;&amp; rdist &gt;= 0) {
+                if (pdist === collect.mindist &amp;&amp; rdist * backSign &gt; collect.minrdist) {
+                    return;
+                }
+                collect.minrdist = rdist * backSign;
+                collect.mindist = pdist;
+                collect.minelem = cacheelem;
+            }
+        }
+        var collect = makePenCollect();
+        var backcollect = makePenCollect();
+        var lockedcollect = makePenCollect();
+&nbsp;
+        for (var i = 0; i &lt; targets.length; ++i) {
+            var elem = targets[i];
+            var isPure = elem.owner &amp;&amp; elem.element === elem.owner.parentElement;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (elem.clazz === "hidden" || (forSelection &amp;&amp; isPure)) {
+<span class="cstat-no" title="statement not covered" >                continue;</span>
+            } else if (!forSelection &amp;&amp; elem.clazz === "locked") {
+                accPen(lockedcollect, elem, 1);
+            } else {
+                accPen(collect, elem, 1);
+                accPen(backcollect, elem, -1);
+            }
+            //fluid.log("Element " + i + " " + dumpelem(elem) + " mindist " + collect.mindist);
+        }
+        var wrap = !collect.minelem || backcollect.mindist &lt; collect.mindist;
+&nbsp;
+        // disable wrap
+        wrap = wrap &amp;&amp; !disableWrap;
+&nbsp;
+        var mincollect = wrap ? backcollect : collect;
+&nbsp;
+        var togo = {
+            wrapped: wrap,
+            cacheelem: mincollect.minelem
+        };
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (lockedcollect.mindist &lt; mincollect.mindist) {
+<span class="cstat-no" title="statement not covered" >            togo.lockedelem = lockedcollect.minelem;</span>
+        }
+        return togo;
+    };
+})(jQuery, fluid_3_0_0);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Apr 19 2018 20:08:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

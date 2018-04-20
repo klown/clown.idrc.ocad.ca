@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/overviewPanel/js/OverviewPanel.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">components/overviewPanel/js</a> OverviewPanel.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>24/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">83.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>5/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>9/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>24/24</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+Copyright 2014-2015 OCAD University
+&nbsp;
+Licensed under the Educational Community License (ECL), Version 2.0 or the New
+BSD license. You may not use this file except in compliance with one these
+Licenses.
+&nbsp;
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
+&nbsp;
+*/
+&nbsp;
+var fluid_3_0_0 = fluid_3_0_0 || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+&nbsp;
+(function ($, fluid) {
+&nbsp;
+    "use strict";
+&nbsp;
+    fluid.registerNamespace("fluid.overviewPanel");
+&nbsp;
+    fluid.overviewPanel.makeBooleanListener = function (that, selector, method, path, value) {
+        var elem = that.locate(selector);
+        elem[method](function (evt) {
+            that.applier.change(path, value === "toggle" ? !that.model[path] : value);
+            evt.preventDefault();
+        });
+    };
+&nbsp;
+    fluid.defaults("fluid.overviewPanel", {
+        gradeNames: ["fluid.rendererComponent"],
+        resources: {
+            template: {
+                href: "../html/overviewPanelTemplate.html"
+            }
+        },
+        listeners: {
+            "onCreate.setVisibility": "{that}.setVisibility",
+            "onCreate.showTemplate": "fluid.overviewPanel.showTemplate",
+            "afterRender.registerToggleListener": {
+                "funcName": "fluid.overviewPanel.makeBooleanListener",
+                "args": ["{that}", "toggleControl", "click", "showPanel", "toggle"]
+            },
+            "afterRender.registerCloseListener": {
+                "funcName": "fluid.overviewPanel.makeBooleanListener",
+                "args": ["{that}", "closeControl", "click", "showPanel", false]
+            },
+            "afterRender.setLinkHrefs": {
+                "funcName": "fluid.overviewPanel.setLinkHrefs",
+                "args": ["{that}", "{that}.options.links"]
+            },
+            "afterRender.setToggleControlAria": {
+                "this": "{that}.dom.toggleControl",
+                "method": "attr",
+                "args": {
+                    "role": "button",
+                    "aria-controls": "{that}.containerId"
+                }
+            },
+            "afterRender.setCloseControlAria": {
+                "this": "{that}.dom.closeControl",
+                "method": "attr",
+                "args": {
+                    "role": "button",
+                    "aria-label": "{that}.options.strings.closePanelLabel",
+                    "aria-controls": "{that}.containerId"
+                }
+            },
+            "afterRender.setAriaStates": "{that}.setAriaStates"
+        },
+        model: {
+            showPanel: true
+        },
+        modelListeners: {
+            "setVisibility": {
+                path: "showPanel",
+                func: "{that}.setVisibility"
+            },
+            "setAriaStates": {
+                path: "showPanel",
+                func: "{that}.setAriaStates"
+            }
+        },
+        members: {
+            containerId: {
+                expander: {
+                    // create an id for that.container, if it does not have one already,
+                    // and set that.containerId to the id value
+                    funcName: "fluid.allocateSimpleId",
+                    args: "{that}.container"
+                }
+            }
+        },
+        invokers: {
+            setVisibility: {
+                funcName: "fluid.overviewPanel.setVisibility",
+                args: ["{that}", "{that}.model.showPanel"]
+            },
+            setAriaStates: {
+                funcName: "fluid.overviewPanel.setAriaStates",
+                args: ["{that}", "{that}.model.showPanel"]
+            }
+        },
+        selectors: {
+            toggleControl: ".flc-overviewPanel-toggleControl",
+            titleBegin: ".flc-overviewPanel-title-begin",
+            titleLink: ".flc-overviewPanel-titleLink",
+            titleLinkText: ".flc-overviewPanel-title-linkText",
+            titleEnd: ".flc-overviewPanel-title-end",
+            componentName: ".flc-overviewPanel-componentName",
+            description: ".flc-overviewPanel-description",
+            instructionsHeading: ".flc-overviewPanel-instructionsHeading",
+            instructions: ".flc-overviewPanel-instructions",
+            demoCodeLink: ".flc-overviewPanel-demoCodeLink",
+            demoCodeLinkText: ".flc-overviewPanel-demoCodeLinkText",
+            infusionCodeLink: ".flc-overviewPanel-infusionCodeLink",
+            infusionCodeLinkText: ".flc-overviewPanel-infusionCodeLinkText",
+            apiLink: ".flc-overviewPanel-apiLink",
+            apiLinkText: ".flc-overviewPanel-apiLinkText",
+            designLink: ".flc-overviewPanel-designLink",
+            designLinkText: ".flc-overviewPanel-designLinkText",
+            feedbackText: ".flc-overviewPanel-feedbackText",
+            feedbackLink: ".flc-overviewPanel-feedbackLink",
+            feedbackLinkText: ".flc-overviewPanel-feedbackLinkText",
+            closeControl: ".flc-overviewPanel-closeControl",
+            closeText: ".flc-overviewPanel-closeText"
+        },
+        selectorsToIgnore: ["toggleControl", "titleLink", "demoCodeLink", "infusionCodeLink", "apiLink", "designLink", "feedbackLink", "closeControl"],
+        protoTree: {
+            titleBegin: {messagekey: "titleBegin"},
+            titleLinkText: {messagekey: "titleLinkText"},
+            titleEnd: {messagekey: "titleEnd"},
+            componentName: {messagekey: "componentName"},
+            description: {markup: "${{that}.options.markup.description}"},
+            instructionsHeading: {messagekey: "instructionsHeading"},
+            instructions: {markup: "${{that}.options.markup.instructions}"},
+            demoCodeLinkText: {messagekey: "demoCodeLinkText"},
+            infusionCodeLinkText: {messagekey: "infusionCodeLinkText"},
+            apiLinkText: {messagekey: "apiLinkText"},
+            designLinkText: {messagekey: "designLinkText"},
+            feedbackText: {messagekey: "feedbackText"},
+            feedbackLinkText: {messagekey: "feedbackLinkText"},
+            closeText: {messagekey: "closeText"}
+        },
+        styles: {
+            hidden: "fl-overviewPanel-hidden"
+        },
+        strings: {
+            titleBegin: "An",
+            titleLinkText: "Infusion",
+            titleEnd: "component demo",
+            componentName: "Component Name",
+            instructionsHeading: "Instructions",
+            demoCodeLinkText: "demo code",
+            infusionCodeLinkText: "get Infusion",
+            apiLinkText: "API",
+            designLinkText: "design",
+            feedbackText: "Found a bug? Have a question?",
+            feedbackLinkText: "Let us know!",
+            closeText: "close",
+            openPanelLabel: "Open the overview panel",
+            closePanelLabel: "Close the overview panel"
+        },
+        markup: {
+            description: "A description of the component should appear here. It should say: &lt;ul&gt;&lt;li&gt;What the component does.&lt;/li&gt;&lt;li&gt;Why it is interesting / useful.&lt;/li&gt;&lt;/ul&gt;",
+            instructions: "&lt;p&gt;Do this to do this. Do that to do that.&lt;/p&gt;"
+        },
+        links: {
+            titleLink: "http://fluidproject.org/infusion.html",
+            demoCodeLink: "#",
+            infusionCodeLink: "https://github.com/fluid-project/infusion/",
+            apiLink: "#",
+            designLink: "#",
+            feedbackLink: "#"
+        }
+    });
+&nbsp;
+    fluid.overviewPanel.setVisibility = function (that, showPanel) {
+        that.container.toggleClass(that.options.styles.hidden, !showPanel);
+    };
+&nbsp;
+    fluid.overviewPanel.showTemplate = function (that) {
+        fluid.fetchResources(that.options.resources, function () {
+            that.refreshView();
+        });
+    };
+&nbsp;
+    fluid.overviewPanel.setLinkHrefs = function (that, linkMap) {
+        fluid.each(linkMap, function (linkHref, selector) {
+            that.locate(selector).attr("href", linkHref);
+        });
+    };
+&nbsp;
+    fluid.overviewPanel.setAriaStates = function (that, showPanel) {
+        that.locate("toggleControl").attr("aria-pressed", !showPanel);
+        that.locate("toggleControl").attr("aria-expanded", showPanel);
+        that.locate("closeControl").attr("aria-expanded", showPanel);
+        if (showPanel) {
+            that.locate("toggleControl").attr("aria-label", that.options.strings.closePanelLabel);
+        } else {
+            that.locate("toggleControl").attr("aria-label", that.options.strings.openPanelLabel);
+        }
+    };
+&nbsp;
+})(jQuery, fluid_3_0_0);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Apr 19 2018 20:08:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

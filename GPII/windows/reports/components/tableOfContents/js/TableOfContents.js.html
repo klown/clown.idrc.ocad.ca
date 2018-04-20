@@ -1,0 +1,1202 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/tableOfContents/js/TableOfContents.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">components/tableOfContents/js</a> TableOfContents.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>91/91</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.91% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>20/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>21/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>91/91</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">154x</span>
+<span class="cline-any cline-yes">154x</span>
+<span class="cline-any cline-yes">304x</span>
+<span class="cline-any cline-yes">304x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">269x</span>
+<span class="cline-any cline-yes">119x</span>
+<span class="cline-any cline-yes">119x</span>
+<span class="cline-any cline-yes">79x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">269x</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">154x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">295x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">295x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">145x</span>
+<span class="cline-any cline-yes">145x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">145x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">139x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-yes">148x</span>
+<span class="cline-any cline-yes">148x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">148x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">148x</span>
+<span class="cline-any cline-yes">77x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">148x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+Copyright 2011-2016 OCAD University
+Copyright 2011 Lucendo Development Ltd.
+Copyright 2012 Raising the Floor - US
+Copyright 2015-2016 Raising the Floor - International
+&nbsp;
+Licensed under the Educational Community License (ECL), Version 2.0 or the New
+BSD license. You may not use this file except in compliance with one these
+Licenses.
+&nbsp;
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
+*/
+&nbsp;
+var fluid_3_0_0 = fluid_3_0_0 || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+&nbsp;
+(function ($, fluid) {
+    "use strict";
+&nbsp;
+    /******
+    * ToC *
+    *******/
+    fluid.registerNamespace("fluid.tableOfContents");
+&nbsp;
+    fluid.tableOfContents.headingTextToAnchorInfo = function (heading) {
+        var id = fluid.allocateSimpleId(heading);
+&nbsp;
+        var anchorInfo = {
+            id: id,
+            url: "#" + id
+        };
+&nbsp;
+        return anchorInfo;
+    };
+&nbsp;
+    fluid.tableOfContents.locateHeadings = function (that) {
+        var headings = that.locate("headings");
+&nbsp;
+        fluid.each(that.options.ignoreForToC, function (sel) {
+            headings = headings.not(sel).not(sel + " :header");
+        });
+&nbsp;
+        return headings;
+    };
+&nbsp;
+    fluid.tableOfContents.refreshView = function (that) {
+        var headings = that.locateHeadings();
+&nbsp;
+        that.anchorInfo = fluid.transform(headings, function (heading) {
+            return that.headingTextToAnchorInfo(heading);
+        });
+&nbsp;
+        var headingsModel = that.modelBuilder.assembleModel(headings, that.anchorInfo);
+        that.applier.change("", headingsModel);
+&nbsp;
+        that.events.onRefresh.fire();
+    };
+&nbsp;
+    fluid.defaults("fluid.tableOfContents", {
+        gradeNames: ["fluid.viewComponent"],
+        components: {
+            levels: {
+                type: "fluid.tableOfContents.levels",
+                createOnEvent: "onCreate",
+                container: "{tableOfContents}.dom.tocContainer",
+                options: {
+                    model: {
+                        headings: "{tableOfContents}.model"
+                    },
+                    events: {
+                        afterRender: "{tableOfContents}.events.afterRender"
+                    },
+                    listeners: {
+                        "{tableOfContents}.events.onRefresh": "{that}.refreshView"
+                    },
+                    strings: "{tableOfContents}.options.strings"
+                }
+            },
+            modelBuilder: {
+                type: "fluid.tableOfContents.modelBuilder"
+            }
+        },
+        model: [],
+        invokers: {
+            headingTextToAnchorInfo: "fluid.tableOfContents.headingTextToAnchorInfo",
+            locateHeadings: {
+                funcName: "fluid.tableOfContents.locateHeadings",
+                args: ["{that}"]
+            },
+            refreshView: {
+                funcName: "fluid.tableOfContents.refreshView",
+                args: ["{that}"]
+            },
+            // TODO: is it weird to have hide and show on a component?
+            hide: {
+                "this": "{that}.dom.tocContainer",
+                "method": "hide"
+            },
+            show: {
+                "this": "{that}.dom.tocContainer",
+                "method": "show"
+            }
+        },
+        strings: {
+            tocHeader: "Table of Contents"
+        },
+        selectors: {
+            headings: ":header:visible",
+            tocContainer: ".flc-toc-tocContainer"
+        },
+        ignoreForToC: {
+            tocContainer: "{that}.options.selectors.tocContainer"
+        },
+        events: {
+            onRefresh: null,
+            afterRender: null,
+            onReady: {
+                events: {
+                    "onCreate": "onCreate",
+                    "afterRender": "afterRender"
+                },
+                args: ["{that}"]
+            }
+        },
+        listeners: {
+            "onCreate.refreshView": "{that}.refreshView"
+        }
+    });
+&nbsp;
+&nbsp;
+    /*******************
+    * ToC ModelBuilder *
+    ********************/
+    fluid.registerNamespace("fluid.tableOfContents.modelBuilder");
+&nbsp;
+    fluid.tableOfContents.modelBuilder.toModel = function (headingInfo, modelLevelFn) {
+        var headings = fluid.copy(headingInfo);
+        var buildModelLevel = function (headings, level) {
+            var modelLevel = [];
+            while (headings.length &gt; 0) {
+                var heading = headings[0];
+                if (heading.level &lt; level) {
+                    break;
+                }
+                if (heading.level &gt; level) {
+                    var subHeadings = buildModelLevel(headings, level + 1);
+                    if (modelLevel.length &gt; 0) {
+                        modelLevel[modelLevel.length - 1].headings = subHeadings;
+                    } else {
+                        modelLevel = modelLevelFn(modelLevel, subHeadings);
+                    }
+                }
+                if (heading.level === level) {
+                    modelLevel.push(heading);
+                    headings.shift();
+                }
+            }
+            return modelLevel;
+        };
+        return buildModelLevel(headings, 1);
+    };
+&nbsp;
+    fluid.tableOfContents.modelBuilder.gradualModelLevelFn = function (modelLevel, subHeadings) {
+        // Clone the subHeadings because we don't want to modify the reference of the subHeadings.
+        // the reference will affect the equality condition in generateTree(), resulting an unwanted tree.
+        var subHeadingsClone = fluid.copy(subHeadings);
+        subHeadingsClone[0].level--;
+        return subHeadingsClone;
+    };
+&nbsp;
+    fluid.tableOfContents.modelBuilder.skippedModelLevelFn = function (modelLevel, subHeadings) {
+        modelLevel.push({headings: subHeadings});
+        return modelLevel;
+    };
+&nbsp;
+    fluid.tableOfContents.modelBuilder.convertToHeadingObjects = function (that, headings, anchorInfo) {
+        headings = $(headings);
+        return fluid.transform(headings, function (heading, index) {
+            return {
+                level: that.headingCalculator.getHeadingLevel(heading),
+                text: $(heading).text(),
+                url: anchorInfo[index].url
+            };
+        });
+    };
+&nbsp;
+    fluid.tableOfContents.modelBuilder.assembleModel = function (that, headings, anchorInfo) {
+        var headingInfo = that.convertToHeadingObjects(headings, anchorInfo);
+        return that.toModel(headingInfo);
+    };
+&nbsp;
+    fluid.defaults("fluid.tableOfContents.modelBuilder", {
+        gradeNames: ["fluid.component"],
+        components: {
+            headingCalculator: {
+                type: "fluid.tableOfContents.modelBuilder.headingCalculator"
+            }
+        },
+        invokers: {
+            toModel: {
+                funcName: "fluid.tableOfContents.modelBuilder.toModel",
+                args: ["{arguments}.0", "{modelBuilder}.modelLevelFn"]
+            },
+            modelLevelFn: "fluid.tableOfContents.modelBuilder.gradualModelLevelFn",
+            convertToHeadingObjects: "fluid.tableOfContents.modelBuilder.convertToHeadingObjects({that}, {arguments}.0, {arguments}.1)", // headings, anchorInfo
+            assembleModel: "fluid.tableOfContents.modelBuilder.assembleModel({that}, {arguments}.0, {arguments}.1)" // headings, anchorInfo
+        }
+    });
+&nbsp;
+    /*************************************
+    * ToC ModelBuilder headingCalculator *
+    **************************************/
+    fluid.registerNamespace("fluid.tableOfContents.modelBuilder.headingCalculator");
+&nbsp;
+    fluid.tableOfContents.modelBuilder.headingCalculator.getHeadingLevel = function (that, heading) {
+        return that.options.levels.indexOf(heading.tagName) + 1;
+    };
+&nbsp;
+    fluid.defaults("fluid.tableOfContents.modelBuilder.headingCalculator", {
+        gradeNames: ["fluid.component"],
+        invokers: {
+            getHeadingLevel: "fluid.tableOfContents.modelBuilder.headingCalculator.getHeadingLevel({that}, {arguments}.0)" // heading
+        },
+        levels: ["H1", "H2", "H3", "H4", "H5", "H6"]
+    });
+&nbsp;
+    /*************
+    * ToC Levels *
+    **************/
+    fluid.registerNamespace("fluid.tableOfContents.levels");
+&nbsp;
+    /**
+     * Create an object model based on the type and ID.  The object should contain an
+     * ID that maps the selectors (ie. level1:), and the object should contain a children
+     * @param {String} type - Accepted values are: level, items
+     * @param {Integer} ID - The current level which is used here as the ID.
+     * @return {Object} - An object that models the level based on the type and ID.
+     */
+    fluid.tableOfContents.levels.objModel = function (type, ID) {
+        var objModel = {
+            ID: type + ID + ":",
+            children: []
+        };
+        return objModel;
+    };
+&nbsp;
+    /*
+     * Configure item object when item object has no text, uri, level in it.
+     * defaults to add a decorator to hide the bullets.
+     */
+    fluid.tableOfContents.levels.handleEmptyItemObj = function (itemObj) {
+        itemObj.decorators = [{
+            type: "addClass",
+            classes: "fl-tableOfContents-hide-bullet"
+        }];
+    };
+&nbsp;
+    /**
+     * @param {Object} headingsModel - that.model, the model with all the headings, it should be in the format of {headings: [...]}
+     * @param {Integer} currentLevel - the current level we want to generate the tree for.  default to 1 if not defined.
+     * @return {Object} - A tree that looks like {children: [{ID: x, subTree:[...]}, ...]}
+     */
+    fluid.tableOfContents.levels.generateTree = function (headingsModel, currentLevel) {
+        currentLevel = currentLevel || 0;
+        var levelObj = fluid.tableOfContents.levels.objModel("level", currentLevel);
+&nbsp;
+        // FLUID-4352, run generateTree if there are headings in the model.
+        if (headingsModel.headings.length === 0) {
+            return currentLevel ? <span class="branch-0 cbranch-no" title="branch not covered" >[] </span>: {children: []};
+        }
+&nbsp;
+        // base case: level is 0, returns {children:[generateTree(nextLevel)]}
+        // purpose is to wrap the first level with a children object.
+        if (currentLevel === 0) {
+            var tree = {
+                children: [
+                    fluid.tableOfContents.levels.generateTree(headingsModel, currentLevel + 1)
+                ]
+            };
+            return tree;
+        }
+&nbsp;
+        // Loop through the heading array, which can have multiple headings on the same level
+        $.each(headingsModel.headings, function (index, model) {
+            var itemObj = fluid.tableOfContents.levels.objModel("items", currentLevel);
+            var linkObj = {
+                ID: "link" + currentLevel,
+                target: model.url,
+                linktext: model.text
+            };
+&nbsp;
+            // If level is undefined, then add decorator to it, otherwise add the links to it.
+            if (!model.level) {
+                fluid.tableOfContents.levels.handleEmptyItemObj(itemObj);
+            } else {
+                itemObj.children.push(linkObj);
+            }
+            // If there are sub-headings, go into the next level recursively
+            if (model.headings) {
+                itemObj.children.push(fluid.tableOfContents.levels.generateTree(model, currentLevel + 1));
+            }
+            // At this point, the itemObj should be in a tree format with sub-headings children
+            levelObj.children.push(itemObj);
+        });
+        return levelObj;
+    };
+&nbsp;
+    /**
+     * @param {Object} that - The component itself.
+     * @return {Object} - Returned produceTree must be in {headings: [trees]}
+     */
+    fluid.tableOfContents.levels.produceTree = function (that) {
+        var tree = fluid.tableOfContents.levels.generateTree(that.model);
+        // Add the header to the tree
+        tree.children.push({
+            ID: "tocHeader",
+            messagekey: "tocHeader"
+        });
+        return tree;
+    };
+&nbsp;
+    fluid.tableOfContents.levels.fetchResources = function (that) {
+        fluid.fetchResources(that.options.resources, function () {
+            that.container.append(that.options.resources.template.resourceText);
+            that.refreshView();
+        });
+    };
+&nbsp;
+&nbsp;
+    fluid.defaults("fluid.tableOfContents.levels", {
+        gradeNames: ["fluid.rendererComponent"],
+        produceTree: "fluid.tableOfContents.levels.produceTree",
+        strings: {
+            tocHeader: "Table of Contents"
+        },
+        selectors: {
+            tocHeader: ".flc-toc-header",
+            level1: ".flc-toc-levels-level1",
+            level2: ".flc-toc-levels-level2",
+            level3: ".flc-toc-levels-level3",
+            level4: ".flc-toc-levels-level4",
+            level5: ".flc-toc-levels-level5",
+            level6: ".flc-toc-levels-level6",
+            items1: ".flc-toc-levels-items1",
+            items2: ".flc-toc-levels-items2",
+            items3: ".flc-toc-levels-items3",
+            items4: ".flc-toc-levels-items4",
+            items5: ".flc-toc-levels-items5",
+            items6: ".flc-toc-levels-items6",
+            link1: ".flc-toc-levels-link1",
+            link2: ".flc-toc-levels-link2",
+            link3: ".flc-toc-levels-link3",
+            link4: ".flc-toc-levels-link4",
+            link5: ".flc-toc-levels-link5",
+            link6: ".flc-toc-levels-link6"
+        },
+        repeatingSelectors: ["level1", "level2", "level3", "level4", "level5", "level6", "items1", "items2", "items3", "items4", "items5", "items6"],
+        model: {
+            headings: [] // [text: heading, url: linkURL, headings: [ an array of subheadings in the same format]
+        },
+        listeners: {
+            "onCreate.fetchResources": "fluid.tableOfContents.levels.fetchResources"
+        },
+        resources: {
+            template: {
+                forceCache: true,
+                url: "../html/TableOfContents.html"
+            }
+        },
+        rendererFnOptions: {
+            noexpand: true
+        },
+        rendererOptions: {
+            debugMode: false
+        }
+&nbsp;
+    });
+&nbsp;
+})(jQuery, fluid_3_0_0);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Apr 19 2018 20:08:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

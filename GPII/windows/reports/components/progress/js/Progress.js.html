@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/progress/js/Progress.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">components/progress/js</a> Progress.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>72/75</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.21% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>32/38</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.33% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>14/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>72/75</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">348x</span>
+<span class="cline-any cline-yes">348x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">174x</span>
+<span class="cline-any cline-yes">174x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">172x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">186x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">186x</span>
+<span class="cline-any cline-yes">186x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">176x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-yes">182x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-yes">148x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">76x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+Copyright 2008-2009 University of Toronto
+Copyright 2008-2009 University of California, Berkeley
+Copyright 2010-2016 OCAD University
+Copyright 2013 Raising the Floor - US
+&nbsp;
+Licensed under the Educational Community License (ECL), Version 2.0 or the New
+BSD license. You may not use this file except in compliance with one these
+Licenses.
+&nbsp;
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
+*/
+&nbsp;
+var fluid_3_0_0 = fluid_3_0_0 || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+&nbsp;
+(function ($, fluid) {
+    "use strict";
+&nbsp;
+    fluid.registerNamespace("fluid.progress");
+&nbsp;
+    fluid.progress.animateDisplay = function (elm, animation, defaultAnimation, callback) {
+        animation = (animation) ? <span class="branch-0 cbranch-no" title="branch not covered" >animation </span>: defaultAnimation;
+        elm.animate(animation.params, animation.duration, callback);
+    };
+&nbsp;
+    fluid.progress.animateProgress = function (elm, width, speed) {
+        // de-queue any left over animations
+        elm.queue("fx", []);
+        elm.animate({
+            width: width,
+            queue: false
+        }, speed);
+    };
+&nbsp;
+    fluid.progress.showProgress = function (that, animation) {
+        var firer = that.events.onProgressBegin.fire;
+        if (animation === false) {
+            that.displayElement.show();
+            firer();
+        } else {
+            fluid.progress.animateDisplay(that.displayElement, animation, that.options.showAnimation, firer);
+        }
+    };
+&nbsp;
+    fluid.progress.hideProgress = function (that, delay, animation) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (delay) {
+            // use a setTimeout to delay the hide for n millis, note use of recursion
+<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >fu</span>nction () {</span>
+<span class="cstat-no" title="statement not covered" >                fluid.progress.hideProgress(that, 0, animation);</span>
+            }, delay);
+        } else {
+            var firer = that.events.afterProgressHidden.fire;
+            if (animation === false) {
+                that.displayElement.hide();
+                firer();
+            } else {
+                fluid.progress.animateDisplay(that.displayElement, animation, that.options.hideAnimation, firer);
+            }
+        }
+    };
+&nbsp;
+    fluid.progress.updateWidth = function (that, newWidth, dontAnimate) {
+        var currWidth = that.indicator.width();
+        var direction = that.options.animate;
+        if ((newWidth &gt; currWidth) &amp;&amp; (direction === "both" || direction === "forward") &amp;&amp; !dontAnimate) {
+            fluid.progress.animateProgress(that.indicator, newWidth, that.options.speed);
+        } else <span class="missing-if-branch" title="if path not taken" >I</span>if ((newWidth &lt; currWidth) &amp;&amp; (direction === "both" || direction === "backward") &amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >!dontAnimate)</span> {
+<span class="cstat-no" title="statement not covered" >            fluid.progress.animateProgress(that.indicator, newWidth, that.options.speed);</span>
+        } else {
+            that.indicator.width(newWidth);
+        }
+    };
+&nbsp;
+    fluid.progress.percentToPixels = function (that, percent) {
+        // progress does not support percents over 100, also all numbers are rounded to integers
+        return Math.round((Math.min(percent, 100) * that.progressBar.innerWidth()) / 100);
+    };
+&nbsp;
+    fluid.progress.refreshRelativeWidth = function (that) {
+        var pixels = Math.max(fluid.progress.percentToPixels(that, parseFloat(that.storedPercent)), that.options.minWidth);
+        fluid.progress.updateWidth(that, pixels, true);
+    };
+&nbsp;
+    fluid.progress.initARIA = function (ariaElement, ariaBusyText) {
+        ariaElement.attr("role", "progressbar");
+        ariaElement.attr("aria-valuemin", "0");
+        ariaElement.attr("aria-valuemax", "100");
+        ariaElement.attr("aria-valuenow", "0");
+        // Empty value for ariaBusyText will default to aria-valuenow.
+        if (ariaBusyText) {
+            ariaElement.attr("aria-valuetext", "");
+        }
+        ariaElement.attr("aria-busy", "false");
+    };
+&nbsp;
+    fluid.progress.updateARIA = function (that, percent) {
+        var str = that.options.strings;
+        var busy = percent &lt; 100 &amp;&amp; percent &gt; 0;
+        that.ariaElement.attr("aria-busy", busy);
+        that.ariaElement.attr("aria-valuenow", percent);
+        // Empty value for ariaBusyText will default to aria-valuenow.
+        if (str.ariaBusyText) {
+            if (busy) {
+                var busyString = fluid.stringTemplate(str.ariaBusyText, {percentComplete : percent});
+                that.ariaElement.attr("aria-valuetext", busyString);
+            } else if (percent === 100) {
+                // FLUID-2936: JAWS doesn't currently read the "Progress is complete" message to the user, even though we set it here.
+                that.ariaElement.attr("aria-valuetext", str.ariaDoneText);
+            }
+        }
+    };
+&nbsp;
+    fluid.progress.updateText = function (label, value) {
+        label.html(value);
+    };
+&nbsp;
+    fluid.progress.repositionIndicator = function (that) {
+        that.indicator.css("top", that.progressBar.position().top)
+            .css("left", 0)
+            .height(that.progressBar.height());
+        fluid.progress.refreshRelativeWidth(that);
+    };
+&nbsp;
+    fluid.progress.updateProgress = function (that, percent, labelText, animationForShow) {
+        // show progress before updating, jQuery will handle the case if the object is already displayed
+        fluid.progress.showProgress(that, animationForShow);
+&nbsp;
+        if (percent !== null) {
+            that.storedPercent = percent;
+&nbsp;
+            var pixels = Math.max(fluid.progress.percentToPixels(that, parseFloat(percent)), that.options.minWidth);
+            fluid.progress.updateWidth(that, pixels);
+        }
+&nbsp;
+        if (fluid.isValue(labelText)) {
+            var text = fluid.stringTemplate(labelText, {percentComplete: percent});
+            fluid.progress.updateText(that.label, text);
+        }
+&nbsp;
+        // update ARIA
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (that.ariaElement) {
+            fluid.progress.updateARIA(that, percent);
+        }
+    };
+&nbsp;
+    fluid.progress.hideElement = function (element, shouldHide) {
+        element.toggle(!shouldHide);
+    };
+&nbsp;
+   /**
+    * Instantiates a new Progress component.
+    *
+    * @param container {jQuery|Selector|Element} the DOM element in which the Uploader lives
+    * @param options {Object} configuration options for the component.
+    */
+&nbsp;
+    fluid.defaults("fluid.progress", {
+        gradeNames: ["fluid.viewComponent"],
+        members: {
+            displayElement: "{that}.dom.displayElement",
+            progressBar: "{that}.dom.progressBar",
+            label: "{that}.dom.label",
+            indicator: "{that}.dom.indicator",
+            ariaElement: "{that}.dom.ariaElement",
+            storedPercent: 0
+        },
+        events: {
+            onProgressBegin: null,
+            afterProgressHidden: null
+        },
+        listeners: {
+            onCreate: [ {
+                "this": "{that}.dom.indicator",
+                method: "width",
+                args: "{that}.options.minWidth"
+            }, {
+                funcName: "fluid.progress.hideElement",
+                args: ["{that}.dom.displayElement", "{that}.options.initiallyHidden"]
+            }, {
+                funcName: "fluid.progress.initARIA",
+                args: ["{that}.ariaElement", "{that}.options.strings.ariaBusyText"]
+            }],
+            onProgressBegin: {
+                func: "{that}.options.showAnimation.onProgressBegin"
+            },
+            afterProgressHidden: {
+                func: "{that}.options.hideAnimation.afterProgressHidden"
+            }
+        },
+        invokers: {
+           /**
+            * Shows the progress bar if is currently hidden.
+            * @param animation {Object} a custom animation used when showing the progress bar
+            */
+            show: {
+                funcName: "fluid.progress.showProgress",
+                args: ["{that}", "{arguments}.0"]
+            },
+           /**
+            * Hides the progress bar if it is visible.
+            * @param delay {Number} the amount of time to wait before hiding
+            * @param animation {Object} a custom animation used when hiding the progress bar
+            */
+            hide: {
+                funcName: "fluid.progress.hideProgress",
+                args: ["{that}", "{arguments}.0", "{arguments}.1"]
+            },
+           /**
+            * Updates the state of the progress bar.
+            * This will automatically show the progress bar if it is currently hidden.
+            * Percentage is specified as a decimal value, but will be automatically converted if needed.
+            * @param percentage {Number|String} the current percentage, specified as a "float-ish" value
+            * @param labelValue {String} the value to set for the label; this can be an HTML string
+            * @param animationForShow {Object} the animation to use when showing the progress bar if it is hidden
+            */
+            update: {
+                funcName: "fluid.progress.updateProgress",
+                args: ["{that}", "{arguments}.0", "{arguments}.1", "{arguments}.2"]
+            },
+            refreshView: {
+                funcName: "fluid.progress.repositionIndicator",
+                args: "{that}"
+            }
+        },
+        selectors: {
+            displayElement: ".flc-progress", // required, the element that gets displayed when progress is displayed, could be the indicator or bar or some larger outer wrapper as in an overlay effect
+            progressBar: ".flc-progress-bar", //required
+            indicator: ".flc-progress-indicator", //required
+            label: ".flc-progress-label", //optional
+            ariaElement: ".flc-progress-bar" // usually required, except in cases where there are more than one progressor for the same data such as a total and a sub-total
+        },
+&nbsp;
+        strings: {
+            //Empty value for ariaBusyText will default to aria-valuenow.
+            ariaBusyText: "Progress is %percentComplete percent complete",
+            ariaDoneText: "Progress is complete."
+        },
+&nbsp;
+        // progress display and hide animations, use the jQuery animation primatives, set to false to use no animation
+        // animations must be symetrical (if you hide with width, you'd better show with width) or you get odd effects
+        // see jQuery docs about animations to customize
+        showAnimation: {
+            params: {
+                opacity: "show"
+            },
+            duration: "slow",
+            onProgressBegin: fluid.identity
+        }, // equivalent of $().fadeIn("slow")
+&nbsp;
+        hideAnimation: {
+            params: {
+                opacity: "hide"
+            },
+            duration: "slow",
+            afterProgressHidden: fluid.identity
+        }, // equivalent of $().fadeOut("slow")
+&nbsp;
+        minWidth: 5, // 0 length indicators can look broken if there is a long pause between updates
+        delay: 0, // the amount to delay the fade out of the progress
+        speed: 200, // default speed for animations, pretty fast
+        animate: "forward", // suppport "forward", "backward", and "both", any other value is no animation either way
+        initiallyHidden: true, // supports progress indicators which may always be present
+        updatePosition: false
+    });
+&nbsp;
+})(jQuery, fluid_3_0_0);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Apr 19 2018 20:08:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

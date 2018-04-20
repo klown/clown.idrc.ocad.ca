@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/uploader/js/DemoUploadManager.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">components/uploader/js</a> DemoUploadManager.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">82.69% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>43/52</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">64.29% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>9/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.89% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>8/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">82.69% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>43/52</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+Copyright 2009 University of Toronto
+Copyright 2009 University of California, Berkeley
+Copyright 2010-2011 OCAD University
+Copyright 2011 Lucendo Development Ltd.
+Copyright 2013 Raising the Floor - US
+Copyright 2015 Raising the Floor - International
+&nbsp;
+Licensed under the Educational Community License (ECL), Version 2.0 or the New
+BSD license. You may not use this file except in compliance with one these
+Licenses.
+&nbsp;
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
+*/
+&nbsp;
+var fluid_3_0_0 = fluid_3_0_0 || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+&nbsp;
+(function ($, fluid) {
+    "use strict";
+&nbsp;
+    fluid.registerNamespace("fluid.uploader.demo");
+&nbsp;
+    fluid.defaults("fluid.uploader.demo", {
+        distributeOptions: {
+            record: "fluid.uploader.demo.remote",
+            target: "{that strategy remote}.type"
+        }
+    });
+&nbsp;
+    fluid.uploader.demo.uploadNextFile = function (that) {
+        // Reset our upload stats for each new file.
+        that.demoState.currentFile = that.queue.files[that.demoState.fileIdx];
+        that.demoState.chunksForCurrentFile = Math.ceil(that.demoState.currentFile / that.demoState.chunkSize);
+        that.demoState.bytesUploaded = 0;
+        that.queue.isUploading = true;
+&nbsp;
+        that.events.onFileStart.fire(that.demoState.currentFile);
+        fluid.uploader.demo.simulateUpload(that);
+    };
+&nbsp;
+    fluid.uploader.demo.updateProgress = function (file, events, demoState, isUploading) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!isUploading) {
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+&nbsp;
+        var chunk = Math.min(demoState.chunkSize, file.size);
+        demoState.bytesUploaded = Math.min(demoState.bytesUploaded + chunk, file.size);
+        events.onFileProgress.fire(file, demoState.bytesUploaded, file.size);
+    };
+&nbsp;
+    fluid.uploader.demo.finishAndContinueOrCleanup = function (that, file) {
+        // TODO: it appears that this duplicates handlers in Uploader.js onFileComplete -
+        // which this component does not fire
+        that.queue.finishFile(file);
+        that.events.afterFileComplete.fire(file);
+        if (that.queue.shouldUploadNextFile()) {
+            fluid.uploader.demo.uploadNextFile(that);
+        } else {
+            that.events.afterUploadComplete.fire(that.queue.currentBatch.files);
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (file.status !== fluid.uploader.fileStatusConstants.CANCELLED) {
+                that.queue.clearCurrentBatch(); // Only clear the current batch if we're actually done the batch.
+            }
+        }
+    };
+&nbsp;
+    fluid.uploader.demo.finishUploading = function (that) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!that.queue.isUploading) {
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+&nbsp;
+        var file = that.demoState.currentFile;
+        that.events.onFileSuccess.fire(file);
+        that.demoState.fileIdx++;
+        fluid.uploader.demo.finishAndContinueOrCleanup(that, file);
+    };
+&nbsp;
+    fluid.uploader.demo.simulateUpload = function (that) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!that.queue.isUploading) {
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+&nbsp;
+        var file = that.demoState.currentFile;
+        if (that.demoState.bytesUploaded &lt; file.size) {
+            fluid.invokeAfterRandomDelay(function () {
+                fluid.uploader.demo.updateProgress(file, that.events, that.demoState, that.queue.isUploading);
+                fluid.uploader.demo.simulateUpload(that);
+            });
+        } else {
+            fluid.uploader.demo.finishUploading(that);
+        }
+    };
+&nbsp;
+    fluid.uploader.demo.stop = <span class="fstat-no" title="function not covered" >fu</span>nction (that) {
+        var file = <span class="cstat-no" title="statement not covered" >that.demoState.currentFile;</span>
+<span class="cstat-no" title="statement not covered" >        file.filestatus = fluid.uploader.fileStatusConstants.CANCELLED;</span>
+<span class="cstat-no" title="statement not covered" >        that.queue.shouldStop = true;</span>
+&nbsp;
+        // Legacy from the SWFUpload implementation, where pausing is a combination of an UPLOAD_STOPPED error and a complete.
+<span class="cstat-no" title="statement not covered" >        that.events.onFileError.fire(file,</span>
+                                     fluid.uploader.errorConstants.UPLOAD_STOPPED,
+                                     "The demo upload was paused by the user.");
+<span class="cstat-no" title="statement not covered" >        fluid.uploader.demo.finishAndContinueOrCleanup(that, file);</span>
+<span class="cstat-no" title="statement not covered" >        that.events.onUploadStop.fire();</span>
+    };
+&nbsp;
+    /**
+     * Invokes a function after a random delay by using setTimeout.
+     * @param {Function} fn - the function to invoke
+     */
+    fluid.invokeAfterRandomDelay = function (fn) {
+        var delay = Math.floor(Math.random() * 200 + 100);
+        setTimeout(fn, delay);
+    };
+&nbsp;
+    /**
+     * The demo remote pretends to upload files to the server, firing all the appropriate events
+     * but without sending anything over the network or requiring a server to be running.
+     *
+     * @param {Object} configuration options
+     */
+&nbsp;
+    fluid.defaults("fluid.uploader.demo.remote", {
+        gradeNames: ["fluid.uploader.remote"],
+        members: {
+            demoState: {
+                fileIdx: 0,
+                chunkSize: 200000
+            }
+        },
+        invokers: {
+            uploadNextFile: {
+                funcName: "fluid.uploader.demo.uploadNextFile",
+                args: "{that}"
+            },
+            stop: {
+                funcName: "fluid.uploader.demo.stop",
+                args: "{that}"
+            }
+        }
+    });
+&nbsp;
+})(jQuery, fluid_3_0_0);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Apr 19 2018 20:08:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

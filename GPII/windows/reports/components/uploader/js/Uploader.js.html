@@ -1,0 +1,2510 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/uploader/js/Uploader.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">components/uploader/js</a> Uploader.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.12% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>178/202</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">64.29% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>36/56</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.48% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>38/42</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.12% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>178/202</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">200x</span>
+<span class="cline-any cline-yes">200x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">200x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">566x</span>
+<span class="cline-any cline-yes">564x</span>
+<span class="cline-any cline-yes">254x</span>
+<span class="cline-any cline-yes">310x</span>
+<span class="cline-any cline-yes">308x</span>
+<span class="cline-any cline-yes">284x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">84x</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+Copyright 2008-2009 University of Toronto
+Copyright 2008-2009 University of California, Berkeley
+Copyright 2010-2014 OCAD University
+Copyright 2011 Lucendo Development Ltd.
+Copyright 2013 Raising the Floor - US
+Copyright 2015 Raising the Floor - International
+&nbsp;
+Licensed under the Educational Community License (ECL), Version 2.0 or the New
+BSD license. You may not use this file except in compliance with one these
+Licenses.
+&nbsp;
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
+*/
+&nbsp;
+var fluid_3_0_0 = fluid_3_0_0 || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+&nbsp;
+/************
+ * Uploader *
+ ************/
+&nbsp;
+(function ($, fluid) {
+    "use strict";
+&nbsp;
+    fluid.enhance.supportsBinaryXHR = function () {
+        return window.FormData || (<span class="branch-1 cbranch-no" title="branch not covered" >window.XMLHttpRequest </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >window.XMLHttpRequest.prototype </span>&amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >window.XMLHttpRequest.prototype.sendAsBinary)</span>;
+    };
+    fluid.enhance.supportsFormData = function () {
+        return !!window.FormData;
+    };
+&nbsp;
+    fluid.contextAware.makeChecks({
+        "fluid.browser.supportsBinaryXHR": {
+            funcName: "fluid.enhance.supportsBinaryXHR"
+        },
+        "fluid.browser.supportsFormData": {
+            funcName: "fluid.enhance.supportsFormData"
+        }
+    });
+&nbsp;
+&nbsp;
+    fluid.registerNamespace("fluid.uploader");
+&nbsp;
+    fluid.uploader.fileOrFiles = function (that, numFiles) {
+        return (numFiles === 1) ? that.options.strings.progress.singleFile :
+            that.options.strings.progress.pluralFiles;
+    };
+&nbsp;
+    // TODO: Use of these four utilities should be replaced by use of the "visibility model" described in FLUID-4928
+    fluid.uploader.enableElement = function (that, elm) {
+        elm.prop("disabled", false);
+        elm.removeClass(that.options.styles.dim);
+    };
+&nbsp;
+    fluid.uploader.disableElement = function (that, elm) {
+        elm.prop("disabled", true);
+        elm.addClass(that.options.styles.dim);
+    };
+&nbsp;
+    fluid.uploader.showElement = function (that, elm) {
+        elm.removeClass(that.options.styles.hidden);
+    };
+&nbsp;
+    fluid.uploader.hideElement = function (that, elm) {
+        elm.addClass(that.options.styles.hidden);
+    };
+&nbsp;
+    fluid.uploader.maxFilesUploaded = function (that) {
+        var fileUploadLimit = that.queue.getUploadedFiles().length + that.queue.getReadyFiles().length + that.queue.getErroredFiles().length;
+        return (fileUploadLimit === that.options.queueSettings.fileUploadLimit);
+    };
+&nbsp;
+    fluid.uploader.setTotalProgressStyle = function (that, didError) {
+        didError = didError || false;
+        var indicator = that.totalProgress.indicator;
+        indicator.toggleClass(that.options.styles.totalProgress, !didError);
+        indicator.toggleClass(that.options.styles.totalProgressError, didError);
+    };
+&nbsp;
+    fluid.uploader.setStateEmpty = <span class="fstat-no" title="function not covered" >fu</span>nction (that) {
+<span class="cstat-no" title="statement not covered" >        fluid.uploader.disableElement(that, that.locate("uploadButton"));</span>
+&nbsp;
+        // If the queue is totally empty, treat it specially.
+<span class="cstat-no" title="statement not covered" >        if (that.queue.files.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >            that.locate("browseButtonText").text(that.options.strings.buttons.browse);</span>
+<span class="cstat-no" title="statement not covered" >            that.locate("browseButton").removeClass(that.options.styles.browseButton);</span>
+<span class="cstat-no" title="statement not covered" >            fluid.uploader.showElement(that, that.locate("instructions"));</span>
+        }
+    };
+&nbsp;
+    // Only enable the browse button if the fileUploadLimit
+    // has not been reached
+    fluid.uploader.enableBrowseButton = function (that) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (!fluid.uploader.maxFilesUploaded(that)) {
+            fluid.uploader.enableElement(that, that.locate("browseButton"));
+            that.strategy.local.enableBrowseButton();
+        }
+    };
+&nbsp;
+    // See above comment: All of this wasted logic should be replaced by a model mapping system
+    fluid.uploader.setStateDone = function (that) {
+        fluid.uploader.disableElement(that, that.locate("uploadButton"));
+        fluid.uploader.hideElement(that, that.locate("pauseButton"));
+        fluid.uploader.showElement(that, that.locate("uploadButton"));
+        fluid.uploader.enableBrowseButton(that);
+    };
+&nbsp;
+    fluid.uploader.setStateLoaded = function (that) {
+        that.locate("browseButtonText").text(that.options.strings.buttons.addMore);
+        that.locate("browseButton").addClass(that.options.styles.browseButton);
+        fluid.uploader.hideElement(that, that.locate("pauseButton"));
+        fluid.uploader.showElement(that, that.locate("uploadButton"));
+        fluid.uploader.enableElement(that, that.locate("uploadButton"));
+        fluid.uploader.hideElement(that, that.locate("instructions"));
+        that.totalProgress.hide();
+        fluid.uploader.enableBrowseButton(that);
+    };
+&nbsp;
+    fluid.uploader.setStateUploading = function (that) {
+        that.totalProgress.hide(false, false);
+        fluid.uploader.setTotalProgressStyle(that);
+        fluid.uploader.hideElement(that, that.locate("uploadButton"));
+        fluid.uploader.disableElement(that, that.locate("browseButton"));
+        that.strategy.local.disableBrowseButton();
+        fluid.uploader.enableElement(that, that.locate("pauseButton"));
+        fluid.uploader.showElement(that, that.locate("pauseButton"));
+    };
+&nbsp;
+    fluid.uploader.setStateFull = <span class="fstat-no" title="function not covered" >fu</span>nction (that) {
+<span class="cstat-no" title="statement not covered" >        that.locate("browseButtonText").text(that.options.strings.buttons.addMore);</span>
+<span class="cstat-no" title="statement not covered" >        that.locate("browseButton").addClass(that.options.styles.browseButton);</span>
+<span class="cstat-no" title="statement not covered" >        fluid.uploader.hideElement(that, that.locate("pauseButton"));</span>
+<span class="cstat-no" title="statement not covered" >        fluid.uploader.showElement(that, that.locate("uploadButton"));</span>
+<span class="cstat-no" title="statement not covered" >        fluid.uploader.enableElement(that, that.locate("uploadButton"));</span>
+<span class="cstat-no" title="statement not covered" >        fluid.uploader.disableElement(that, that.locate("browseButton"));</span>
+<span class="cstat-no" title="statement not covered" >        that.strategy.local.disableBrowseButton();</span>
+<span class="cstat-no" title="statement not covered" >        fluid.uploader.hideElement(that, that.locate("instructions"));</span>
+<span class="cstat-no" title="statement not covered" >        that.totalProgress.hide();</span>
+    };
+&nbsp;
+    fluid.uploader.renderUploadTotalMessage = function (that) {
+        // Preservered for backwards compatibility, should be refactored post v1.5
+        var numReadyFiles = that.queue.getReadyFiles().length;
+        var bytesReadyFiles = that.queue.sizeOfReadyFiles();
+        var fileLabelStr = fluid.uploader.fileOrFiles(that, numReadyFiles);
+&nbsp;
+        var totalCount = that.queue.files.length;
+        var noFilesMsg = that.options.strings.progress.noFiles;
+&nbsp;
+        var totalStateStr = fluid.stringTemplate(that.options.strings.progress.toUploadLabel, {
+            fileCount: numReadyFiles,
+            fileLabel: fileLabelStr,
+            totalBytes: fluid.uploader.formatFileSize(bytesReadyFiles),
+            uploadedCount: that.queue.getUploadedFiles().length,
+            uploadedSize: fluid.uploader.formatFileSize(that.queue.sizeOfUploadedFiles()),
+            totalCount: totalCount,
+            totalSize: fluid.uploader.formatFileSize(that.queue.totalBytes())
+        });
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!totalCount &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >noFilesMsg)</span> {
+<span class="cstat-no" title="statement not covered" >            totalStateStr = noFilesMsg;</span>
+        }
+&nbsp;
+        that.locate("totalFileStatusText").html(totalStateStr);
+    };
+&nbsp;
+    fluid.uploader.renderFileUploadLimit = function (that) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (that.options.queueSettings.fileUploadLimit &gt; 0) {
+            var fileUploadLimitText = <span class="cstat-no" title="statement not covered" >fluid.stringTemplate(that.options.strings.progress.fileUploadLimitLabel, {</span>
+                fileUploadLimit: that.options.queueSettings.fileUploadLimit,
+                fileLabel: fluid.uploader.fileOrFiles(that, that.options.queueSettings.fileUploadLimit)
+            });
+<span class="cstat-no" title="statement not covered" >            that.locate("fileUploadLimitText").html(fileUploadLimitText);</span>
+        }
+    };
+&nbsp;
+&nbsp;
+   /**
+    * Pretty prints a file's size, converting from bytes to kilobytes or megabytes.
+    *
+    * @param {Number} bytes - The file's size, specified as in number bytes.
+    * @return {String} - The file size as a string.
+    */
+    fluid.uploader.formatFileSize = function (bytes) {
+        if (typeof (bytes) === "number") {
+            if (bytes === 0) {
+                return "0.0 KB";
+            } else if (bytes &gt; 0) {
+                if (bytes &lt; 1048576) {
+                    return (Math.ceil(bytes / 1024 * 10) / 10).toFixed(1) + " KB";
+                } else {
+                    return (Math.ceil(bytes / 1048576 * 10) / 10).toFixed(1) + " MB";
+                }
+            }
+        }
+        return "";
+    };
+&nbsp;
+    fluid.uploader.derivePercent = function (num, total) {
+        return Math.round((num * 100) / total);
+    };
+&nbsp;
+    fluid.uploader.updateTotalProgress = function (that) {
+        // Preservered for backwards compatibility, should be refactored post v1.5
+        var batch = that.queue.currentBatch;
+        var totalPercent = fluid.uploader.derivePercent(batch.totalBytesUploaded, batch.totalBytes);
+        var numFilesInBatch = batch.files.length;
+        var fileLabelStr = fluid.uploader.fileOrFiles(that, numFilesInBatch);
+&nbsp;
+        var uploadingSize = batch.totalBytesUploaded + that.queue.sizeOfUploadedFiles();
+&nbsp;
+        var totalProgressStr = fluid.stringTemplate(that.options.strings.progress.totalProgressLabel, {
+            curFileN: batch.fileIdx,
+            totalFilesN: numFilesInBatch,
+            fileLabel: fileLabelStr,
+            currBytes: fluid.uploader.formatFileSize(batch.totalBytesUploaded),
+            totalBytes: fluid.uploader.formatFileSize(batch.totalBytes),
+            uploadedCount: that.queue.getUploadedFiles().length,
+            uploadedSize: fluid.uploader.formatFileSize(uploadingSize),
+            totalCount: that.queue.files.length,
+            totalSize: fluid.uploader.formatFileSize(that.queue.totalBytes())
+        });
+&nbsp;
+        that.totalProgress.update(totalPercent, totalProgressStr);
+    };
+&nbsp;
+    fluid.uploader.updateTotalAtCompletion = function (that) {
+        // Preservered for backwards compatibility, should be refactored post v1.5
+        var numErroredFiles = that.queue.getErroredFiles().length;
+        var numTotalFiles = that.queue.files.length;
+        var fileLabelStr = fluid.uploader.fileOrFiles(that, numTotalFiles);
+        var errorStr = "";
+&nbsp;
+        // if there are errors then change the total progress bar
+        // and set up the errorStr so that we can use it in the totalProgressStr
+        if (numErroredFiles &gt; 0) {
+            var errorLabelString = (numErroredFiles === 1) ? that.options.strings.progress.singleError :
+<span class="branch-1 cbranch-no" title="branch not covered" >                                                             that.options.strings.progress.pluralErrors;</span>
+            fluid.uploader.setTotalProgressStyle(that, true);
+            errorStr = fluid.stringTemplate(that.options.strings.progress.numberOfErrors, {
+                errorsN: numErroredFiles,
+                errorLabel: errorLabelString
+            });
+        }
+&nbsp;
+        var totalProgressStr = fluid.stringTemplate(that.options.strings.progress.completedLabel, {
+            curFileN: that.queue.getUploadedFiles().length,
+            totalFilesN: numTotalFiles,
+            errorString: errorStr,
+            fileLabel: fileLabelStr,
+            totalCurrBytes: fluid.uploader.formatFileSize(that.queue.sizeOfUploadedFiles()),
+            uploadedCount: that.queue.getUploadedFiles().length,
+            uploadedSize: fluid.uploader.formatFileSize(that.queue.sizeOfUploadedFiles()),
+            totalCount: that.queue.files.length,
+            totalSize: fluid.uploader.formatFileSize(that.queue.totalBytes())
+        });
+&nbsp;
+        that.totalProgress.update(100, totalProgressStr);
+    };
+&nbsp;
+    fluid.uploader.updateStateAfterFileDialog = function (that) {
+        var queueLength = that.queue.getReadyFiles().length;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (queueLength &gt; 0) {
+            fluid.uploader[queueLength === that.options.queueSettings.fileUploadLimit ? <span class="branch-0 cbranch-no" title="branch not covered" >"setStateFull" </span>: "setStateLoaded"](that);
+            fluid.uploader.renderUploadTotalMessage(that);
+            that.locate(that.options.focusWithEvent.afterFileDialog).focus();
+        }
+    };
+&nbsp;
+    fluid.uploader.updateStateAfterFileRemoval = function (that) {
+        fluid.uploader[that.queue.getReadyFiles().length === 0 ? <span class="branch-0 cbranch-no" title="branch not covered" >"setStateEmpty" </span>: "setStateLoaded"] (that);
+        fluid.uploader.renderUploadTotalMessage(that);
+    };
+&nbsp;
+    fluid.uploader.updateStateAfterCompletion = function (that) {
+        fluid.uploader[that.queue.getReadyFiles().length === 0 ? "setStateDone" : "setStateLoaded"] (that);
+        fluid.uploader.updateTotalAtCompletion(that);
+    };
+&nbsp;
+    fluid.uploader.uploadNextOrFinish = function (that) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (that.queue.shouldUploadNextFile()) {
+<span class="cstat-no" title="statement not covered" >            that.strategy.remote.uploadNextFile();</span>
+        } else {
+            that.events.afterUploadComplete.fire(that.queue.currentBatch.files);
+            that.queue.clearCurrentBatch();
+        }
+    };
+&nbsp;
+    // Standard event listening functions
+&nbsp;
+    fluid.uploader.onFileStart = function (file, queue) {
+        file.filestatus = fluid.uploader.fileStatusConstants.IN_PROGRESS;
+        queue.startFile();
+    };
+&nbsp;
+    // TODO: Improve the dependency profile of this listener and "updateTotalProgress"
+    fluid.uploader.onFileProgress = <span class="fstat-no" title="function not covered" >fu</span>nction (that, currentBytes) {
+<span class="cstat-no" title="statement not covered" >        that.queue.updateBatchStatus(currentBytes);</span>
+<span class="cstat-no" title="statement not covered" >        fluid.uploader.updateTotalProgress(that);</span>
+    };
+&nbsp;
+    fluid.uploader.onFileComplete = function (file, that) {
+        that.queue.finishFile(file);
+        that.events.afterFileComplete.fire(file);
+        fluid.uploader.uploadNextOrFinish(that);
+    };
+&nbsp;
+    // TODO: Avoid reaching directly into the FileQueue and manipulating its state from this and the next two listeners
+    fluid.uploader.onFileSuccess = function (file, that) {
+        file.filestatus = fluid.uploader.fileStatusConstants.COMPLETE;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (that.queue.currentBatch.bytesUploadedForFile === 0) {
+            that.queue.currentBatch.totalBytesUploaded += file.size;
+        }
+        fluid.uploader.updateTotalProgress(that);
+    };
+&nbsp;
+    fluid.uploader.onFileError = function (file, error, that) {
+        if (error === fluid.uploader.errorConstants.UPLOAD_STOPPED) {
+            file.filestatus = fluid.uploader.fileStatusConstants.CANCELLED;
+        } else {
+            file.filestatus = fluid.uploader.fileStatusConstants.ERROR;
+            if (that.queue.isUploading) {
+                that.queue.currentBatch.totalBytesUploaded += file.size;
+                that.queue.currentBatch.numFilesErrored++;
+                fluid.uploader.uploadNextOrFinish(that);
+            }
+        }
+    };
+&nbsp;
+    fluid.uploader.afterUploadComplete = function (that) {
+        that.queue.isUploading = false;
+        fluid.uploader.updateStateAfterCompletion(that);
+    };
+&nbsp;
+&nbsp;
+    /**
+     * Instantiates a new Uploader component.
+     *
+     * @param container {Object} the DOM element in which the Uploader lives
+     * @param options {Object} configuration options for the component.
+     */
+&nbsp;
+    fluid.defaults("fluid.uploader", {
+        gradeNames: ["fluid.viewComponent", "fluid.contextAware"],
+        contextAwareness: {
+            technology: {
+                defaultGradeNames: "fluid.uploader.singleFile"
+            },
+            liveness: {
+                priority: "before:technology",
+                checks: {
+                    localDemoOption: {
+                        contextValue: "{uploader}.options.demo",
+                        gradeNames: "fluid.uploader.demo"
+                    }
+                },
+                defaultGradeNames: "fluid.uploader.live"
+            }
+        }
+    });
+&nbsp;
+    fluid.defaults("fluid.uploader.builtinStrategyDistributor", {
+        gradeNames: ["fluid.component"],
+        distributeOptions: {
+            record: {
+                contextValue: "{fluid.browser.supportsBinaryXHR}",
+                gradeNames: "fluid.uploader.html5"
+            },
+            target: "{/ fluid.uploader}.options.contextAwareness.technology.checks.supportsBinaryXHR"
+        }
+    });
+&nbsp;
+    fluid.constructSingle([], "fluid.uploader.builtinStrategyDistributor");
+&nbsp;
+    // Implementation of standard public invoker methods
+&nbsp;
+    fluid.uploader.browse = <span class="fstat-no" title="function not covered" >fu</span>nction (queue, localStrategy) {
+<span class="cstat-no" title="statement not covered" >        if (!queue.isUploading) {</span>
+<span class="cstat-no" title="statement not covered" >            localStrategy.browse();</span>
+        }
+    };
+&nbsp;
+    fluid.uploader.removeFile = function (queue, localStrategy, afterFileRemoved, file) {
+        queue.removeFile(file);
+        localStrategy.removeFile(file);
+        afterFileRemoved.fire(file);
+    };
+&nbsp;
+    fluid.uploader.start = function (queue, remoteStrategy, onUploadStart) {
+        queue.start();
+        onUploadStart.fire(queue.currentBatch.files);
+        remoteStrategy.uploadNextFile();
+    };
+&nbsp;
+    fluid.uploader.stop = function (remoteStrategy, onUploadStop) {
+        onUploadStop.fire();
+        remoteStrategy.stop();
+    };
+&nbsp;
+    fluid.uploader.defaultQueueSettings = {
+        uploadURL: "",
+        postParams: {},
+        fileSizeLimit: "20480",
+        fileTypes: null,
+        fileTypesDescription: null,
+        fileUploadLimit: 0,
+        fileQueueLimit: 0
+    };
+&nbsp;
+    // Automatically bind a listener transferring focus to those DOM elements requested for component events
+    fluid.uploader.bindFocus = function (focusWithEvent, noAutoFocus, events, dom) {
+        fluid.each(focusWithEvent, function (element, event) {
+            if (!noAutoFocus[event]) {
+                events[event].addListener(function () {
+                    dom.locate(element).focus();
+                });
+            }
+        });
+    };
+&nbsp;
+    /**
+     * Multiple file Uploader implementation. Encapsulates logic which is common across all configurations supporing multiple
+     * file uploads - HTML5 (and historically Flash)
+     */
+&nbsp;
+    fluid.defaults("fluid.uploader.multiFileUploader", {
+        gradeNames: ["fluid.viewComponent"],
+        members: {
+            totalFileStatusTextId: {
+                expander: {
+                    // create an id for that.dom.container, if it does not have one already,
+                    // and set that.totalFileStatusTextIdId to the id value
+                    funcName: "fluid.allocateSimpleId",
+                    args: "{that}.dom.totalFileStatusText"
+                }
+            }
+        },
+        invokers: {
+            /**
+             * Opens the native OS browse file dialog.
+             */
+            browse: {
+                funcName: "fluid.uploader.browse",
+                args: ["{that}.queue", "{that}.strategy.local"]
+            },
+            /**
+             * Removes the specified file from the upload queue.
+             *
+             * @param file {File} the file to remove
+             */
+            removeFile: {
+                funcName: "fluid.uploader.removeFile",
+                args: ["{that}.queue", "{that}.strategy.local", "{that}.events.afterFileRemoved", "{arguments}.0"]
+            },
+            /**
+             * Starts uploading all queued files to the server.
+             */
+            start: {
+                funcName: "fluid.uploader.start",
+                args: ["{that}.queue", "{that}.strategy.remote", "{that}.events.onUploadStart"]
+            },
+            /**
+             * Cancels an in-progress upload.
+             */
+            stop: {
+                funcName: "fluid.uploader.stop",
+                args: ["{that}.strategy.remote", "{that}.events.onUploadStop"]
+            }
+        },
+&nbsp;
+        components: {
+            queue: {
+                type: "fluid.uploader.fileQueue"
+            },
+            strategy: {
+                type: "fluid.uploader.strategy"
+            },
+            errorPanel: {
+                type: "fluid.uploader.errorPanel",
+                container: "{uploader}.dom.errorsPanel",
+                options: {
+                    gradeNames: "fluid.uploader.errorPanel.bindUploader"
+                }
+            },
+            fileQueueView: {
+                type: "fluid.uploader.fileQueueView",
+                container: "{uploader}.dom.fileQueue",
+                options: {
+                    gradeNames: "fluid.uploader.fileQueueView.bindUploader",
+                    members: { // TODO: This amounts to the entire model idiom for fileQueueView
+                        queueFiles: "{uploader}.queue.files"
+                    },
+                    uploaderContainer: "{uploader}.container",
+                    strings: {
+                        buttons: {
+                            remove: "{uploader}.options.strings.buttons.remove"
+                        }
+                    }
+                }
+            },
+            totalProgress: {
+                type: "fluid.progress",
+                container: "{uploader}.container",
+                options: {
+                    selectors: {
+                        progressBar: ".flc-uploader-queue-footer",
+                        displayElement: ".flc-uploader-total-progress",
+                        label: ".flc-uploader-total-progress-text",
+                        indicator: ".flc-uploader-total-progress",
+                        ariaElement: ".flc-uploader-total-progress"
+                    }
+                }
+            }
+        },
+&nbsp;
+        queueSettings: fluid.uploader.defaultQueueSettings,
+&nbsp;
+        demo: false,
+&nbsp;
+        selectors: {
+            fileQueue: ".flc-uploader-queue",
+            browseButton: ".flc-uploader-button-browse",
+            browseButtonText: ".flc-uploader-button-browse-text",
+            uploadButton: ".flc-uploader-button-upload",
+            pauseButton: ".flc-uploader-button-pause",
+            totalFileStatusText: ".flc-uploader-total-progress-text",
+            fileUploadLimitText: ".flc-uploader-upload-limit-text",
+            instructions: ".flc-uploader-browse-instructions",
+            errorsPanel: ".flc-uploader-errorsPanel"
+        },
+        noAutoFocus: { // Specifies a member of "focusWithEvent" which the uploader will not attempt to automatically honour
+            afterFileDialog: true
+        },
+&nbsp;
+        // Specifies a selector name to move keyboard focus to when a particular event fires.
+        // Event listeners must already be implemented to use these options.
+        focusWithEvent: {
+            afterFileDialog: "uploadButton",
+            onUploadStart: "pauseButton",
+            onUploadStop: "uploadButton"
+        },
+&nbsp;
+        styles: {
+            disabled: "fl-uploader-disabled",
+            hidden: "fl-uploader-hidden",
+            dim: "fl-uploader-dim",
+            totalProgress: "fl-uploader-total-progress-okay",
+            totalProgressError: "fl-uploader-total-progress-errored",
+            browseButton: "fl-uploader-browseMore"
+        },
+&nbsp;
+        events: {
+            // TODO: this event "afterReady" was only fired by the Flash Uploader.
+            // It should either be removed or refactored post v1.5
+            afterReady: null,
+            onFileDialog: null,
+            onFilesSelected: null,
+            onFileQueued: null,     // file
+            afterFileQueued: null,  // file
+            onFileRemoved: null,    // file
+            afterFileRemoved: null, // file
+            afterFileDialog: null,
+            onUploadStart: null,
+            onUploadStop: null,
+            onFileStart: null,      // file
+            onFileProgress: null,   // file, currentBytes, totalBytes
+            onFileError: null,      // file, error
+            onQueueError: null,
+            onFileSuccess: null,
+            onFileComplete: null,
+            afterFileComplete: null,
+            afterUploadComplete: null
+        },
+        listeners: {
+            "onCreate": [{
+                listener: "fluid.uploader.bindFocus",
+                args: ["{that}.options.focusWithEvent", "{that}.options.noAutoFocus", "{that}.events", "{that}.dom"]
+            }, {
+                funcName: "fluid.uploader.multiFileUploader.setupMarkup",
+                namespace: "setupMarkup"
+            },
+            { // TODO: These two part of the "new renderer" as "new decorators"
+                "this": "{that}.dom.uploadButton",
+                method: "click",
+                args: "{that}.start"
+            }, {
+                "this": "{that}.dom.pauseButton",
+                method: "click",
+                args: "{that}.stop"
+            }, {
+                "this": "{that}.dom.totalFileStatusText",
+                method: "attr",
+                args: [{
+                    "role": "log",
+                    "aria-live": "assertive",
+                    "aria-relevant": "text",
+                    "aria-atomic": "true"
+                }]
+            }, {
+                "this": "{that}.dom.fileQueue",
+                method: "attr",
+                args: [{
+                    "aria-controls": "{that}.totalFileStatusTextId",
+                    "aria-labelledby": "{that}.totalFileStatusTextId"
+                }]
+            }],
+            // Namespace all our standard listeners so they are easy to override
+            "afterFileDialog.uploader": {
+                listener: "fluid.uploader.updateStateAfterFileDialog",
+                args: "{that}"
+            },
+            "afterFileQueued.uploader": {
+                listener: "{that}.queue.addFile",
+                args: "{arguments}.0" // file
+            },
+            "onFileRemoved.uploader": {
+                listener: "{that}.removeFile",
+                args: "{arguments}.0" // file
+            },
+            "afterFileRemoved.uploader": {
+                listener: "fluid.uploader.updateStateAfterFileRemoval",
+                args: "{that}"
+            },
+            "onUploadStart.uploader": {
+                listener: "fluid.uploader.setStateUploading",
+                args: "{that}"
+            },
+            "onFileStart.uploader": {
+                listener: "fluid.uploader.onFileStart",
+                args: ["{arguments}.0", "{that}.queue"]
+            },
+            "onFileProgress.uploader": {
+                listener: "fluid.uploader.onFileProgress",
+                args: ["{that}", "{arguments}.1"] // 1: currentBytes
+            },
+            "onFileComplete.uploader": {
+                listener: "fluid.uploader.onFileComplete",
+                args: ["{arguments}.0", "{that}"]
+            },
+            "onFileSuccess.uploader": {
+                listener: "fluid.uploader.onFileSuccess",
+                args: ["{arguments}.0", "{that}"]
+            },
+            "onFileError.uploader": {
+                listener: "fluid.uploader.onFileError",
+                args: ["{arguments}.0", "{arguments}.1", "{that}"]
+            },
+            "afterUploadComplete.uploader": {
+                listener: "fluid.uploader.afterUploadComplete",
+                args: "{that}"
+            }
+        },
+&nbsp;
+        strings: {
+            progress: {
+                fileUploadLimitLabel: "%fileUploadLimit %fileLabel maximum",
+                noFiles: "0 files",
+                toUploadLabel: "%uploadedCount out of %totalCount files uploaded (%uploadedSize of %totalSize)",
+                totalProgressLabel: "%uploadedCount out of %totalCount files uploaded (%uploadedSize of %totalSize)",
+                completedLabel: "%uploadedCount out of %totalCount files uploaded (%uploadedSize of %totalSize)%errorString",
+                numberOfErrors: ", %errorsN %errorLabel",
+                singleFile: "file",
+                pluralFiles: "files",
+                singleError: "error",
+                pluralErrors: "errors"
+            },
+            buttons: {
+                browse: "Browse Files",
+                addMore: "Add More",
+                stopUpload: "Stop Upload",
+                cancelRemaning: "Cancel remaining Uploads",
+                resumeUpload: "Resume Upload",
+                remove: "Remove"
+            }
+        }
+    });
+&nbsp;
+    fluid.uploader.multiFileUploader.setupMarkup = function (that) {
+        // Upload button should not be enabled until there are files to upload
+        fluid.uploader.disableElement(that, that.locate("uploadButton"));
+&nbsp;
+        fluid.uploader.renderFileUploadLimit(that);
+&nbsp;
+        // placed here for backwards compatibility, as a noFiles string
+        // may not be defined.
+        var noFilesMsg = that.options.strings.progress.noFiles;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (noFilesMsg)  {
+            that.locate("totalFileStatusText").text(noFilesMsg);
+        }
+    };
+&nbsp;
+&nbsp;
+    fluid.defaults("fluid.uploader.strategy", {
+        gradeNames: ["fluid.component"],
+        components: {
+            local: {
+                type: "fluid.uploader.local"
+            },
+            remote: {
+                type: "fluid.uploader.remote"
+            }
+        }
+    });
+&nbsp;
+    fluid.defaults("fluid.uploader.local", {
+        gradeNames: ["fluid.component"],
+        queueSettings: "{uploader}.options.queueSettings",
+        members: {
+            queue: "{uploader}.queue"
+        },
+        events: {
+            onFileDialog: "{uploader}.events.onFileDialog",
+            onFilesSelected: "{uploader}.events.onFilesSelected",
+            afterFileDialog: "{uploader}.events.afterFileDialog",
+            afterFileQueued: "{uploader}.events.afterFileQueued",
+            onQueueError: "{uploader}.events.onQueueError"
+        },
+        invokers: {
+            enableBrowseButton: "fluid.uploader.local.enableBrowseButton", // TODO: FLUID-4928 "visibility model"
+            disableBrowseButton: "fluid.uploader.local.disableBrowseButton"
+        }
+    });
+&nbsp;
+    fluid.defaults("fluid.uploader.remote", {
+        gradeNames: ["fluid.component"],
+        members: {
+            queue: "{uploader}.queue", // TODO: explosions, see FLUID-4925
+            queueSettings: "{uploader}.options.queueSettings"
+        },
+        events: {
+            onFileStart: "{uploader}.events.onFileStart",
+            onFileProgress: "{uploader}.events.onFileProgress",
+            onFileSuccess: "{uploader}.events.onFileSuccess",
+            onFileError: "{uploader}.events.onFileError",
+            onFileComplete: "{uploader}.events.onFileComplete",
+            onUploadStop: "{uploader}.events.onUploadStop",
+            afterFileComplete: "{uploader}.events.afterFileComplete",
+            afterUploadComplete: "{uploader}.events.afterUploadComplete"
+        },
+        invokers: {
+            uploadNextFile: "fluid.uploader.uploadNextFile",
+            stop: "fluid.uploader.stop"
+        }
+    });
+&nbsp;
+    /**************************************************
+     * Error constants for the Uploader               *
+     **************************************************/
+     // Partial TODO: The values of these keys are now our own - however, the key
+     // values themselves still align with those from SWFUpload
+    fluid.uploader.queueErrorConstants = {
+        QUEUE_LIMIT_EXCEEDED:    "queue limit exceeded",
+        FILE_EXCEEDS_SIZE_LIMIT: "file exceeds size limit",
+        ZERO_BYTE_FILE:          "zero byte file",
+        INVALID_FILETYPE:        "invalid filetype"
+    };
+&nbsp;
+    fluid.uploader.errorConstants = {
+        HTTP_ERROR:                  "HTTP error",
+        MISSING_UPLOAD_URL:          "Missing upload URL",
+        IO_ERROR:                    "I/O error",
+        SECURITY_ERROR:              "Security error",
+        UPLOAD_LIMIT_EXCEEDED:       "Upload limit exceeded",
+        UPLOAD_FAILED:               "Uploader failed",
+        SPECIFIED_FILE_ID_NOT_FOUND: "Specified file ID not found",
+        FILE_VALIDATION_FAILED:      "File validation failed",
+        FILE_CANCELLED:              "File cancelled",
+        UPLOAD_STOPPED:              "Upload stopped"
+    };
+&nbsp;
+    fluid.uploader.fileStatusConstants = {
+        QUEUED:      "queued",
+        IN_PROGRESS: "in progress",
+        ERROR:       "error",
+        COMPLETE:    "complete",
+        CANCELLED:   "cancelled"
+    };
+&nbsp;
+    /**
+     * Single file Uploader implementation. Use fluid.uploader() for IoC-resolved, progressively
+     * enhanceable Uploader, or call this directly if you only want a standard single file uploader.
+     * But why would you want that?
+     *
+     * @param container {jQueryable} the component's container
+     * @param options {Object} configuration options
+     */
+&nbsp;
+    fluid.defaults("fluid.uploader.singleFile", {
+        gradeNames: ["fluid.viewComponent"],
+        selectors: {
+            basicUpload: ".fl-progEnhance-basic"
+        },
+        listeners: {
+            "onCreate.showMarkup": "fluid.uploader.singleFile.showMarkup"
+        }
+    });
+&nbsp;
+    fluid.uploader.singleFile.toggleVisibility = function (toShow, toHide) {
+        // For FLUID-2789: hide() doesn't work in Opera
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (window.opera) {
+<span class="cstat-no" title="statement not covered" >            toShow.show().removeClass("hideUploaderForOpera");</span>
+<span class="cstat-no" title="statement not covered" >            toHide.show().addClass("hideUploaderForOpera");</span>
+        } else {
+            toShow.show();
+            toHide.hide();
+        }
+    };
+&nbsp;
+    fluid.uploader.singleFile.showMarkup = function (that) {
+        // TODO: direct DOM fascism that will fail with multiple uploaders on a single page.
+        fluid.uploader.singleFile.toggleVisibility($(that.options.selectors.basicUpload), that.container);
+    };
+&nbsp;
+})(jQuery, fluid_3_0_0);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Apr 19 2018 20:08:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

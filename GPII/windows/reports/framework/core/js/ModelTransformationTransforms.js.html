@@ -1,0 +1,3014 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for framework/core/js/ModelTransformationTransforms.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">framework/core/js</a> ModelTransformationTransforms.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.59% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>367/388</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.37% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>166/190</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.37% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>74/76</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.59% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>367/388</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931
+932
+933
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956
+957
+958
+959
+960
+961
+962
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976
+977
+978
+979
+980
+981
+982
+983
+984</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">593x</span>
+<span class="cline-any cline-yes">593x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">621x</span>
+<span class="cline-any cline-yes">591x</span>
+<span class="cline-any cline-yes">466x</span>
+<span class="cline-any cline-yes">466x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">1105x</span>
+<span class="cline-any cline-yes">1105x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">385x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">385x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">836x</span>
+<span class="cline-any cline-yes">836x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">836x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">836x</span>
+<span class="cline-any cline-yes">836x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">1252x</span>
+<span class="cline-any cline-yes">1252x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">392x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">392x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">392x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">392x</span>
+<span class="cline-any cline-yes">84x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">392x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">322x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">308x</span>
+<span class="cline-any cline-yes">308x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-yes">278x</span>
+<span class="cline-any cline-yes">278x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">292x</span>
+<span class="cline-any cline-yes">292x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">292x</span>
+<span class="cline-any cline-yes">292x</span>
+<span class="cline-any cline-yes">902x</span>
+<span class="cline-any cline-yes">902x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">902x</span>
+<span class="cline-any cline-yes">902x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">292x</span>
+<span class="cline-any cline-yes">292x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-yes">254x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">236x</span>
+<span class="cline-any cline-yes">236x</span>
+<span class="cline-any cline-yes">236x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">236x</span>
+<span class="cline-any cline-yes">236x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">236x</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">236x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">236x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">88x</span>
+<span class="cline-any cline-yes">88x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-yes">256x</span>
+<span class="cline-any cline-yes">128x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">128x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">714x</span>
+<span class="cline-any cline-yes">714x</span>
+<span class="cline-any cline-yes">654x</span>
+<span class="cline-any cline-yes">654x</span>
+<span class="cline-any cline-yes">654x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">714x</span>
+<span class="cline-any cline-yes">714x</span>
+<span class="cline-any cline-yes">646x</span>
+<span class="cline-any cline-yes">646x</span>
+<span class="cline-any cline-yes">646x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">714x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">94x</span>
+<span class="cline-any cline-yes">94x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">94x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+Copyright 2010 University of Toronto
+Copyright 2010-2015 OCAD University
+Copyright 2013-2014 Raising the Floor - US
+Copyright 2013-2017 Raising the Floor - International
+&nbsp;
+Licensed under the Educational Community License (ECL), Version 2.0 or the New
+BSD license. You may not use this file except in compliance with one these
+Licenses.
+&nbsp;
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
+*/
+&nbsp;
+var fluid_2_0_0 = fluid_2_0_0 || {};
+var fluid = fluid || <span class="branch-1 cbranch-no" title="branch not covered" >fluid_2_0_0;</span>
+&nbsp;
+(function ($, fluid) {
+    "use strict";
+&nbsp;
+    fluid.registerNamespace("fluid.model.transform");
+    fluid.registerNamespace("fluid.transforms");
+&nbsp;
+    /**********************************
+     * Standard transformer functions *
+     **********************************/
+&nbsp;
+    fluid.defaults("fluid.transforms.value", {
+        gradeNames: "fluid.standardTransformFunction",
+        invertConfiguration: "fluid.identity"
+    });
+&nbsp;
+    fluid.transforms.value = fluid.identity;
+&nbsp;
+    // Export the use of the "value" transform under the "identity" name for FLUID-5293
+    fluid.transforms.identity = fluid.transforms.value;
+    fluid.defaults("fluid.transforms.identity", {
+        gradeNames: "fluid.transforms.value"
+    });
+&nbsp;
+    // A helpful utility function to be used when a transform's inverse is the identity
+    fluid.transforms.invertToIdentity = function (transformSpec) {
+        transformSpec.type = "fluid.transforms.identity";
+        return transformSpec;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.literalValue", {
+        gradeNames: "fluid.standardOutputTransformFunction"
+    });
+&nbsp;
+    fluid.transforms.literalValue = function (transformSpec) {
+        return transformSpec.input;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.stringToNumber", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.stringToNumber.invert"
+    });
+&nbsp;
+    fluid.transforms.stringToNumber = function (value) {
+        var newValue = Number(value);
+        return isNaN(newValue) ? undefined : newValue;
+    };
+&nbsp;
+    fluid.transforms.stringToNumber.invert = function (transformSpec) {
+        transformSpec.type = "fluid.transforms.numberToString";
+        return transformSpec;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.numberToString", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.numberToString.invert"
+    });
+&nbsp;
+    fluid.transforms.numberToString = function (value, transformSpec) {
+        if (typeof value === "number") {
+            if (typeof transformSpec.scale === "number" &amp;&amp; !isNaN(transformSpec.scale)) {
+                var rounded = fluid.roundToDecimal(value, transformSpec.scale, transformSpec.method);
+                return rounded.toString();
+            } else {
+                return value.toString();
+            }
+        }
+    };
+&nbsp;
+    fluid.transforms.numberToString.invert = function (transformSpec) {
+        transformSpec.type = "fluid.transforms.stringToNumber";
+        return transformSpec;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.count", {
+        gradeNames: "fluid.standardTransformFunction"
+    });
+&nbsp;
+    fluid.transforms.count = function (value) {
+        return fluid.makeArray(value).length;
+    };
+&nbsp;
+&nbsp;
+    fluid.defaults("fluid.transforms.round", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.invertToIdentity"
+    });
+&nbsp;
+    fluid.transforms.round = function (value, transformSpec) {
+        // validation of scale is handled by roundToDecimal
+        return fluid.roundToDecimal(value, transformSpec.scale, transformSpec.method);
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.delete", {
+        gradeNames: "fluid.transformFunction"
+    });
+&nbsp;
+    fluid.transforms["delete"] = function (transformSpec, transformer) {
+        var outputPath = fluid.model.composePaths(transformer.outputPrefix, transformSpec.outputPath);
+        transformer.applier.change(outputPath, null, "DELETE");
+    };
+&nbsp;
+&nbsp;
+    fluid.defaults("fluid.transforms.firstValue", {
+        gradeNames: "fluid.standardOutputTransformFunction"
+    });
+&nbsp;
+    fluid.transforms.firstValue = function (transformSpec, transformer) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!transformSpec.values || !transformSpec.values.length) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("firstValue transformer requires an array of values at path named \"values\", supplied", transformSpec);</span>
+        }
+        for (var i = 0; i &lt; transformSpec.values.length; i++) {
+            var value = transformSpec.values[i];
+            // TODO: problem here - all of these transforms will have their side-effects (setValue) even if only one is chosen
+            var expanded = transformer.expand(value);
+            if (expanded !== undefined) {
+                return expanded;
+            }
+        }
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.linearScale", {
+        gradeNames: ["fluid.multiInputTransformFunction",
+                     "fluid.standardTransformFunction",
+                     "fluid.lens" ],
+        invertConfiguration: "fluid.transforms.linearScale.invert",
+        inputVariables: {
+            factor: 1,
+            offset: 0
+        }
+    });
+&nbsp;
+    /* simple linear transformation */
+    fluid.transforms.linearScale = function (input, extraInputs) {
+        var factor = extraInputs.factor();
+        var offset = extraInputs.offset();
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof(input) !== "number" || typeof(factor) !== "number" || typeof(offset) !== "number") {
+<span class="cstat-no" title="statement not covered" >            return undefined;</span>
+        }
+        return input * factor + offset;
+    };
+&nbsp;
+    /* TODO: This inversion doesn't work if the value and factors are given as paths in the source model */
+    fluid.transforms.linearScale.invert = function (transformSpec) {
+        // delete the factor and offset paths if present
+        delete transformSpec.factorPath;
+        delete transformSpec.offsetPath;
+&nbsp;
+        if (transformSpec.factor !== undefined) {
+            transformSpec.factor = (transformSpec.factor === 0) ? <span class="branch-0 cbranch-no" title="branch not covered" >0 </span>: 1 / transformSpec.factor;
+        }
+        if (transformSpec.offset !== undefined) {
+            transformSpec.offset = -transformSpec.offset * (transformSpec.factor !== undefined ? transformSpec.factor : <span class="branch-1 cbranch-no" title="branch not covered" >1)</span>;
+        }
+        return transformSpec;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.binaryOp", {
+        gradeNames: [ "fluid.multiInputTransformFunction", "fluid.standardOutputTransformFunction" ],
+        inputVariables: {
+            left: null,
+            right: null
+        }
+    });
+&nbsp;
+    fluid.transforms.binaryLookup = {
+        "===": function (a, b) { return fluid.model.isSameValue(a, b); },
+        "!==": function (a, b) { return !fluid.model.isSameValue(a, b); },
+        "&lt;=": function (a, b) { return a &lt;= b; },
+        "&lt;": function (a, b) { return a &lt; b; },
+        "&gt;=": function (a, b) { return a &gt;= b; },
+        "&gt;": function (a, b) { return a &gt; b; },
+        "+": function (a, b) { return a + b; },
+        "-": function (a, b) { return a - b; },
+        "*": function (a, b) { return a * b; },
+        "/": function (a, b) { return a / b; },
+        "%": function (a, b) { return a % b; },
+        "&amp;&amp;": function (a, b) { return a &amp;&amp; b; },
+        "||": function (a, b) { return a || b; }
+    };
+&nbsp;
+    fluid.transforms.binaryOp = function (inputs, transformSpec, transformer) {
+        var left = inputs.left();
+        var right = inputs.right();
+&nbsp;
+        var operator = fluid.model.transform.getValue(undefined, transformSpec.operator, transformer);
+&nbsp;
+        var fun = fluid.transforms.binaryLookup[operator];
+        return (fun === undefined || left === undefined || right === undefined) ?
+            undefined : fun(left, right);
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.condition", {
+        gradeNames: [ "fluid.multiInputTransformFunction", "fluid.standardOutputTransformFunction" ],
+        inputVariables: {
+            "true": null,
+            "false": null,
+            "condition": null
+        }
+    });
+&nbsp;
+    fluid.transforms.condition = function (inputs) {
+        var condition = inputs.condition();
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (condition === null) {
+<span class="cstat-no" title="statement not covered" >            return undefined;</span>
+        }
+&nbsp;
+        return inputs[condition ? "true" : "false"]();
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.valueMapper", {
+        gradeNames: ["fluid.transformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.valueMapper.invert",
+        collectInputPaths: "fluid.transforms.valueMapper.collect"
+    });
+&nbsp;
+    /* unsupported, NON-API function
+     * sorts by the object's 'matchValue' property, where higher is better.
+     * Tiebreaking is done via the `index` property, where a lower index takes priority
+     */
+    fluid.model.transform.compareMatches = function (speca, specb) {
+        var matchDiff = specb.matchValue - speca.matchValue;
+        return matchDiff === 0 ? speca.index - specb.index : matchDiff; // tiebreak using 'index'
+    };
+&nbsp;
+    fluid.transforms.valueMapper = function (transformSpec, transformer) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!transformSpec.match) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("valueMapper requires an array or hash of matches at path named \"match\", supplied ", transformSpec);</span>
+        }
+        var value = fluid.model.transform.getValue(transformSpec.defaultInputPath, transformSpec.defaultInput, transformer);
+&nbsp;
+        var matchedEntry = (fluid.isArrayable(transformSpec.match)) ? // long form with array of records?
+            fluid.transforms.valueMapper.longFormMatch(value, transformSpec, transformer) :
+            transformSpec.match[value];
+&nbsp;
+        if (matchedEntry === undefined) { // if no matches found, default to noMatch
+            matchedEntry = transformSpec.noMatch;
+        }
+&nbsp;
+        if (matchedEntry === undefined) { // if there was no noMatch directive, return undefined
+            return;
+        }
+&nbsp;
+        var outputPath = matchedEntry.outputPath === undefined ? transformSpec.defaultOutputPath : matchedEntry.outputPath;
+        transformer.outputPrefixOp.push(outputPath);
+&nbsp;
+        var outputValue;
+        if (fluid.isPrimitive(matchedEntry)) {
+            outputValue = matchedEntry;
+        } else if (matchedEntry.outputUndefinedValue) { // if outputUndefinedValue is set, outputValue `undefined`
+            outputValue = undefined;
+        } else {
+            // get value from outputValue. If none is found set the outputValue to be that of defaultOutputValue (or undefined)
+            outputValue = fluid.model.transform.resolveParam(matchedEntry, transformer, "outputValue", undefined);
+            outputValue = (outputValue === undefined) ? transformSpec.defaultOutputValue : outputValue;
+        }
+        // output if we have a path and something to output
+        if (typeof(outputPath) === "string" &amp;&amp; outputValue !== undefined) {
+            fluid.model.transform.setValue(undefined, outputValue, transformer, transformSpec.merge);
+            outputValue = undefined; // make sure we don't also return value
+        }
+        transformer.outputPrefixOp.pop();
+        return outputValue;
+    };
+&nbsp;
+    // unsupported, NON-API function
+    fluid.transforms.valueMapper.longFormMatch = function (valueFromDefaultPath, transformSpec, transformer) {
+        var o = transformSpec.match;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (o.length === 0) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("valueMapper supplied empty list of matches: ", transformSpec);</span>
+        }
+        var matchPower = [];
+        for (var i = 0; i &lt; o.length; ++i) {
+            var option = o[i];
+            var value = option.inputPath ?
+                fluid.model.transform.getValue(option.inputPath, undefined, transformer) : valueFromDefaultPath;
+&nbsp;
+            var matchValue = fluid.model.transform.matchValue(option.inputValue, value, option.partialMatches);
+            matchPower[i] = {index: i, matchValue: matchValue};
+        }
+        matchPower.sort(fluid.model.transform.compareMatches);
+        return matchPower[0].matchValue &lt;= 0 ? undefined : o[matchPower[0].index];
+    };
+&nbsp;
+    fluid.transforms.valueMapper.invert = function (transformSpec, transformer) {
+        var match = [];
+        var togo = {
+            type: "fluid.transforms.valueMapper",
+            match: match
+        };
+        var isArray = fluid.isArrayable(transformSpec.match);
+&nbsp;
+        togo.defaultInputPath = fluid.model.composePaths(transformer.outputPrefix, transformSpec.defaultOutputPath);
+        togo.defaultOutputPath = fluid.model.composePaths(transformer.inputPrefix, transformSpec.defaultInputPath);
+&nbsp;
+        var def = fluid.firstDefined;
+        fluid.each(transformSpec.match, function (option, key) {
+            if (option.outputUndefinedValue === true) {
+                return; // don't attempt to invert undefined output value entries
+            }
+            var outOption = {};
+            var origInputValue = def(isArray ? option.inputValue : key, transformSpec.defaultInputValue);
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (origInputValue === undefined) {
+<span class="cstat-no" title="statement not covered" >                fluid.fail("Failure inverting configuration for valueMapper - inputValue could not be resolved for record " + key + ": ", transformSpec);</span>
+            }
+            outOption.outputValue = origInputValue;
+            outOption.inputValue = !isArray &amp;&amp; fluid.isPrimitive(option) ?
+                option : def(option.outputValue, transformSpec.defaultOutputValue);
+&nbsp;
+            if (option.outputPath) {
+                outOption.inputPath = fluid.model.composePaths(transformer.outputPrefix, def(option.outputPath, transformSpec.outputPath));
+            }
+            if (option.inputPath) {
+                outOption.outputPath = fluid.model.composePaths(transformer.inputPrefix, def(option.inputPath, transformSpec.inputPath));
+            }
+            match.push(outOption);
+        });
+        return togo;
+    };
+&nbsp;
+    fluid.transforms.valueMapper.collect = function (transformSpec, transformer) {
+        var togo = [];
+        fluid.model.transform.accumulateStandardInputPath("defaultInput", transformSpec, transformer, togo);
+        fluid.each(transformSpec.match, function (option) {
+            fluid.model.transform.accumulateInputPath(option.inputPath, transformer, togo);
+        });
+        return togo;
+    };
+&nbsp;
+    /* -------- arrayToSetMembership and setMembershipToArray ---------------- */
+&nbsp;
+    fluid.defaults("fluid.transforms.arrayToSetMembership", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.arrayToSetMembership.invert"
+    });
+&nbsp;
+&nbsp;
+    fluid.transforms.arrayToSetMembership = function (value, transformSpec, transformer) {
+        var output = {};
+        var options = transformSpec.options;
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!value || !fluid.isArrayable(value)) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("arrayToSetMembership didn't find array at inputPath nor passed as value.", transformSpec);</span>
+        }
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!options) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("arrayToSetMembership requires an options block set");</span>
+        }
+&nbsp;
+        if (transformSpec.presentValue === undefined) {
+            transformSpec.presentValue = true;
+        }
+&nbsp;
+        if (transformSpec.missingValue === undefined) {
+            transformSpec.missingValue = false;
+        }
+&nbsp;
+        fluid.each(options, function (outPath, key) {
+            // write to output object the value &lt;presentValue&gt; or &lt;missingValue&gt; depending on whether key is found in user input
+            var outVal = (value.indexOf(key) !== -1) ? transformSpec.presentValue : transformSpec.missingValue;
+            fluid.set(output, outPath, outVal, transformer.resolverSetConfig);
+        });
+        return output;
+    };
+&nbsp;
+    /*
+     * NON-API function; Copies the entire transformSpec with the following modifications:
+     * * A new type is set (from argument)
+     * * each [key]=value entry in the options is swapped to be: [value]=key
+     */
+    fluid.transforms.arrayToSetMembership.invertWithType = function (transformSpec, transformer, newType) {
+        transformSpec.type = newType;
+        var newOptions = {};
+        fluid.each(transformSpec.options, function (path, oldKey) {
+            newOptions[path] = oldKey;
+        });
+        transformSpec.options = newOptions;
+        return transformSpec;
+    };
+&nbsp;
+    fluid.transforms.arrayToSetMembership.invert = function (transformSpec, transformer) {
+        return fluid.transforms.arrayToSetMembership.invertWithType(transformSpec, transformer,
+            "fluid.transforms.setMembershipToArray");
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.setMembershipToArray", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.setMembershipToArray.invert"
+    });
+&nbsp;
+    fluid.transforms.setMembershipToArray = function (input, transformSpec, transformer) {
+        var options = transformSpec.options;
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!options) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("setMembershipToArray requires an options block specified");</span>
+        }
+&nbsp;
+        if (transformSpec.presentValue === undefined) {
+            transformSpec.presentValue = true;
+        }
+&nbsp;
+        if (transformSpec.missingValue === undefined) {
+            transformSpec.missingValue = false;
+        }
+&nbsp;
+        var outputArr = [];
+        fluid.each(options, function (outputVal, key) {
+            var value = fluid.get(input, key, transformer.resolverGetConfig);
+            if (value === transformSpec.presentValue) {
+                outputArr.push(outputVal);
+            }
+        });
+        return outputArr;
+    };
+&nbsp;
+    fluid.transforms.setMembershipToArray.invert = function (transformSpec, transformer) {
+        return fluid.transforms.arrayToSetMembership.invertWithType(transformSpec, transformer,
+            "fluid.transforms.arrayToSetMembership");
+    };
+&nbsp;
+    /* -------- deindexIntoArrayByKey and indexArrayByKey -------------------- */
+&nbsp;
+    /*
+     * Transforms the given array to an object.
+     * Uses the transformSpec.options.key values from each object within the array as new keys.
+     *
+     * For example, with transformSpec.key = "name" and an input object like this:
+     *
+     * {
+     *   b: [
+     *     { name: b1, v: v1 },
+     *     { name: b2, v: v2 }
+     *   ]
+     * }
+     *
+     * The output will be:
+     * {
+     *   b: {
+     *     b1: {
+     *       v: v1
+     *     }
+     *   },
+     *   {
+     *     b2: {
+     *       v: v2
+     *     }
+     *   }
+     * }
+     */
+    fluid.model.transform.applyPaths = function (operation, pathOp, paths) {
+        for (var i = 0; i &lt; paths.length; ++i) {
+            if (operation === "push") {
+                pathOp.push(paths[i]);
+            } else {
+                pathOp.pop();
+            }
+        }
+    };
+&nbsp;
+    fluid.model.transform.expandInnerValues = function (inputPath, outputPath, transformer, innerValues) {
+        var inputPrefixOp = transformer.inputPrefixOp;
+        var outputPrefixOp = transformer.outputPrefixOp;
+        var apply = fluid.model.transform.applyPaths;
+&nbsp;
+        apply("push", inputPrefixOp, inputPath);
+        apply("push", outputPrefixOp, outputPath);
+        var expanded = {};
+        fluid.each(innerValues, function (innerValue) {
+            var expandedInner = transformer.expand(innerValue);
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (!fluid.isPrimitive(expandedInner)) {
+<span class="cstat-no" title="statement not covered" >                $.extend(true, expanded, expandedInner);</span>
+            } else {
+                expanded = expandedInner;
+            }
+        });
+        apply("pop", outputPrefixOp, outputPath);
+        apply("pop", inputPrefixOp, inputPath);
+&nbsp;
+        return expanded;
+    };
+&nbsp;
+&nbsp;
+    fluid.defaults("fluid.transforms.indexArrayByKey", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens" ],
+        invertConfiguration: "fluid.transforms.indexArrayByKey.invert"
+    });
+&nbsp;
+    /* Transforms an array of objects into an object of objects, by indexing using the option "key" which must be supplied within the transform specification.
+     * The key of each element will be taken from the value held in each each original object's member derived from the option value in "key" - this member should
+     * exist in each array element. The member with name agreeing with "key" and its value will be removed from each original object before inserting into the returned
+     * object.
+     * For example,
+     * &lt;code&gt;fluid.transforms.indexArrayByKey([{k: "e1", b: 1, c: 2}, {k: "e2", b: 2: c: 3}], {key: "k"})&lt;/code&gt; will output the object
+     * &lt;code&gt;{e1: {b: 1, c: 2}, e2: {b: 2: c, 3}&lt;/code&gt;
+     * Note: This transform frequently arises in the context of data which arose in XML form, which often represents "morally indexed" data in repeating array-like
+     * constructs where the indexing key is held, for example, in an attribute.
+     */
+    fluid.transforms.indexArrayByKey = function (arr, transformSpec, transformer) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (transformSpec.key === undefined) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("indexArrayByKey requires a 'key' option.", transformSpec);</span>
+        }
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!fluid.isArrayable(arr)) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("indexArrayByKey didn't find array at inputPath.", transformSpec);</span>
+        }
+        var newHash = {};
+        var pivot = transformSpec.key;
+&nbsp;
+        fluid.each(arr, function (v, k) {
+            // check that we have a pivot entry in the object and it's a valid type:
+            var newKey = v[pivot];
+            var keyType = typeof(newKey);
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (keyType !== "string" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >keyType !== "boolean" </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >keyType !== "number")</span> {
+<span class="cstat-no" title="statement not covered" >                fluid.fail("indexArrayByKey encountered untransformable array due to missing or invalid key", v);</span>
+            }
+            // use the value of the key element as key and use the remaining content as value
+            var content = fluid.copy(v);
+            delete content[pivot];
+            // fix sub Arrays if needed:
+            if (transformSpec.innerValue) {
+                content = fluid.model.transform.expandInnerValues([transformer.inputPrefix, transformSpec.inputPath, k.toString()],
+                    [transformSpec.outputPath, newKey], transformer, transformSpec.innerValue);
+            }
+            newHash[newKey] = content;
+        });
+        return newHash;
+    };
+&nbsp;
+    fluid.transforms.indexArrayByKey.invert = function (transformSpec) {
+        transformSpec.type = "fluid.transforms.deindexIntoArrayByKey";
+        // invert transforms from innerValue as well:
+        // TODO: The Model Transformations framework should be capable of this, but right now the
+        // issue is that we use a "private contract" to operate the "innerValue" slot. We need to
+        // spend time thinking of how this should be formalised
+        if (transformSpec.innerValue) {
+            var innerValue = transformSpec.innerValue;
+            for (var i = 0; i &lt; innerValue.length; ++i) {
+                var inverted = fluid.model.transform.invertConfiguration(innerValue[i]);
+                if (inverted === fluid.model.transform.uninvertibleTransform) {
+                    return inverted;
+                } else {
+                    innerValue[i] = inverted;
+                }
+            }
+        }
+        return transformSpec;
+    };
+&nbsp;
+&nbsp;
+    fluid.defaults("fluid.transforms.deindexIntoArrayByKey", {
+        gradeNames: [ "fluid.standardTransformFunction", "fluid.lens" ],
+        invertConfiguration: "fluid.transforms.deindexIntoArrayByKey.invert"
+    });
+&nbsp;
+    /*
+     * Transforms an object of objects into an array of objects, by deindexing by the option "key" which must be supplied within the transform specification.
+     * The key of each object will become split out into a fresh value in each array element which will be given the key held in the transformSpec option "key".
+     * For example:
+     * &lt;code&gt;fluid.transforms.deindexIntoArrayByKey({e1: {b: 1, c: 2}, e2: {b: 2: c, 3}, {key: "k"})&lt;/code&gt; will output the array
+     * &lt;code&gt;[{k: "e1", b: 1, c: 2}, {k: "e2", b: 2: c: 3}]&lt;/code&gt;
+     *
+     * This performs the inverse transform of fluid.transforms.indexArrayByKey.
+     */
+    fluid.transforms.deindexIntoArrayByKey = function (hash, transformSpec, transformer) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (transformSpec.key === undefined) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("deindexIntoArrayByKey requires a \"key\" option.", transformSpec);</span>
+        }
+&nbsp;
+        var newArray = [];
+        var pivot = transformSpec.key;
+&nbsp;
+        fluid.each(hash, function (v, k) {
+            var content = {};
+            content[pivot] = k;
+            if (transformSpec.innerValue) {
+                v = fluid.model.transform.expandInnerValues([transformSpec.inputPath, k], [transformSpec.outputPath, newArray.length.toString()],
+                    transformer, transformSpec.innerValue);
+            }
+            $.extend(true, content, v);
+            newArray.push(content);
+        });
+        return newArray;
+    };
+&nbsp;
+    fluid.transforms.deindexIntoArrayByKey.invert = function (transformSpec) {
+        transformSpec.type = "fluid.transforms.indexArrayByKey";
+        // invert transforms from innerValue as well:
+        // TODO: The Model Transformations framework should be capable of this, but right now the
+        // issue is that we use a "private contract" to operate the "innerValue" slot. We need to
+        // spend time thinking of how this should be formalised
+        if (transformSpec.innerValue) {
+            var innerValue = transformSpec.innerValue;
+            for (var i = 0; i &lt; innerValue.length; ++i) {
+                innerValue[i] = fluid.model.transform.invertConfiguration(innerValue[i]);
+            }
+        }
+        return transformSpec;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.limitRange", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.invertToIdentity"
+    });
+&nbsp;
+    fluid.transforms.limitRange = function (value, transformSpec) {
+        var min = transformSpec.min;
+        if (min !== undefined) {
+            var excludeMin = transformSpec.excludeMin || 0;
+            min += excludeMin;
+            if (value &lt; min) {
+                value = min;
+            }
+        }
+        var max = transformSpec.max;
+        if (max !== undefined) {
+            var excludeMax = transformSpec.excludeMax || 0;
+            max -= excludeMax;
+            if (value &gt; max) {
+                value = max;
+            }
+        }
+        return value;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.indexOf", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.indexOf.invert"
+    });
+&nbsp;
+    fluid.transforms.indexOf = function (value, transformSpec) {
+        // We do not allow a positive number as 'notFound' value, as it threatens invertibility
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof (transformSpec.notFound) === "number" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >transformSpec.notFound &gt;= 0)</span> {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("A positive number is not allowed as 'notFound' value for indexOf");</span>
+        }
+        var offset = fluid.transforms.parseIndexationOffset(transformSpec.offset, "indexOf");
+        var array = fluid.makeArray(transformSpec.array);
+        var originalIndex = array.indexOf(value);
+        return originalIndex === -1 &amp;&amp; transformSpec.notFound ? transformSpec.notFound : originalIndex + offset;
+    };
+&nbsp;
+    fluid.transforms.indexOf.invert = function (transformSpec, transformer) {
+        var togo = fluid.transforms.invertArrayIndexation(transformSpec, transformer);
+        togo.type = "fluid.transforms.dereference";
+        return togo;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.dereference", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.dereference.invert"
+    });
+&nbsp;
+    fluid.transforms.dereference = function (value, transformSpec) {
+        if (typeof (value) !== "number") {
+            return undefined;
+        }
+        var offset = fluid.transforms.parseIndexationOffset(transformSpec.offset, "dereference");
+        var array = fluid.makeArray(transformSpec.array);
+        var index = value + offset;
+        return array[index];
+    };
+&nbsp;
+    fluid.transforms.dereference.invert = function (transformSpec, transformer) {
+        var togo = fluid.transforms.invertArrayIndexation(transformSpec, transformer);
+        togo.type = "fluid.transforms.indexOf";
+        return togo;
+    };
+&nbsp;
+    fluid.transforms.parseIndexationOffset = function (offset, transformName) {
+        var parsedOffset = 0;
+        if (offset !== undefined) {
+            parsedOffset = fluid.parseInteger(offset);
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (isNaN(parsedOffset)) {
+<span class="cstat-no" title="statement not covered" >                fluid.fail(transformName + " requires the value of \"offset\" to be an integer or a string that can be converted to an integer. " + offset + " is invalid.");</span>
+            }
+        }
+        return parsedOffset;
+    };
+&nbsp;
+    fluid.transforms.invertArrayIndexation = function (transformSpec) {
+        if (!isNaN(Number(transformSpec.offset))) {
+            transformSpec.offset = Number(transformSpec.offset) * (-1);
+        }
+        return transformSpec;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.stringTemplate", {
+        gradeNames: "fluid.standardOutputTransformFunction"
+    });
+&nbsp;
+    fluid.transforms.stringTemplate = function (transformSpec) {
+        return fluid.stringTemplate(transformSpec.template, transformSpec.terms);
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.free", {
+        gradeNames: "fluid.transformFunction"
+    });
+&nbsp;
+    fluid.transforms.free = function (transformSpec) {
+        var args = fluid.makeArray(transformSpec.args);
+        return fluid.invokeGlobalFunction(transformSpec.func, args);
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.quantize", {
+        gradeNames: "fluid.standardTransformFunction"
+    });
+&nbsp;
+    /*
+     * Quantize function maps a continuous range into discrete values. Given an input, it will
+     * be matched into a discrete bucket and the corresponding output will be done.
+     */
+    fluid.transforms.quantize = function (value, transformSpec, transform) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!transformSpec.ranges || !transformSpec.ranges.length) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("fluid.transforms.quantize should have a key called ranges containing an array defining ranges to quantize");</span>
+        }
+        // TODO: error checking that upper bounds are all numbers and increasing
+        for (var i = 0; i &lt; transformSpec.ranges.length; i++) {
+            var rangeSpec = transformSpec.ranges[i];
+            if (value &lt;= rangeSpec.upperBound || rangeSpec.upperBound === undefined &amp;&amp; value &gt;= Number.NEGATIVE_INFINITY) {
+                return fluid.isPrimitive(rangeSpec.output) ? rangeSpec.output : transform.expand(rangeSpec.output);
+            }
+        }
+    };
+&nbsp;
+    /**
+     * inRange transformer checks whether a value is within a given range and returns `true` if it is,
+     * and `false` if it's not.
+     *
+     * The range is defined by the two inputs: "min" and "max" (both inclusive). If one of these inputs
+     * is not present it is treated as -Infinity and +Infinity, respectively - In other words, if no
+     * `min` value is defined, any value below or equal to the given `max` value will result in `true`.
+     */
+    fluid.defaults("fluid.transforms.inRange", {
+        gradeNames: "fluid.standardTransformFunction"
+    });
+&nbsp;
+    fluid.transforms.inRange = function (value, transformSpec) {
+        return (transformSpec.min === undefined || transformSpec.min &lt;= value) &amp;&amp;
+            (transformSpec.max === undefined ||  transformSpec.max &gt;= value) ? true : false;
+    };
+&nbsp;
+    /**
+     *
+     * Convert a string to a Boolean, for example, when working with HTML form element values.
+     *
+     * The following are all false: undefined, null, "", "0", "false", false, 0
+     *
+     * Everything else is true.
+     *
+     * @param {String} value - The value to be interpreted.
+     * @return {Boolean} The interpreted value.
+     */
+    fluid.transforms.stringToBoolean = function (value) {
+        if (value) {
+            return !(value === "0" || value === "false");
+        }
+        else {
+            return false;
+        }
+    };
+&nbsp;
+    fluid.transforms.stringToBoolean.invert = function (transformSpec) {
+        transformSpec.type = "fluid.transforms.booleanToString";
+        return transformSpec;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.stringToBoolean", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.stringToBoolean.invert"
+    });
+&nbsp;
+    /**
+     *
+     * Convert any value into a stringified boolean, i. e. either "true" or "false".  Anything that evaluates to
+     * true (1, true, "non empty string", {}, et. cetera) returns "true".  Anything else (0, false, null, et. cetera)
+     * returns "false".
+     *
+     * @param {Any} value - The value to be converted to a stringified Boolean.
+     * @return {String} - A stringified boolean representation of the value.
+     */
+    fluid.transforms.booleanToString = function (value) {
+        return value ? "true" : "false";
+    };
+&nbsp;
+    fluid.transforms.booleanToString.invert = <span class="fstat-no" title="function not covered" >fu</span>nction (transformSpec) {
+<span class="cstat-no" title="statement not covered" >        transformSpec.type = "fluid.transforms.stringToBoolean";</span>
+<span class="cstat-no" title="statement not covered" >        return transformSpec;</span>
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.booleanToString", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.booleanToString.invert"
+    });
+&nbsp;
+    /**
+     *
+     * Transform stringified JSON to an object using `JSON.parse`.  Returns `undefined` if the JSON string is invalid.
+     *
+     * @param {String} value - The stringified JSON to be converted to an object.
+     * @return {Any} - The parsed value of the string, or `undefined` if it can't be parsed.
+     */
+    fluid.transforms.JSONstringToObject = function (value) {
+        try {
+            return JSON.parse(value);
+        }
+        catch (e) {
+            return undefined;
+        }
+    };
+&nbsp;
+    fluid.transforms.JSONstringToObject.invert = function (transformSpec) {
+        transformSpec.type = "fluid.transforms.objectToJSONString";
+        return transformSpec;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.JSONstringToObject", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.JSONstringToObject.invert"
+    });
+&nbsp;
+    /**
+     *
+     * Transform an object to a string using `JSON.stringify`.  You can pass the `space` option to be used
+     * as part of your transform, as in:
+     *
+     * ```
+     * "": {
+     *   transform: {
+     *     funcName: "fluid.transforms.objectToJSONString",
+     *     inputPath: "",
+     *     space: 2
+     *   }
+     * }
+     * ```
+     *
+     * The default value for `space` is 0, which disables spacing and line breaks.
+     *
+     * @param {Object} value - An object to be converted to stringified JSON.
+     * @param {Object} transformSpec - An object describing the transformation spec, see above.
+     * @return {String} - A string representation of the object.
+     *
+     */
+    fluid.transforms.objectToJSONString = function (value, transformSpec) {
+        var space = transformSpec.space || 0;
+        return JSON.stringify(value, null, space);
+    };
+&nbsp;
+    fluid.transforms.objectToJSONString.invert = function (transformSpec) {
+        transformSpec.type = "fluid.transforms.JSONstringToObject";
+        return transformSpec;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.objectToJSONString", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.objectToJSONString.invert"
+    });
+&nbsp;
+    /**
+     *
+     * Transform a string to a date using the Date constructor.  Accepts (among other things) the date and dateTime
+     * values returned by HTML5 date and dateTime inputs.
+     *
+     * A string that cannot be parsed will be treated as `undefined`.
+     *
+     * Note: This function allows you to create Date objects from an ISO 8601 string such as `2017-01-23T08:51:25.891Z`.
+     * It is intended to provide a consistent mechanism for recreating Date objects stored as strings.  Although the
+     * framework currently works as expected with Date objects stored in the model, this is very likely to change.  If
+     * you are working with Date objects in your model, your best option for ensuring your code continues to work in the
+     * future is to handle serialisation and deserialisation yourself, for example, by using this transform and one of
+     * its inverse transforms, `fluid.transforms.dateToString` or `fluid.transforms.dateTimeToString`.  See the Infusion
+     * documentation for details about supported model values:
+     *
+     * http://docs.fluidproject.org/infusion/development/FrameworkConcepts.html#model-objects
+     *
+     * @param {String} value - The String value to be transformed into a Date object.
+     * @return {Date} - A date object, or `undefined`.
+     *
+     */
+    fluid.transforms.stringToDate = function (value) {
+        var date = new Date(value);
+        return isNaN(date.getTime()) ? undefined : date;
+    };
+&nbsp;
+    fluid.transforms.stringToDate.invert = <span class="fstat-no" title="function not covered" >fu</span>nction (transformSpec) {
+<span class="cstat-no" title="statement not covered" >        transformSpec.type = "fluid.transforms.dateToString";</span>
+<span class="cstat-no" title="statement not covered" >        return transformSpec;</span>
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.stringToDate", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.stringToDate.invert"
+    });
+&nbsp;
+    /**
+     *
+     * Transform a Date object into a date string using its toISOString method.  Strips the "time" portion away to
+     * produce date strings that are suitable for use with both HTML5 "date" inputs and JSON Schema "date" format
+     * string validation, for example: `2016-11-23`
+     *
+     * If you wish to preserve the time, use `fluid.transforms.dateTimeToString` instead.
+     *
+     * A non-date object will be treated as `undefined`.
+     *
+     * Note: This function allows you to seralise Date objects (not including time information) as ISO 8601 strings such
+     * as `2017-01-23`.  It is intended to provide a consistent mechanism for storing Date objects in a model.  Although
+     * the framework currently works as expected with Date objects stored in the model, this is very likely to change.
+     * If you are working with Date objects in your model, your best option for ensuring your code continues to work in
+     * the future is to handle serialisation and deserialisation yourself, for example, by using this transform and its
+     * inverse, `fluid.transforms.stringToDate`.  See the Infusion documentation for details about supported model
+     * values:
+     *
+     * http://docs.fluidproject.org/infusion/development/FrameworkConcepts.html#model-objects
+     *
+     * @param {Date} value - The Date object to be transformed into an ISO 8601 string.
+     * @return {String} - A {String} value representing the date, or `undefined` if the date is invalid.
+     *
+     */
+    fluid.transforms.dateToString = function (value) {
+        if (value instanceof Date) {
+            var isoString = value.toISOString(); // A string like "2016-09-26T08:05:57.462Z"
+            var dateString = isoString.substring(0, isoString.indexOf("T")); // A string like "2016-09-26"
+            return dateString;
+        }
+        else {
+            return undefined;
+        }
+    };
+&nbsp;
+    fluid.transforms.dateToString.invert = function (transformSpec) {
+        transformSpec.type = "fluid.transforms.stringToDate";
+        return transformSpec;
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.dateToString", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.dateToString.invert"
+    });
+&nbsp;
+    /**
+     *
+     * Transform a Date object into a date/time string using its toISOString method.  Results in date strings that are
+     * suitable for use with both HTML5 "dateTime" inputs and JSON Schema "date-time" format string validation, for\
+     * example: `2016-11-23T13:05:24.079Z`
+     *
+     * A non-date object will be treated as `undefined`.
+     *
+     * Note: This function allows you to seralise Date objects (including time information) as ISO 8601 strings such as
+     * `2017-01-23T08:51:25.891Z`. It is intended to provide a consistent mechanism for storing Date objects in a model.
+     * Although the framework currently works as expected with Date objects stored in the model, this is very likely to
+     * change.  If you are working with Date objects in your model, your best option for ensuring your code continues to
+     * work in the future is to handle serialisation and deserialisation yourself, for example, by using this function
+     * and its inverse, `fluid.transforms.stringToDate`.  See the Infusion documentation for details about supported
+     * model values:
+     *
+     * http://docs.fluidproject.org/infusion/development/FrameworkConcepts.html#model-objects
+     *
+     * @param {Date} value - The Date object to be transformed into an ISO 8601 string.
+     * @return {String} - A {String} value representing the date and time, or `undefined` if the date/time are invalid.
+     *
+     */
+    fluid.transforms.dateTimeToString = function (value) {
+        return value instanceof Date ? value.toISOString() : <span class="branch-1 cbranch-no" title="branch not covered" >undefined;</span>
+    };
+&nbsp;
+    fluid.defaults("fluid.transforms.dateTimeToString", {
+        gradeNames: ["fluid.standardTransformFunction", "fluid.lens"],
+        invertConfiguration: "fluid.transforms.dateToString.invert"
+    });
+})(jQuery, fluid_3_0_0);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Apr 19 2018 20:08:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

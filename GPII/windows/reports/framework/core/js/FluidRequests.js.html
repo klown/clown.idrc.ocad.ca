@@ -1,0 +1,1358 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for framework/core/js/FluidRequests.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">framework/core/js</a> FluidRequests.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.97% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>187/199</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.52% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>71/84</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.12% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>39/41</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.97% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>187/199</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">683x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">683x</span>
+<span class="cline-any cline-yes">683x</span>
+<span class="cline-any cline-yes">683x</span>
+<span class="cline-any cline-yes">1512x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">683x</span>
+<span class="cline-any cline-yes">1102x</span>
+<span class="cline-any cline-yes">1102x</span>
+<span class="cline-any cline-yes">1102x</span>
+<span class="cline-any cline-yes">707x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1102x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">683x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">683x</span>
+<span class="cline-any cline-yes">683x</span>
+<span class="cline-any cline-yes">683x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">683x</span>
+<span class="cline-any cline-yes">1126x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">683x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">564x</span>
+<span class="cline-any cline-yes">1011x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">564x</span>
+<span class="cline-any cline-yes">564x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1464x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">729x</span>
+<span class="cline-any cline-yes">729x</span>
+<span class="cline-any cline-yes">729x</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">759x</span>
+<span class="cline-any cline-yes">759x</span>
+<span class="cline-any cline-yes">759x</span>
+<span class="cline-any cline-yes">697x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">759x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">729x</span>
+<span class="cline-any cline-yes">729x</span>
+<span class="cline-any cline-yes">729x</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-yes">445x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">284x</span>
+<span class="cline-any cline-yes">240x</span>
+<span class="cline-any cline-yes">240x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">1622x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">1622x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-yes">729x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">76x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">1512x</span>
+<span class="cline-any cline-yes">1512x</span>
+<span class="cline-any cline-yes">1512x</span>
+<span class="cline-any cline-yes">6595x</span>
+<span class="cline-any cline-yes">6595x</span>
+<span class="cline-any cline-yes">2562x</span>
+<span class="cline-any cline-yes">805x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2562x</span>
+<span class="cline-any cline-yes">2314x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4033x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1512x</span>
+<span class="cline-any cline-yes">568x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">568x</span>
+<span class="cline-any cline-yes">564x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+Copyright 2010-2011 OCAD University
+Copyright 2010-2011 Lucendo Development Ltd.
+Copyright 2013 Raising the Floor - US
+Copyright 2014-2015 Raising the Floor - International
+&nbsp;
+Licensed under the Educational Community License (ECL), Version 2.0 or the New
+BSD license. You may not use this file except in compliance with one these
+Licenses.
+&nbsp;
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
+*/
+&nbsp;
+var fluid_3_0_0 = fluid_3_0_0 || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+&nbsp;
+(function ($, fluid) {
+    "use strict";
+&nbsp;
+    /** NOTE: All contents of this file are DEPRECATED and no entry point should be considered a supported API **/
+&nbsp;
+    fluid.explodeLocalisedName = function (fileName, locale, defaultLocale) {
+        var lastDot = fileName.lastIndexOf(".");
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (lastDot === -1 || lastDot === 0) {
+<span class="cstat-no" title="statement not covered" >            lastDot = fileName.length;</span>
+        }
+        var baseName = fileName.substring(0, lastDot);
+        var extension = fileName.substring(lastDot);
+&nbsp;
+        var segs = locale.split("_");
+&nbsp;
+        var exploded = fluid.transform(segs, function (seg, index) {
+            var shortSegs = segs.slice(0, index + 1);
+            return baseName + "_" + shortSegs.join("_") + extension;
+        });
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (defaultLocale) {
+            exploded.unshift(baseName + "_" + defaultLocale + extension);
+        }
+        return exploded;
+    };
+&nbsp;
+    /** Framework-global caching state for fluid.fetchResources **/
+&nbsp;
+    var resourceCache = {};
+&nbsp;
+    var pendingClass = {};
+&nbsp;
+    /** Accepts a hash of structures with free keys, where each entry has either
+     * href/url or nodeId set - on completion, callback will be called with the populated
+     * structure with fetched resource text in the field "resourceText" for each
+     * entry. Each structure may contain "options" holding raw options to be forwarded
+     * to jQuery.ajax().
+     */
+&nbsp;
+    fluid.fetchResources = function (resourceSpecs, callback, options) {
+        var that = {
+            options: fluid.copy(options || {})
+        };
+        that.resourceSpecs = resourceSpecs;
+        that.callback = callback;
+        that.operate = function () {
+            fluid.fetchResources.fetchResourcesImpl(that);
+        };
+        fluid.each(resourceSpecs, function (resourceSpec, key) {
+            resourceSpec.recurseFirer = fluid.makeEventFirer({name: "I/O completion for resource \"" + key + "\""});
+            resourceSpec.recurseFirer.addListener(that.operate);
+            if (resourceSpec.url &amp;&amp; !resourceSpec.href) {
+                resourceSpec.href = resourceSpec.url;
+            }
+            if (that.options.defaultLocale) {
+                resourceSpec.defaultLocale = that.options.defaultLocale;
+                if (resourceSpec.locale === undefined) {
+                    resourceSpec.locale = that.options.defaultLocale;
+                }
+            }
+        });
+        if (that.options.amalgamateClasses) {
+            fluid.fetchResources.amalgamateClasses(resourceSpecs, that.options.amalgamateClasses, that.operate);
+        }
+        fluid.fetchResources.explodeForLocales(resourceSpecs);
+        that.operate();
+        return that;
+    };
+&nbsp;
+    fluid.fetchResources.explodeForLocales = function (resourceSpecs) {
+        fluid.each(resourceSpecs, function (resourceSpec, key) {
+            if (resourceSpec.locale) {
+                var exploded = fluid.explodeLocalisedName(resourceSpec.href, resourceSpec.locale, resourceSpec.defaultLocale);
+                for (var i = 0; i &lt; exploded.length; ++i) {
+                    var newKey = key + "$localised-" + i;
+                    var newRecord = $.extend(true, {}, resourceSpec, {
+                        href: exploded[i],
+                        localeExploded: true
+                    });
+                    resourceSpecs[newKey] = newRecord;
+                }
+                resourceSpec.localeExploded = exploded.length;
+            }
+        });
+        return resourceSpecs;
+    };
+&nbsp;
+    fluid.fetchResources.condenseOneResource = function (resourceSpecs, resourceSpec, key, localeCount) {
+        var localeSpecs = [resourceSpec];
+        for (var i = 0; i &lt; localeCount; ++i) {
+            var localKey = key + "$localised-" + i;
+            localeSpecs.unshift(resourceSpecs[localKey]);
+            delete resourceSpecs[localKey];
+        }
+        var lastNonError = fluid.find_if(localeSpecs, function (spec) {
+            return !spec.fetchError;
+        });
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (lastNonError) {
+            resourceSpecs[key] = lastNonError;
+        }
+    };
+&nbsp;
+    fluid.fetchResources.condenseForLocales = function (resourceSpecs) {
+        fluid.each(resourceSpecs, function (resourceSpec, key) {
+            if (typeof(resourceSpec.localeExploded) === "number") {
+                fluid.fetchResources.condenseOneResource(resourceSpecs, resourceSpec, key, resourceSpec.localeExploded);
+            }
+        });
+    };
+&nbsp;
+    fluid.fetchResources.notifyResources = function (that, resourceSpecs, callback) {
+        fluid.fetchResources.condenseForLocales(resourceSpecs);
+        callback(resourceSpecs);
+    };
+&nbsp;
+    /*
+     * This function is unsupported: It is not really intended for use by implementors.
+     */
+    // Add "synthetic" elements of *this* resourceSpec list corresponding to any
+    // still pending elements matching the PROLEPTICK CLASS SPECIFICATION supplied
+    fluid.fetchResources.amalgamateClasses = function (specs, classes, operator) {
+        fluid.each(classes, function (clazz) {
+            var pending = pendingClass[clazz];
+            fluid.each(pending, function (pendingrec, canon) {
+                specs[clazz + "!" + canon] = pendingrec;
+                pendingrec.recurseFirer.addListener(operator);
+            });
+        });
+    };
+&nbsp;
+    /*
+     * This function is unsupported: It is not really intended for use by implementors.
+     */
+    fluid.fetchResources.timeSuccessCallback = function (resourceSpec) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (resourceSpec.timeSuccess &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >resourceSpec.options </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >resourceSpec.options.success)</span> {
+            var success = <span class="cstat-no" title="statement not covered" >resourceSpec.options.success;</span>
+<span class="cstat-no" title="statement not covered" >            resourceSpec.options.success = <span class="fstat-no" title="function not covered" >fu</span>nction () {</span>
+                var startTime = <span class="cstat-no" title="statement not covered" >new Date();</span>
+                var ret = <span class="cstat-no" title="statement not covered" >success.apply(null, arguments);</span>
+<span class="cstat-no" title="statement not covered" >                fluid.log("External callback for URL " + resourceSpec.href + " completed - callback time: " +</span>
+                        (new Date().getTime() - startTime.getTime()) + "ms");
+<span class="cstat-no" title="statement not covered" >                return ret;</span>
+            };
+        }
+    };
+&nbsp;
+    // TODO: Integrate punch-through from old Engage implementation
+    function canonUrl(url) {
+        return url;
+    }
+&nbsp;
+    fluid.fetchResources.clearResourceCache = function (url) {
+        if (url) {
+            delete resourceCache[canonUrl(url)];
+        }
+        else {
+            fluid.clear(resourceCache);
+        }
+    };
+&nbsp;
+    /*
+     * This function is unsupported: It is not really intended for use by implementors.
+     */
+    fluid.fetchResources.handleCachedRequest = function (resourceSpec, response, fetchError) {
+        var canon = canonUrl(resourceSpec.href);
+        var cached = resourceCache[canon];
+        if (cached.$$firer$$) {
+            fluid.log("Handling request for " + canon + " from cache");
+            var fetchClass = resourceSpec.fetchClass;
+            if (fetchClass &amp;&amp; pendingClass[fetchClass]) {
+                fluid.log("Clearing pendingClass entry for class " + fetchClass);
+                delete pendingClass[fetchClass][canon];
+            }
+            var result = {response: response, fetchError: fetchError};
+            resourceCache[canon] = result;
+            cached.fire(response, fetchError);
+        }
+    };
+&nbsp;
+    /*
+     * This function is unsupported: It is not really intended for use by implementors.
+     */
+    fluid.fetchResources.completeRequest = function (thisSpec) {
+        thisSpec.queued = false;
+        thisSpec.completeTime = new Date();
+        fluid.log("Request to URL " + thisSpec.href + " completed - total elapsed time: " +
+            (thisSpec.completeTime.getTime() - thisSpec.initTime.getTime()) + "ms");
+        thisSpec.recurseFirer.fire();
+    };
+&nbsp;
+    /*
+     * This function is unsupported: It is not really intended for use by implementors.
+     */
+    fluid.fetchResources.makeResourceCallback = function (thisSpec) {
+        return {
+            success: function (response) {
+                thisSpec.resourceText = response;
+                thisSpec.resourceKey = thisSpec.href;
+                if (thisSpec.forceCache) {
+                    fluid.fetchResources.handleCachedRequest(thisSpec, response);
+                }
+                fluid.fetchResources.completeRequest(thisSpec);
+            },
+            error: function (response, textStatus, errorThrown) {
+                thisSpec.fetchError = {
+                    status: response.status,
+                    textStatus: response.textStatus,
+                    errorThrown: errorThrown
+                };
+                if (thisSpec.forceCache) {
+                    fluid.fetchResources.handleCachedRequest(thisSpec, null, thisSpec.fetchError);
+                }
+                fluid.fetchResources.completeRequest(thisSpec);
+            }
+&nbsp;
+        };
+    };
+&nbsp;
+&nbsp;
+    /*
+     * This function is unsupported: It is not really intended for use by implementors.
+     */
+    fluid.fetchResources.issueCachedRequest = function (resourceSpec, options) {
+        var canon = canonUrl(resourceSpec.href);
+        var cached = resourceCache[canon];
+        if (!cached) {
+            fluid.log("First request for cached resource with url " + canon);
+            cached = fluid.makeEventFirer({name: "cache notifier for resource URL " + canon});
+            cached.$$firer$$ = true;
+            resourceCache[canon] = cached;
+            var fetchClass = resourceSpec.fetchClass;
+            if (fetchClass) {
+                if (!pendingClass[fetchClass]) {
+                    pendingClass[fetchClass] = {};
+                }
+                pendingClass[fetchClass][canon] = resourceSpec;
+            }
+            options.cache = false; // TODO: Getting weird "not modified" issues on Firefox
+            $.ajax(options);
+        }
+        else {
+            if (!cached.$$firer$$) {
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (cached.response) {
+                    options.success(cached.response);
+                } else {
+<span class="cstat-no" title="statement not covered" >                    options.error(cached.fetchError);</span>
+                }
+            }
+            else {
+                fluid.log("Request for cached resource which is in flight: url " + canon);
+                cached.addListener(function (response, fetchError) {
+                    if (response) {
+                        options.success(response);
+                    } else {
+                        options.error(fetchError);
+                    }
+                });
+            }
+        }
+    };
+&nbsp;
+    /*
+     * This function is unsupported: It is not really intended for use by implementors.
+     */
+    // Compose callbacks in such a way that the 2nd, marked "external" will be applied
+    // first if it exists, but in all cases, the first, marked internal, will be
+    // CALLED WITHOUT FAIL
+    fluid.fetchResources.composeCallbacks = function (internal, external) {
+        return external ? (internal ?
+        function () {
+            try {
+                external.apply(null, arguments);
+            }
+            catch (e) {
+                fluid.log("Exception applying external fetchResources callback: " + e);
+            }
+            internal.apply(null, arguments); // call the internal callback without fail
+        } : external ) : <span class="branch-1 cbranch-no" title="branch not covered" >internal;</span>
+    };
+&nbsp;
+    // unsupported, NON-API function
+    fluid.fetchResources.composePolicy = function (target, source) {
+        return fluid.fetchResources.composeCallbacks(target, source);
+    };
+&nbsp;
+    fluid.defaults("fluid.fetchResources.issueRequest", {
+        mergePolicy: {
+            success: fluid.fetchResources.composePolicy,
+            error: fluid.fetchResources.composePolicy,
+            url: "reverse"
+        }
+    });
+&nbsp;
+    // unsupported, NON-API function
+    fluid.fetchResources.issueRequest = function (resourceSpec, key) {
+        var thisCallback = fluid.fetchResources.makeResourceCallback(resourceSpec);
+        var options = {
+            url:     resourceSpec.href,
+            success: thisCallback.success,
+            error:   thisCallback.error,
+            dataType: resourceSpec.dataType || "text"
+        };
+        fluid.fetchResources.timeSuccessCallback(resourceSpec);
+        options = fluid.merge(fluid.defaults("fluid.fetchResources.issueRequest").mergePolicy,
+                      options, resourceSpec.options);
+        resourceSpec.queued = true;
+        resourceSpec.initTime = new Date();
+        fluid.log("Request with key " + key + " queued for " + resourceSpec.href);
+&nbsp;
+        if (resourceSpec.forceCache) {
+            fluid.fetchResources.issueCachedRequest(resourceSpec, options);
+        }
+        else {
+            $.ajax(options);
+        }
+    };
+&nbsp;
+&nbsp;
+    fluid.fetchResources.fetchResourcesImpl = function (that) {
+        var complete = true;
+        var resourceSpecs = that.resourceSpecs;
+        for (var key in resourceSpecs) {
+            var resourceSpec = resourceSpecs[key];
+            if (resourceSpec.href &amp;&amp; !resourceSpec.completeTime) {
+                if (!resourceSpec.queued) {
+                    fluid.fetchResources.issueRequest(resourceSpec, key);
+                }
+                if (resourceSpec.queued) {
+                    complete = false;
+                }
+            }
+            else <span class="missing-if-branch" title="if path not taken" >I</span>if (resourceSpec.nodeId &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!resourceSpec.resourceText)</span> {
+                var node = <span class="cstat-no" title="statement not covered" >document.getElementById(resourceSpec.nodeId);</span>
+                // upgrade this to somehow detect whether node is "armoured" somehow
+                // with comment or CDATA wrapping
+<span class="cstat-no" title="statement not covered" >                resourceSpec.resourceText = fluid.dom.getElementText(node);</span>
+<span class="cstat-no" title="statement not covered" >                resourceSpec.resourceKey = resourceSpec.nodeId;</span>
+            }
+        }
+        if (complete &amp;&amp; that.callback &amp;&amp; !that.callbackCalled) {
+            that.callbackCalled = true;
+            // Always defer notification in an anti-Zalgo scheme to ease problems like FLUID-6202
+            // In time this will be resolved by i) latched events, ii) global async ginger world
+            setTimeout(function () {
+                fluid.fetchResources.notifyResources(that, resourceSpecs, that.callback);
+            }, 1);
+        }
+    };
+&nbsp;
+    // TODO: This framework function is a stop-gap before the "ginger world" is capable of
+    // asynchronous instantiation. It currently performs very poor fidelity expansion of a
+    // component's options to discover "resources" only held in the static environment
+    fluid.fetchResources.primeCacheFromResources = function (componentName) {
+        var resources = fluid.defaults(componentName).resources;
+        var expanded = (fluid.expandOptions ? fluid.expandOptions : <span class="branch-1 cbranch-no" title="branch not covered" >fluid.identity)</span>(fluid.copy(resources));
+        fluid.fetchResources(expanded);
+    };
+&nbsp;
+    /** Utilities invoking requests for expansion **/
+    fluid.registerNamespace("fluid.expander");
+&nbsp;
+    /*
+     * This function is unsupported: It is not really intended for use by implementors.
+     */
+    fluid.expander.makeDefaultFetchOptions = function (successdisposer, failid, options) {
+        return $.extend(true, {dataType: "text"}, options, {
+            success: function (response, environmentdisposer) {
+                var json = JSON.parse(response);
+                environmentdisposer(successdisposer(json));
+            },
+            error: <span class="fstat-no" title="function not covered" >fu</span>nction (response, textStatus) {
+<span class="cstat-no" title="statement not covered" >                fluid.log("Error fetching " + failid + ": " + textStatus);</span>
+            }
+        });
+    };
+&nbsp;
+    /*
+     * This function is unsupported: It is not really intended for use by implementors.
+     */
+    fluid.expander.makeFetchExpander = function (options) {
+        return { expander: {
+            type: "fluid.expander.deferredFetcher",
+            href: options.url,
+            options: fluid.expander.makeDefaultFetchOptions(options.disposer, options.url, options.options),
+            resourceSpecCollector: "{resourceSpecCollector}",
+            fetchKey: options.fetchKey
+        }};
+    };
+&nbsp;
+    fluid.expander.deferredFetcher = function (deliverer, source, expandOptions) {
+        var expander = source.expander;
+        var spec = fluid.copy(expander);
+        // fetch the "global" collector specified in the external environment to receive
+        // this resourceSpec
+        var collector = fluid.expand(expander.resourceSpecCollector, expandOptions);
+        delete spec.type;
+        delete spec.resourceSpecCollector;
+        delete spec.fetchKey;
+        var environmentdisposer = function (disposed) {
+            deliverer(disposed);
+        };
+        // replace the callback which is there (taking 2 arguments) with one which
+        // directly responds to the request, passing in the result and OUR "disposer" -
+        // which once the user has processed the response (say, parsing JSON and repackaging)
+        // finally deposits it in the place of the expander in the tree to which this reference
+        // has been stored at the point this expander was evaluated.
+        spec.options.success = function (response) {
+            expander.options.success(response, environmentdisposer);
+        };
+        var key = expander.fetchKey || <span class="branch-1 cbranch-no" title="branch not covered" >fluid.allocateGuid();</span>
+        collector[key] = spec;
+        return fluid.NO_VALUE;
+    };
+&nbsp;
+&nbsp;
+})(jQuery, fluid_3_0_0);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Apr 19 2018 20:08:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

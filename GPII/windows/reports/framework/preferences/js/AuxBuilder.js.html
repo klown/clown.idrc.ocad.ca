@@ -1,0 +1,1565 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for framework/preferences/js/AuxBuilder.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">framework/preferences/js</a> AuxBuilder.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.96% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>192/196</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.19% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>66/74</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.83% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>23/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.95% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>191/195</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">1236x</span>
+<span class="cline-any cline-yes">1188x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">840x</span>
+<span class="cline-any cline-yes">840x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">840x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">650x</span>
+<span class="cline-any cline-yes">650x</span>
+<span class="cline-any cline-yes">650x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">504x</span>
+<span class="cline-any cline-yes">504x</span>
+<span class="cline-any cline-yes">504x</span>
+<span class="cline-any cline-yes">288x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">504x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">770x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">770x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">770x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">712x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">712x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1182x</span>
+<span class="cline-any cline-yes">228x</span>
+<span class="cline-any cline-yes">228x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">228x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1180x</span>
+<span class="cline-any cline-yes">324x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1180x</span>
+<span class="cline-any cline-yes">1180x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1180x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">712x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">712x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">340x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">340x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">118x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">620x</span>
+<span class="cline-any cline-yes">620x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">620x</span>
+<span class="cline-any cline-yes">1818x</span>
+<span class="cline-any cline-yes">572x</span>
+<span class="cline-any cline-yes">1246x</span>
+<span class="cline-any cline-yes">1230x</span>
+<span class="cline-any cline-yes">1230x</span>
+<span class="cline-any cline-yes">1228x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">620x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">76x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">76x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">76x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">82x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">792x</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">276x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">1416x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+Copyright 2013-2016 OCAD University
+&nbsp;
+Licensed under the Educational Community License (ECL), Version 2.0 or the New
+BSD license. You may not use this file except in compliance with one these
+Licenses.
+&nbsp;
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
+*/
+&nbsp;
+var fluid_3_0_0 = fluid_3_0_0 || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+&nbsp;
+&nbsp;
+(function ($, fluid) {
+    "use strict";
+&nbsp;
+    fluid.registerNamespace("fluid.prefs");
+&nbsp;
+    /*******************************************************************************
+     * Base auxiliary schema grade
+     *******************************************************************************/
+&nbsp;
+    fluid.defaults("fluid.prefs.auxSchema", {
+        gradeNames: ["fluid.component"],
+        auxiliarySchema: {
+            "loaderGrades": ["fluid.prefs.separatedPanel"]
+        }
+    });
+&nbsp;
+    /**
+     * Look up the value on the given source object by using the path.
+     * Takes a template string containing tokens in the form of "@source-path-to-value".
+     * Returns a value (any type) or undefined if the path is not found.
+     *
+     * Example:
+     * 1. Parameters:
+     * source:
+     * {
+     *     path1: {
+     *         path2: "here"
+     *     }
+     * }
+     *
+     * template: "@path1.path2"
+     *
+     * 2. Return: "here"
+     *
+     * @param {Object} root - An object to retrieve the returned value from.
+     * @param {String} pathRef - A string that the path to the requested value is embedded into.
+     * @return {Any} - Returns a value (any type) or undefined if the path is not found.
+     *
+     */
+    fluid.prefs.expandSchemaValue = function (root, pathRef) {
+        if (pathRef.charAt(0) !== "@") {
+            return pathRef;
+        }
+&nbsp;
+        return fluid.get(root, pathRef.substring(1));
+    };
+&nbsp;
+    fluid.prefs.addAtPath = function (root, path, object) {
+        var existingObject = fluid.get(root, path);
+        fluid.set(root, path, $.extend(true, {}, existingObject, object));
+&nbsp;
+        return root;
+    };
+&nbsp;
+    // only works with top level elements
+    fluid.prefs.removeKey = function (root, key) {
+        var value = root[key];
+        delete root[key];
+        return value;
+    };
+&nbsp;
+    fluid.prefs.rearrangeDirect = function (root, toPath, sourcePath) {
+        var result = {};
+        var sourceValue = fluid.prefs.removeKey(root, sourcePath);
+        if (sourceValue) {
+            fluid.set(result, toPath, sourceValue);
+        }
+        return result;
+    };
+&nbsp;
+    fluid.prefs.addCommonOptions = function (root, path, commonOptions, templateValues) {
+        templateValues = templateValues || {};
+&nbsp;
+        var existingValue = fluid.get(root, path);
+&nbsp;
+        if (!existingValue) {
+            return root;
+        }
+&nbsp;
+        var opts = {}, mergePolicy = {};
+&nbsp;
+        fluid.each(commonOptions, function (value, key) {
+            // Adds "container" option only for view and renderer components
+            if (key === "container") {
+                var componentType = fluid.get(root, [path, "type"]);
+                var componentOptions = fluid.defaults(componentType);
+                // Note that this approach is not completely reliable, although it has been reviewed as "good enough" -
+                // a grade which modifies the creation signature of its principal type would cause numerous other problems.
+                // We can review this awkward kind of "anticipatory logic" when the new renderer arrives.
+                if (fluid.get(componentOptions, ["argumentMap", "container"]) === undefined) {
+                    return false;
+                }
+            }
+            // Merge grade names defined in aux schema and system default grades
+            if (key.indexOf("gradeNames") !== -1) {
+                mergePolicy[key] = fluid.arrayConcatPolicy;
+            }
+&nbsp;
+            key = fluid.stringTemplate(key, templateValues);
+            value = typeof (value) === "string" ? fluid.stringTemplate(value, templateValues) : value;
+&nbsp;
+            fluid.set(opts, key, value);
+        });
+&nbsp;
+        fluid.set(root, path, fluid.merge(mergePolicy, existingValue, opts));
+&nbsp;
+        return root;
+    };
+&nbsp;
+    fluid.prefs.containerNeeded = <span class="fstat-no" title="function not covered" >fu</span>nction (root, path) {
+        var componentType = <span class="cstat-no" title="statement not covered" >fluid.get(root, [path, "type"]);</span>
+        var componentOptions = <span class="cstat-no" title="statement not covered" >fluid.defaults(componentType);</span>
+<span class="cstat-no" title="statement not covered" >        return (fluid.hasGrade(componentOptions, "fluid.viewComponent") || fluid.hasGrade(componentOptions, "fluid.rendererComponent"));</span>
+    };
+&nbsp;
+    fluid.prefs.checkPrimarySchema = function (primarySchema, prefKey) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!primarySchema) {
+<span class="cstat-no" title="statement not covered" >            fluid.fail("The primary schema for " + prefKey + " is not defined.");</span>
+        }
+        return !!primarySchema;
+    };
+&nbsp;
+    fluid.prefs.expandSchemaComponents = function (auxSchema, type, prefKey, componentConfig, index, commonOptions, modelCommonOptions, mappedDefaults) {
+        var componentOptions = fluid.copy(componentConfig) || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
+        var components = {};
+        var initialModel = {};
+&nbsp;
+        var componentName = fluid.prefs.removeKey(componentOptions, "type");
+        var regexp = new RegExp("\\.", "g");
+        var memberName = componentName.replace(regexp,  "_");
+        var flattenedPrefKey = prefKey.replace(regexp,  "_");
+&nbsp;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (componentName) {
+&nbsp;
+            components[memberName] = {
+                type: componentName,
+                options: componentOptions
+            };
+&nbsp;
+            var selectors = fluid.prefs.rearrangeDirect(componentOptions, memberName, "container");
+            var templates = fluid.prefs.rearrangeDirect(componentOptions, memberName, "template");
+            var messages = fluid.prefs.rearrangeDirect(componentOptions, memberName, "message");
+&nbsp;
+            var preferenceMap = fluid.defaults(componentName).preferenceMap;
+&nbsp;
+            var map = preferenceMap[prefKey];
+            var prefSchema = mappedDefaults[prefKey];
+&nbsp;
+            fluid.each(map, function (primaryPath, internalPath) {
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (fluid.prefs.checkPrimarySchema(prefSchema, prefKey)) {
+                    var opts = {};
+                    if (internalPath.indexOf("model.") === 0) {
+                        var internalModelName = internalPath.slice(6);
+                        // Set up the binding in "rules" accepted by the modelRelay base grade of every panel
+                        fluid.set(opts, "model", fluid.get(opts, "model") || {});
+                        fluid.prefs.addCommonOptions(opts, "model", modelCommonOptions, {
+                            internalModelName: internalModelName,
+                            externalModelName: flattenedPrefKey
+                        });
+                        fluid.set(initialModel, ["members", "initialModel", "preferences", flattenedPrefKey], prefSchema[primaryPath]);
+                    } else {
+                        fluid.set(opts, internalPath, prefSchema[primaryPath]);
+                    }
+                    $.extend(true, componentOptions, opts);
+                }
+            });
+&nbsp;
+            fluid.prefs.addCommonOptions(components, memberName, commonOptions, {
+                prefKey: memberName
+            });
+&nbsp;
+            fluid.prefs.addAtPath(auxSchema, [type, "components"], components);
+            fluid.prefs.addAtPath(auxSchema, [type, "selectors"], selectors);
+            fluid.prefs.addAtPath(auxSchema, ["templateLoader", "resources"], templates);
+            fluid.prefs.addAtPath(auxSchema, ["messageLoader", "resources"], messages);
+            fluid.prefs.addAtPath(auxSchema, "initialModel", initialModel);
+        }
+&nbsp;
+        return auxSchema;
+    };
+&nbsp;
+    /**
+     * Expands a all "@" path references from an auxiliary schema.
+     * Note that you cannot chain "@" paths.
+     *
+     *  @param {Object} schemaToExpand -  the schema which will be expanded
+     *  @param {Object} altSource -  an alternative look up object. This is primarily used for the internal recursive call.
+     *  @return {Object} an expanded version of the schema.
+     */
+    fluid.prefs.expandSchemaImpl = function (schemaToExpand, altSource) {
+        var expandedSchema = fluid.copy(schemaToExpand);
+        altSource = altSource || expandedSchema;
+&nbsp;
+        fluid.each(expandedSchema, function (value, key) {
+            if (typeof value === "object") {
+                expandedSchema[key] = fluid.prefs.expandSchemaImpl(value, altSource);
+            } else if (typeof value === "string") {
+                var expandedVal = fluid.prefs.expandSchemaValue(altSource, value);
+                if (expandedVal !== undefined) {
+                    expandedSchema[key] = expandedVal;
+                } else {
+                    delete expandedSchema[key];
+                }
+            }
+        });
+        return expandedSchema;
+    };
+&nbsp;
+    fluid.prefs.expandCompositePanels = function (auxSchema, compositePanelList, panelIndex, panelCommonOptions, subPanelCommonOptions,
+        compositePanelBasedOnSubCommonOptions, panelModelCommonOptions, mappedDefaults) {
+        var panelsToIgnore = [];
+&nbsp;
+        fluid.each(compositePanelList, function (compositeDetail, compositeKey) {
+            var compositePanelOptions = {};
+            var components = {};
+            var initialModel = {};
+            var selectors = {};
+            var templates = {};
+            var messages = {};
+            var selectorsToIgnore = [];
+&nbsp;
+            var thisCompositeOptions = fluid.copy(compositeDetail);
+            fluid.set(compositePanelOptions, "type", thisCompositeOptions.type);
+            delete thisCompositeOptions.type;
+&nbsp;
+            selectors = fluid.prefs.rearrangeDirect(thisCompositeOptions, compositeKey, "container");
+            templates = fluid.prefs.rearrangeDirect(thisCompositeOptions, compositeKey, "template");
+            messages = fluid.prefs.rearrangeDirect(thisCompositeOptions, compositeKey, "message");
+&nbsp;
+            var subPanelList = []; // list of subpanels to generate options for
+            var subPanels = {};
+            var subPanelRenderOn = {};
+&nbsp;
+            // thisCompositeOptions.panels can be in two forms:
+            // 1. an array of names of panels that should always be rendered;
+            // 2. an object that describes what panels should be always rendered,
+            //    and what panels should be rendered when a preference is turned on
+            // The loop below is only needed for processing the latter.
+            if (fluid.isPlainObject(thisCompositeOptions.panels) &amp;&amp; !fluid.isArrayable(thisCompositeOptions.panels)) {
+                fluid.each(thisCompositeOptions.panels, function (subpanelArray, pref) {
+                    subPanelList = subPanelList.concat(subpanelArray);
+                    if (pref !== "always") {
+                        fluid.each(subpanelArray, function (onePanel) {
+                            fluid.set(subPanelRenderOn, onePanel, pref);
+                        });
+                    }
+                });
+            } else {
+                subPanelList = thisCompositeOptions.panels;
+            }
+&nbsp;
+            fluid.each(subPanelList, function (subPanelID) {
+                panelsToIgnore.push(subPanelID);
+                var subPanelPrefsKey = fluid.get(auxSchema, [subPanelID, "type"]);
+                var safeSubPanelPrefsKey = fluid.prefs.subPanel.safePrefKey(subPanelPrefsKey);
+                selectorsToIgnore.push(safeSubPanelPrefsKey);
+&nbsp;
+                var subPanelOptions = fluid.copy(fluid.get(auxSchema, [subPanelID, "panel"]));
+                var subPanelType = fluid.get(subPanelOptions, "type");
+&nbsp;
+                fluid.set(subPanels, [safeSubPanelPrefsKey, "type"], subPanelType);
+                var renderOn = fluid.get(subPanelRenderOn, subPanelID);
+                if (renderOn) {
+                    fluid.set(subPanels, [safeSubPanelPrefsKey, "options", "renderOnPreference"], renderOn);
+                }
+&nbsp;
+                // Deal with preferenceMap related options
+                var map = fluid.defaults(subPanelType).preferenceMap[subPanelPrefsKey];
+                var prefSchema = mappedDefaults[subPanelPrefsKey];
+&nbsp;
+                fluid.each(map, function (primaryPath, internalPath) {
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (fluid.prefs.checkPrimarySchema(prefSchema, subPanelPrefsKey)) {
+                        var opts;
+                        if (internalPath.indexOf("model.") === 0) {
+                            // Set up the binding in "rules" accepted by the modelRelay base grade of every panel
+                            fluid.set(compositePanelOptions, ["options", "model"], fluid.get(compositePanelOptions, ["options", "model"]) || {});
+                            fluid.prefs.addCommonOptions(compositePanelOptions, ["options", "model"], panelModelCommonOptions, {
+                                internalModelName: safeSubPanelPrefsKey,
+                                externalModelName: safeSubPanelPrefsKey
+                            });
+                            fluid.set(initialModel, ["members", "initialModel", "preferences", safeSubPanelPrefsKey], prefSchema[primaryPath]);
+                        } else {
+                            opts = opts || {options: {}};
+                            fluid.set(opts, "options." + internalPath, prefSchema[primaryPath]);
+                        }
+                        $.extend(true, subPanels[safeSubPanelPrefsKey], opts);
+                    }
+                });
+&nbsp;
+                fluid.set(templates, safeSubPanelPrefsKey, fluid.get(subPanelOptions, "template"));
+                fluid.set(messages, safeSubPanelPrefsKey, fluid.get(subPanelOptions, "message"));
+&nbsp;
+                fluid.set(compositePanelOptions, ["options", "selectors", safeSubPanelPrefsKey], fluid.get(subPanelOptions, "container"));
+                fluid.set(compositePanelOptions, ["options", "resources"], fluid.get(compositePanelOptions, ["options", "resources"]) || {});
+&nbsp;
+                fluid.prefs.addCommonOptions(compositePanelOptions.options, "resources", compositePanelBasedOnSubCommonOptions, {
+                    subPrefKey: safeSubPanelPrefsKey
+                });
+&nbsp;
+                // add additional options from the aux schema for subpanels
+                delete subPanelOptions.type;
+                delete subPanelOptions.template;
+                delete subPanelOptions.message;
+                delete subPanelOptions.container;
+                fluid.set(subPanels, [safeSubPanelPrefsKey, "options"], $.extend(true, {}, fluid.get(subPanels, [safeSubPanelPrefsKey, "options"]), subPanelOptions));
+&nbsp;
+                fluid.prefs.addCommonOptions(subPanels, safeSubPanelPrefsKey, subPanelCommonOptions, {
+                    compositePanel: compositeKey,
+                    prefKey: safeSubPanelPrefsKey
+                });
+            });
+            delete thisCompositeOptions.panels;
+&nbsp;
+            // add additional options from the aux schema for the composite panel
+            fluid.set(compositePanelOptions, ["options"], $.extend(true, {}, compositePanelOptions.options, thisCompositeOptions));
+            fluid.set(compositePanelOptions, ["options", "selectorsToIgnore"], selectorsToIgnore);
+            fluid.set(compositePanelOptions, ["options", "components"], subPanels);
+&nbsp;
+            components[compositeKey] = compositePanelOptions;
+&nbsp;
+            fluid.prefs.addCommonOptions(components, compositeKey, panelCommonOptions, {
+                prefKey: compositeKey
+            });
+&nbsp;
+            // Add onto auxSchema
+            fluid.prefs.addAtPath(auxSchema, ["panels", "components"], components);
+            fluid.prefs.addAtPath(auxSchema, ["panels", "selectors"], selectors);
+            fluid.prefs.addAtPath(auxSchema, ["templateLoader", "resources"], templates);
+            fluid.prefs.addAtPath(auxSchema, ["messageLoader", "resources"], messages);
+            fluid.prefs.addAtPath(auxSchema, "initialModel", initialModel);
+            $.extend(true, auxSchema, {panelsToIgnore: panelsToIgnore});
+        });
+&nbsp;
+        return auxSchema;
+    };
+&nbsp;
+    // Processes the auxiliary schema to output an object that contains all grade component definitions
+    // required for building the preferences editor, uiEnhancer and the settings store. These grade components
+    // are: panels, enactors, initialModel, messageLoader, templateLoader and terms.
+    // These grades are consumed and integrated by builder.js
+    // (https://github.com/fluid-project/infusion/blob/master/src/framework/preferences/js/Builder.js)
+    fluid.prefs.expandSchema = function (schemaToExpand, indexes, topCommonOptions, elementCommonOptions, mappedDefaults) {
+        var auxSchema = fluid.prefs.expandSchemaImpl(schemaToExpand);
+        auxSchema.namespace = auxSchema.namespace || "fluid.prefs.created_" + fluid.allocateGuid();
+&nbsp;
+        var terms = fluid.get(auxSchema, "terms");
+        if (terms) {
+            delete auxSchema.terms;
+            fluid.set(auxSchema, ["terms", "terms"], terms);
+        }
+&nbsp;
+        var compositePanelList = fluid.get(auxSchema, "groups");
+        if (compositePanelList) {
+            fluid.prefs.expandCompositePanels(auxSchema, compositePanelList, fluid.get(indexes, "panel"),
+                fluid.get(elementCommonOptions, "panel"), fluid.get(elementCommonOptions, "subPanel"),
+                fluid.get(elementCommonOptions, "compositePanelBasedOnSub"), fluid.get(elementCommonOptions, "panelModel"),
+                mappedDefaults);
+        }
+&nbsp;
+        fluid.each(auxSchema, function (category, prefName) {
+            // TODO: Replace this cumbersome scheme with one based on an extensible lookup to handlers
+            var type = "panel";
+            // Ignore the subpanels that are only for composing composite panels
+            if (category[type] &amp;&amp; !fluid.contains(auxSchema.panelsToIgnore, prefName)) {
+                fluid.prefs.expandSchemaComponents(auxSchema, "panels", category.type, category[type], fluid.get(indexes, type),
+                    fluid.get(elementCommonOptions, type), fluid.get(elementCommonOptions, type + "Model"), mappedDefaults);
+            }
+&nbsp;
+            type = "enactor";
+            if (category[type]) {
+                fluid.prefs.expandSchemaComponents(auxSchema, "enactors", category.type, category[type], fluid.get(indexes, type),
+                    fluid.get(elementCommonOptions, type), fluid.get(elementCommonOptions, type + "Model"), mappedDefaults);
+            }
+&nbsp;
+            fluid.each(["template", "message"], function (type) {
+                if (prefName === type) {
+                    fluid.set(auxSchema, [type + "Loader", "resources", "prefsEditor"], auxSchema[type]);
+                    delete auxSchema[type];
+                }
+            });
+&nbsp;
+        });
+&nbsp;
+        // Remove subPanels array. It is to keep track of the panels that are only used as sub-components of composite panels.
+        if (auxSchema.panelsToIgnore) {
+            delete auxSchema.panelsToIgnore;
+        }
+&nbsp;
+        // Add top common options
+        fluid.each(topCommonOptions, function (topOptions, type) {
+            fluid.prefs.addCommonOptions(auxSchema, type, topOptions);
+        });
+&nbsp;
+        return auxSchema;
+    };
+&nbsp;
+    fluid.defaults("fluid.prefs.auxBuilder", {
+        gradeNames: ["fluid.prefs.auxSchema"],
+        mergePolicy: {
+            elementCommonOptions: "noexpand"
+        },
+        topCommonOptions: {
+            panels: {
+                gradeNames: ["fluid.prefs.prefsEditor"]
+            },
+            enactors: {
+                gradeNames: ["fluid.uiEnhancer"]
+            },
+            templateLoader: {
+                gradeNames: ["fluid.resourceLoader"]
+            },
+            messageLoader: {
+                gradeNames: ["fluid.resourceLoader"]
+            },
+            initialModel: {
+                gradeNames: ["fluid.prefs.initialModel"]
+            },
+            terms: {
+                gradeNames: ["fluid.component"]
+            }
+        },
+        elementCommonOptions: {
+            panel: {
+                "createOnEvent": "onPrefsEditorMarkupReady",
+                "container": "{prefsEditor}.dom.%prefKey",
+                "options.gradeNames": "fluid.prefs.prefsEditorConnections",
+                "options.resources.template": "{templateLoader}.resources.%prefKey",
+                "options.messageBase": "{messageLoader}.resources.%prefKey.resourceText"
+            },
+            panelModel: {
+                "%internalModelName": "{prefsEditor}.model.preferences.%externalModelName"
+            },
+            compositePanelBasedOnSub: {
+                "%subPrefKey": "{templateLoader}.resources.%subPrefKey"
+            },
+            subPanel: {
+                "container": "{%compositePanel}.dom.%prefKey",
+                "options.messageBase": "{messageLoader}.resources.%prefKey.resourceText"
+            },
+            enactor: {
+                "container": "{uiEnhancer}.container"
+            },
+            enactorModel: {
+                "%internalModelName": "{uiEnhancer}.model.%externalModelName"
+            }
+        },
+        indexes: {
+            panel: {
+                expander: {
+                    func: "fluid.indexDefaults",
+                    args: ["panelsIndex", {
+                        gradeNames: "fluid.prefs.panel",
+                        indexFunc: "fluid.prefs.auxBuilder.prefMapIndexer"
+                    }]
+                }
+            },
+            enactor: {
+                expander: {
+                    func: "fluid.indexDefaults",
+                    args: ["enactorsIndex", {
+                        gradeNames: "fluid.prefs.enactor",
+                        indexFunc: "fluid.prefs.auxBuilder.prefMapIndexer"
+                    }]
+                }
+            }
+        },
+        mappedDefaults: {},
+        expandedAuxSchema: {
+            expander: {
+                func: "fluid.prefs.expandSchema",
+                args: [
+                    "{that}.options.auxiliarySchema",
+                    "{that}.options.indexes",
+                    "{that}.options.topCommonOptions",
+                    "{that}.options.elementCommonOptions",
+                    "{that}.options.mappedDefaults"
+                ]
+            }
+        }
+    });
+&nbsp;
+    fluid.prefs.auxBuilder.prefMapIndexer = function (defaults) {
+        return fluid.keys(defaults.preferenceMap);
+    };
+&nbsp;
+})(jQuery, fluid_3_0_0);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Apr 19 2018 20:08:33 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
