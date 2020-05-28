@@ -1,0 +1,542 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-ca">
+<head>
+
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+  <title>Accessible Drag-and-drop Musings</title>
+
+
+  <meta content="Joseph Scheuhammer" name="author" />
+
+  <style type="text/css">
+    body {
+        background-color: white;
+        font-family: verdana, arial;
+        font-size: 1em;
+        width:85%;
+        margin-left:auto;
+        margin-right:auto;
+        line-height:150%;
+            color:#333333;
+    
+    }
+    a { text-decoration:none; }
+    div.example {
+        border-style: groove;
+        border-width: 2px;
+        padding-left: 1em;
+        padding-right: 1em;
+        margin-left: 5em;
+        margin-right: 5em;
+        font-size: 75%;
+    }
+    .horizontal-spacer {
+        padding-left: 10em;
+    }
+    #headerimage {
+        clear: both;
+        background: #fff url(http://fluidproject.org/uploads/images/fluidLOGO.gif) no-repeat 0 0;
+        margin: 10px;
+        color: #fff;
+        height: 300px;
+    }
+    html #headerimage {
+        margin-top: 0;
+    }
+  </style>
+</head>
+
+
+<body>
+
+<div>
+<a href="https://wiki.fluidproject.org/display/fluid/Archive#Archive-FluidProjectOldBlogPosts" title="The Fluid Project Blog">
+<div id="headerimage" style="height: 100px;"></div>
+</a>
+</div>
+
+<div style="padding-top: 0pt; margin-top: 0pt; text-align: center;">
+    <h1>Accessible Drag-and-drop Musings</h1>
+    <p style="font-size: 10pt; font-style: italic;">
+        Joseph Scheuhammer, April 12, 2007
+    </p>
+</div>
+
+<p>One of <a title="The Inclusive Learning Exchange" href="https://web.archive.org/web/20080418034043/http://www.inclusivelearning.ca/">TILE</a>'s
+authoring features, reorganizing learning objectives, could have been
+implemented using drag-and-drop. In fact, there was talk of writing
+JavaScript that would implement this dragging and dropping using a
+mouse and icons as is typically done. But, the accessibility conscience
+awoke and spoke, "hold on there -- is this <acronym title="Graphical User Interface">GUI</acronym>
+drag-and-drop thingy going to work with all users?" That led to an
+abandonment of the JavaScript implementation, and wondering about how
+to do it another way. That, in turn, led to a reflection on what
+drag-and-drop is. Here follows a characterization.</p>
+
+<p>Starting with the <acronym title="Graphical User Interface">GUI</acronym>,
+drag-and-drop is a <em>sequence</em>:</p>
+
+<ol>
+
+  <li>Using the mouse, select a source object (icon, block of
+text, etc.) by clicking on it.</li>
+
+  <li>Hold down the mouse button while moving the mouse (the
+"drag").</li>
+
+  <ul>
+
+    <li>Note: the visual feedback is a combination of
+the mouse cursor moving, and a "shadow" of the source object (e.g.,
+dimmed icon) pinned under and following the mouse cursor.</li>
+
+  </ul>
+
+  <li>Move the mouse to a suitable target object (icon, text
+edit window, etc.)</li>
+
+  <ul>
+
+    <li>Note: there is visual feedback that the target
+is suitable by changing its appearance (e.g., highlight), or <em>not</em>
+changing its appearance to indicate that it is <em>unsuitable</em>
+as a place to drop the source object.</li>
+
+  </ul>
+
+  <li>Drop the source object onto/into the target by releasing
+the mouse button.</li>
+
+  <ul>
+
+    <li>If the target was suitable, there is visual feedback that
+shows the source being "absorbed" by the target -- e.g., the original
+source object and its shadow vanish, and the target is no longer
+highlighted. </li>
+
+  </ul>
+
+  <ul>
+
+    <li>If the target was unsuitable, there is visual feedback
+indicating that the drag-and-drop was cancelled -- e.g., the source
+object's shadow flys back to the original source, and the original
+source stays unchanged.</li>
+
+  </ul>
+
+</ol>
+
+<p>Next, abstract over the above sequence, ridding it of anything
+relating to the <acronym title="Graphical User Interface">GUI</acronym>;
+that is, forget the mouse, mouse button, mouse
+cursor movement, icons, shadows, and so on:</p>
+
+<ol>
+
+  <li>Select a source object.</li>
+
+  <li>Dragging is entirely <acronym title="Graphical User Interface">GUI</acronym>; ignore
+it.</li>
+
+  <li>Select a target object.</li>
+
+  <li>"Do it": confirm and effect the absorption of the
+source by the target.</li>
+
+</ol>
+
+<p>Strictly speaking the above abstract characterization of
+drag-and-drop need not be a sequence. Users could select a target prior
+to selecting a source. Still, they cannot effect the move
+(step 4) until both source and target are selected.</p>
+
+<p>To be slightly more explicit, here is what drag-and-drop boils
+down to: </p>
+
+<ul>
+
+  <li>There is a set of sources, one or more of which can be
+selected.</li>
+
+  <li>There is a set of targets, only one of which can be
+selected.</li>
+
+  <li>There is "do it" that moves the source to/into the target.</li>
+
+</ul>
+
+<p>The following is the accessible implementation of drag and
+drop used in TILE. In
+this context, a course or lesson is made up
+of a tree of learning objectives. That is, there can be learning
+objectives that contain sub-objectives that, in turn, contain
+sub-objectives, and so on. The author can
+reorganize the objective hierarchy using an HTML form, the operation of
+which is
+explained within the example.</p>
+
+<hr />
+<div class="example">
+<h1>Organize
+Objectives</h1>
+
+<p>This page allows you to (re)organize your objectives.</p>
+
+<p>The
+table below shows your current objectives. The left-most and right-most
+columns both show the current organization of your objectives.</p>
+
+<ol>
+
+  <li>Select the objective you want to move from the
+left-hand column.</li>
+
+  <li>Select how you want to move the objective using the
+middle column.</li>
+
+  <li>Select the destination objective from the right-most
+column.</li>
+
+  <li>Press the "Move Objective" button just below the
+table to move the objective.</li>
+
+</ol>
+
+<p>The
+radio buttons in the middle column allow you to choose the insertion
+point relative to the destination. For example, if you choose "insert
+before...", then the objective to be moved will be placed immediately <em>before</em>
+the destination objective. Similarly with the other insertion points.</p>
+
+<p>If the source objective has sub-objectives, they are
+moved as a group.</p>
+
+<form action="#objectives" method="post"> <a name="objectives"></a>
+  <table style="text-align: justify; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+    <caption class="objective">Move Objective to New
+Destination</caption> <tbody>
+
+      <tr>
+
+        <th style="vertical-align: top; text-align: center;">Source
+Objective</th>
+
+        <th style="vertical-align: top; text-align: center;">Insertion
+Point</th>
+
+        <th style="vertical-align: top; text-align: center;">Destination</th>
+
+      </tr>
+
+      <tr>
+
+<!-- The tree to select an objective to drag --> <td style="vertical-align: top; text-align: left;">
+        <div id="dragSourceTree">
+        <ul>
+
+          <li><label><input name="dragSourceObject" value="urn:uuid:fffb103b-e7a7-11db-93a0-0002b3af6db8" type="radio" />Overall Mars Rover Mission</label>
+            <ul>
+
+              <li><label><input name="dragSourceObject" value="urn:uuid:fffb103c-e7a7-11db-93a0-0002b3af6db8" type="radio" />Mars Mission Overview</label>
+                <ul>
+
+                  <li><label><input name="dragSourceObject" value="urn:uuid:fffb103d-e7a7-11db-93a0-0002b3af6db8" type="radio" />Landing on Mars</label>
+                    <ul>
+
+                      <li><label><input name="dragSourceObject" value="urn:uuid:fffb103e-e7a7-11db-93a0-0002b3af6db8" type="radio" />Landing Video</label> </li>
+
+                    </ul>
+
+                  </li>
+
+                  <li><label><input name="dragSourceObject" value="urn:uuid:fffb103f-e7a7-11db-93a0-0002b3af6db8" type="radio" />Launching to Mars</label>
+                    <ul>
+
+                      <li><label><input name="dragSourceObject" value="urn:uuid:fffb1040-e7a7-11db-93a0-0002b3af6db8" type="radio" />Launch Video</label> </li>
+
+                    </ul>
+
+                  </li>
+
+                  <li><label><input name="dragSourceObject" value="urn:uuid:fffb3751-e7a7-11db-93a0-0002b3af6db8" type="radio" />Rovers on Mars</label>
+                    <ul>
+
+                      <li><label><input name="dragSourceObject" value="urn:uuid:fffb3752-e7a7-11db-93a0-0002b3af6db8" type="radio" />Spirit Mission</label> </li>
+
+                      <li><label><input name="dragSourceObject" value="urn:uuid:fffb3753-e7a7-11db-93a0-0002b3af6db8" type="radio" />Opportunity Mission</label> </li>
+
+                    </ul>
+
+                  </li>
+
+                </ul>
+
+              </li>
+
+              <li><label><input name="dragSourceObject" value="urn:uuid:fffb3754-e7a7-11db-93a0-0002b3af6db8" type="radio" />Mars Exploration Terms</label> </li>
+
+              <li><label><input name="dragSourceObject" value="urn:uuid:fffb3755-e7a7-11db-93a0-0002b3af6db8" type="radio" />Self Test</label> </li>
+
+            </ul>
+
+          </li>
+
+        </ul>
+
+        </div>
+
+        </td>
+
+<!-- The relative insertion point --> <td style="text-align: left;"> <label><input name="dropSelector" value="before" type="radio" />insert
+before:</label><br />
+
+        <label><input name="dropSelector" value="after" type="radio" />insert after:</label><br />
+
+        <label><input name="dropSelector" value="firstChild" type="radio" />first sub-objective
+of:</label><br />
+
+        <label><input id="lastChild" name="dropSelector" value="lastChild" type="radio" />last
+sub-objective of:</label> </td>
+
+<!-- The drop target tree--> <td style="vertical-align: top; text-align: left;">
+        <div id="dropTargetTree">
+        <ul>
+
+          <li><label><input name="dropTargetObject" value="urn:uuid:fffb103b-e7a7-11db-93a0-0002b3af6db8" type="radio" />Overall Mars Rover Mission</label>
+            <ul>
+
+              <li><label><input name="dropTargetObject" value="urn:uuid:fffb103c-e7a7-11db-93a0-0002b3af6db8" type="radio" />Mars Mission Overview</label>
+                <ul>
+
+                  <li><label><input name="dropTargetObject" value="urn:uuid:fffb103d-e7a7-11db-93a0-0002b3af6db8" type="radio" />Landing on Mars</label>
+                    <ul>
+
+                      <li><label><input name="dropTargetObject" value="urn:uuid:fffb103e-e7a7-11db-93a0-0002b3af6db8" type="radio" />Landing Video</label> </li>
+
+                    </ul>
+
+                  </li>
+
+                  <li><label><input name="dropTargetObject" value="urn:uuid:fffb103f-e7a7-11db-93a0-0002b3af6db8" type="radio" />Launching to Mars</label>
+                    <ul>
+
+                      <li><label><input name="dropTargetObject" value="urn:uuid:fffb1040-e7a7-11db-93a0-0002b3af6db8" type="radio" />Launch Video</label> </li>
+
+                    </ul>
+
+                  </li>
+
+                  <li><label><input name="dropTargetObject" value="urn:uuid:fffb3751-e7a7-11db-93a0-0002b3af6db8" type="radio" />Rovers on Mars</label>
+                    <ul>
+
+                      <li><label><input name="dropTargetObject" value="urn:uuid:fffb3752-e7a7-11db-93a0-0002b3af6db8" type="radio" />Spirit Mission</label> </li>
+
+                      <li><label><input name="dropTargetObject" value="urn:uuid:fffb3753-e7a7-11db-93a0-0002b3af6db8" type="radio" />Opportunity Mission</label> </li>
+
+                    </ul>
+
+                  </li>
+
+                </ul>
+
+              </li>
+
+              <li><label><input name="dropTargetObject" value="urn:uuid:fffb3754-e7a7-11db-93a0-0002b3af6db8" type="radio" />Mars Exploration Terms</label> </li>
+
+              <li><label><input name="dropTargetObject" value="urn:uuid:fffb3755-e7a7-11db-93a0-0002b3af6db8" type="radio" />Self Test</label> </li>
+
+            </ul>
+
+          </li>
+
+        </ul>
+
+        </div>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+  </table>
+
+  <p style="text-align: center;"><input id="MoveObjective" name="dropSelector" value="Move Objective" type="submit" /> </p>
+
+</form>
+
+</div>
+
+<hr />
+<p>Some comments about the example. First, after
+submitting their declared reorganization, the page refreshes and
+shows the new organization in both the "Source Objective" and
+"Destination" columns. At this point users can proceed to
+perform further reorganization.</p>
+
+<p>Secondly, the sources and targets are exactly the same
+heirarchy of learning objectives. This is mere
+happenstance that has to do with how TILE lessons are organized and
+nothing to do with the drag-and-drop in general. It is more
+likely that the source and target objects are different.</p>
+
+<p>Thirdly, when an objective is moved, then all of its
+sub-objectives come along for the ride. This is analogous to
+dropping a folder onto/into another folder. It is not merely that the
+source folder is moved; all the
+files and sub-folders that are within it stay in their relative
+locations.</p>
+
+<p>Thirdly, the fact that learning objectives are themselves
+ordered allows for moving them to different positions relative to the
+target. This is beyond most drag-and-drop scenarios. The most frequent
+use of drag-and-frop is where a user drags
+the source into the target container, without knowing where it will end
+up within that container. Hierarchies, or any other ordered collection,
+introduce some finesse where not only can the user put the source
+into the target, but at a specific position within it. The
+point is that frequently (when order is unimportant) the
+middle column of position options is unnecessary.</p>
+
+<p>Finally, with respect to the suitability of the target in this
+example, it is illegal to move a source to a target when they are
+one and the same. In TILE, checking for suitability was
+handled by the server. That is, users could select impossible
+source-to-target
+reorganizations and submit them, but they would not take effect. The
+feedback that it was ineffectual was that the source and
+destination trees would appear exactly as before submission of the
+form. It would have been better if suitability had been handled on
+the
+client, say, by disallowing selection of a target objective if it was
+the same as
+the source objective.</p>
+
+<hr style="width: 100%; height: 2px;" />
+<p>To reiterate, the underlying functionality of drag-and-drop is:</p>
+
+<ul>
+
+  <li>select one or more sources from a collection of sources.</li>
+
+  <li>select one target.</li>
+
+  <li>execute the move of the source(s) to the target.</li>
+
+</ul>
+
+<p>A final comment relates to the first point above regarding
+"one or more sources". There are contexts where only a single source
+object can be dragged. One can enforce this by
+using a user interface that allows only single selection. That can be
+done
+by a radio button group (see the TILE example above), or, if there are
+too many items to fit on a page, a list where the list allows only
+single selections. An example follows using the <code>&lt;select&gt;</code>
+form element where its "<code>mulitple</code>" attribute is
+off:</p>
+
+<a name="ListDragAndDrop"></a>
+<h3>Drag-and-drop with a list (single source selection)</h3>
+
+<div style="padding-top: 1em;" class="example">
+<form action="#ListDragAndDrop" name="ListDragAndDrop">
+  <div style="float: left;"><label for="dropSourcesSingleSel">Sources:</label><br />
+
+  <select size="5" name="dropSourcesSingleSel" id="dropSourcesSingleSel">
+  <option>Fido.png</option>
+  <option>Bicycle.mov</option>
+  <option>Football.gif</option>
+  <option>Desktop folder</option>
+  <option>Documents folder</option>
+  <option>Movies folder</option>
+  <option>Flowers.pdf</option>
+  <option>Made you scroll!</option>
+  </select>
+
+  <span class="horizontal-spacer"> </span></div>
+
+  <div style="float: left;"> <label for="dropTargetSingleSel">Targets:</label><br />
+
+  <select style="display: inline;" size="5" name="dropTargetSingleSel" id="dropTargetSingleSel">
+  <option>Pat's folder</option>
+  <option>Pictures folder</option>
+  <option>Music folder</option>
+  <option>Downloads folder</option>
+  <option>Junk folder</option>
+  <option>Tmp folder</option>
+  <option>Plants folder</option>
+  <option>Some other folder</option>
+  </select>
+
+  </div>
+
+  <div style="clear: both;">
+  <p style="padding-top: 1em;"><input name="dragAndDrop" value="Move Source to Target" type="submit" /></p>
+
+  <p>Note: does not actually work; just an example.</p>
+
+  </div>
+
+</form>
+
+</div>
+
+<a name="ListDragAndDropMulti"></a>
+<h3>Drag-and-drop with a list (multiple source selection)</h3>
+
+<p>In other contexts, multiple selections may be allowed; here
+the <code>&lt;select&gt;</code>'s '<code>multiple</code>'
+attribute is on:</p>
+
+<div style="padding-top: 1em;" class="example">
+<form action="#ListDragAndDropMulti" name="ListDragAndDrop">
+  <div style="float: left;"><label for="dropSourcesMultiSel">Sources:</label><br />
+
+  <select multiple="multiple" size="5" name="dropSourcesMultiSel" id="dropSourcesMultiSel">
+  <option>Fido.png</option>
+  <option>Bicycle.mov</option>
+  <option>Football.gif</option>
+  <option>Desktop folder</option>
+  <option>Documents folder</option>
+  <option>Movies folder</option>
+  <option>Flowers.pdf</option>
+  <option>Made you scroll!</option>
+  </select>
+
+  <span class="horizontal-spacer"> </span></div>
+
+  <div style="float: left;"> <label for="dropTargetsMultiSel">Targets:</label><br />
+
+  <select style="display: inline;" size="5" name="dropTargetsMultiSel" id="dropTargetsMultiSel">
+  <option>Pat's folder</option>
+  <option>Pictures folder</option>
+  <option>Music folder</option>
+  <option>Downloads folder</option>
+  <option>Junk folder</option>
+  <option>Tmp folder</option>
+  <option>Plants folder</option>
+  <option>Some other folder</option>
+  </select>
+
+  </div>
+
+  <div style="clear: both;">
+  <p style="padding-top: 1em;"><input name="dragAndDropMultiSource" value="Move Source to Target" type="submit" /></p>
+
+  <p>Note: does not actually work; just an example.</p>
+
+  </div>
+
+</form>
+
+</div>
+
+<hr />
+<p style="font-size: 10pt; font-style: italic;">Last
+Modified Apr 13, 2007 by Joseph Scheuhammer</p>
+
+
+</body>
+</html>
